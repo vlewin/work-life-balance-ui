@@ -3,7 +3,7 @@
     <div class="header">
       <span class="header-left">
         <h1>
-          16
+          {{ day }}
         </h1>
         <div class="date">
           <span>
@@ -39,10 +39,17 @@
 </template>
 
 <script>
-export default {
-  name: 'app'
-}
+  export default {
+    name: 'App',
+    data () {
+      return {
+        day: 16
+      }
+    }
+  }
+
 </script>
+
 
 <style>
   html, body {

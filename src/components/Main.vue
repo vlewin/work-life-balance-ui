@@ -1,20 +1,12 @@
 <template>
   <div class="main">
-    <ul class="main-header" v-on:click="open('calendar')">
-      <li>
-        &laquo;
-      </li>
-      <li v-for="n in [1,2,3,4,5,6,7]">
-        {{ n }}
-      </li>
-      <li>
-        &raquo;
-      </li>
-    </ul>
+    <div class="main-header">
+      <date-picker v-on:prevWeek="animate('left')" v-on:nextWeek="animate('right')"></date-picker>
+    </div>
     <div class="main-body slider" :class="{ active: toggle }">
       <div class="slider-item top">
         <div class="time">
-          <div class="times" :class="{ active: toggle }">
+          <div class="times" :class="[{ active: toggle }, animationClass]">
             <div class="left" v-on:click="open('left')" :class="{ open: toggle === 'left' }">
               <h1>
                 08:00
@@ -73,6 +65,7 @@
 
 <script>
   import Info from './Info'
+  import DatePicker from './DatePicker'
   import TimePicker from './TimePicker'
   import Calendar from './Calendar'
   import SelectBox from './SelectBox'
@@ -81,6 +74,7 @@
     name: 'Time',
     components: {
       Info,
+      DatePicker,
       TimePicker,
       Calendar,
       SelectBox
@@ -88,11 +82,25 @@
 
     data () {
       return {
-        toggle: null
+        day: null,
+        toggle: null,
+        animationClass: null
       }
     },
 
     methods: {
+      selectDay (day) {
+        this.today = day
+        this.$parent.day = day
+      },
+
+      animate (direction) {
+        this.animationClass = `move-${direction}`
+        setTimeout(() => {
+          this.animationClass = null
+        }, 500)
+      },
+
       open (element) {
         console.log('toggle')
         if (this.toggle === element) {
@@ -133,41 +141,31 @@
                          "footer"
   }
 
-  /*.main-header {
+  .main-header {
     grid-area: header;
     background: #f0f0f0;
-    display: flex;
     align-items: center;
-  }*/
-
-  .main-header {
-    padding: 0;
-    margin: 0;
-
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    /*background: #8AB4E8;
-    background: #2B95CC;
-    background: #3D70BC;*/
-    /*color: #fff;*/
   }
-
-  .main-header li {
-    cursor: pointer;
-    list-style: none;
-  }
-
-
 
   .main-body {
     grid-area: content;
     /*background: #edeff0;*/
+    overflow: hidden;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
     flex: 1 1 100%;
+  }
+
+  .move-left {
+    animation-name: left;
+    animation-duration: 5s;
+  }
+
+  .move-right {
+    animation-name: right;
+    animation-duration: 5s;
   }
 
   .main-footer {
@@ -183,6 +181,46 @@
     border-right: 1px solid #eee;
   }
 
+  @keyframes left {
+    0%   {
+      transform: translateX(50vh);
+    }
+
+    10%   {
+      transform: translateX(-50vh);
+      opacity: 0;
+    }
+
+    75%   {
+      transform: translateX(50vh);
+      opacity: 0.5;
+    }
+
+    100% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes right {
+    0%   {
+      transform: translateX(-50vh);
+    }
+
+    10%   {
+      transform: translateX(50vh);
+      opacity: 0;
+    }
+
+    75%   {
+      transform: translateX(-50vh);
+      opacity: 0.5;
+    }
+
+    100% {
+      opacity: 1;
+    }
+  }
+
   button {
     background: none;
     border: none;
@@ -190,6 +228,10 @@
     font-size: 100%;
     width: 100%;
     height: 100%;
+  }
+
+  button:hover {
+    background: #eee;
   }
 
   .time {
@@ -260,7 +302,7 @@
   .times.active div.open {
     flex:1 1 100%;
     opacity: 1;
-    font-size: 150%;
+    font-size: 130%;
   }
 </style>
 
@@ -294,11 +336,11 @@
   }
 
   .slider.active .top {
-    flex:1 1 20%;
+    flex:1 1 10%;
   }
 
   .slider.active .middle {
-    flex:1 1 70%;
+    flex:1 1 80%;
   }
 
   .slider.active .bottom {
@@ -412,4 +454,8 @@
   background: green;
   height: 10%;
 }
+</style>
+
+<style>
+
 </style>

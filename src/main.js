@@ -4,7 +4,6 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import moment from 'moment'
-
 // import VueTimepicker from 'vue2-timepicker'
 // Vue.use(VueTimepicker)
 Vue.config.productionTip = false
