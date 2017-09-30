@@ -1,40 +1,64 @@
 <template>
-
   <div class="calendar">
-    <!-- <li class="grid-item label"><small>&laquo;</small></li>
-    <li class="grid-item label"><small>TODAY</small></li>
-    <li class="grid-item label"><small>&raquo;</small></li> -->
-    <div>CURRENT DATE</div>
+    <p class="month">
+      <span>&laquo;</span>
+      SEPTEMBER
+      <span>&raquo;</span>
+    </p>
 
     <ul class="grid">
-      <li class="grid-item" v-for="date in dates" :class="{ selected: selected.includes(date), green: date % 3, red: date % 10, weekend: (date % 7 === 0) }" v-on:click="select(date)">
-        <small>
-          {{ date }}.09
-        </small>
-        <div>
-          {{ Math.floor(Math.random() * (9 - 6) + 6, 2) }}
-        </div>
+      <li class="grid-item weekday">
+        Mo
+      </li>
+      <li class="grid-item weekday">
+        Di
+      </li>
+      <li class="grid-item weekday">
+        Mi
+      </li>
+      <li class="grid-item weekday">
+        Do
+      </li>
+      <li class="grid-item weekday">
+        Fr
+      </li>
+      <li class="grid-item weekend">
+        Sa
+      </li>
+      <li class="grid-item weekend">
+        So
+      </li>
+      <li class="grid-item disabled">
+        28
+      </li>
+      <li class="grid-item disabled">
+        29
+      </li>
+      <li class="grid-item disabled">
+        30
+      </li>
+      <li class="grid-item disabled">
+        31
+      </li>
+      <li class="grid-item" v-for="date in dates" :class="{ selected: selected.includes(date)}" v-on:click="select(date)">
+        {{ date }}
+      </li>
+      <li class="grid-item disabled">
+        1
       </li>
     </ul>
 
-    <div>
-      Selected: {{ selected }}
-    </div>
-
-    <div class="comment">
+    <!-- <div class="comment">
       <div class="comment-item">
-        <span>*</span>
         VACATION
       </div>
       <div class="comment-item">
-        <span>*</span>
         SICKNESS
       </div>
       <div class="comment-item">
-        <span>*</span>
         HOLIDAY
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -93,33 +117,50 @@
     align-items: center;
     flex-direction: column;
     height: 100%;
+    width: 100%;
   }
+
+  .month {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px;
+    width: 100%;
+    margin: 0;
+  }
+
+
 
   .grid {
     display: grid;
-    grid-template-columns: repeat(7, 2rem);
-    grid-template-rows: repeat(5, 2rem);
-    grid-gap: 2px;
-    background-color: #grey;
-    color: #444;
+    grid-template-columns: repeat(7, 2.5rem);
+    grid-template-rows: repeat(5, 2.5rem);
+    grid-gap: 5px;
     padding: 0;
+    margin: 0;
+    justify-content: center;
+    align-items: center;
   }
 
   .grid-item {
-    background-color: #444;
-    color: #fff;
+    color: #444;
     cursor: pointer;
     list-style: none;
     text-align: center;
     vertical-align: middle;
-    justify-content: center;
-    align-items: center;
-    /*border-radius: 5px;
-    padding: 20px;*/
   }
 
+  .weekday {
+    /*color: #308FF0;*/
+    font-weight: bold;
+    color: #aaa;
+  }
 
-
+  .weekend {
+    /*color: #f95738;*/
+    color: tomato;
+    font-weight: bold;
+  }
   .red {
     background: tomato;
   }
@@ -128,13 +169,14 @@
     background: #42b983;
   }
 
-  .weekend, .disabled {
-    background: #ddd;
+  .disabled {
+    color: #ddd;
     pointer-events: none;
   }
 
   .selected {
-    background: blue;
+    background: #308FF0;
+    color: #fff;
   }
 
   .comment {

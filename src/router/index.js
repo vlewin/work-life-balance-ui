@@ -1,8 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Index from '@/components/Index'
-import Wip from '@/components/Wip'
-import Flex from '@/components/Flex'
+import Main from '@/components/Main'
 
 Vue.use(Router)
 
@@ -10,19 +8,24 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Index',
-      component: Index
-    },
-
-    {
-      path: '/wip',
-      name: 'Wip',
-      component: Wip
-    },
-    {
-      path: '/flex',
-      name: 'Flex',
-      component: Flex
+      name: 'Main',
+      component: Main
     }
+
+    // {
+    //   path: '/wip',
+    //   name: 'Wip',
+    //   component: Wip
+    // },
+    // {
+    //   path: '/flex',
+    //   name: 'Flex',
+    //   component: Flex
+    // },
+    // {
+    //   path: '/card',
+    //   name: 'Card',
+    //   component: Card
+    // }
   ]
 })

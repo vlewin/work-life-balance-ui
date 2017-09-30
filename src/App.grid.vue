@@ -2,15 +2,13 @@
   <div id="app">
     <div class="header">
       <img src="./assets/logo.png">
-      <div>
-        <i class="fa fa-calendar" aria-hidden="true"></i>
-        Do, 15.09
-        10:00
-      </div>
-
+      DATE
+      TIME
     </div>
 
-    <router-view></router-view>
+    <div class="main">
+      <router-view></router-view>
+    </div>
 
     <div class="footer">footer</div>
   </div>
@@ -85,41 +83,54 @@ export default {
       display: grid;
       min-height: 100vh;
       min-width: 100%;
-      grid-template-rows: 10vh 90vh;
-      grid-template-columns: 100vw;
+      grid-template-rows: 90px 1fr 90px;
+      grid-template-columns: 1fr;
 			grid-template-areas: "header"
                            "content"
+                           "footer"
 		}
 
   .header {
-    background: #3e4c5b;
-    color: #fff;
+    background-color: #7f8c8d;
+    color: rgba(255,255,255,0.8);
     grid-area: header;
 
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    justify-items: center;
     align-items: center;
-    padding: 0 10px;
   }
 
-  img {
-    width: 32px;
-    height: 32px;
-    border-radius: 100%;
-    border: 2px solid white;
+  .aside {
+    background-color: #7f8c8d;
+    color: rgba(255,255,255,0.8);
+    grid-area: sidebar;
+
+    display: grid;
+    justify-items: center;
+    align-items: center;
+
+    /*display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;*/
+  }
+
+  .aside i {
+    border: 1px solid red;
+    display: none;
   }
 
   .main {
-    background: #fff;
+    background-color: #fff;
     grid-area: content;
 
-    /*display: flex;
+    display: flex;
     justify-content: center;
-    align-items: center;*/
+    align-items: center;
   }
 
   .footer {
-    background: #c0392b;
+    background-color: #c0392b;
     grid-area: footer;
   }
 
@@ -130,11 +141,11 @@ export default {
 
 @media only screen and (min-width:600px) {
   #app {
-    min-width: 50%;
-    max-width: 50%;
-    grid-template-areas: "header"
-                         "content"
-                         "footer"
+    /*grid-template-columns: 1fr;*/
+  }
+
+  .aside i {
+    display: block;
   }
 }
 </style>

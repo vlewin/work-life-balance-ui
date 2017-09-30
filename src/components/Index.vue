@@ -1,7 +1,5 @@
 <template>
   <div class="container">
-    {{ start }} {{ pause }} {{ end }} {{ duration}} - {{ picker }}
-
     <div class="wrapper">
       <div class="card">
         <div class="card-header">
@@ -259,7 +257,7 @@
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="sass">
+<style lang="sass" scoped>
   // .container
   //   display: flex
   //   width: 100%

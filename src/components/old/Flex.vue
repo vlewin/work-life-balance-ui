@@ -29,6 +29,28 @@
         BOTTOM
       </div>
     </div>
+
+    <h2>Animate flex grow horizontaly</h2>
+
+    <div class="switch horizontal">
+      <div class="up">
+        <h3>08:00</h3>
+      </div>
+      <div class="down">
+        BOTTOM - HIDDEN
+      </div>
+    </div>
+
+    <h2>Animate flex grow vertically</h2>
+
+    <div class="switch vertical">
+      <div class="up">
+        <h3>08:00</h3>
+      </div>
+      <div class="down">
+        BOTTOM - HIDDEN
+      </div>
+    </div>
   </div>
 </template>
 
@@ -39,7 +61,7 @@
     align-items: center;
     background: #eee;
     width: 100%;
-    height: 200px;
+    height: 10vh;
   }
 
   .horizontal {
@@ -87,5 +109,45 @@
   .bottom {
     background: green;
     flex:1 1 50%;
+  }
+
+
+  .switch {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #eee;
+    width: 100%;
+    height: 10vh;
+  }
+
+  .switch div {
+    width: 100%;
+    height: 100px;
+    overflow: hidden;
+    transition: flex 0.5s, opacity 0.3s;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  .switch:hover .up {
+    flex:1 1 0%;
+    opacity: 0;
+  }
+
+  .switch:hover .down {
+    flex:1 1 100%;
+    opacity: 1;
+  }
+
+  .up {
+    flex:1 1 100%;
+    opacity: 1;
+  }
+
+  .down {
+    flex:1 1 0%;
+    opacity: 0;
   }
 </style>
