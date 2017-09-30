@@ -12,6 +12,7 @@
     justify-content: center;
     align-items: center;
     width: 100%;
+    background: #fafafa;
   }
 
   .select-box-item {
@@ -20,5 +21,6 @@
     margin: 0 auto;
     padding: 0.2rem;
     border-radius: 3px;
+    text-align: center;
   }
 </style>

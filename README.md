@@ -19,9 +19,6 @@ SOURCES:
 - https://scotch.io/tutorials/a-visual-guide-to-css3-flexbox-properties
 - https://tympanus.net/codrops/css_reference/flexbox/
 
-SVG ANIMATIONS:
-- https://css4-selectors.com/browser-selector-test/
-
 > Flexbox is essentially for laying out items in a single dimension – in a row OR a column. Grid is for layout of items in two dimensions – rows AND columns.
 
 > This is good to remember: grid items can be flex parents.
@@ -29,3 +26,12 @@ SVG ANIMATIONS:
 
 > How do you know where to use Flexbox?
 > As a general rule of thumb, it is appropriate to use Grid to layout the overall page layout, and Flexbox for inner UI components.
+
+SVG ANIMATIONS:
+- https://css4-selectors.com/browser-selector-test/
+
+DESIGN INSPIRATIONS:
+- http://principlerepo.com/time-picker/
+- https://dribbble.com/shots/1057157-Calendar-Window-Rebound-ANIMATED
+- https://tinyurl.com/y9hoduhy
+- https://dribbble.com/shots/2098475-Calendar-date-range-picker

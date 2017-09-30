@@ -36,13 +36,33 @@
         <calendar v-if="toggle === 'calendar'"></calendar>
       </div>
       <div class="slider-item bottom">
-        <info v-if="toggle !=='calendar'"></info>
-        <select-box v-else></select-box>
+        <div class="switch vertical" :class="{active: toggle === 'calendar'}">
+          <div class="up">
+            <info></info>
+          </div>
+          <div class="down">
+            <select-box></select-box>
+          </div>
+        </div>
       </div>
     </div>
     <div class="main-footer">
-      <button>SAVE</button>
-      <button v-on:click="open('calendar')">TIME OFF</button>
+      <div class="switch vertical" :class="{active: toggle === 'save'}">
+        <div class="up">
+          <button>SAVE</button>
+        </div>
+        <div class="down">
+          DONE ;)
+        </div>
+      </div>
+      <div class="switch vertical" :class="{active: toggle === 'calendar'}">
+        <div class="up">
+          <button v-on:click="open('calendar')">TIME OFF</button>
+        </div>
+        <div class="down">
+          <button v-on:click="open('calendar')">CANCEL</button>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -89,12 +109,25 @@
   }
 </script>
 <style>
+  @-webkit-keyframes blinker {
+    from {opacity: 1.0;}
+    to {opacity: 0.0;}
+  }
+  .blink{
+  	text-decoration: blink;
+  	-webkit-animation-name: blinker;
+  	-webkit-animation-duration: 0.6s;
+  	-webkit-animation-iteration-count:infinite;
+  	-webkit-animation-timing-function:ease-in-out;
+  	-webkit-animation-direction: alternate;
+  }
+
   .main {
     display: grid;
     max-height: 100%;
     max-width: 100%;
     grid-template-rows: 10vh 1fr 10vh;
-    grid-template-columns: 1fr;
+    grid-template-columns: 100%;
     grid-template-areas: "header"
                          "content"
                          "footer"
@@ -114,10 +147,13 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
+    /*background: #8AB4E8;
+    background: #2B95CC;
+    background: #3D70BC;*/
+    /*color: #fff;*/
   }
 
   .main-header li {
-    color: #444;
     cursor: pointer;
     list-style: none;
   }
@@ -162,7 +198,7 @@
     align-items: center;
     flex: 1 1 50%;
     width: 100%;
-    background: #edeff0;
+    /*background: #edeff0;*/
   }
 
 </style>
@@ -172,7 +208,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #eee;
+    /*background: #eee;*/
     width: 100%;
     /*height: 10vh;*/
   }
@@ -233,13 +269,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #eee;
+    background: #fafafa;
+    /*background: #3D70BC;*/
     width: 100%;
   }
 
   .slider-item {
     width: 100%;
-    height: 100px;
+    height: 10vh;
     overflow: hidden;
     transition: flex 0.5s;
     display: flex;
@@ -291,7 +328,7 @@
   .bottom {
     /*background: green;*/
     flex:1 1 50%;
-    background: #fafafa;
+    background: #fff;
   }
 
 
@@ -302,7 +339,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #eee;
+    /*background: #eee;*/
     width: 100%;
     height: 10vh;
   }
@@ -312,17 +349,18 @@
     height: 100px;
     overflow: hidden;
     transition: flex 0.5s, opacity 0.3s;
+    transition-delay: 0.5s;
     display: flex;
     justify-content: space-around;
     align-items: center;
   }
 
-  .switch:hover .up {
+  .switch.active .up {
     flex:1 1 0%;
     opacity: 0;
   }
 
-  .switch:hover .down {
+  .switch.active .down {
     flex:1 1 100%;
     opacity: 1;
   }
@@ -338,66 +376,7 @@
   }
 </style>
 
-<style>
-  .times {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #eee;
-    width: 100%;
-    /*height: 10vh;*/
-  }
 
-  .times div {
-    /*width: 100%;
-    height: 100px;*/
-    overflow: hidden;
-    transition: all 0.3s;
-
-    /*transition: flex 0.5s, opacity 0.3s;*/
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-  }
-
-  /*.times:hover .left {
-    flex:1 1 0%;
-    opacity: 0;
-  }
-
-  .times:hover .right {
-    flex:1 1 100%;
-    opacity: 1;
-  }*/
-
-  .left {
-    flex:1 1 33%;
-    opacity: 1;
-  }
-
-  .center {
-    flex:1 1 33%;
-    opacity: 1;
-  }
-
-  .right {
-    flex:1 1 33%;
-    opacity: 1;
-  }
-
-
-
-  .times.active div {
-    flex:1 1 0%;
-    opacity: 0.2;
-  }
-
-  .times.active div.open {
-    flex:1 1 100%;
-    opacity: 1;
-    font-size: 150%;
-  }
-</style>
 
 
 <style>
