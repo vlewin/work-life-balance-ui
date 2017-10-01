@@ -7,7 +7,7 @@
         </h1>
         <div class="date">
           <span>
-            September 2017
+            October 2017
           </span>
           <span>
             Sunday

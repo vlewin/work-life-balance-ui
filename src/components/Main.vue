@@ -3,32 +3,34 @@
     <div class="main-header">
       <date-picker v-on:prevWeek="animate('left')" v-on:nextWeek="animate('right')"></date-picker>
     </div>
-    <div class="main-body slider" :class="{ active: toggle }">
+    <div class="main-body slider" :class="{ active: sliderOpen }">
       <div class="slider-item top">
-        <div class="time">
-          <div class="times" :class="[{ active: toggle }, animationClass]">
-            <div class="left" v-on:click="open('left')" :class="{ open: toggle === 'left' }">
-              <h1>
-                08:00
+        <div class="switch vertical" :class="{active: mode === 'calendar'}">
+          <div class="up">
+            <div class="form" :class="[{ active: picker.target }, picker.target, animationClass]">
+              <h1 class="start" v-on:click="openPicker('start', form.start)">
+                {{ form.start }}
+              </h1>
+              <h1 class="pause" v-on:click="openPicker('pause', form.pause)">
+                {{ form.pause }}
+              </h1>
+              <h1 class="end" v-on:click="openPicker('end', form.end)">
+                {{ form.end }}
               </h1>
             </div>
-            <div class="center" v-on:click="open('center')" :class="{ open: toggle === 'center'  }">
-              <h1>30</h1>
-            </div>
-            <div class="right" v-on:click="open('right')" :class="{ open: toggle === 'right'  }">
-              <h1>
-                18:00
-              </h1>
-            </div>
+          </div>
+          <div class="down">
+            Vacation: 20 days
+            Sickness: 2 days
           </div>
         </div>
       </div>
       <div class="slider-item middle">
-        <time-picker v-if="toggle !== 'calendar'"></time-picker>
-        <calendar v-if="toggle === 'calendar'"></calendar>
+        <time-picker v-if="mode === 'picker'" :target="picker.target" :value="picker.value" v-on:change="setValue" v-on:close="closePicker"></time-picker>
+        <calendar v-if="mode === 'calendar'"></calendar>
       </div>
       <div class="slider-item bottom">
-        <div class="switch vertical" :class="{active: toggle === 'calendar'}">
+        <div class="switch vertical" :class="{active: mode === 'calendar'}">
           <div class="up">
             <info></info>
           </div>
@@ -47,12 +49,12 @@
           DONE ;)
         </div>
       </div>
-      <div class="switch vertical" :class="{active: toggle === 'calendar'}">
+      <div class="switch vertical" :class="{active: mode === 'calendar'}">
         <div class="up">
-          <button v-on:click="open('calendar')">TIME OFF</button>
+          <button v-on:click="openCalendar">TIME OFF</button>
         </div>
         <div class="down">
-          <button v-on:click="open('calendar')">CANCEL</button>
+          <button v-on:click="closeCalendar">CANCEL</button>
         </div>
       </div>
     </div>
@@ -82,9 +84,30 @@
 
     data () {
       return {
+        form: {
+          start: '08:00',
+          pause: '30',
+          end: '18:00'
+        },
         day: null,
+        picker: {
+          target: null,
+          value: null
+        },
+
+        mode: null,
         toggle: null,
         animationClass: null
+      }
+    },
+
+    computed: {
+      sliderOpen () {
+        return this.mode
+      },
+
+      pickerOpen () {
+        return this.picker.target
       }
     },
 
@@ -101,8 +124,51 @@
         }, 500)
       },
 
+      openPicker (target, value) {
+        if (this.picker.target === target) {
+          this.mode = null
+          this.picker = {
+            target: null,
+            value: null
+          }
+        } else {
+          this.mode = 'picker'
+          this.picker = {
+            target: target,
+            value: value
+          }
+        }
+      },
+
+      setValue (target, value) {
+        console.log('set', target, value)
+        this.form[target] = value
+      },
+
+      closePicker () {
+        console.log('Close picker')
+        this.mode = null
+        this.picker = {
+          target: null,
+          value: null
+        }
+      },
+
+      openCalendar () {
+        this.closePicker()
+        this.mode = 'calendar'
+      },
+
+      closeCalendar () {
+        this.mode = null
+      },
+
       open (element) {
         console.log('toggle')
+        if (element === 'calendar') {
+          this.closePicker()
+        }
+
         if (this.toggle === element) {
           this.toggle = null
         } else {
@@ -234,76 +300,50 @@
     background: #eee;
   }
 
-  .time {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    flex: 1 1 50%;
-    width: 100%;
-    /*background: #edeff0;*/
-  }
-
 </style>
 
 <style>
-  .times {
+  .form {
     display: flex;
     justify-content: center;
     align-items: center;
-    /*background: #eee;*/
     width: 100%;
-    /*height: 10vh;*/
   }
 
-  .times div {
-    /*width: 100%;
-    height: 100px;*/
+  .form h1 {
+    flex:1 1 33%;
+    opacity: 1;
+  }
+
+  .form h1 {
     overflow: hidden;
     transition: all 0.3s;
-
-    /*transition: flex 0.5s, opacity 0.3s;*/
     display: flex;
     justify-content: space-around;
     align-items: center;
   }
 
-  /*.times:hover .left {
-    flex:1 1 0%;
-    opacity: 0;
-  }
-
-  .times:hover .right {
-    flex:1 1 100%;
-    opacity: 1;
-  }*/
-
-  .left {
-    flex:1 1 33%;
-    opacity: 1;
-  }
-
-  .center {
-    flex:1 1 33%;
-    opacity: 1;
-  }
-
-  .right {
-    flex:1 1 33%;
-    opacity: 1;
-  }
-
-
-
-  .times.active div {
+  .form.active h1 {
     flex:1 1 0%;
     opacity: 0.2;
   }
 
-  .times.active div.open {
+  .form.start h1.start {
     flex:1 1 100%;
     opacity: 1;
-    font-size: 130%;
   }
+
+  .form.pause h1.pause {
+    flex:1 1 100%;
+    opacity: 1;
+  }
+
+  .form.end h1.end {
+    flex:1 1 100%;
+    opacity: 1;
+  }
+
+
 </style>
 
 <style scoped>
@@ -336,7 +376,7 @@
   }
 
   .slider.active .top {
-    flex:1 1 10%;
+    flex:1 1 20%;
   }
 
   .slider.active .middle {

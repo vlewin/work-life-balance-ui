@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Main from '@/components/Main'
+import TimeInput from '@/components/TimeInput'
 
 Vue.use(Router)
 
@@ -10,13 +11,13 @@ export default new Router({
       path: '/',
       name: 'Main',
       component: Main
-    }
+    },
 
-    // {
-    //   path: '/wip',
-    //   name: 'Wip',
-    //   component: Wip
-    // },
+    {
+      path: '/wip',
+      name: 'TimeInput',
+      component: TimeInput
+    }
     // {
     //   path: '/flex',
     //   name: 'Flex',

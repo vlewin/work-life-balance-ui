@@ -1,12 +1,52 @@
 <template>
   <div class="time-picker">
     <ul class="flex-container">
-      <li class="flex-item" v-for="hour in [1,2,3,4,5,6,7,8,9,0]">
-        {{ hour }}
+      <li class="flex-item" v-for="value in [1,2,3,4,5,6,7,8,9,0]" v-on:click="setTime(value)">
+        {{ value }}
       </li>
     </ul>
   </div>
 </template>
+
+<script>
+  export default {
+    name: 'TimePicker',
+    data () {
+      return {
+        time: ''
+      }
+    },
+
+    props: {
+      value: {
+        type: String
+      },
+
+      target: {
+        required: true
+      }
+    },
+
+    methods: {
+      setTime (value) {
+        if (this.time.length === 2) {
+          this.time = this.time + ':'
+        }
+
+        this.time = this.time + value
+
+        if (this.time.length === 5) {
+          this.$emit('change', this.target, this.time)
+          this.$emit('close', value)
+          this.time = ''
+        } else {
+          this.$emit('change', this.target, this.time)
+        }
+      }
+    }
+  }
+</script>
+
 
 <style scoped>
   .time-picker {
@@ -34,16 +74,11 @@
     font-size: 130%;
     font-weight: bold;
     color: #888;
-  }
-
-  .flex-item:not(.label) {
     cursor: pointer;
   }
 
-  .flex-item.label {
-    /*background: #f0f0f0;*/
-    color: #444;
-    user-select: none;
+  .flex-item:hover {
+    background: #eee;
   }
 
   .disabled {

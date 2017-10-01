@@ -19,6 +19,7 @@
     name: 'DatePicker',
     data () {
       return {
+        weekdays: ['Mo', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
         weekday: new Date().getDay(),
         week: [],
         day: new Date().getDay(),
@@ -28,9 +29,9 @@
     },
 
     created () {
-      console.log('CRE')
+      // FIXME: Move to helper
       const start = (this.date - 7) > 0 ? (this.date - this.day + 1) : this.date
-      const end = 7 - this.day
+      const end = 6 - this.day
       this.week = Array.range(start, this.date + end)
     },
 
@@ -41,18 +42,20 @@
       },
 
       prevWeek () {
+        // FIXME: Move to helper
         const end = parseInt(this.week[0]) - 1
         const start = end - 6
         this.week = Array.range(start, end)
-        this.date = this.week[0]
+        this.selectDay(this.week[0])
         this.$emit('prevWeek')
       },
 
       nextWeek () {
+        // FIXME: Move to helper
         const start = parseInt(this.week[6]) + 1
         const end = start + 6
         this.week = Array.range(start, end)
-        this.date = this.week[0]
+        this.selectDay(this.week[0])
         this.$emit('nextWeek')
       },
 
