@@ -1,75 +1,37 @@
 <template>
   <div class="calendar">
     <p class="month">
-      <span>&laquo;</span>
-      SEPTEMBER
-      <span>&raquo;</span>
+      <span v-on:click="prevMonth()">&laquo;</span>
+      {{ currentMonth }} ({{ year }})
+      <span v-on:click="nextMonth()">&raquo;</span>
     </p>
 
     <ul class="grid">
-      <li class="grid-item weekday">
-        Mo
+      <li class="grid-item label" v-for="weekday in weekdays" v-bind:class="{ weekend: ['SAT', 'SUN'].includes(weekday) }">
+        {{ weekday }}
       </li>
-      <li class="grid-item weekday">
-        Di
-      </li>
-      <li class="grid-item weekday">
-        Mi
-      </li>
-      <li class="grid-item weekday">
-        Do
-      </li>
-      <li class="grid-item weekday">
-        Fr
-      </li>
-      <li class="grid-item weekend">
-        Sa
-      </li>
-      <li class="grid-item weekend">
-        So
-      </li>
-      <li class="grid-item disabled">
-        28
-      </li>
-      <li class="grid-item disabled">
-        29
-      </li>
-      <li class="grid-item disabled">
-        30
-      </li>
-      <li class="grid-item disabled">
-        31
-      </li>
-      <li class="grid-item" v-for="date in dates" :class="{ selected: selected.includes(date)}" v-on:click="select(date)">
-        {{ date }}
-      </li>
-      <li class="grid-item disabled">
-        1
+
+      <li class="grid-item day" v-for="(day, i) in days" :class="{ selected: selected.includes(day), weekday: isWeekend(i) }" v-on:click="select(day)">
+        {{ day }}
       </li>
     </ul>
-
-    <!-- <div class="comment">
-      <div class="comment-item">
-        VACATION
-      </div>
-      <div class="comment-item">
-        SICKNESS
-      </div>
-      <div class="comment-item">
-        HOLIDAY
-      </div>
-    </div> -->
   </div>
 </template>
 
 <script>
   Array.range = (start, end) => [...Array((end - start) + 1)].map((_, i) => (start + i).toString().padStart(2, '0'))
 
+  const Calendator = require('calendator')
+  const calendator = new Calendator(Calendator.MON)
+  console.log(calendator.getMonths())
   export default {
     name: 'Calendar',
     data () {
       return {
-        dates: Array.range(1, 30),
+        month: new Date().getMonth(),
+        year: new Date().getFullYear(),
+        weekdays: ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'],
+        weeks: calendator.giveMeCalendarForMonthYear(new Date().getMonth(), 2017),
         selected: []
       }
     },
@@ -85,10 +47,17 @@
     },
 
     created () {
-
     },
 
     computed: {
+      currentMonth () {
+        const date = new Date(this.year, this.month, 1)
+        return date.toLocaleString('en-US', {month: 'long'})
+      },
+
+      days () {
+        return this.weeks.reduce((a, b) => a.concat(b))
+      }
     },
 
     watch: {
@@ -98,6 +67,36 @@
     },
 
     methods: {
+      isWeekend (day) {
+        return [5, 6].includes(day % 7)
+      },
+
+      prevMonth () {
+        if (this.month === 1) {
+          this.month = 11
+          this.year -= 1
+        } else {
+          this.month -= 1
+        }
+
+        console.log('prevMonth', this.month, this.year)
+
+        this.weeks = calendator.giveMeCalendarForMonthYear(this.month, this.year)
+      },
+
+      nextMonth () {
+        if (this.month === 11) {
+          this.month = 0
+          this.year += 1
+        } else {
+          this.month += 1
+        }
+
+        console.log('nextMonth', this.month, this.year)
+
+        this.weeks = calendator.giveMeCalendarForMonthYear(this.month + 1, 2017)
+      },
+
       select (date) {
         console.log('Select', date)
         if (this.selected.includes(date)) {
@@ -126,15 +125,17 @@
     align-items: center;
     /*padding: 10px;*/
     padding: 5% 0;
-    width: 50%;
+    min-width: 70%;
     margin: 0;
+    text-transform: uppercase;
   }
 
   .grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    grid-template-rows: repeat(6, 1fr);
-    width: 90%;
+    grid-template-rows: repeat(7, 1fr);
+    grid-gap: 0.2vw;
+    width: 88%;
     height: 80%;
     padding: 0;
     margin: 0;
@@ -150,17 +151,25 @@
     vertical-align: middle;
   }
 
-  .weekday {
-    /*color: #308FF0;*/
+  .label {
     font-weight: bold;
     color: #aaa;
+    font-size: 80%;
   }
 
   .weekend {
-    /*color: #f95738;*/
-    color: tomato;
     font-weight: bold;
+    pointer-events: none;
   }
+
+  .label.weekend {
+    color: tomato;
+  }
+
+  .day.weekend {
+    color: #ddd;
+  }
+
   .red {
     background: tomato;
   }
