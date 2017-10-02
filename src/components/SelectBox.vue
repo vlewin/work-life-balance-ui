@@ -12,15 +12,25 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-    background: #fafafa;
+    height: 100%;
+    /*background: #1675d1;*/
+
   }
 
   .select-box-item {
-    border: 1px solid #eee;
-    width: 20%;
     margin: 0 auto;
-    padding: 0.2rem;
+    padding: 0.5rem;
     border-radius: 3px;
     text-align: center;
+    /*border: 1px solid #fff;*/
+    /*color: #fff;*/
+    /*background: #62a3ff;*/
+    background: rgba(0,0,0,0.1);
+    cursor: pointer;
+  }
+
+  .select-box-item:hover {
+    /*background: #004a9f;*/
+    background: rgba(0,0,0,0.1);
   }
 </style>

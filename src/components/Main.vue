@@ -9,19 +9,18 @@
           <div class="up">
             <div class="form" :class="[{ active: picker.target }, picker.target, animationClass]">
               <h1 class="start" v-on:click="openPicker('start', form.start)">
-                {{ form.start }}
+                <input-time class="start" :value="form.start"></input-time>
               </h1>
               <h1 class="pause" v-on:click="openPicker('pause', form.pause)">
-                {{ form.pause }}
+                <input-number></input-number>
               </h1>
               <h1 class="end" v-on:click="openPicker('end', form.end)">
-                {{ form.end }}
+                <input-time :value="form.end"></input-time>
               </h1>
             </div>
           </div>
           <div class="down">
-            Vacation: 20 days
-            Sickness: 2 days
+            <select-box></select-box>
           </div>
         </div>
       </div>
@@ -35,7 +34,8 @@
             <info></info>
           </div>
           <div class="down">
-            <select-box></select-box>
+            <small>VACATION: 20 days</small>
+            <small>SICKNESS: 2 days</small>
           </div>
         </div>
       </div>
@@ -49,12 +49,12 @@
           DONE ;)
         </div>
       </div>
-      <div class="switch vertical" :class="{active: mode === 'calendar'}">
+      <div class="switch vertical" :class="{active: mode === 'picker' || mode === 'calendar'}">
         <div class="up">
           <button v-on:click="openCalendar">TIME OFF</button>
         </div>
         <div class="down">
-          <button v-on:click="closeCalendar">CANCEL</button>
+          <button v-on:click="close">CANCEL</button>
         </div>
       </div>
     </div>
@@ -69,6 +69,8 @@
   import Info from './Info'
   import DatePicker from './DatePicker'
   import TimePicker from './TimePicker'
+  import InputTime from './InputTime'
+  import InputNumber from './InputNumber'
   import Calendar from './Calendar'
   import SelectBox from './SelectBox'
 
@@ -78,6 +80,8 @@
       Info,
       DatePicker,
       TimePicker,
+      InputTime,
+      InputNumber,
       Calendar,
       SelectBox
     },
@@ -176,6 +180,12 @@
         }
       },
 
+      close () {
+        this.mode = null
+        this.closePicker()
+        this.closeCalendar()
+      },
+
       done () {
         this.open()
       }
@@ -198,8 +208,6 @@
 
   .main {
     display: grid;
-    max-height: 100%;
-    max-width: 100%;
     grid-template-rows: 10vh 1fr 10vh;
     grid-template-columns: 100%;
     grid-template-areas: "header"
@@ -311,8 +319,9 @@
   }
 
   .form h1 {
-    flex:1 1 33%;
+    flex:1 1 calc(100% / 3);
     opacity: 1;
+    font-size: 1.8rem;
   }
 
   .form h1 {
@@ -351,8 +360,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #fafafa;
-    /*background: #3D70BC;*/
+    /*background: #fafafa;
+    background: #50A7C2;
+    color: #fff;*/
+
+
     width: 100%;
   }
 
@@ -377,10 +389,12 @@
 
   .slider.active .top {
     flex:1 1 20%;
+    background: #1675d1;
+    color: #fff;
   }
 
   .slider.active .middle {
-    flex:1 1 80%;
+    flex:1 1 70%;
   }
 
   .slider.active .bottom {
@@ -397,19 +411,21 @@
   }*/
 
   .top {
-    /*background: red;*/
-    flex:1 1 50%;
+    flex:1 1 20%;
+    background: #1675d1;
+    color: #fff;
   }
 
   .middle {
-    width: 100%;
     background: white;
     flex:1 1 0%;
   }
 
   .bottom {
     /*background: green;*/
-    flex:1 1 50%;
+    flex:1 1 80%;
+    height: 100%;
+    /*background: #1675d1;*/
     background: #fff;
   }
 
@@ -423,10 +439,10 @@
     align-items: center;
     /*background: #eee;*/
     width: 100%;
-    height: 10vh;
+    height: 100%;
   }
 
-  .switch div {
+  .switch > div {
     width: 100%;
     height: 100px;
     overflow: hidden;

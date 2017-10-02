@@ -81,31 +81,28 @@
     margin: 0;
 
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     height: 100%;
 
-    /*background: #8AB4E8;
-    background: #2B95CC;
-    background: #3D70BC;*/
-    /*color: #fff;*/
+    background: #004a9f;
+    color: #fff;
   }
 
   li {
     cursor: pointer;
-    padding: 10px;
     list-style: none;
-    width: 16px;
-    line-height: 16px;
+    width: 2rem;
+    height: 2rem;
+    line-height: 2rem;
     text-align: center;
-    height: 16px;
     border-radius: 50%;
     transition: color .2s, background 1s;
-
   }
 
   .selected {
-    background: #308FF0;
+    background: #1675d1;
+    /*background: #3D70BC;*/
     color: #fff;
   }
 </style>

@@ -13,7 +13,8 @@
     name: 'TimePicker',
     data () {
       return {
-        time: ''
+        time: '',
+        timeout: null
       }
     },
 
@@ -29,16 +30,21 @@
 
     methods: {
       setTime (value) {
-        if (this.time.length === 2) {
-          this.time = this.time + ':'
-        }
+        // if (this.time.length === 2) {
+        //   this.time = this.time + ':'
+        // }
 
         this.time = this.time + value
 
-        if (this.time.length === 5) {
+        // if (this.time.length === 5) {
+        if (this.time.length === 4) {
           this.$emit('change', this.target, this.time)
-          this.$emit('close', value)
           this.time = ''
+
+          clearTimeout(this.timeout)
+          this.timeout = setTimeout(() => {
+            this.$emit('close', value)
+          }, 1000)
         } else {
           this.$emit('change', this.target, this.time)
         }
@@ -50,8 +56,8 @@
 
 <style scoped>
   .time-picker {
-    width: 100%;
-    height: 100%;
+    width: 80%;
+    height: 80%;
   }
 
   .flex-container {
@@ -67,11 +73,11 @@
   }
 
   .flex-item {
-    flex: 1 0 25%;
+    flex: 1 1 calc(100% / 3);
     text-align: center;
     vertical-align: middle;
-    padding: 0.5em;
-    font-size: 130%;
+    padding: 1rem;
+    /*font-size: 130%;*/
     font-weight: bold;
     color: #888;
     cursor: pointer;

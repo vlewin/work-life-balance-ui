@@ -124,16 +124,18 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    padding: 10px;
+    /*padding: 10px;*/
+    padding: 5% 0;
     width: 50%;
     margin: 0;
   }
 
   .grid {
     display: grid;
-    grid-template-columns: repeat(7, 2.5rem);
-    grid-template-rows: repeat(5, 2.5rem);
-    grid-gap: 5px;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+    width: 90%;
+    height: 80%;
     padding: 0;
     margin: 0;
     justify-content: center;
@@ -187,6 +189,12 @@
     background: #fff;
     padding: 5px;
     margin: 5px;
+  }
+
+  @media only screen and (min-width:600px) {
+    .grid {
+
+    }
   }
 
 </style>
