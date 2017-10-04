@@ -122,10 +122,10 @@
       },
 
       animate (direction) {
-        this.animationClass = `move-${direction}`
-        setTimeout(() => {
-          this.animationClass = null
-        }, 500)
+        // this.animationClass = `move-${direction}`
+        // setTimeout(() => {
+        //   this.animationClass = null
+        // }, 500)
       },
 
       openPicker (target, value) {
