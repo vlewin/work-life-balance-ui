@@ -1,42 +1,23 @@
 <template>
   <div id="app">
     <div class="header">
-      <span class="header-left">
-        <h1>
-          {{ day }}
-        </h1>
+      <div class="header-left">
+        <h1 class="day">{{ day }}</h1>
         <div class="date">
-          <span>
-            {{ month }} {{ year }}
-          </span>
-          <span>
-            {{ weekday }}
-          </span>
+          <span>{{ month }} {{ year }}</span>
+          <span>{{ weekday }}</span>
         </div>
-      </span>
-      <span class="header-right">
-        {{ hours }}
-        <span class="blink">:</span>
-        {{ minutes }}
-      </span>
-      <!-- <h1>
-        <i class="fa fa-calendar"></i>
-        16
-      </h1>
-      <div class="date">
-        <span>
-          September 2017
-        </span>
-        <span>
-          Sunday
-        </span>
       </div>
-      <div>10:00</div> -->
+      <div class="header-right">
+        <div class="time">
+          {{ now.hh }}
+          <span class="blink">:</span>
+          {{ now.mm }}
+        </div>
+      </div>
     </div>
 
     <router-view></router-view>
-
-    <!-- <div class="footer">footer</div> -->
   </div>
 </template>
 
@@ -45,12 +26,33 @@
     name: 'App',
     data () {
       return {
-        day: new Date().getDate().toString().padStart(2, '0'),
-        month: new Date().toLocaleString('en-US', {month: 'long'}),
-        year: new Date().getFullYear(),
-        weekday: new Date().toLocaleString('en-US', {weekday: 'long'}),
-        hours: new Date().getHours().toString().padStart(2, '0'),
-        minutes: new Date().getMinutes().toString().padStart(2, '0')
+        date: new Date(),
+        time: new Date()
+      }
+    },
+
+    computed: {
+      now () {
+        return {
+          hh: this.time.getHours().toString().padStart(2, '0'),
+          mm: this.time.getMinutes().toString().padStart(2, '0')
+        }
+      },
+
+      day () {
+        return new Date(this.date).getDate().toString().padStart(2, '0')
+      },
+
+      weekday () {
+        return new Date(this.date).toLocaleString('en-US', { weekday: 'long' })
+      },
+
+      month () {
+        return new Date(this.date).toLocaleString('en-US', { month: 'long' })
+      },
+
+      year () {
+        return new Date(this.date).getFullYear()
       }
     },
 
@@ -60,9 +62,7 @@
       }, 1000)
     }
   }
-
 </script>
-
 
 <style>
   * {
@@ -83,12 +83,21 @@
     align-items: center;
 
     background: #98C2C2;
-    background-image: linear-gradient(to top, #98C2C2 50%, #50A7C2 100%);
+    /*background-image: linear-gradient(to top, #98C2C2 50%, #50A7C2 100%);*/
+    /*background-image: linear-gradient(to bottom, #07c, #82ca9a);*/
+    /*background-image: linear-gradient(to right, tomato 25%, #FFBF00 50%, #82ca9a 75%);*/
+    background-image: linear-gradient(to top, #98C2C2 25%, #98C2C2 50%, #50A7C2 75%, #50A7C2 100%);
+
     /*-webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;*/
   }
 
   #app {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /*align-items: center;*/
+
     display: grid;
     justify-content: center;
     grid-template-rows: 10vh 90vh;
@@ -98,17 +107,13 @@
 	}
 
   .header {
-    background: #7CA5DD;
-    background: #004a9f;
-
-    /*background-image: linear-gradient(to right, #3D70BC 0%, #7CA5DD 100%);*/
-    /*background-image: linear-gradient(-225deg, #2b76b9 0%, #50A7C2 100%);*/
-    color: #fff;
     grid-area: header;
-
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    background: #004a9f;
+    color: #fff;
     padding: 0 10px;
     font-weight: bold;
   }
@@ -124,7 +129,7 @@
     letter-spacing: -0.1rem;
   }
 
-  .header h1, .header-right {
+  .header-left h1, .time {
     font-size: 4vh;
   }
 
@@ -148,21 +153,7 @@
   .main {
     background: #fff;
     grid-area: content;
-
-    /*display: flex;
-    justify-content: center;
-    align-items: center;*/
   }
-
-  .footer {
-    background: #c0392b;
-    grid-area: footer;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
 
   /* Small screen */
   @media only screen and (max-width: 320px) {
@@ -172,33 +163,73 @@
   }
 
   /* Medium screen, non-retina */
-  @media only screen and (min-width:600px) {
-    #app {
-      border-radius: 5px;
-      overflow: hidden;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-      box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-      transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+  @media only screen and (min-width: 321px) and (max-width: 600px) {
+    html, body {
+      font-size: 90%;
     }
   }
 
-  @media only screen and (min-width:600px) and (max-width: 1299px) {
+  @media only screen and (min-width: 601px) {
+    html, body {
+      font-size: 100%;
+    }
+
+    /*#app {
+      grid-template-rows: 10vh 80vh;
+      grid-template-columns: 80vw;
+
+      border-radius: 5px;
+      box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+      overflow: hidden;
+    }*/
+  }
+
+
+
+  /*Mobile Query*/
+  @media only screen and (max-width: 480px) {
+    html, body {
+      font-size: 90%;
+    }
+  }
+
+  /* Tablet and Desktop Query */
+  @media only screen and (min-width: 481px) {
+    #app {
+      border-radius: 5px;
+      box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+      overflow: hidden;
+    }
+  }
+
+  /*Tablet Query*/
+  @media only screen and (min-width: 481px) and (max-width:768px) {
     #app {
       grid-template-rows: 10vh 80vh;
       grid-template-columns: 80vw;
     }
   }
 
-  /* Large screen, non-retina */
-  @media only screen and (min-width: 1300px)  {
-    html, body {
-      font-size: 110%;
-    }
-
+  /*Desktop Query*/
+  @media only screen and (min-width: 769px) {
     #app {
-      grid-template-rows: 10vh 80vh;
-      grid-template-columns: 40vw;
+      grid-template-rows: 10vh 70vh;
+      grid-template-columns: 50vw;
+    }
+  }
+
+  @media (min-width:1281px) {
+    #app {
+      grid-template-rows: 10vmin 70vmin;
+      grid-template-columns: 50vmax;
     }
   }
 
 </style>
+
+<!-- @media (min-width:320px)  { /* smartphones, portrait iPhone, portrait 480x320 phones (Android) */ }
+@media (min-width:480px)  { /* smartphones, Android phones, landscape iPhone */ }
+@media (min-width:600px)  { /* portrait tablets, portrait iPad, e-readers (Nook/Kindle), landscape 800x480 phones (Android) */ }
+@media (min-width:801px)  { /* tablet, landscape iPad, lo-res laptops ands desktops */ }
+@media (min-width:1025px) { /* big landscape tablets, laptops, and desktops */ }
+@media (min-width:1281px) { /* hi-res laptops and desktops */ } -->
