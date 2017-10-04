@@ -1,75 +1,66 @@
 <template>
   <ul>
-    <li v-on:click="prevWeek()">
+    <li class="arrow" v-on:click="prevWeek">
       &laquo;
     </li>
-    <li v-for="d in week" v-on:click="selectDay(d)" v-bind:class="{selected: d == date }">
-      {{ d }}
+    <li v-for="d in week" v-on:click="selectDay(d)" v-bind:class="{selected: d.getDate() == selected.getDate() }">
+      {{ d.getDate() }}
     </li>
-    <li v-on:click="nextWeek()">
+    <li class="arrow" v-on:click="nextWeek">
       &raquo;
     </li>
   </ul>
 </template>
 
 <script>
-  import '../helpers/array'
+  import { weekNumber, weekStartDay, weekDaysRange } from '../helpers/date'
 
   export default {
     name: 'DatePicker',
     data () {
       return {
-        weekdays: ['Mo', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-        weekday: new Date().getDay(),
+        current: weekNumber(),
+        selected: new Date(),
+        year: new Date().getFullYear(),
         week: [],
-        day: new Date().getDay(),
-        date: new Date().getDate(),
-        toggle: null
+        weekdays: ['Mo', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
       }
     },
 
     created () {
-      // FIXME: Move to helper
-      const start = (this.date - 7) > 0 ? (this.date - this.day + 1) : this.date
-      const end = 6 - this.day
-      this.week = Array.range(start, this.date + end)
+      this.week = weekDaysRange()
     },
 
     methods: {
       selectDay (day) {
-        this.date = day
-        this.$parent.$parent.day = day
+        this.selected = day
+        this.$parent.$parent.date = day
       },
 
       prevWeek () {
-        // FIXME: Move to helper
-        const end = parseInt(this.week[0]) - 1
-        const start = end - 6
-        this.week = Array.range(start, end)
+        if (this.current > 0) {
+          this.current = this.current - 1
+        } else {
+          this.current = 52
+          this.year -= 1
+        }
+
+        this.week = weekDaysRange(weekStartDay(this.current, this.year))
         this.selectDay(this.week[0])
         this.$emit('prevWeek')
       },
 
       nextWeek () {
-        // FIXME: Move to helper
-        const start = parseInt(this.week[6]) + 1
-        const end = start + 6
-        this.week = Array.range(start, end)
+        if (this.current === 52) {
+          this.current = 0
+          this.year += 1
+        } else {
+          this.current = this.current + 1
+        }
+
+        this.week = weekDaysRange(weekStartDay(this.current, this.year))
         this.selectDay(this.week[0])
         this.$emit('nextWeek')
-      },
-
-      open (element) {
-        console.log('toggle')
-        if (this.toggle === element) {
-          this.toggle = null
-        } else {
-          this.toggle = element
-        }
-      },
-
-      done () {
-        this.open()
       }
     }
   }
@@ -81,7 +72,7 @@
     margin: 0;
 
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     height: 100%;
 
@@ -97,7 +88,12 @@
     line-height: 2rem;
     text-align: center;
     border-radius: 50%;
+    vertical-align: middle;
     transition: color .2s, background 1s;
+  }
+
+  .arrow {
+    /*background: rgba(0,0,0,0.1);*/
   }
 
   .selected {
