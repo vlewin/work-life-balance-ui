@@ -10,5 +10,6 @@
     padding: 0 0.5rem;
     height: 6vh;
     line-height: 6vh;
+    cursor: pointer;
   }
 </style>

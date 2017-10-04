@@ -6,7 +6,7 @@
     <div class="main-body slider" :class="{ active: sliderOpen }">
       <div class="slider-item top">
         <div class="switch vertical" :class="{active: mode === 'calendar'}">
-          <div class="up">
+          <div class="up animated">
             <div class="form" :class="[{ active: picker.target }, picker.target, animationClass]">
               <h1 class="start" v-on:click="openPicker('start', form.start)">
                 <input-time class="start" :value="form.start"></input-time>
@@ -19,14 +19,14 @@
               </h1>
             </div>
           </div>
-          <div class="down">
+          <div class="down animated">
             <select-box></select-box>
           </div>
         </div>
       </div>
       <div class="slider-item middle">
-        <time-picker v-if="mode === 'picker'" :target="picker.target" :value="picker.value" v-on:change="setValue" v-on:close="closePicker"></time-picker>
-        <calendar v-if="mode === 'calendar'"></calendar>
+        <time-picker v-show="mode === 'picker'" :target="picker.target" :value="picker.value" v-on:change="setValue" v-on:close="closePicker"></time-picker>
+        <calendar v-show="mode === 'calendar'"></calendar>
       </div>
       <div class="slider-item bottom">
         <div class="switch vertical" :class="{active: mode === 'calendar'}">
@@ -41,7 +41,7 @@
       </div>
     </div>
     <div class="main-footer">
-      <div class="switch vertical" :class="{active: toggle === 'save'}">
+      <div class="switch vertical animated" :class="{active: toggle === 'save'}">
         <div class="up">
           <button>SAVE</button>
         </div>
@@ -49,7 +49,7 @@
           DONE ;)
         </div>
       </div>
-      <div class="switch vertical" :class="{active: mode === 'picker' || mode === 'calendar'}">
+      <div class="switch vertical animated" :class="{active: mode === 'picker' || mode === 'calendar'}">
         <div class="up">
           <button v-on:click="openCalendar">TIME OFF</button>
         </div>
@@ -208,7 +208,7 @@
 
   .main {
     display: grid;
-    grid-template-rows: 10vh 1fr 10vh;
+    grid-template-rows: 10% 80% 10%;
     grid-template-columns: 100%;
     grid-template-areas: "header"
                          "content"
@@ -217,19 +217,16 @@
 
   .main-header {
     grid-area: header;
-    background: #f0f0f0;
-    align-items: center;
   }
 
   .main-body {
     grid-area: content;
-    /*background: #edeff0;*/
-    overflow: hidden;
+
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    flex: 1 1 100%;
+
   }
 
   .move-left {
@@ -321,7 +318,7 @@
   .form h1 {
     flex:1 1 calc(100% / 3);
     opacity: 1;
-    font-size: 1.8rem;
+    font-size: 140%;
   }
 
   .form h1 {
@@ -360,11 +357,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    /*background: #fafafa;
-    background: #50A7C2;
-    color: #fff;*/
-
-
     width: 100%;
   }
 
@@ -446,11 +438,15 @@
     width: 100%;
     height: 100px;
     overflow: hidden;
-    transition: flex 0.5s, opacity 0.3s;
-    transition-delay: 0.5s;
+
     display: flex;
     justify-content: space-around;
     align-items: center;
+  }
+
+  .switch > div.animated {
+    transition: flex 0.5s, opacity 0.3s;
+    transition-delay: 0.5s;
   }
 
   .switch.active .up {
@@ -510,8 +506,4 @@
   background: green;
   height: 10%;
 }
-</style>
-
-<style>
-
 </style>
