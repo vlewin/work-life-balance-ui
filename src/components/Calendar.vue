@@ -23,7 +23,7 @@
 
   const Calendator = require('calendator')
   const calendator = new Calendator(Calendator.MON)
-  console.log(calendator.getMonths())
+
   export default {
     name: 'Calendar',
     data () {
