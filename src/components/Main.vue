@@ -5,8 +5,8 @@
     </div>
     <div class="main-body slider" :class="{ active: sliderOpen }">
       <div class="slider-item top">
-        <div class="switch vertical" :class="{active: mode === 'calendar'}">
-          <div class="up animated">
+        <div class="switch animated" :class="{active: mode === 'calendar'}">
+          <div class="up">
             <div class="form" :class="[{ active: picker.target }, picker.target, animationClass]">
               <h1 class="start" v-on:click="openPicker('start', form.start)">
                 <input-time class="start" :value="form.start"></input-time>
@@ -19,29 +19,29 @@
               </h1>
             </div>
           </div>
-          <div class="down animated">
+          <div class="down">
             <select-box></select-box>
           </div>
         </div>
       </div>
-      <div class="slider-item middle">
+      <div class="slider-item middle"  v-bind:class="{ animated: true }">
         <time-picker v-show="mode === 'picker'" :target="picker.target" :value="picker.value" v-on:change="setValue" v-on:close="closePicker"></time-picker>
-        <calendar v-show="mode === 'calendar'"></calendar>
+        <calendar  v-show="mode === 'calendar'"></calendar>
       </div>
       <div class="slider-item bottom">
         <div class="switch vertical" :class="{active: mode === 'calendar'}">
           <div class="up">
             <info></info>
           </div>
-          <div class="down">
+          <!-- <div class="down">
             <small>VACATION: 20 days</small>
             <small>SICKNESS: 2 days</small>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
     <div class="main-footer">
-      <div class="switch vertical animated" :class="{active: toggle === 'save'}">
+      <div class="switch vertical" :class="{active: toggle === 'save'}">
         <div class="up">
           <button>SAVE</button>
         </div>
@@ -368,6 +368,7 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
+
   }
 
   .horizontal {
@@ -386,11 +387,11 @@
   }
 
   .slider.active .middle {
-    flex:1 1 70%;
+    flex:1 1 80%;
   }
 
   .slider.active .bottom {
-    flex:1 1 10%;
+    flex:1 1 0%;
   }
 
   /*.slider div {
@@ -434,6 +435,11 @@
     height: 100%;
   }
 
+  .switch.animated > div {
+    transition: flex 0.5s, opacity 0.3s;
+    transition-delay: 0.5s;
+  }
+
   .switch > div {
     width: 100%;
     height: 100px;
@@ -444,10 +450,15 @@
     align-items: center;
   }
 
-  .switch > div.animated {
-    transition: flex 0.5s, opacity 0.3s;
-    transition-delay: 0.5s;
+
+
+  /*.switch .up {
+    opacity: 1;
   }
+
+  .switch .down {
+    opacity: 0;
+  }*/
 
   .switch.active .up {
     flex:1 1 0%;

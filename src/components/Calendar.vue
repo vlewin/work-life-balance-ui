@@ -11,10 +11,15 @@
         {{ weekday }}
       </li>
 
-      <li class="grid-item day" v-for="(day, i) in days" :class="{ selected: selected.includes(day), weekday: isWeekend(i) }" v-on:click="select(day)">
+      <li class="grid-item day" v-for="(day, i) in days" :class="{ selected: selected.includes(day), weekend: isWeekend(i) }" v-on:click="select(day)">
         {{ day }}
       </li>
     </ul>
+
+    <!-- <div class="balance">
+      <span>VACATION: 20 days</span>
+      <span>SICKNESS: 2 days</span>
+    </div> -->
   </div>
 </template>
 
@@ -124,7 +129,7 @@
     justify-content: space-around;
     align-items: center;
     /*padding: 10px;*/
-    padding: 5% 0;
+    padding: 2% 0;
     min-width: 70%;
     margin: 0;
     text-transform: uppercase;
@@ -143,22 +148,34 @@
     align-items: center;
   }
 
+
   .grid-item {
     color: #444;
-    cursor: pointer;
     list-style: none;
     text-align: center;
     vertical-align: middle;
   }
 
-  .label {
-    font-weight: bold;
-    color: #aaa;
-    font-size: 80%;
+  .grid-item:not(.label):not(.weekend) {
+    cursor: pointer;
   }
 
-  .weekend {
+  .grid-item:not(.label):not(.weekend):not(.selected):hover {
+    background: rgba(0,0,0,0.1);
+  }
+
+  .grid-item.selected {
+    background: #308FF0;
+    color: #fff;
+  }
+
+  .label {
+    color: #888;
+    font-size: 80%;
     font-weight: bold;
+  }
+
+  .label, .weekend {
     pointer-events: none;
   }
 
@@ -183,10 +200,7 @@
     pointer-events: none;
   }
 
-  .selected {
-    background: #308FF0;
-    color: #fff;
-  }
+
 
   .comment {
     display: flex;
@@ -198,6 +212,15 @@
     background: #fff;
     padding: 5px;
     margin: 5px;
+  }
+
+  .balance {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 80%;
+    width: 100%;
+    padding: 2vh;
   }
 
   @media only screen and (min-width:600px) {

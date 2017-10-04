@@ -189,7 +189,7 @@
   /*Mobile Query*/
   @media only screen and (max-width: 480px) {
     html, body {
-      font-size: 90%;
+      font-size: 100%;
     }
   }
 
