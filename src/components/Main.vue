@@ -5,85 +5,73 @@
     </div>
     <div class="main-body slider" :class="{ active: sliderOpen }">
       <div class="slider-item top">
-        <div class="switch animated" :class="{active: mode === 'calendar'}">
-          <div class="up">
-            <div class="form" :class="[{ active: picker.target }, picker.target, animationClass]">
-              <h1 class="start" v-on:click="openPicker('start', form.start)">
-                <input-time class="start" :value="form.start"></input-time>
-              </h1>
-              <h1 class="pause" v-on:click="openPicker('pause', form.pause)">
-                <input-number></input-number>
-              </h1>
-              <h1 class="end" v-on:click="openPicker('end', form.end)">
-                <input-time :value="form.end"></input-time>
-              </h1>
-            </div>
+        <simple-switch class="vertical animated" :active="mode === 'calendar'">
+          <div slot="up" class="form" :class="[{ active: picker.target }, picker.target, animationClass]">
+            <h1 class="start" v-on:click="openPicker('start', form.start)">
+              <input-time class="start" :value="form.start"></input-time>
+            </h1>
+            <h1 class="pause" v-on:click="openPicker('pause', form.pause)">
+              <input-number></input-number>
+            </h1>
+            <h1 class="end" v-on:click="openPicker('end', form.end)">
+              <input-time :value="form.end"></input-time>
+            </h1>
           </div>
-          <div class="down">
-            <select-box></select-box>
-          </div>
-        </div>
+
+          <select-box slot="down"></select-box>
+        </simple-switch>
       </div>
+
       <div class="slider-item middle"  v-bind:class="{ animated: true }">
         <time-picker v-show="mode === 'picker'" :target="picker.target" :value="picker.value" v-on:change="setValue" v-on:close="closePicker"></time-picker>
         <calendar  v-show="mode === 'calendar'"></calendar>
       </div>
+
       <div class="slider-item bottom">
-        <div class="switch vertical" :class="{active: mode === 'calendar'}">
-          <div class="up">
-            <info></info>
-          </div>
-          <!-- <div class="down">
+        <simple-switch :class="{active: mode === 'calendar'}">
+          <info slot="up"></info>
+          <!-- <div slot="down">
             <small>VACATION: 20 days</small>
             <small>SICKNESS: 2 days</small>
           </div> -->
-        </div>
+        </simple-switch>
       </div>
     </div>
     <div class="main-footer">
-      <div class="switch vertical" :class="{active: toggle === 'save'}">
-        <div class="up">
-          <button>SAVE</button>
-        </div>
-        <div class="down">
-          DONE ;)
-        </div>
-      </div>
-      <div class="switch vertical animated" :class="{active: mode === 'picker' || mode === 'calendar'}">
-        <div class="up">
-          <button v-on:click="openCalendar">TIME OFF</button>
-        </div>
-        <div class="down">
-          <button v-on:click="close">CANCEL</button>
-        </div>
-      </div>
+      <simple-switch class="vertical hover animated">
+        <button slot="up">SAVE</button>
+        <button slot="down">DONE ;)</button>
+      </simple-switch>
+
+      <simple-switch class="vertical animated" :active="mode === 'picker' || mode === 'calendar'">
+        <button slot="up" v-on:click="openCalendar">TIME OFF</button>
+        <button slot="down" v-on:click="close">CANCEL</button>
+      </simple-switch>
     </div>
   </div>
-
-<!-- http://principlerepo.com/time-picker/ -->
-<!-- https://dribbble.com/shots/1057157-Calendar-Window-Rebound-ANIMATED -->
-<!-- https://tinyurl.com/y9hoduhy -->
 </template>
 
 <script>
-  import Info from './Info'
+  import SimpleSwitch from './SimpleSwitch'
   import DatePicker from './DatePicker'
   import TimePicker from './TimePicker'
   import InputTime from './InputTime'
   import InputNumber from './InputNumber'
   import Calendar from './Calendar'
   import SelectBox from './SelectBox'
+  import Info from './Info'
 
   export default {
     name: 'Time',
     components: {
-      Info,
+      SimpleSwitch,
       DatePicker,
       TimePicker,
       InputTime,
       InputNumber,
       Calendar,
-      SelectBox
+      SelectBox,
+      Info
     },
 
     data () {
@@ -424,64 +412,6 @@
 
 
 </style>
-
-<style>
-  .switch {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    /*background: #eee;*/
-    width: 100%;
-    height: 100%;
-  }
-
-  .switch.animated > div {
-    transition: flex 0.5s, opacity 0.3s;
-    transition-delay: 0.5s;
-  }
-
-  .switch > div {
-    width: 100%;
-    height: 100px;
-    overflow: hidden;
-
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-  }
-
-
-
-  /*.switch .up {
-    opacity: 1;
-  }
-
-  .switch .down {
-    opacity: 0;
-  }*/
-
-  .switch.active .up {
-    flex:1 1 0%;
-    opacity: 0;
-  }
-
-  .switch.active .down {
-    flex:1 1 100%;
-    opacity: 1;
-  }
-
-  .up {
-    flex:1 1 100%;
-    opacity: 1;
-  }
-
-  .down {
-    flex:1 1 0%;
-    opacity: 0;
-  }
-</style>
-
-
 
 
 <style>

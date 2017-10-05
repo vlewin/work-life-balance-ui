@@ -35,3 +35,7 @@ DESIGN INSPIRATIONS:
 - https://dribbble.com/shots/1057157-Calendar-Window-Rebound-ANIMATED
 - https://tinyurl.com/y9hoduhy
 - https://dribbble.com/shots/2098475-Calendar-date-range-picker
+- https://codepen.io/atelierbram/pen/XbGQqw
+- https://codepen.io/andylorimer/pen/meXadK
+- https://codepen.io/fornyhucker/pen/krnBE (WAIT?)
+- https://codepen.io/hrtzt/pen/JdYaEZ
