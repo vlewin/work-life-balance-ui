@@ -11,7 +11,7 @@
 
 <script>
   export default {
-    name: 'TimePicker',
+    name: 'SimpleSwitch',
     data () {
       return {
         time: '',
@@ -22,10 +22,6 @@
     props: {
       active: {
         type: Boolean
-      },
-
-      class: {
-        type: String
       }
     }
   }

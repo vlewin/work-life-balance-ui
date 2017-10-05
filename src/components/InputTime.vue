@@ -1,6 +1,6 @@
 <template>
-  <div class="input-time">
-    <div class="input-time-field" v-for="(hour, index) in hours" v-bind:class="{ selected: selected == index, set: hour.n }">
+  <div class="input-time" v-bind:class="{active: active}">
+    <div class="input-time-field" v-for="(hour, index) in hours" v-bind:class="{ selected: selected == index, set: isDirty(hour), done: done }">
       <div class="input-time-field-item" v-bind:class="[`hour-${index}`]">
         {{ hour.v }}
       </div>
@@ -11,7 +11,7 @@
 
     <div class="input-time-separator">:</div>
 
-    <div class="input-time-field" v-for="(minute, index) in minutes"  v-bind:class="{ selected: selected == index+2, set: minute.n }">
+    <div class="input-time-field" v-for="(minute, index) in minutes"  v-bind:class="{ selected: selected == index+2, set: isDirty(minute), done: done }">
       <div class="input-time-field-item">
         {{ minute.v }}
       </div>
@@ -32,11 +32,17 @@
     data () {
       return {
         fields: [{ v: '0', n: null }, { v: '0', n: null }, { v: '0', n: null }, { v: '0', n: null }],
+        timeout: null,
+        done: false,
         selected: 0
       }
     },
 
     props: {
+      active: {
+        default: false
+      },
+
       value: {
         type: String
       },
@@ -70,10 +76,17 @@
             this.next()
           } else if (index === 4) {
             field.n = val[index - 1]
-            this.selected = 0
+            this.selected = null
+            this.done = true
             console.log('DONE')
             // this.reset()
             // this.init()
+
+            clearTimeout(this.timeout)
+            this.timeout = setTimeout(() => {
+              this.swap()
+              this.reset()
+            }, 750)
           } else {
             // this.reset()
           }
@@ -90,11 +103,19 @@
           this.value.replace(':', '').split('').forEach((v, index) => {
             this.fields[index].v = v
           })
-        } else {
-          console.log('CREATED')
         }
+      },
 
-        console.log(JSON.stringify(this.fields))
+      isDirty (value) {
+        console.log('isDirty', JSON.stringify(value), value.n && value.v !== value.n)
+        return value.n && value.v !== value.n
+      },
+
+      swap () {
+        console.log('SWAP')
+        this.fields.forEach((field) => {
+          field.v = field.n
+        })
       },
 
       next () {
@@ -102,7 +123,11 @@
       },
 
       reset () {
-        Object.assign(this.$data, this.$options.data.call(this))
+        console.log('RESET')
+
+        this.done = false
+        this.selected = 0
+        // Object.assign(this.$data, this.$options.data.call(this))
       }
     }
   }
@@ -113,10 +138,21 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: rgba(0,0,0,0.1);
+    /*background: rgba(0,0,0,0.1);*/
     padding: 0 2vw;
     cursor: pointer;
     /*padding: 0 0.5rem;*/
+    font-size: 150%;
+
+  }
+
+  .input-time.active .selected {
+    background: rgba(0,0,0,0.3);
+  }
+
+  .input-time.active .input-time-field {
+    /*padding: 0 5px;*/
+    width: 4vh;
   }
 
   .input-time-field {
@@ -126,7 +162,6 @@
     flex-direction: column;
     transition: all 0.5s;
     height: 6vh;
-    /*width: 3.5vh;*/
     text-align: center;
     /*border-right: 1px solid #fff;*/
   }
@@ -138,8 +173,11 @@
   .input-time-field .input-time-field-item {
     overflow: hidden;
     vertical-align: middle;
-    transition: flex 0.5s, opacity 0.3s;
     text-align: center;
+  }
+
+  .input-time-field:not(.done) .input-time-field-item {
+    transition: flex 0.5s, opacity 0.3s;
   }
 
   .input-time-field .input-time-field-item:first-child {
@@ -172,8 +210,5 @@
     opacity: 1;
   }*/
 
-  div.selected {
-    /*background: rgba(0,0,0,0.1);*/
-  }
 
 </style>

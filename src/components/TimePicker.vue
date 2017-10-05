@@ -1,7 +1,7 @@
 <template>
   <div class="time-picker">
     <ul class="flex-container">
-      <li class="flex-item" v-for="value in [1,2,3,4,5,6,7,8,9,0]" v-on:click="setTime(value)">
+      <li class="flex-item" v-for="value in values" v-bind:class="{ disabled: !available.includes(value) }" v-on:click="setTime(value)">
         {{ value }}
       </li>
     </ul>
@@ -13,6 +13,7 @@
     name: 'TimePicker',
     data () {
       return {
+        values: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0],
         time: '',
         timeout: null
       }
@@ -28,15 +29,22 @@
       }
     },
 
+    computed: {
+      available () {
+        if (this.time.length === 0) {
+          return [0, 1, 2]
+        } else if (this.time.length === 3) {
+          return [0, 5]
+        }
+
+        return [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
+      }
+    },
+
     methods: {
       setTime (value) {
-        // if (this.time.length === 2) {
-        //   this.time = this.time + ':'
-        // }
-
         this.time = this.time + value
 
-        // if (this.time.length === 5) {
         if (this.time.length === 4) {
           this.$emit('change', this.target, this.time)
           this.time = ''
@@ -44,7 +52,7 @@
           clearTimeout(this.timeout)
           this.timeout = setTimeout(() => {
             this.$emit('close', value)
-          }, 1000)
+          }, 500)
         } else {
           this.$emit('change', this.target, this.time)
         }
@@ -79,7 +87,7 @@
     padding: 1rem;
     /*font-size: 130%;*/
     font-weight: bold;
-    color: #888;
+    color: #444;
     cursor: pointer;
   }
 
@@ -88,7 +96,8 @@
   }
 
   .disabled {
-    background: #ddd;
+    color: #ddd;
+    pointer-events: none;
   }
 
   .selected {

@@ -8,7 +8,7 @@
         <simple-switch class="vertical animated" :active="mode === 'calendar'">
           <div slot="up" class="form" :class="[{ active: picker.target }, picker.target, animationClass]">
             <h1 class="start" v-on:click="openPicker('start', form.start)">
-              <input-time class="start" :value="form.start"></input-time>
+              <input-time class="start" :active="mode" :value="form.start"></input-time>
             </h1>
             <h1 class="pause" v-on:click="openPicker('pause', form.pause)">
               <input-number></input-number>
