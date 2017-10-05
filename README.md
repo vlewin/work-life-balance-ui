@@ -39,3 +39,4 @@ DESIGN INSPIRATIONS:
 - https://codepen.io/andylorimer/pen/meXadK
 - https://codepen.io/fornyhucker/pen/krnBE (WAIT?)
 - https://codepen.io/hrtzt/pen/JdYaEZ
+- https://codepen.io/CesarGabriel/pen/KLqEb
