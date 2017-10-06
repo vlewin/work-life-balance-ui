@@ -54,14 +54,12 @@ export default class Timestamp {
   }
 
   static estimateEnd () {
-    console.info('estimateEnd - ', start)
     const start = this.timeToNumber(this.now())
     const estimation = start + 8.5
     return estimation > 24 ? '24:00' : this.numberToTime(estimation)
   }
 
   static estimatePause () {
-    console.info('estimatePause - ', start)
     const start = this.timeToNumber(this.now())
     const estimation = start + 8.5
     return estimation > 24 ? '00:00' : this.numberToTime(estimation)

@@ -69,6 +69,9 @@
 <script>
   import TimePicker from './TimePicker'
   import Timestamp from '../models/timestamp'
+  import Vue from 'vue'
+  import VueTimepicker from 'vue2-timepicker'
+  Vue.use(VueTimepicker)
 
   export default {
     name: 'Time',

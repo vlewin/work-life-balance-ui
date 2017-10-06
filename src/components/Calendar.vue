@@ -26,7 +26,7 @@
 <script>
   Array.range = (start, end) => [...Array((end - start) + 1)].map((_, i) => (start + i).toString().padStart(2, '0'))
 
-  const Calendator = require('calendator')
+  import Calendator from 'calendator'
   const calendator = new Calendator(Calendator.MON)
 
   export default {
@@ -66,9 +66,6 @@
     },
 
     watch: {
-      value (val) {
-
-      }
     },
 
     methods: {
@@ -125,6 +122,7 @@
   }
 
   .month {
+    color: #444;
     display: flex;
     justify-content: space-around;
     align-items: center;

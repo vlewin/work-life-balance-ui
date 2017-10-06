@@ -1,9 +1,9 @@
 <template>
   <div class="switch" v-bind:class="{ active: active }">
-    <div class="up">
+    <div class="switch-item up">
       <slot name="up"></slot>
     </div>
-    <div class="down">
+    <div class="switch-item down">
       <slot name="down"></slot>
     </div>
   </div>
@@ -28,21 +28,23 @@
 </script>
 
 <style scoped>
+  /* NOTE: Adding white-space: nowrap; to the div prevented the text from, well, wrapping, and extending the div. */
+  /* SOURCE: https://stackoverflow.com/questions/31475737/how-can-i-make-the-height-of-a-div-transition-smoothly-with-content-and-width */
   .switch {
     display: flex;
     justify-content: center;
     align-items: center;
-    /*background: #eee;*/
     width: 100%;
     height: 100%;
+    /*background: #07c;*/
+    white-space: nowrap;
   }
 
-  .switch.animated > div {
-    transition: flex 0.5s, opacity 0.3s;
-    transition-delay: 0.5s;
+  .switch.vertical {
+    flex-direction: column;
   }
 
-  .switch > div {
+  .switch .switch-item {
     width: 100%;
     height: 100%;
     overflow: hidden;
@@ -50,45 +52,51 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
+    overflow: hidden;
   }
 
+  .switch.animated .switch-item {
+    transition: flex 0.5s, opacity 0.5s;
+    /*transition-delay: 0.5s;*/
+  }
 
+  .switch.horizontal.animated .switch-item {
+    transition-delay: 0.5s;
+  }
 
-  /*.switch .up {
+  .switch.active .switch-item.up {
+    flex: 1 1 0%;
+  }
+
+  .switch.active .switch-item.down {
+    flex: 1 1 100%;
+  }
+
+  .switch .switch-item.up {
+    flex: 1 1 100%;
+    /*background: #07c;*/
+  }
+
+  .switch .switch-item.down {
+    flex: 1 1 0%;
+    /*background: #50A7C2;*/
+  }
+
+  .switch.horizontal.active .switch-item.up {
+    opacity: 0;
+  }
+
+  .switch.horizontal.active .switch-item.down {
     opacity: 1;
   }
 
-  .switch .down {
-    opacity: 0;
-  }*/
-
-  .switch.hover:hover .up {
-    flex:1 1 0%;
-    opacity: 0;
-  }
-
-  .switch.hover:hover .down {
-    flex:1 1 100%;
+  .switch.horizontal .switch-item.up {
     opacity: 1;
   }
 
-  .switch.active .up {
-    flex:1 1 0%;
+  .switch.horizontal .switch-item.down {
     opacity: 0;
   }
 
-  .switch.active .down {
-    flex:1 1 100%;
-    opacity: 1;
-  }
 
-  .up {
-    flex:1 1 100%;
-    opacity: 1;
-  }
-
-  .down {
-    flex:1 1 0%;
-    opacity: 0;
-  }
 </style>

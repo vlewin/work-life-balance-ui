@@ -4,8 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import moment from 'moment'
-// import VueTimepicker from 'vue2-timepicker'
-// Vue.use(VueTimepicker)
+import './assets/application.sass'
 Vue.config.productionTip = false
 
 Object.defineProperty(Vue.prototype, '$time', { value: moment })

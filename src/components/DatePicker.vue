@@ -74,6 +74,7 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
+    width: 100%;
     height: 100%;
 
     background: #004a9f;
@@ -90,6 +91,7 @@
     border-radius: 50%;
     vertical-align: middle;
     transition: color .2s, background 1s;
+    /*background: rgba(0,0,0,0.1);*/
   }
 
   .arrow {

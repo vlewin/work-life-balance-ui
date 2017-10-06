@@ -13,11 +13,13 @@ TODO:
 
 
 SOURCES:
+## CSS AND LAYOUT
 - https://medium.com/flexbox-and-grids/how-to-efficiently-master-the-css-grid-in-a-jiffy-585d0c213577
 - https://gridbyexample.com/examples/
 - https://css-tricks.com/css-grid-replace-flexbox/
 - https://scotch.io/tutorials/a-visual-guide-to-css3-flexbox-properties
 - https://tympanus.net/codrops/css_reference/flexbox/
+- https://code.tutsplus.com/tutorials/the-30-css-selectors-you-must-memorize--net-16048
 
 > Flexbox is essentially for laying out items in a single dimension – in a row OR a column. Grid is for layout of items in two dimensions – rows AND columns.
 

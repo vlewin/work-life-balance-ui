@@ -136,11 +136,15 @@
   .header .date {
     display: flex;
     flex-direction: column;
-    margin-left: 10px;
+    margin-left: 0.4rem;
   }
 
   .header .date span {
     font-size: 1.5vh;
+  }
+
+  .header .blink {
+    margin: -0.2rem;
   }
 
   img {

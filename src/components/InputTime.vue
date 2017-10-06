@@ -84,7 +84,7 @@
 
             clearTimeout(this.timeout)
             this.timeout = setTimeout(() => {
-              this.swap()
+              // this.swap()
               this.reset()
             }, 750)
           } else {
@@ -142,7 +142,7 @@
     padding: 0 2vw;
     cursor: pointer;
     /*padding: 0 0.5rem;*/
-    font-size: 150%;
+    /*font-size: 150%;*/
 
   }
 

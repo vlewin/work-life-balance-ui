@@ -1,10 +1,63 @@
 <template>
   <div class="main">
     <div class="main-header">
-      <date-picker v-on:prevWeek="animate('left')" v-on:nextWeek="animate('right')"></date-picker>
+      <date-picker></date-picker>
     </div>
-    <div class="main-body slider" :class="{ active: sliderOpen }">
-      <div class="slider-item top">
+    <div class="main-body" :class="{ active: sliderOpen }">
+      <slider>
+        <div slot="left">
+          LEFT
+        </div>
+        <div class="center">
+          <div class="top">
+            TOP
+          </div>
+          <div class="middle">
+            CENTER
+          </div>
+          <div class="bottom">
+            BOTTOM
+          </div>
+
+        </div>
+        <!-- <simple-switch slot="center" class="vertical animated" :active="mode === 'picker'">
+          <div slot="up" class="slider vertical">
+            <div class="top">
+              AAA
+            </div>
+            <div class="middle">
+              BBB
+            </div>
+            <div class="bottom">
+              CCC
+            </div>
+          </div>
+        </simple-switch> -->
+
+        <!-- <simple-switch slot="center" id="form" class="vertical animated" :active="mode === 'calendar'">
+          <div slot="up" class="form" :class="[{ active: picker.target }, picker.target, animationClass]">
+            <h1 class="start" v-on:click="openPicker('start', form.start)">
+              <input-time class="start" :active="mode" :value="form.start"></input-time>
+            </h1>
+            <h1 class="pause" v-on:click="openPicker('pause', form.pause)">
+              <input-number></input-number>
+            </h1>
+            <h1 class="end" v-on:click="openPicker('end', form.end)">
+              <input-time :value="form.end"></input-time>
+            </h1>
+          </div>
+
+          <info class="start"></info>
+
+
+          <div slot="down">
+            <time-picker v-show="mode === 'picker'" :target="picker.target" :value="picker.value" v-on:change="setValue" v-on:close="closePicker"></time-picker>
+          </div>
+          <select-box slot="down"></select-box>
+        </simple-switch> -->
+      </slider>
+
+      <!-- <div class="slider-item top">
         <simple-switch class="vertical animated" :active="mode === 'calendar'">
           <div slot="up" class="form" :class="[{ active: picker.target }, picker.target, animationClass]">
             <h1 class="start" v-on:click="openPicker('start', form.start)">
@@ -30,12 +83,8 @@
       <div class="slider-item bottom">
         <simple-switch :class="{active: mode === 'calendar'}">
           <info slot="up"></info>
-          <!-- <div slot="down">
-            <small>VACATION: 20 days</small>
-            <small>SICKNESS: 2 days</small>
-          </div> -->
         </simple-switch>
-      </div>
+      </div> -->
     </div>
     <div class="main-footer">
       <simple-switch class="vertical hover animated">
@@ -52,6 +101,7 @@
 </template>
 
 <script>
+  import Slider from './Slider'
   import SimpleSwitch from './SimpleSwitch'
   import DatePicker from './DatePicker'
   import TimePicker from './TimePicker'
@@ -64,6 +114,7 @@
   export default {
     name: 'Time',
     components: {
+      Slider,
       SimpleSwitch,
       DatePicker,
       TimePicker,
@@ -107,6 +158,13 @@
       selectDay (day) {
         this.today = day
         this.$parent.day = day
+      },
+
+      animate (direction) {
+        // this.animationClass = `move-${direction}`
+        // setTimeout(() => {
+        //   this.animationClass = null
+        // }, 500)
       },
 
       openPicker (target, value) {
@@ -174,6 +232,19 @@
   }
 </script>
 <style>
+  /*.flex {
+    display: flex;
+  }
+
+  .flex-column {
+    flex-direction: column;
+    width: 100%;
+  }*/
+
+  .flex-row {
+    flex-direction: row;
+  }
+
   @-webkit-keyframes blinker {
     from {opacity: 1.0;}
     to {opacity: 0.0;}
@@ -363,7 +434,6 @@
 
   .slider.active .top {
     flex:1 1 20%;
-    background: #1675d1;
     color: #fff;
   }
 
@@ -386,12 +456,12 @@
 
   .top {
     flex:1 1 20%;
-    background: #1675d1;
+    background: #00bcd7;
     color: #fff;
   }
 
   .middle {
-    background: white;
+    background: #FFBF00;
     flex:1 1 0%;
   }
 
@@ -400,7 +470,7 @@
     flex:1 1 80%;
     height: 100%;
     /*background: #1675d1;*/
-    background: #fff;
+    background: tomato;
   }
 
 

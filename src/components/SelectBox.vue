@@ -1,8 +1,8 @@
 <template>
   <div class="select-box">
-    <span class="select-box-item">VACATION</span>
-    <span class="select-box-item">SICKNESS</span>
-    <span class="select-box-item">HOLIDAY</span>
+    <span class="select-box-item">TODAY</span>
+    <span class="select-box-item">WEEK</span>
+    <span class="select-box-item">MONTH</span>
   </div>
 </template>
 

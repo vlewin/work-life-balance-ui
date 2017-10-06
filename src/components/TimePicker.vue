@@ -1,5 +1,6 @@
 <template>
   <div class="time-picker">
+    <input-time class="end" active="true" target="end" value="12:00"></input-time>
     <ul class="flex-container">
       <li class="flex-item" v-for="value in values" v-bind:class="{ disabled: !available.includes(value) }" v-on:click="setTime(value)">
         {{ value }}
@@ -9,11 +10,23 @@
 </template>
 
 <script>
+  import InputTime from './InputTime'
+
   export default {
     name: 'TimePicker',
+    components: {
+      InputTime
+    },
+
     data () {
       return {
         values: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0],
+        valid: {
+          0: [0, 1, 2],
+          1: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+          2: [0,1, 2, 3, 4, 5],
+          3: [0, 5]
+        },
         time: '',
         timeout: null
       }
@@ -31,13 +44,7 @@
 
     computed: {
       available () {
-        if (this.time.length === 0) {
-          return [0, 1, 2]
-        } else if (this.time.length === 3) {
-          return [0, 5]
-        }
-
-        return [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
+        return this.valid[this.time.length]
       }
     },
 
@@ -51,7 +58,7 @@
 
           clearTimeout(this.timeout)
           this.timeout = setTimeout(() => {
-            this.$emit('close', value)
+            this.$emit('done', value)
           }, 500)
         } else {
           this.$emit('change', this.target, this.time)
