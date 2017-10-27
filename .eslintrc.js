@@ -9,7 +9,11 @@ module.exports = {
     ],
 
     "parserOptions": {
-        "sourceType": "module"
+        "ecmaVersion": 6,
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "experimentalObjectRestSpread": true
+        }
     },
     "rules": {
         "no-debugger": 0,
