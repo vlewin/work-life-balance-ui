@@ -30,20 +30,20 @@
 </template>
 
 <script>
-  import Card from './Card'
-  import Slider from './Slider'
-  import Calendar from './Calendar'
-  import SimpleSwitch from './SimpleSwitch'
-  import MonthPicker from './MonthPicker'
+  import Card from './shared/Card'
+  import MonthPicker from './shared/MonthPicker'
+  import Slider from './shared/Slider'
+  import Calendar from './shared/Calendar'
+  import SimpleSwitch from './shared/SimpleSwitch'
 
   export default {
     name: 'AbsencePage',
     components: {
       Card,
+      MonthPicker,
       Slider,
       Calendar,
       SimpleSwitch,
-      MonthPicker
     },
 
     data () {

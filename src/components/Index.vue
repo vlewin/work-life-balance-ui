@@ -7,18 +7,18 @@
 </template>
 
 <script>
-  import Pager from './Pager'
   import HomePage from './HomePage'
   import ReportPage from './ReportPage'
   import AbsencePage from './AbsencePage'
+  import Pager from './shared/Pager'
 
   export default {
     name: 'Index',
     components: {
-      Pager,
       HomePage,
       ReportPage,
-      AbsencePage
+      AbsencePage,
+      Pager
     },
 
     data () {

@@ -42,34 +42,25 @@
 </template>
 
 <script>
-  import Pager from './Pager'
-  import Card from './Card'
-  import Slider from './Slider'
-  import SimpleSwitch from './SimpleSwitch'
-  import SimpleSlider from './SimpleSlider'
-  import DatePicker from './DatePicker'
+  import Card from './shared/Card'
+  import DatePicker from './shared/DatePicker'
+  import SimpleSlider from './shared/SimpleSlider'
+  import SimpleSwitch from './shared/SimpleSwitch'
+  import TimePicker from './shared/TimePicker'
   import Info from './Info'
-  import NumberPicker from './NumberPicker'
-  import TimePicker from './TimePicker'
 
   import differenceInMinutes from 'date-fns/difference_in_minutes'
   import format from 'date-fns/format'
   import addHours from 'date-fns/add_hours'
-  // import setMinutes from 'date-fns/set_minutes'
-
-  window.format = format
 
   export default {
     name: 'HomePage',
     components: {
-      Pager,
       Card,
-      Slider,
-      SimpleSwitch,
-      SimpleSlider,
       DatePicker,
+      SimpleSlider,
+      SimpleSwitch,
       Info,
-      NumberPicker,
       TimePicker
     },
 

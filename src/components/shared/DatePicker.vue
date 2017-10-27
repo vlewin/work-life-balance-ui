@@ -14,7 +14,7 @@
 
 <script>
   // FIXME: replace with date-fns
-  import { weekNumber, weekStartDay, weekDaysRange } from '../helpers/date'
+  import { weekNumber, weekStartDay, weekDaysRange } from '../../helpers/date'
   import holiday from 'german-holiday'
 
   export default {

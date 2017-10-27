@@ -26,8 +26,8 @@
   import VueTrend from 'vuetrend'
   import VueBars from 'vuebars'
 
-  import Card from './Card'
-  import MonthPicker from './MonthPicker'
+  import Card from './shared/Card'
+  import MonthPicker from './shared/MonthPicker'
 
   export default {
     name: 'ReportPage',
