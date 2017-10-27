@@ -5,19 +5,20 @@
       &nbsp;+20&deg;C
     </div>
     <div class="height-33">
-      <h1 v-if="isHappy">
-        <i class="fa fa-smile-o" aria-hidden="true"></i>
-        Happy!
-      </h1>
-
-      <h1 v-else>
-        <i class="fa fa-frown-o" aria-hidden="true"></i>
-        Unhappy!
-      </h1>
+      <h1>{{ duration }} hours</h1>
     </div>
     <div class="height-33">
-      <h4>{{ duration }} hours</h4>
+      <h4 v-if="isHappy">
+        <i class="fa fa-smile-o" aria-hidden="true"></i>
+        Happy!
+      </h4>
+
+      <h4 v-else>
+        <i class="fa fa-frown-o" aria-hidden="true"></i>
+        Unhappy!
+      </h4>
     </div>
+
   </div>
 </template>
 <script>

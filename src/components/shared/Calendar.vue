@@ -176,9 +176,9 @@
     display: inline-block;
     color: #444;
     list-style: none;
-    height: 2.2rem;
-    width: 2.2rem;
-    line-height: calc(2.2rem - 0.2rem);
+    height: 2.0rem;
+    width: 2.0rem;
+    line-height: calc(2.0rem - 0.2rem);
     text-align: center;
     border: 0.1rem solid #fff;
   }
@@ -275,7 +275,7 @@
     text-align: center;
     position: absolute;
     z-index: 1;
-    font-size: 0.2rem;
+    font-size: 0.3rem;
     margin: -2.4rem -2.7rem;
     padding: 0 0.2rem;
     text-overflow: ellipsis;
