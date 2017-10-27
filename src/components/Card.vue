@@ -8,7 +8,7 @@
       <slot name="body">BODY</slot>
     </div>
 
-    <div class="card-footer">
+    <div class="card-footer blue">
       <slot name="footer">FOOTER</slot>
     </div>
   </div>
@@ -31,6 +31,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    color: #fff;
   }
 
   .card-header > * {
@@ -52,7 +53,7 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    border-top: 1px solid #eee;
+    /*border-top: 1px solid #eee;*/
   }
 
   .card-footer button {
@@ -63,6 +64,7 @@
     width: 100%;
     height: 100%;
     color: #fff;
+    border-radius: unset;
   }
 
   .card-footer button:hover {

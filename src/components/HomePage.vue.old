@@ -1,0 +1,153 @@
+<template>
+  <card>
+    <date-picker slot="header"></date-picker>
+
+    <slider slot="body" class="horizontal height-25" :active="slider.active" :focused="slider.field">
+      <h1 slot="left" v-on:click="openSlider({ field: 'left', target: 'start', active: false })">
+        <input-time class="start" :active="slider.target === 'start'" target="start" :value="form.start"></input-time>
+      </h1>
+      <h1 slot="center">30</h1>
+      <h1 slot="right" v-on:click="openSlider({ field: 'right', target: 'end', active: false })">
+        <input-time class="end" :active="slider.target === 'end'" target="end" :value="form.end"></input-time>
+      </h1>
+    </slider>
+
+    <simple-switch slot="body" class="vertical animated text-primary" :active="slider.active">
+      <time-picker slot="up" :target="slider.target" v-on:change="setValue" v-on:done="closeSlider"></time-picker>
+      <info slot="down" :duration="duration" v-on:click.native="navigate('page-1')"></info>
+    </simple-switch>
+
+    <simple-switch slot="footer" class="vertical animated primary">
+      <button slot="up">SAVE</button>
+      <button slot="down">DONE ;)</button>
+    </simple-switch>
+
+    <simple-switch slot="footer" class="horizontal animated primary" :active="timepicker">
+      <button slot="up" v-on:click="navigate('page-3')">ABSENCE</button>
+      <button slot="down" v-on:click="closeSlider">CANCEL</button>
+    </simple-switch>
+  </card>
+</template>
+
+<script>
+  import Pager from './Pager'
+  import Card from './Card'
+  import Slider from './Slider'
+  import SimpleSwitch from './SimpleSwitch'
+  import DatePicker from './DatePicker'
+  import Info from './Info'
+  import TimePicker from './TimePicker'
+  import InputTime from './InputTime'
+  import InputNumber from './InputNumber'
+  import Calendar from './Calendar'
+  import SelectBox from './SelectBox'
+
+  import differenceInMinutes from 'date-fns/difference_in_minutes'
+  import format from 'date-fns/format'
+  import addHours from 'date-fns/add_hours'
+  // import setMinutes from 'date-fns/set_minutes'
+
+  window.format = format
+
+  export default {
+    name: 'HomePage',
+    components: {
+      Pager,
+      Card,
+      Slider,
+      SimpleSwitch,
+      DatePicker,
+      Info,
+      TimePicker,
+      Calendar,
+      SelectBox,
+      InputTime,
+      InputNumber
+    },
+
+    data () {
+      return {
+        page: 'page-2',
+        current: format(new Date(), 'YYYY-MM-DD'),
+        slider: {
+          field: null,
+          target: null,
+          active: true
+        },
+
+        form: {
+          start: '09:00',
+          pause: '30',
+          end: '17:30',
+        },
+
+        timepicker: false
+      }
+    },
+
+    mounted () {
+    },
+
+    computed: {
+      start () {
+        if(this.form.start && this.form.start.includes(':')) {
+          return new Date(`${this.current} ${this.form.start}`)
+        }
+
+        return null
+      },
+
+      end () {
+        return new Date(`${this.current} ${this.form.end}`)
+      },
+
+      duration () {
+        return this.total - (parseInt(this.form.pause) / 60)
+      },
+
+      total () {
+        return (differenceInMinutes(this.end, this.start) / 60).toFixed(2)
+      }
+    },
+
+    watch: {
+      start(val) {
+        if(val) {
+          console.log('start value changed', val)
+          this.calculateEnd()
+        }
+
+      }
+    },
+
+    methods: {
+      calculateEnd() {
+        console.log('calculateEnd-', format(addHours(this.start, 8), 'HH:mm'))
+        this.form.end = format(addHours(this.start, 8), 'HH:mm')
+      },
+
+      navigate (page) {
+        this.$parent.$parent.page = page
+        this.mode = 'edit'
+      },
+
+      openSlider(options) {
+        this.slider = options
+        this.togglePicker(true)
+      },
+
+      closeSlider() {
+        this.slider = this.$options.data().slider
+        this.togglePicker(false)
+      },
+
+      togglePicker(open=true) {
+        this.timepicker = open
+      },
+
+      setValue (target, value) {
+        this.form[target] = value
+      }
+    }
+  }
+</script>

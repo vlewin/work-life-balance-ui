@@ -1,8 +1,8 @@
 <template>
   <div class="time-picker">
-    <input-time class="end" active="true" target="end" value="12:00"></input-time>
+    <input-time class="width-100 height-20 amber" :init-value="initValue" :value="time"></input-time>
     <ul class="flex-container">
-      <li class="flex-item" v-for="value in values" v-bind:class="{ disabled: !available.includes(value) }" v-on:click="setTime(value)">
+      <li class="flex-item" v-for="value in values" v-bind:class="{ disabled: !setable.includes(value) }" v-on:click="setTime(value)">
         {{ value }}
       </li>
     </ul>
@@ -27,12 +27,17 @@
           2: [0,1, 2, 3, 4, 5],
           3: [0, 5]
         },
-        time: '',
-        timeout: null
+
+        timeout: null,
+        time: ''
       }
     },
 
     props: {
+      initValue: {
+        type: String
+      },
+
       value: {
         type: String
       },
@@ -43,26 +48,61 @@
     },
 
     computed: {
+      setable() {
+        // NOTE: Avoid invalid time e.g. 24, 25, 29
+        if(this.time.startsWith('2') && this.time.length === 1) {
+          console.log('Starts with 2')
+          console.log(JSON.stringify(this.available.filter((h) => h < 4)))
+          return this.available.filter((h) => h < 4)
+        } else {
+          console.log(this.time)
+        }
+
+        return this.available
+      },
+
       available () {
-        return this.valid[this.time.length]
+        return (this.valid[this.time.length] || [])
+      }
+    },
+
+    watch: {
+      initValue(val) {
+        if(val) {
+          console.log('TimePicker - initValue change - addEventListener', val)
+          window.addEventListener('keyup', this.keyup)
+        } else {
+          console.error('TimePicker - Empty initValue - removeEventListener !!!')
+          window.removeEventListener('keyup', this.keyup)
+        }
       }
     },
 
     methods: {
+      keyup(event) {
+        const key = parseInt(event.key)
+        console.log('TimePicker - key pressed: ', key)
+        if(this.setable.includes(key)) {
+          this.setTime(event.key)
+        }
+      },
+
       setTime (value) {
         this.time = this.time + value
 
         if (this.time.length === 4) {
-          this.$emit('change', this.target, this.time)
-          this.time = ''
-
           clearTimeout(this.timeout)
           this.timeout = setTimeout(() => {
-            this.$emit('done', value)
+            this.$emit('changed', this.target, this.time.match(/.{1,2}/g).join(':'))
+            this.$emit('done')
+            this.time = ''
           }, 500)
-        } else {
-          this.$emit('change', this.target, this.time)
         }
+      },
+
+      reset() {
+        window.removeEventListener('keyup')
+        this.time = ''
       }
     }
   }
@@ -71,8 +111,12 @@
 
 <style scoped>
   .time-picker {
-    width: 80%;
-    height: 80%;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
   }
 
   .flex-container {
@@ -83,8 +127,8 @@
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    width: 100%;
-    height: 100%;
+    width: 80%;
+    height: 80%;
   }
 
   .flex-item {

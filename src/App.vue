@@ -126,7 +126,7 @@
   }
 
   .header-right {
-    letter-spacing: -0.1rem;
+    /*letter-spacing: -0.1rem;*/
   }
 
   .header-left h1, .time {
@@ -144,7 +144,7 @@
   }
 
   .header .blink {
-    margin: -0.2rem;
+    margin: -0.4rem;
   }
 
   img {

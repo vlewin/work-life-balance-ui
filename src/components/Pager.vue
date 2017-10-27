@@ -2,7 +2,7 @@
   <div class="wrapper">
     <div class="window" v-bind:class="[active]">
       <!-- <div class="sticky">♥</div> -->
-      <div class="page page-1 cyan">
+      <div class="page page-1">
         <slot name="left"></slot>
         <!-- <a v-on:click.prevent="prev('page-2')">BACK TO CENTER &raquo;</a> -->
 
@@ -10,7 +10,7 @@
       <div class="page page-2">
         <slot name="center"></slot>
       </div>
-      <div class="page page-3 grey-blue">
+      <div class="page page-3">
         <slot name="right"></slot>
         <!-- <a v-on:click.prevent="prev('page-2')">&laquo; BACK TO CENTER</a>
         <div class="sticky">♥</div> -->
@@ -56,7 +56,7 @@
   }
 
   .window {
-    width: 300%;
+    width: calc(300%);
     height: 100%;
     overflow: hidden;
     display: flex;
@@ -78,11 +78,11 @@
   }
 
   .page {
-    width: calc(100% / 3);
+    width: calc(100% / 3 + 1px);
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #fff;
+    /*color: #fff;*/
     /*font-size: 200%;*/
   }
 

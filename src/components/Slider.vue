@@ -1,14 +1,14 @@
 <template>
   <div slot="body" class="slider" v-bind:class="{ active: active }">
-    <div class="slider-item left green" v-bind:class="{ focused: isFocused('left') }">
+    <div class="slider-item left green" v-bind:class="{ focused: isFocused(0) }">
       <slot name="left"></slot>
       <slot name="top"></slot>
     </div>
-    <div class="slider-item center amber" v-bind:class="{ focused: isFocused('center') }">
+    <div class="slider-item center amber" v-bind:class="{ focused: isFocused(1) }">
       <slot name="center"></slot>
       <slot name="middle"></slot>
     </div>
-    <div class="slider-item right tomato" v-bind:class="{ focused: isFocused('right') }">
+    <div class="slider-item right tomato" v-bind:class="{ focused: isFocused(2) }">
       <slot name="right"></slot>
       <slot name="bottom"></slot>
     </div>
@@ -30,7 +30,7 @@
       },
 
       focused: {
-        type: String
+        type: Number
       }
     },
 
@@ -64,11 +64,19 @@
   .slider .slider-item {
     height: 100%;
     overflow: hidden;
-    transition: flex 0.5s;
+    transition: flex 0.3s;
     display: flex;
     justify-content: space-around;
     align-items: center;
     cursor: pointer;
+  }
+
+  .slider .slider-item > * {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
   }
 
   .slider .slider-item:not(.focused) {

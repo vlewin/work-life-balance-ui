@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Index from '@/components/Index'
 import Main from '@/components/Main'
-import InputTime from '@/components/InputTime'
+import SimpleSlider from '@/components/SimpleSlider'
 
 Vue.use(Router)
 
@@ -20,8 +20,8 @@ export default new Router({
     },
     {
       path: '/wip',
-      name: 'InputTime',
-      component: InputTime
+      name: 'SimpleSlider',
+      component: SimpleSlider
     }
     // {
     //   path: '/flex',

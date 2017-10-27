@@ -3,8 +3,8 @@
     <li class="arrow" v-on:click="prevWeek">
       &laquo;
     </li>
-    <li v-for="d in week" v-on:click="selectDay(d)" v-bind:class="{selected: d.getDate() == selected.getDate() }">
-      {{ d.getDate() }}
+    <li class="uppercase" v-for="d in week" v-on:click="selectDay(d)" v-bind:class="{ selected: isSelected(d), weekend: isWeekend(d), holiday: isHoliday(d) }">
+      {{ weekdays[d.getDay()] }}
     </li>
     <li class="arrow" v-on:click="nextWeek">
       &raquo;
@@ -13,7 +13,9 @@
 </template>
 
 <script>
+  // FIXME: replace with date-fns
   import { weekNumber, weekStartDay, weekDaysRange } from '../helpers/date'
+  import holiday from 'german-holiday'
 
   export default {
     name: 'DatePicker',
@@ -23,7 +25,7 @@
         selected: new Date(),
         year: new Date().getFullYear(),
         week: [],
-        weekdays: ['Mo', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+        weekdays: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']
       }
     },
 
@@ -32,11 +34,25 @@
     },
 
     methods: {
-      selectDay (day) {
-        this.selected = day
-        this.$parent.$parent.date = day
+      isSelected(date) {
+        return date.getDate() === this.selected.getDate()
       },
 
+      isWeekend(date) {
+        return date.getDay() == 6 || date.getDay() == 0
+      },
+
+      isHoliday(date) {
+        console.log(date, holiday.holidayCheck(date, 'BY'))
+        return holiday.holidayCheck(date, 'BY')
+      },
+
+      selectDay (date) {
+        this.selected = date
+        this.$parent.$parent.$parent.$parent.$parent.date = date
+      },
+
+      // FIXME: Use date-fns
       prevWeek () {
         if (this.current > 0) {
           this.current = this.current - 1
@@ -50,6 +66,7 @@
         this.$emit('prevWeek')
       },
 
+      // FIXME: Use date-fns
       nextWeek () {
         if (this.current === 52) {
           this.current = 0
@@ -84,23 +101,37 @@
   li {
     cursor: pointer;
     list-style: none;
-    width: 2rem;
-    height: 2rem;
+    width: 2.2rem;
+    height: 2.2rem;
     line-height: 2rem;
-    text-align: center;
     border-radius: 50%;
-    vertical-align: middle;
     transition: color .2s, background 1s;
-    /*background: rgba(0,0,0,0.1);*/
+    border: 0.1rem solid #004a9f;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: bold;
   }
 
   .arrow {
-    /*background: rgba(0,0,0,0.1);*/
+    background: rgba(0,0,0,0.1);
+    font-size: 1.4rem;
+    line-height: 1.7rem;
   }
 
   .selected {
-    background: #1675d1;
-    /*background: #3D70BC;*/
+    background: #fff;
+    color: #004a9f;
+  }
+
+  .weekend {
+    /*background: rgba(0,0,0,0.3);*/
+    color: #607d8d;
+    pointer-events: none;
+  }
+
+  .holiday {
+    background: tomato;
     color: #fff;
+    pointer-events: none;
   }
 </style>
