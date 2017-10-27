@@ -30,6 +30,8 @@
 </template>
 
 <script>
+  import { mapActions } from 'vuex'
+
   import Card from './shared/Card'
   import MonthPicker from './shared/MonthPicker'
   import Slider from './shared/Slider'
@@ -61,16 +63,16 @@
     },
 
     methods: {
+      ...mapActions([
+        'navigate', // map `this.increment()` to `this.$store.dispatch('increment')`
+      ]),
+
       setDate(date) {
         this.date = date
       },
 
       toggleReason (reason) {
         this.reason = this.reason === reason ? null : reason
-      },
-
-      navigate (page) {
-        this.$parent.$parent.page = page
       },
 
       reset() {

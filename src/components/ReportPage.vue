@@ -23,6 +23,8 @@
 </template>
 
 <script>
+  import { mapActions } from 'vuex'
+
   import VueTrend from 'vuetrend'
   import VueBars from 'vuebars'
 
@@ -91,6 +93,10 @@
     },
 
     methods: {
+      ...mapActions([
+        'navigate', // map `this.increment()` to `this.$store.dispatch('increment')`
+      ]),
+
       generate() {
         this.data = [
           0,
@@ -122,10 +128,6 @@
 
       getRandomInt(min=6, max=10) {
         return Math.floor(Math.random() * (max - min + 1) + min)
-      },
-
-      navigate (page) {
-        this.$parent.$parent.page = page
       },
 
       setDate(date) {

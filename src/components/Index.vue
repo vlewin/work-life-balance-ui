@@ -23,7 +23,6 @@
 
     data () {
       return {
-        page: 'page-2',
       }
     },
 
@@ -32,12 +31,13 @@
     },
 
     computed: {
+      page() {
+        return this.$store.state.page
+      }
     },
 
     methods: {
-      navigate (page) {
-        this.page = page
-      },
+
     }
   }
 </script>

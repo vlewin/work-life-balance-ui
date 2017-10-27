@@ -42,16 +42,17 @@
 </template>
 
 <script>
+  import { mapActions } from 'vuex'
+  import differenceInMinutes from 'date-fns/difference_in_minutes'
+  import format from 'date-fns/format'
+  import addHours from 'date-fns/add_hours'
+
   import Card from './shared/Card'
   import DatePicker from './shared/DatePicker'
   import SimpleSlider from './shared/SimpleSlider'
   import SimpleSwitch from './shared/SimpleSwitch'
   import TimePicker from './shared/TimePicker'
   import Info from './Info'
-
-  import differenceInMinutes from 'date-fns/difference_in_minutes'
-  import format from 'date-fns/format'
-  import addHours from 'date-fns/add_hours'
 
   export default {
     name: 'HomePage',
@@ -130,14 +131,13 @@
     },
 
     methods: {
+      ...mapActions([
+        'navigate', // map `this.increment()` to `this.$store.dispatch('increment')`
+      ]),
+
       calculateEnd() {
         console.log('HomePage - calculateEnd:', format(addHours(this.start, 8), 'HH:mm'))
         this.form.end = format(addHours(this.start, 8.5), 'HH:mm')
-      },
-
-      navigate (page) {
-        this.$parent.$parent.page = page
-        this.mode = 'edit'
       },
 
       openSlider(options) {
