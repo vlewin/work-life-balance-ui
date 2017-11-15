@@ -3,7 +3,7 @@
     <li class="arrow" v-on:click="prevWeek">
       &laquo;
     </li>
-    <li class="uppercase" v-for="date in week" v-on:click="selectDay(date)" v-bind:class="addClasses(date)">
+    <li class="uppercase" v-for="date in week" v-bind:data-hours="Math.floor(Math.random() * 10)" v-on:click="selectDay(date)" v-bind:class="addClasses(date)">
       {{ weekdays[date.getDay()] }}
     </li>
     <li class="arrow" v-on:click="nextWeek">
@@ -146,7 +146,7 @@
   }
 
   .stored::after {
-    content: '8.5';
+    content: attr(data-hours);
     font-size: 0.1rem;
     display: block;
     position: absolute;
@@ -154,7 +154,7 @@
     height: 1rem;
     line-height: 1rem;
     border-radius: 100%;
-    top: -0.4rem;
+    top: -0.2rem;
     right: -0.6rem;
     background: #42b983;
     color: white;
