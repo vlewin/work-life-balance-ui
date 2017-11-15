@@ -3,8 +3,8 @@
     <li class="arrow" v-on:click="prevWeek">
       &laquo;
     </li>
-    <li class="uppercase" v-for="d in week" v-on:click="selectDay(d)" v-bind:class="{ selected: isSelected(d), weekend: isWeekend(d), holiday: isHoliday(d) }">
-      {{ weekdays[d.getDay()] }}
+    <li class="uppercase" v-for="date in week" v-on:click="selectDay(date)" v-bind:class="addClasses(date)">
+      {{ weekdays[date.getDay()] }}
     </li>
     <li class="arrow" v-on:click="nextWeek">
       &raquo;
@@ -34,6 +34,15 @@
     },
 
     methods: {
+      addClasses(date) {
+        return {
+          selected: this.isSelected(date),
+          weekend: this.isWeekend(date),
+          holiday: this.isHoliday(date),
+          stored: true
+        }
+      },
+
       isSelected(date) {
         return date.getDate() === this.selected.getDate()
       },
@@ -43,7 +52,7 @@
       },
 
       isHoliday(date) {
-        console.log(date, holiday.holidayCheck(date, 'BY'))
+        // TODO: State from settings page
         return holiday.holidayCheck(date, 'BY')
       },
 
@@ -110,6 +119,7 @@
     cursor: pointer;
     font-size: 0.8rem;
     font-weight: bold;
+    position: relative;
   }
 
   .arrow {
@@ -133,5 +143,20 @@
     background: tomato;
     color: #fff;
     pointer-events: none;
+  }
+
+  .stored::after {
+    content: '8.5';
+    font-size: 0.1rem;
+    display: block;
+    position: absolute;
+    width: 1rem;
+    height: 1rem;
+    line-height: 1rem;
+    border-radius: 100%;
+    top: -0.4rem;
+    right: -0.6rem;
+    background: #42b983;
+    color: white;
   }
 </style>
