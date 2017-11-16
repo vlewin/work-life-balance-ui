@@ -8,9 +8,11 @@ TODO:
 - [ ] Moment.js
 - [ ] CSS Grid Layout with FlexBox
 - [ ] Chrome headless
+- [ ] Vue SSR vs Vue Prerendering 
+- [ ] PWA / PRA Progressive Web Applications / Progressive Real-Time Applications (https://www.youtube.com/watch?v=QjLUt37lX1s)
 - [ ] GraphQL data services
+- [ ] Wolckenkit - Domain Driven Design / Event drivent development (Event-sourcing / CQRS)
 - [ ] Microservices with Docker and Docker orchestration
-- [ ] Wolckenkit 
 - [ ] Micro-Applications ?
 - [x] completed
 
