@@ -3,7 +3,7 @@ const path = require('path')
 const { app, BrowserWindow, Tray, ipcMain, nativeImage } = require('electron')
 
 // FIXME: Tray icon for windows and linux => http://electron.rocks/proper-tray-icon/
-const ASSETS_DIR = path.join(__dirname, 'app', 'images')
+const ASSETS_DIR = path.join(__dirname, 'images')
 const TRAY_ICON = nativeImage.createFromPath(path.join(ASSETS_DIR, 'tray.png'))
 const TRAY_ICON_HIGHLIGHTED = nativeImage.createFromPath(path.join(ASSETS_DIR, 'tray-highlighted.png'))
 
