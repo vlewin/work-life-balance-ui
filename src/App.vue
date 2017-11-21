@@ -39,20 +39,24 @@
         }
       },
 
+      selected () {
+        return this.$store.state.selectedDay
+      },
+
       day () {
-        return new Date(this.date).getDate().toString().padStart(2, '0')
+        return new Date(this.selected).getDate().toString().padStart(2, '0')
       },
 
       weekday () {
-        return new Date(this.date).toLocaleString('en-US', { weekday: 'long' })
+        return new Date(this.selected).toLocaleString('en-US', { weekday: 'long' })
       },
 
       month () {
-        return new Date(this.date).toLocaleString('en-US', { month: 'long' })
+        return new Date(this.selected).toLocaleString('en-US', { month: 'long' })
       },
 
       year () {
-        return new Date(this.date).getFullYear()
+        return new Date(this.selected).getFullYear()
       }
     },
 

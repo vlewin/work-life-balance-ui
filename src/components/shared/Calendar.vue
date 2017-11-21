@@ -19,8 +19,8 @@
     </ul>
 
     <div class="balance light-grey">
-      <span>VACATION: {{ 30 - selected.length }} days</span>
-      <span>SICKNESS: 2 days</span>
+      <span>VACATION: {{ vacationRestDays }} days</span>
+      <span>SICKNESS: {{ seeknessDays }} days</span>
     </div>
   </div>
 </template>
@@ -79,6 +79,15 @@
         return this.weeks.reduce((a, b) => a.concat(b)).map((d) => {
           return d ? new Date(this.date.getFullYear(), this.date.getMonth(), d) : null
         })
+      },
+
+      vacationRestDays() {
+        // TODO: Number of vacation days from settings
+        return 30 - this.selected.length
+      },
+
+      seeknessDays() {
+        return this.selected.length
       }
     },
 
@@ -176,9 +185,9 @@
     display: inline-block;
     color: #444;
     list-style: none;
-    height: 2.0rem;
-    width: 2.0rem;
-    line-height: calc(2.0rem - 0.2rem);
+    height: 2.2rem;
+    width: 2.2rem;
+    line-height: calc(2.2rem - 0.2rem);
     text-align: center;
     border: 0.1rem solid #fff;
   }
@@ -275,7 +284,7 @@
     text-align: center;
     position: absolute;
     z-index: 1;
-    font-size: 0.3rem;
+    font-size: 0.2rem;
     margin: -2.4rem -2.7rem;
     padding: 0 0.2rem;
     text-overflow: ellipsis;
