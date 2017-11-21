@@ -14,6 +14,7 @@
 
 <script>
   // FIXME: replace with date-fns
+  import addHours from 'date-fns/add_hours'
   import { weekNumber, weekStartDay, weekDaysRange } from '../../helpers/date'
   import holiday from 'german-holiday'
 
@@ -22,7 +23,7 @@
     data () {
       return {
         current: weekNumber(),
-        selected: new Date(),
+        // selected: new Date(),
         year: new Date().getFullYear(),
         week: [],
         weekdays: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']
@@ -30,7 +31,13 @@
     },
 
     created () {
-      this.week = weekDaysRange()
+      this.week = weekDaysRange(this.selected)
+    },
+
+    computed: {
+      selected () {
+        return this.$store.state.selectedDay
+      }
     },
 
     methods: {
@@ -57,8 +64,7 @@
       },
 
       selectDay (date) {
-        this.selected = date
-        this.$parent.$parent.$parent.$parent.$parent.date = date
+        this.$store.dispatch('setSelectedDay', addHours(date, 1))
       },
 
       // FIXME: Use date-fns
@@ -71,7 +77,8 @@
         }
 
         this.week = weekDaysRange(weekStartDay(this.current, this.year))
-        this.selectDay(this.week[0])
+        // this.selectDay(this.week[0])
+        this.$store.dispatch('setSelectedDay', addHours(this.week[0], 1))
         this.$emit('prevWeek')
       },
 
@@ -85,7 +92,8 @@
         }
 
         this.week = weekDaysRange(weekStartDay(this.current, this.year))
-        this.selectDay(this.week[0])
+        // this.selectDay(this.week[0])
+        this.$store.dispatch('setSelectedDay', addHours(this.week[0], 1))
         this.$emit('nextWeek')
       }
     }
