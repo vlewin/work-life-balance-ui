@@ -1,4 +1,5 @@
 Array.range = (start, end) => [...Array((end - start) + 1)].map((_, i) => (start + i).toString().padStart(2, '0'))
+import addHours from 'date-fns/add_hours'
 
 // Get ISO8601 week number by date
 export function weekNumber (date = new Date()) {
@@ -25,5 +26,5 @@ import eachDay from 'date-fns/each_day'
 
 // Get range of weekdays by date
 export function weekDaysRange (date = new Date()) {
-  return eachDay(startOfISOWeek(date), endOfISOWeek(date))
+  return eachDay(startOfISOWeek(date), endOfISOWeek(date)).map((d) => addHours(d, 1))
 }
