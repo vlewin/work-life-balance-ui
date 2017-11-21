@@ -14,6 +14,7 @@
     "lint": "eslint --fix --ext .js,.vue src test/unit/specs test/e2e/specs"
   },
   "dependencies": {
+    "axios": "^0.17.0",
     "calendator": "^2.0.1",
     "date-fns": "^1.28.5",
     "german-holiday": "^1.2.0",
