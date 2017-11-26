@@ -6,7 +6,7 @@ TODO:
 - [ ] Vue.js reusable components
 - [ ] Vue.js with Typescript and TSLint
 - [ ] CSS Grid Layout with FlexBox
-- [ ] Vue SSR vs Vue Prerendering 
+- [ ] Vue SSR vs Vue Prerendering
 - [ ] PWA / PRA Progressive Web Applications / [Progressive Real-Time Applications](https://www.youtube.com/watch?v=QjLUt37lX1s)
 - [ ] GraphQL data services
 - [ ] Wolckenkit - Domain Driven Design / Event drivent development (Event-sourcing / CQRS)
@@ -32,6 +32,15 @@ SOURCES:
 
 > How do you know where to use Flexbox?
 > As a general rule of thumb, it is appropriate to use Grid to layout the overall page layout, and Flexbox for inner UI components.
+
+[Known Flexbugs](https://github.com/philipwalton/flexbugs)
+[Mastering Flexbox](http://www.sketchingwithcss.com/samplechapter/cheatsheet.html)
+[Normalizing Cross-browser Flexbox](https://philipwalton.com/articles/normalizing-cross-browser-flexbox-bugs/)
+
+
+<style lang="scss" src="assets/scss/style.scss"></style>
+
+https://github.com/standard/standard
 
 SVG ANIMATIONS:
 - https://css4-selectors.com/browser-selector-test/
