@@ -2,7 +2,7 @@
   <card>
     <date-picker slot="header"></date-picker>
     <simple-slider slot="body" :active="slider.open">
-      <div class="simple-slider-item" slot="up">
+      <div class="simple-slider-item form" slot="up">
         <div class="form-input blue">
           <div class="form-trigger" v-on:click="openSlider({ open: true, target: 'start' })">
             {{ form.start }}
@@ -21,12 +21,6 @@
       </div>
 
       <time-picker class="simple-slider-item" slot="down" :init-value="form[slider.target]" :target="slider.target" v-on:changed="setValue" v-on:done="closeSlider"></time-picker>
-
-      <!-- <div class="simple-slider-item" slot="down"> -->
-        <!-- FIXME: Find a better way -->
-        <!-- <number-picker v-if="slider.target === 'pause'" v-on:changed="setPause" slot="down"></number-picker>
-        <time-picker v-if="['start', 'finish'].includes(slider.target)" slot="down" :init-value="form[slider.target]" :target="slider.target" v-on:changed="setValue" v-on:done="closeSlider"></time-picker> -->
-      <!-- </div> -->
     </simple-slider>
 
     <simple-switch slot="footer" class="vertical animated primary">
@@ -87,7 +81,7 @@
     },
 
     created () {
-      this.$store.dispatch('fetchTimestamps')
+      // this.$store.dispatch('fetchTimestamps')
       window.component = this
       // this.update()
       // axios.get(`http://127.0.0.1:8000/api/timestamps?week=${this.week}`).then((r) => {

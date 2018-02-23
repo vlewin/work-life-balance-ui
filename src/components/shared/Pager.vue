@@ -78,12 +78,13 @@
   }
 
   .page {
-    width: calc(100% / 3 + 1px);
+    width: calc(300% / 3);
     display: flex;
     justify-content: center;
     align-items: center;
     /*color: #fff;*/
     /*font-size: 200%;*/
+    height: 101%;
   }
 
   /*.page-1 {
