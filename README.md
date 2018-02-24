@@ -58,6 +58,11 @@ DESIGN INSPIRATIONS:
 * https://codepen.io/hrtzt/pen/JdYaEZ
 * https://codepen.io/CesarGabriel/pen/KLqEb
 
+### Custom domain
+
+https://gist.github.com/mapsam/ce60b87eea561ea6bdbf
+https://www.namecheap.com/support/knowledgebase/article.aspx?type=article&contentid=9645&categoryid=2208&rating=5
+
 ### VUE-CLI3
 
 Cypress https://www.cypress.io/
