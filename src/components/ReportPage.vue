@@ -23,116 +23,120 @@
 </template>
 
 <script>
-  import { mapActions } from 'vuex'
+import { mapActions } from "vuex";
 
-  import VueTrend from 'vuetrend'
-  import VueBars from 'vuebars'
+import VueTrend from "vuetrend";
+import VueBars from "vuebars";
 
-  import Card from './shared/Card'
-  import MonthPicker from './shared/MonthPicker'
+import Card from "./shared/Card";
+import MonthPicker from "./shared/MonthPicker";
 
-  export default {
-    name: 'ReportPage',
-    components: {
-      Card,
-      MonthPicker,
-      VueTrend,
-      VueBars
+export default {
+  name: "ReportPage",
+  components: {
+    Card,
+    MonthPicker,
+    VueTrend,
+    VueBars
+  },
+
+  data() {
+    return {
+      date: new Date(),
+      trendGradient: ["#98c2c2", "#50a7c2", "#42b983"],
+      barsGradient: ["#50a7c2", "#42b983"],
+      trend: [8, 8, 8, 7.5, 9, 7.5, 8, 8],
+      data: [
+        0,
+        this.getRandomInt(),
+        this.getRandomInt(),
+        this.getRandomInt(),
+        this.getRandomInt(),
+        this.getRandomInt(),
+        0,
+        0,
+        this.getRandomInt(),
+        this.getRandomInt(),
+        this.getRandomInt(),
+        this.getRandomInt(),
+        this.getRandomInt(),
+        0,
+        0,
+        this.getRandomInt(),
+        this.getRandomInt(),
+        this.getRandomInt(),
+        this.getRandomInt(),
+        this.getRandomInt(),
+        0,
+        0,
+        this.getRandomInt(),
+        this.getRandomInt(),
+        this.getRandomInt(),
+        this.getRandomInt(),
+        this.getRandomInt()
+      ]
+    };
+  },
+
+  created() {},
+
+  computed: {
+    chartWidth() {
+      return document.getElementById("app").offsetWidth - 50;
+    }
+  },
+
+  watch: {
+    date() {
+      this.generate();
+      this.$forceUpdate();
+    }
+  },
+
+  methods: {
+    ...mapActions([
+      "navigate" // map `this.increment()` to `this.$store.dispatch('increment')`
+    ]),
+
+    generate() {
+      this.data = [
+        0,
+        this.getRandomInt(),
+        this.getRandomInt(),
+        this.getRandomInt(),
+        this.getRandomInt(),
+        this.getRandomInt(),
+        0,
+        0,
+        this.getRandomInt(),
+        this.getRandomInt(),
+        this.getRandomInt(),
+        this.getRandomInt(),
+        this.getRandomInt(),
+        0,
+        0,
+        this.getRandomInt(),
+        this.getRandomInt(),
+        this.getRandomInt(),
+        this.getRandomInt(),
+        this.getRandomInt(),
+        0,
+        0,
+        this.getRandomInt(),
+        this.getRandomInt(),
+        this.getRandomInt(),
+        this.getRandomInt(),
+        this.getRandomInt()
+      ];
     },
 
-    data () {
-      return {
-        date: new Date(),
-        trendGradient: ['#98c2c2', '#50a7c2', '#42b983'],
-        barsGradient: ['#50a7c2', '#42b983'],
-        trend: [8, 8, 8, 7.5, 9, 7.5, 8, 8],
-        data: [
-          0,
-          this.getRandomInt(),
-          this.getRandomInt(),
-          this.getRandomInt(),
-          this.getRandomInt(),
-          this.getRandomInt(),
-          0,0,
-          this.getRandomInt(),
-          this.getRandomInt(),
-          this.getRandomInt(),
-          this.getRandomInt(),
-          this.getRandomInt(),
-          0,0,
-          this.getRandomInt(),
-          this.getRandomInt(),
-          this.getRandomInt(),
-          this.getRandomInt(),
-          this.getRandomInt(),
-          0,0,
-          this.getRandomInt(),
-          this.getRandomInt(),
-          this.getRandomInt(),
-          this.getRandomInt(),
-          this.getRandomInt()
-        ]
-      }
+    getRandomInt(min = 6, max = 10) {
+      return Math.floor(Math.random() * (max - min + 1) + min);
     },
 
-    created() {
-
-    },
-
-    computed: {
-      chartWidth() {
-        return document.getElementById('app').offsetWidth - 50
-      }
-    },
-
-    watch: {
-      date() {
-        this.generate()
-        this.$forceUpdate()
-      }
-    },
-
-    methods: {
-      ...mapActions([
-        'navigate', // map `this.increment()` to `this.$store.dispatch('increment')`
-      ]),
-
-      generate() {
-        this.data = [
-          0,
-          this.getRandomInt(),
-          this.getRandomInt(),
-          this.getRandomInt(),
-          this.getRandomInt(),
-          this.getRandomInt(),
-          0,0,
-          this.getRandomInt(),
-          this.getRandomInt(),
-          this.getRandomInt(),
-          this.getRandomInt(),
-          this.getRandomInt(),
-          0,0,
-          this.getRandomInt(),
-          this.getRandomInt(),
-          this.getRandomInt(),
-          this.getRandomInt(),
-          this.getRandomInt(),
-          0,0,
-          this.getRandomInt(),
-          this.getRandomInt(),
-          this.getRandomInt(),
-          this.getRandomInt(),
-          this.getRandomInt()
-        ]
-      },
-
-      getRandomInt(min=6, max=10) {
-        return Math.floor(Math.random() * (max - min + 1) + min)
-      },
-
-      setDate(date) {
-        this.date = date
-      }
+    setDate(date) {
+      this.date = date;
     }
   }
+};
 </script>

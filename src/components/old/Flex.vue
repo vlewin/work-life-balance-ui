@@ -55,99 +55,98 @@
 </template>
 
 <style>
-  .slider {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #eee;
-    width: 100%;
-    height: 10vh;
-  }
+.slider {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #eee;
+  width: 100%;
+  height: 10vh;
+}
 
-  .horizontal {
-    width: 100%;
-    height: 100%;
-  }
+.horizontal {
+  width: 100%;
+  height: 100%;
+}
 
-  .vertical {
-    flex-direction: column;
-  }
+.vertical {
+  flex-direction: column;
+}
 
-  .slider:hover .top {
-    flex:1 1 25%;
-  }
+.slider:hover .top {
+  flex: 1 1 25%;
+}
 
-  .slider:hover .middle {
-    flex:1 1 50%;
-  }
+.slider:hover .middle {
+  flex: 1 1 50%;
+}
 
-  .slider:hover .bottom {
-    flex:1 1 25%;
-  }
+.slider:hover .bottom {
+  flex: 1 1 25%;
+}
 
-  .slider div {
-    width: 100%;
-    height: 100px;
-    overflow: hidden;
-    transition: flex 0.5s;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-  }
+.slider div {
+  width: 100%;
+  height: 100px;
+  overflow: hidden;
+  transition: flex 0.5s;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
 
-  .top {
-    background: red;
-    flex:1 1 50%;
-  }
+.top {
+  background: red;
+  flex: 1 1 50%;
+}
 
-  .middle {
-    width: 100%;
-    background: orange;
-    flex:1 1 0%;
-  }
+.middle {
+  width: 100%;
+  background: orange;
+  flex: 1 1 0%;
+}
 
-  .bottom {
-    background: green;
-    flex:1 1 50%;
-  }
+.bottom {
+  background: green;
+  flex: 1 1 50%;
+}
 
+.switch {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #eee;
+  width: 100%;
+  height: 10vh;
+}
 
-  .switch {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #eee;
-    width: 100%;
-    height: 10vh;
-  }
+.switch div {
+  width: 100%;
+  height: 100px;
+  overflow: hidden;
+  transition: flex 0.5s, opacity 0.3s;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
 
-  .switch div {
-    width: 100%;
-    height: 100px;
-    overflow: hidden;
-    transition: flex 0.5s, opacity 0.3s;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-  }
+.switch:hover .up {
+  flex: 1 1 0%;
+  opacity: 0;
+}
 
-  .switch:hover .up {
-    flex:1 1 0%;
-    opacity: 0;
-  }
+.switch:hover .down {
+  flex: 1 1 100%;
+  opacity: 1;
+}
 
-  .switch:hover .down {
-    flex:1 1 100%;
-    opacity: 1;
-  }
+.up {
+  flex: 1 1 100%;
+  opacity: 1;
+}
 
-  .up {
-    flex:1 1 100%;
-    opacity: 1;
-  }
-
-  .down {
-    flex:1 1 0%;
-    opacity: 0;
-  }
+.down {
+  flex: 1 1 0%;
+  opacity: 0;
+}
 </style>

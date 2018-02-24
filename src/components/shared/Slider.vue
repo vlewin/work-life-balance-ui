@@ -16,74 +16,74 @@
 </template>
 
 <script>
-  export default {
-    name: 'Slider',
-    data () {
-      return {
-        // focused: null
-      }
+export default {
+  name: "Slider",
+  data() {
+    return {
+      // focused: null
+    };
+  },
+
+  props: {
+    active: {
+      type: Boolean
     },
 
-    props: {
-      active: {
-        type: Boolean
-      },
+    focused: {
+      type: Number
+    }
+  },
 
-      focused: {
-        type: Number
-      }
+  methods: {
+    isFocused(field) {
+      return this.focused === field;
     },
 
-    methods: {
-      isFocused (field) {
-        return this.focused === field
-      },
-
-      focusField (field) {
-        if (this.focused) {
-          this.focused = null
-          this.$emit('unfocused')
-        } else {
-          this.focused = field
-          this.$emit('focused')
-        }
+    focusField(field) {
+      if (this.focused) {
+        this.focused = null;
+        this.$emit("unfocused");
+      } else {
+        this.focused = field;
+        this.$emit("focused");
       }
     }
   }
+};
 </script>
 
 <style>
-  .slider {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #eee;
-    width: 100%;
-  }
+.slider {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #eee;
+  width: 100%;
+}
 
-  .slider .slider-item {
-    height: 100%;
-    overflow: hidden;
-    transition: flex 0.3s;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    cursor: pointer;
-  }
+.slider .slider-item {
+  height: 100%;
+  overflow: hidden;
+  transition: flex 0.3s;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  cursor: pointer;
+}
 
-  .slider .slider-item > * {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    width: 100%;
-  }
+.slider .slider-item > * {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
 
-  .slider .slider-item:not(.focused) {
-    flex:1 1 33%;
-  }
+.slider .slider-item:not(.focused) {
+  flex: 1 1 33%;
+}
 
-  /*.slider .slider-item.left {
+/*.slider .slider-item.left {
     background: tomato;
   }
   .slider .slider-item.center {
@@ -93,11 +93,11 @@
     background: #42b983;
   }*/
 
-  .slider .slider-item.focused {
-    flex:1 1 100%;
-  }
+.slider .slider-item.focused {
+  flex: 1 1 100%;
+}
 
-  .slider .slider-item:not(.focused) {
-    flex:1 1 0%;
-  }
+.slider .slider-item:not(.focused) {
+  flex: 1 1 0%;
+}
 </style>

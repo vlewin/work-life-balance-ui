@@ -8,25 +8,25 @@
 </template>
 
 <script>
-  export default {
-    name: 'SimpleSwitch',
-    data () {
-      return {
-        time: '',
-        timeout: null
-      }
+export default {
+  name: "SimpleSwitch",
+  data() {
+    return {
+      time: "",
+      timeout: null
+    };
+  },
+
+  props: {
+    animationSpeed: {
+      type: Boolean
     },
 
-    props: {
-      animationSpeed: {
-        type: Boolean
-      },
-
-      active: {
-        type: Boolean
-      }
+    active: {
+      type: Boolean
     }
   }
+};
 </script>
 
 <style lang="sass" scoped>

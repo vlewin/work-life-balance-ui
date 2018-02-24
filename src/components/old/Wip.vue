@@ -124,170 +124,171 @@
 </template>
 
 <script>
-  import Calendar from './Calendar.vue'
-  import DatePicker from './DatePicker.vue'
-  import TimePicker from './TimePicker'
+import Calendar from "./Calendar.vue";
+import DatePicker from "./DatePicker.vue";
+import TimePicker from "./TimePicker";
 
-  export default {
-    name: 'Wip',
-    components: { Calendar, DatePicker, TimePicker },
-    data () {
-      return {
-        open: null,
-        panel: null
-      }
+export default {
+  name: "Wip",
+  components: { Calendar, DatePicker, TimePicker },
+  data() {
+    return {
+      open: null,
+      panel: null
+    };
+  },
+
+  methods: {
+    togglePicker(picker) {
+      this.open = this.open ? null : picker;
     },
 
-    methods: {
-      togglePicker (picker) {
-        this.open = this.open ? null : picker
-      },
-
-      togglePanel (panel) {
-        console.log('Toggle', panel)
-        this.panel = this.panel === panel ? null : panel
-      }
+    togglePanel(panel) {
+      console.log("Toggle", panel);
+      this.panel = this.panel === panel ? null : panel;
     }
   }
+};
 </script>
 
 <style>
-  .card-wrapper {
-    width: 50vw;
-    height: 50vh;
-    overflow: hidden;
+.card-wrapper {
+  width: 50vw;
+  height: 50vh;
+  overflow: hidden;
+}
+
+.card {
+  width: 90vw;
+  height: 50vh;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.5s;
+}
+
+.card-header {
+  background: red;
+  height: 10%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-body {
+  background: yellow;
+  height: 80%;
+
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.card-footer {
+  background: green;
+  height: 10%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+button {
+  width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
+  background: #ddd;
+  border: 1px solid white;
+}
+
+.panel {
+  background: #ccc;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.5s;
+  height: 50vh;
+  transform-style: preserve-3d;
+}
+
+.panel.open {
+  transform: translate(0, -50vh);
+  z-index: 2;
+}
+
+.panel-header {
+  background: orange;
+  height: 10%;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.panel-body {
+  background: grey;
+  height: 80%;
+}
+
+.panel-footer {
+  background: green;
+  height: 10%;
+}
+
+@media only screen and (min-width: 600px) {
+  .wrapper {
+    border: 2px solid white;
   }
 
-  .card {
-    width: 90vw;
-    height: 50vh;
-    display: flex;
-    flex-direction: column;
-    transition: transform 0.5s;
-  }
-
-  .card-header {
-    background: red;
-    height: 10%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .card-body {
-    background: yellow;
-    height: 80%;
-
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    justify-content: space-around;
-  }
-
-  .card-footer {
-    background: green;
-    height: 10%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  button {
-    width: 100%;
-    height: 100%;
-    border: none;
-    outline: none;
-    background: #ddd;
-    border: 1px solid white;
-  }
-
-  .panel {
-    background: #ccc;
-    display: flex;
-    flex-direction: column;
-    transition: transform 0.5s;
-    height: 50vh;
-    transform-style: preserve-3d;
-  }
-
-  .panel.open {
-    transform: translate(0, -50vh);
-    z-index: 2;
-  }
-
-  .panel-header {
-    background: orange;
-    height: 10%;
-
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .panel-body {
-    background: grey;
-    height: 80%;
-  }
-
-  .panel-footer {
-    background: green;
-    height: 10%;
-  }
-
-  @media only screen and (min-width:600px) {
-    .wrapper {
-      border: 2px solid white;
-    }
-
-    /*.wrapper:hover .card {
+  /*.wrapper:hover .card {
       transform: translate(0, -45vh)
     }*/
 
-    .card {
-      width: 50vw;
-    }
+  .card {
+    width: 50vw;
   }
+}
 
-  .form {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    width: 100%;
-    height: 30%;
-    background: #ccc;
-  }
+.form {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  height: 30%;
+  background: #ccc;
+}
 
-  .tmp {
-    background: red;
-    width: 100%;
-    height: 30%;
-    transition: transform 1s;
-    transform: translate(-100%, 0);
-  }
+.tmp {
+  background: red;
+  width: 100%;
+  height: 30%;
+  transition: transform 1s;
+  transform: translate(-100%, 0);
+}
 
-  .time-picker.animated {
-    transition: transform 1s;
-    width: 50%;
-  }
+.time-picker.animated {
+  transition: transform 1s;
+  width: 50%;
+}
 
-  .time-picker.left {
-    transform: translate(-100%, 0);
-  }
+.time-picker.left {
+  transform: translate(-100%, 0);
+}
 
-  .time-picker.right {
-    transform: translate(100%, 0);
-  }
+.time-picker.right {
+  transform: translate(100%, 0);
+}
 
-  .time-picker.left.open, .time-picker.right.open {
-    transform: translate(0, 0);
-    width: 100%;
-  }
+.time-picker.left.open,
+.time-picker.right.open {
+  transform: translate(0, 0);
+  width: 100%;
+}
 
-  .balance {
-    background: green;
-    width: 100%;
-    height: 30%;
-  }
+.balance {
+  background: green;
+  width: 100%;
+  height: 30%;
+}
 </style>
 <!--
 <style>

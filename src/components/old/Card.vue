@@ -55,163 +55,162 @@
 </template>
 
 <script>
-  import TimePicker from './TimePicker'
+import TimePicker from "./TimePicker";
 
-  export default {
-    name: 'Time',
-    components: {
-      TimePicker
+export default {
+  name: "Time",
+  components: {
+    TimePicker
+  },
+
+  data() {
+    return {
+      toggle: false
+    };
+  },
+
+  methods: {
+    open() {
+      this.toggle = !this.toggle;
     },
 
-    data () {
-      return {
-        toggle: false
-      }
-    },
-
-    methods: {
-      open () {
-        this.toggle = !this.toggle
-      },
-
-      done () {
-        this.open()
-      }
+    done() {
+      this.open();
     }
   }
+};
 </script>
 
 <style>
-  .flex {
-    display: flex;
-  }
+.flex {
+  display: flex;
+}
 
-  .flex-row {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-  }
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
 
-  .flex-column {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+.flex-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
-  .flex-center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex: 1 1 100%;
-  }
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1 1 100%;
+}
 
-  .flex-space-between {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex: 1 1 100%;
-  }
+.flex-space-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex: 1 1 100%;
+}
 
+.container {
+  border: 1px solid #ccc;
+  flex: 0 0 80%;
+}
 
-  .container {
-    border: 1px solid #ccc;
-    flex: 0 0 80%;
-  }
+.card-header {
+  height: 10vh;
+  background: #7f8c8d;
+  color: #fff;
+  padding: 0 5px;
+}
 
-  .card-header {
-    height: 10vh;
-    background: #7f8c8d;
-    color: #fff;
-    padding: 0 5px;
-  }
+.card-body {
+  height: 20vh;
+}
 
-  .card-body {
-    height: 20vh;
-  }
+.card-body .top,
+.card-body .bottom {
+  height: 50%;
+}
 
-  .card-body .top, .card-body .bottom {
-    height: 50%;
-  }
+.card-footer {
+  height: 10vh;
+  border-top: 1px solid #ccc;
+}
 
-  .card-footer {
-    height: 10vh;
-    border-top: 1px solid #ccc;
-  }
+.left,
+.right {
+  width: 50%;
+}
 
-  .left, .right {
-    width: 50%;
-  }
-
-  button {
-    width: 100%;
-    background: #fff;
-    height: 100%;
-    outline: none;
-    border: 1px solid #fff;
-    font-size: 14px;
-    font-weight: bold;
-  }
-
-
+button {
+  width: 100%;
+  background: #fff;
+  height: 100%;
+  outline: none;
+  border: 1px solid #fff;
+  font-size: 14px;
+  font-weight: bold;
+}
 </style>
 
 
 <style>
-  .slider {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #eee;
-    width: 100%;
-    height: 10vh;
-  }
+.slider {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #eee;
+  width: 100%;
+  height: 10vh;
+}
 
-  .horizontal {
-    width: 100%;
-    height: 100%;
-  }
+.horizontal {
+  width: 100%;
+  height: 100%;
+}
 
-  .vertical {
-    flex-direction: column;
-  }
+.vertical {
+  flex-direction: column;
+}
 
-  .slider:hover .slider-top {
-    flex:1 1 25%;
-  }
+.slider:hover .slider-top {
+  flex: 1 1 25%;
+}
 
-  .slider:hover .slider-middle {
-    flex:1 1 50%;
-  }
+.slider:hover .slider-middle {
+  flex: 1 1 50%;
+}
 
-  .slider:hover .slider-bottom {
-    flex:1 1 25%;
-  }
+.slider:hover .slider-bottom {
+  flex: 1 1 25%;
+}
 
-  .slider div {
-    width: 100%;
-    height: 100px;
-    overflow: hidden;
-    transition: flex 0.5s;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-  }
+.slider div {
+  width: 100%;
+  height: 100px;
+  overflow: hidden;
+  transition: flex 0.5s;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
 
-  .slider-top {
-    background: red;
-    flex:1 1 50%;
-  }
+.slider-top {
+  background: red;
+  flex: 1 1 50%;
+}
 
-  .slider-middle {
-    width: 100%;
-    background: orange;
-    flex:1 1 0%;
-  }
+.slider-middle {
+  width: 100%;
+  background: orange;
+  flex: 1 1 0%;
+}
 
-  .slider-bottom {
-    background: green;
-    flex:1 1 50%;
-  }
+.slider-bottom {
+  background: green;
+  flex: 1 1 50%;
+}
 </style>
 
 <style>
@@ -235,22 +234,22 @@
 }
 
 .switch.open .up {
-  flex:1 1 0%;
+  flex: 1 1 0%;
   opacity: 0;
 }
 
 .switch.open .down {
-  flex:1 1 100%;
+  flex: 1 1 100%;
   opacity: 1;
 }
 
 .up {
-  flex:1 1 100%;
+  flex: 1 1 100%;
   opacity: 1;
 }
 
 .down {
-  flex:1 1 0%;
+  flex: 1 1 0%;
   opacity: 0;
 }
 </style>

@@ -21,33 +21,30 @@
 </template>
 
 <script>
-  import LoginForm from './LoginForm'
+import LoginForm from "./LoginForm";
 
-  export default {
-    name: 'Index',
-    components: {
-      LoginForm
-    },
+export default {
+  name: "Index",
+  components: {
+    LoginForm
+  },
 
-    data () {
-      return {
-      }
-    },
+  data() {
+    return {};
+  },
 
-    created () {
-      console.log('CREATED')
-    },
+  created() {
+    console.log("CREATED");
+  },
 
-    computed: {
-      page() {
-        return this.$store.state.page
-      }
-    },
-
-    methods: {
-
+  computed: {
+    page() {
+      return this.$store.state.page;
     }
-  }
+  },
+
+  methods: {}
+};
 </script>
 
 <style lang="sass">

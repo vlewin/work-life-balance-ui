@@ -1,12 +1,5 @@
 <template>
   <card>
-    <!-- <div slot="header" class="uppercase dark-blue height-100"> OCTOBER (2017)</div> -->
-    <!-- <select-box slot="header" class="dark-blue"></select-box> -->
-    <!-- <ul slot="header" class="dark-blue">
-      <li class="arrow">«</li>
-      <li>OCTOBER (2017)</li>
-      <li class="arrow">»</li>
-    </ul> -->
     <month-picker slot="header" class="uppercase dark-blue" v-on:date-change="setDate"></month-picker>
 
     <slider slot="body" class="height-20 horizontal text-white" :focused="sliderMap[reason]">
@@ -30,54 +23,53 @@
 </template>
 
 <script>
-  import { mapActions } from 'vuex'
+import { mapActions } from "vuex";
 
-  import Card from './shared/Card'
-  import MonthPicker from './shared/MonthPicker'
-  import Slider from './shared/Slider'
-  import Calendar from './shared/Calendar'
-  import SimpleSwitch from './shared/SimpleSwitch'
+import Card from "./shared/Card";
+import MonthPicker from "./shared/MonthPicker";
+import Slider from "./shared/Slider";
+import Calendar from "./shared/Calendar";
+import SimpleSwitch from "./shared/SimpleSwitch";
 
-  export default {
-    name: 'AbsencePage',
-    components: {
-      Card,
-      MonthPicker,
-      Slider,
-      Calendar,
-      SimpleSwitch,
+export default {
+  name: "AbsencePage",
+  components: {
+    Card,
+    MonthPicker,
+    Slider,
+    Calendar,
+    SimpleSwitch
+  },
+
+  data() {
+    return {
+      page: "page-2",
+      reason: null,
+      date: new Date(),
+      sliderMap: {
+        vacation: 0,
+        sickness: 1,
+        holiday: 2
+      }
+    };
+  },
+
+  methods: {
+    ...mapActions([
+      "navigate" // map `this.increment()` to `this.$store.dispatch('increment')`
+    ]),
+
+    setDate(date) {
+      this.date = date;
     },
 
-    data () {
-      return {
-        page: 'page-2',
-        reason: null,
-        date: new Date(),
-        sliderMap: {
-          vacation: 0,
-          sickness: 1,
-          holiday: 2,
-        }
-
-      }
+    toggleReason(reason) {
+      this.reason = this.reason === reason ? null : reason;
     },
 
-    methods: {
-      ...mapActions([
-        'navigate', // map `this.increment()` to `this.$store.dispatch('increment')`
-      ]),
-
-      setDate(date) {
-        this.date = date
-      },
-
-      toggleReason (reason) {
-        this.reason = this.reason === reason ? null : reason
-      },
-
-      reset() {
-        Object.assign(this.$data, this.$options.data.call(this))
-      }
+    reset() {
+      Object.assign(this.$data, this.$options.data.call(this));
     }
   }
+};
 </script>

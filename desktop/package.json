@@ -9,17 +9,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/vlewin/kodi-sync"
+    "url": "https://github.com/vlewin/vue-work-life-balance"
   },
-  "keywords": [
-    "electron",
-    "kodi",
-    "sync",
-    "streaming",
-    "vue",
-    "photonkit",
-    "node-kodi"
-  ],
+  "keywords": ["electron", "vue", "desktop", "time-tracking"],
   "author": "Vladislav Lewin",
   "license": "ISC",
   "devDependencies": {
@@ -31,10 +23,5 @@
     "eslint-config-vue": "^2.0.1",
     "eslint-plugin-vue": "^1.0.0"
   },
-  "dependencies": {
-    "bonjour": "^3.5.0",
-    "jquery": "^3.1.1",
-    "node-kodi": "https://github.com/martinverup/node-kodi#master",
-    "vue": "^2.1.7"
-  }
+  "dependencies": {}
 }

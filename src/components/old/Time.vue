@@ -67,108 +67,109 @@
 </template>
 
 <script>
-  import TimePicker from './TimePicker'
-  import Timestamp from '../models/timestamp'
-  import Vue from 'vue'
-  import VueTimepicker from 'vue2-timepicker'
-  Vue.use(VueTimepicker)
+import TimePicker from "./TimePicker";
+import Timestamp from "../models/timestamp";
+import Vue from "vue";
+import VueTimepicker from "vue2-timepicker";
+Vue.use(VueTimepicker);
 
-  export default {
-    name: 'Time',
-    components: { VueTimepicker, TimePicker },
-    data () {
-      return {
-        time: new Date(),
-        target: null,
-        weekdays: ['Mo', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-        timepickers: {
-          start: false,
-          end: false
-        },
-        day: {
-          start: this.startTime,
-          pause: null,
-          end: this.endTime
-        }
-      }
-    },
-
-    filters: {
-      leadingZero: (value) => {
-        const formated = value.split(':').map((value) => {
-          const intValue = value
-          if (intValue > 0 && intValue < 10) {
-            return `0${intValue}`
-          }
-          return intValue
-        })
-
-        return formated.join(':')
+export default {
+  name: "Time",
+  components: { VueTimepicker, TimePicker },
+  data() {
+    return {
+      time: new Date(),
+      target: null,
+      weekdays: ["Mo", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+      timepickers: {
+        start: false,
+        end: false
       },
-
-      toTime: function (value) {
-        return Timestamp.toTime(value)
-      },
-
-      toTimeWithSeconds: function (value) {
-        return Timestamp.toTime(value, { seconds: true })
-      }
-    },
-
-    created () {
-      window.Timestamp = Timestamp
-      this.day = {
+      day: {
         start: this.startTime,
+        pause: null,
         end: this.endTime
       }
+    };
+  },
 
-      setInterval(() => {
-        this.time = new Date()
-      }, 1000)
+  filters: {
+    leadingZero: value => {
+      const formated = value.split(":").map(value => {
+        const intValue = value;
+        if (intValue > 0 && intValue < 10) {
+          return `0${intValue}`;
+        }
+        return intValue;
+      });
+
+      return formated.join(":");
     },
 
-    computed: {
-      date () {
-        return `${this.weekdays[this.time.getDay() - 1]}, ${this.time.toLocaleDateString()}`
-      },
-
-      start () {
-        return this.day.start || '08:00'
-      },
-
-      end () {
-        return this.day.end || '17:00'
-      },
-
-      today () {
-      },
-
-      startTime () {
-        return {
-          HH: this.start.getHours(),
-          mm: this.start.getMinutes()
-        }
-      },
-
-      endTime () {
-        return {
-          HH: this.end.getHours(),
-          mm: this.end.getMinutes()
-        }
-      }
+    toTime: function(value) {
+      return Timestamp.toTime(value);
     },
 
-    methods: {
-      showTimePicker (target) {
-        this.target = target
-      },
+    toTimeWithSeconds: function(value) {
+      return Timestamp.toTime(value, { seconds: true });
+    }
+  },
 
-      setTime (value) {
-        this.day[this.target] = value
-        this.target = null
-      }
+  created() {
+    window.Timestamp = Timestamp;
+    this.day = {
+      start: this.startTime,
+      end: this.endTime
+    };
+
+    setInterval(() => {
+      this.time = new Date();
+    }, 1000);
+  },
+
+  computed: {
+    date() {
+      return `${
+        this.weekdays[this.time.getDay() - 1]
+      }, ${this.time.toLocaleDateString()}`;
+    },
+
+    start() {
+      return this.day.start || "08:00";
+    },
+
+    end() {
+      return this.day.end || "17:00";
+    },
+
+    today() {},
+
+    startTime() {
+      return {
+        HH: this.start.getHours(),
+        mm: this.start.getMinutes()
+      };
+    },
+
+    endTime() {
+      return {
+        HH: this.end.getHours(),
+        mm: this.end.getMinutes()
+      };
+    }
+  },
+
+  methods: {
+    showTimePicker(target) {
+      this.target = target;
+    },
+
+    setTime(value) {
+      this.day[this.target] = value;
+      this.target = null;
     }
   }
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

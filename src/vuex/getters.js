@@ -1,3 +1,9 @@
 export default {
-  // openProjects: state => state.projects.filter(project => !project.completed)
-}
+  findRecordByDate(state) {
+    return date =>
+      state.records.find(record => {
+        return record.date === date;
+      });
+  },
+  openProjects: state => state.records.filter(project => !project.completed)
+};

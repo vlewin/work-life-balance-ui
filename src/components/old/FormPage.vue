@@ -30,97 +30,97 @@
 </template>
 
 <script>
-  import Pager from './Pager'
-  import Card from './Card'
-  import Slider from './Slider'
-  import SimpleSwitch from './SimpleSwitch'
-  import DatePicker from './DatePicker'
-  import Info from './Info'
-  import TimePicker from './TimePicker'
-  import InputTime from './InputTime'
-  import InputNumber from './InputNumber'
-  import Calendar from './Calendar'
-  import SelectBox from './SelectBox'
+import Pager from "./Pager";
+import Card from "./Card";
+import Slider from "./Slider";
+import SimpleSwitch from "./SimpleSwitch";
+import DatePicker from "./DatePicker";
+import Info from "./Info";
+import TimePicker from "./TimePicker";
+import InputTime from "./InputTime";
+import InputNumber from "./InputNumber";
+import Calendar from "./Calendar";
+import SelectBox from "./SelectBox";
 
-  export default {
-    name: 'FormPage',
-    components: {
-      Pager,
-      Card,
-      Slider,
-      SimpleSwitch,
-      DatePicker,
-      Info,
-      TimePicker,
-      Calendar,
-      SelectBox,
-      InputTime,
-      InputNumber
-    },
+export default {
+  name: "FormPage",
+  components: {
+    Pager,
+    Card,
+    Slider,
+    SimpleSwitch,
+    DatePicker,
+    Info,
+    TimePicker,
+    Calendar,
+    SelectBox,
+    InputTime,
+    InputNumber
+  },
 
-    data () {
-      return {
-        page: 'page-2',
-        slider: {
-          field: null,
-          target: null,
-          active: false
-        },
-
-        form: {
-          start: '08:00',
-          pause: '30',
-          end: '18:00'
-        },
-
-        timepicker: false,
+  data() {
+    return {
+      page: "page-2",
+      slider: {
         field: null,
-        selected: 0
-      }
+        target: null,
+        active: false
+      },
+
+      form: {
+        start: "08:00",
+        pause: "30",
+        end: "18:00"
+      },
+
+      timepicker: false,
+      field: null,
+      selected: 0
+    };
+  },
+
+  created() {
+    console.log("CREATED");
+  },
+
+  computed: {
+    minutes() {
+      return "HUHU";
+    }
+  },
+
+  methods: {
+    navigate(page) {
+      this.$parent.$parent.page = page;
+      this.mode = "edit";
     },
 
-    created () {
-      console.log('CREATED')
+    openSlider(options) {
+      this.slider = options;
+      this.openPicker();
     },
 
-    computed: {
-      minutes () {
-        return 'HUHU'
-      }
+    closeSlider() {
+      this.slider = this.$options.data().slider;
     },
 
-    methods: {
-      navigate (page) {
-        this.$parent.$parent.page = page
-        this.mode = 'edit'
-      },
+    openPicker() {
+      this.timepicker = true;
+    },
 
-      openSlider(options) {
-        this.slider = options
-        this.openPicker()
-      },
+    closePicker() {
+      this.timepicker = false;
+    },
 
-      closeSlider() {
-        this.slider = this.$options.data().slider
-      },
+    close() {
+      this.closeSlider();
+      this.closePicker();
+    },
 
-      openPicker () {
-        this.timepicker = true
-      },
-
-      closePicker() {
-        this.timepicker = false
-      },
-
-      close () {
-        this.closeSlider()
-        this.closePicker()
-      },
-
-      setValue (target, value) {
-        console.log('setValue', target, value)
-        this.form[target] = value
-      }
+    setValue(target, value) {
+      console.log("setValue", target, value);
+      this.form[target] = value;
     }
   }
+};
 </script>

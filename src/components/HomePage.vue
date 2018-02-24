@@ -16,7 +16,13 @@
         </div>
 
         <div class="form-info" v-on:click="navigate('page-1')">
-          <info :duration="duration"></info>
+          <info :duration="duration" :total="total"></info>
+          <!-- <pre>
+            {{ form }}
+          </pre>
+          <pre>
+            {{ record }}
+          </pre> -->
         </div>
       </div>
 
@@ -36,208 +42,226 @@
 </template>
 
 <script>
-  // import axios from 'axios'
-  import differenceInMinutes from 'date-fns/difference_in_minutes'
-  import format from 'date-fns/format'
-  import addHours from 'date-fns/add_hours'
-  import getISOWeek from 'date-fns/get_iso_week'
-  import { mapActions } from 'vuex'
+// import axios from 'axios'
+import differenceInMinutes from "date-fns/difference_in_minutes";
+import format from "date-fns/format";
+import addHours from "date-fns/add_hours";
+import getISOWeek from "date-fns/get_iso_week";
+import { mapActions } from "vuex";
+import { timeToNumber } from "../helpers/date";
 
-  import Card from './shared/Card'
-  import DatePicker from './shared/DatePicker'
-  import SimpleSlider from './shared/SimpleSlider'
-  import SimpleSwitch from './shared/SimpleSwitch'
-  import TimePicker from './shared/TimePicker'
-  import Info from './Info'
+import Card from "./shared/Card";
+import DatePicker from "./shared/DatePicker";
+import SimpleSlider from "./shared/SimpleSlider";
+import SimpleSwitch from "./shared/SimpleSwitch";
+import TimePicker from "./shared/TimePicker";
+import Info from "./Info";
 
-  import Timestamp from '../services/timestamp'
+import Timestamp from "../services/timestamp";
+import Record from "../services/record";
 
-  export default {
-    name: 'HomePage',
-    components: {
-      Card,
-      DatePicker,
-      SimpleSlider,
-      SimpleSwitch,
-      Info,
-      TimePicker
+export default {
+  name: "HomePage",
+  components: {
+    Card,
+    DatePicker,
+    SimpleSlider,
+    SimpleSwitch,
+    Info,
+    TimePicker
+  },
+
+  data() {
+    return {
+      slider: {
+        open: false,
+        target: null
+      },
+
+      form: {},
+
+      timepicker: false
+    };
+  },
+
+  created: async function() {
+    this.initForm();
+  },
+
+  computed: {
+    isRecorded() {
+      return !!this.record;
     },
 
-    data () {
-      return {
-        slider: {
-          open: false,
-          target: null
-        },
+    record() {
+      return this.$store.getters.findRecordByDate(this.date);
+    },
 
-        form: {
-          start: '09:00',
-          pause: '00:30',
-          finish: '17:30',
-        },
+    currentDate() {
+      return this.$store.state.currentDate;
+    },
 
-        timepicker: false
+    week() {
+      return getISOWeek(this.currentDate);
+    },
+
+    date() {
+      return format(this.currentDate, "DD.MM.YYYY");
+    },
+
+    start() {
+      if (this.form.start && this.form.start.includes(":")) {
+        return new Date(
+          `${format(this.currentDate, "YYYY/MM/DD")} ${this.form.start}`
+        );
+      }
+
+      return new Date();
+    },
+
+    pause() {
+      return this.form.pause;
+    },
+
+    finish() {
+      console.log(this.date);
+      return new Date(
+        `${format(this.currentDate, "YYYY/MM/DD")} ${this.form.finish}`
+      );
+    },
+
+    duration() {
+      return this.total - timeToNumber(this.pause);
+    },
+
+    total() {
+      return (differenceInMinutes(this.finish, this.start) / 60).toFixed(2);
+    }
+  },
+
+  watch: {
+    start(val) {
+      if (val) {
+        console.log("HomePage - start value changed", val);
+        this.calculateEnd();
       }
     },
 
-    created () {
-      // this.$store.dispatch('fetchTimestamps')
-      window.component = this
-      // this.update()
-      // axios.get(`http://127.0.0.1:8000/api/timestamps?week=${this.week}`).then((r) => {
-      //   console.log('GET BY WEEK', r.data.length)
-      // })
-    },
-
-    computed: {
-      date () {
-        return this.$store.state.selectedDay
-      },
-
-      week() {
-        return getISOWeek(this.date)
-      },
-
-      formatedDate() {
-        return format(this.date, 'YYYY-MM-DD')
-      },
-
-      start () {
-        if(this.form.start && this.form.start.includes(':')) {
-          return new Date(`${this.formatedDate} ${this.form.start}`)
-        }
-
-        return null
-      },
-
-      finish () {
-        return new Date(`${this.formatedDate} ${this.form.finish}`)
-      },
-
-      duration () {
-        return this.total - (parseInt(this.form.pause) / 60).toFixed(2)
-      },
-
-      total () {
-        return (differenceInMinutes(this.finish, this.start) / 60).toFixed(2)
+    pause(val) {
+      if (val) {
+        console.log("HomePage - pause value changed", val);
+        this.calculateEnd();
       }
     },
 
-    watch: {
-      start(val) {
-        if(val) {
-          console.log('HomePage - start value changed', val)
-          this.calculateEnd()
-        }
+    currentDate() {
+      this.initForm();
+    }
+  },
 
+  filters: {
+    timeToNumber: function(value) {
+      const splitted = value.split(":");
+      return parseInt(splitted[0]) * 60 + parseInt(splitted[1]);
+    }
+  },
+
+  methods: {
+    ...mapActions([
+      "navigate" // map `this.increment()` to `this.$store.dispatch('increment')`
+    ]),
+
+    initForm() {
+      if (this.isRecorded) {
+        Object.assign(this.form, this.record);
+      } else {
+        this.form = {
+          date: this.date,
+          week: this.week,
+          start: "09:00",
+          pause: "00:30",
+          finish: "17:30"
+        };
       }
     },
 
-    filters: {
-      timeToNumber: function (value) {
-        console.log('timeToNumber', value)
-        const splitted = value.split(':')
-        return parseInt(splitted[0]) * 60 + parseInt(splitted[1])
-      }
+    calculateEnd() {
+      const diff = 8 + timeToNumber(this.pause);
+      this.form.finish = format(addHours(this.start, diff), "HH:mm");
     },
 
-    methods: {
-      ...mapActions([
-        'navigate', // map `this.increment()` to `this.$store.dispatch('increment')`
-      ]),
+    openSlider(options) {
+      this.slider = options;
+      this.togglePicker(true);
+    },
 
-      calculateEnd() {
-        console.log('HomePage - calculateEnd:', format(addHours(this.start, 8), 'HH:mm'))
-        this.form.finish = format(addHours(this.start, 8.5), 'HH:mm')
-      },
+    closeSlider() {
+      this.slider = this.$options.data().slider;
+      this.togglePicker(false);
+    },
 
-      openSlider(options) {
-        this.slider = options
-        this.togglePicker(true)
-      },
+    togglePicker(open = true) {
+      this.timepicker = open;
+    },
 
-      closeSlider() {
-        this.slider = this.$options.data().slider
-        this.togglePicker(false)
-      },
+    setValue(target, value) {
+      this.form[target] = value;
+    },
 
-      togglePicker(open=true) {
-        this.timepicker = open
-      },
+    setPause(value) {
+      this.form.pause = value;
+      this.closeSlider();
+    },
 
-      setValue(target, value) {
-        this.form[target] = value
-      },
+    setDate(date) {
+      this.currentDate = date;
+    },
 
-      setPause(value) {
-        this.form.pause = value
-        this.closeSlider()
-        // this.slider = { target: null, open: false}
-      },
+    update() {},
 
-      setDate(date) {
-        this.date = date
-      },
-
-      update() {
-        Timestamp.update(this.form).then(() => {
-          console.log('UPDATED!')
-        }).catch((error) => {
-          console.log(error)
-        })
-      },
-
-      save() {
-        this.form.date = this.date
-        this.form.week = this.week
-
-        Timestamp.save(this.form).then(() => {
-          console.log('SAVED!')
-        }).catch((error) => {
-          console.log(error)
-        })
-      }
+    save: async function() {
+      this.form.duration = this.duration;
+      await Record.save(this.form);
+      this.$store.dispatch("fetchRecords", this.week);
     }
   }
+};
 </script>
 
-<style scoped>
-  .form {
-    display: flex;
-    height: 100%;
-    width: 100%;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    overflow: hidden;
-    white-space: nowrap;
-  }
+<style lang="sass" scoped>
+  .form
+    display: flex
+    height: 100%
+    width: 100%
+    align-items: center
+    justify-content: center
+    flex-direction: column
+    overflow: hidden
+    white-space: nowrap
 
-  .form-input {
-    height: 20%;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    font-size: 2rem;
-    font-weight: bold;
-  }
+  .form-input
+    height: 20%
+    width: 100%
+    display: flex
+    align-items: center
+    justify-content: center
+    color: #fff
+    font-size: 2rem
+    font-weight: bold
 
-  .form-input .form-trigger {
-    flex:1 1 33%;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+    .form-trigger
+      flex: 1 1 33%
+      cursor: pointer
+      display: flex
+      align-items: center
+      justify-content: center
 
-  .form-info {
-    height: 80%;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-  }
+  .form-info
+    width: 100%
+    height: 80%
+    cursor: pointer
+    display: flex
+    align-items: center
+    justify-content: center
+    flex-direction: column
 </style>
