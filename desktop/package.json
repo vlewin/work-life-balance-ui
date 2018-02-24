@@ -17,11 +17,8 @@
   "devDependencies": {
     "babel-preset-electron": "^1.4.15",
     "electron": "^1.4.13",
-    "electron-prebuilt": "^1.4.13",
     "electron-reload": "^1.1.0",
-    "eslint": "^3.13.0",
-    "eslint-config-vue": "^2.0.1",
-    "eslint-plugin-vue": "^1.0.0"
+    "eslint": "^3.13.0"
   },
   "dependencies": {}
 }
