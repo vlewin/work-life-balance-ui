@@ -36,7 +36,7 @@
 
     <simple-switch slot="footer" class="horizontal animated primary" :active="timepicker">
       <button slot="up" v-on:click="navigate('page-3')">ABSENCE</button>
-      <button slot="down" v-on:click="closeSlider">CANCEL</button>
+      <button slot="down" :class="{active: timepicker }" v-on:click="closeSlider">CANCEL</button>
     </simple-switch>
   </card>
 </template>

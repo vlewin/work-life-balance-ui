@@ -57,7 +57,7 @@
   /*border-top: 1px solid #eee;*/
 }
 
-.card-footer button {
+/* .card-footer button {
   background: none;
   border: none;
   outline: none;
@@ -73,6 +73,6 @@
 }
 
 .card-footer button:first-child {
-  /*border-right: 1px solid #eee;*/
-}
+  border-right: 1px solid #eee;
+} */
 </style>

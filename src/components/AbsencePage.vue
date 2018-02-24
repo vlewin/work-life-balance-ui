@@ -8,7 +8,12 @@
       <h4 slot="right" v-on:click="toggleReason('holiday')">HOLIDAY</h4>
     </slider>
 
-    <calendar slot="body" class="height-80 white" :date="date"></calendar>
+    <calendar slot="body" class="height-70 white" :date="date"></calendar>
+
+    <div slot="body" class="balance light-grey height-10">
+      <span>VACATION: {{ vacationRestDays }} days</span>
+      <span>SICKNESS: {{ seeknessDays }} days</span>
+    </div>
 
     <simple-switch slot="footer" class="vertical animated">
       <button slot="up">SAVE</button>
@@ -46,6 +51,8 @@ export default {
       page: "page-2",
       reason: null,
       date: new Date(),
+      vacationRestDays: 28,
+      seeknessDays: 2,
       sliderMap: {
         vacation: 0,
         sickness: 1,
@@ -73,3 +80,12 @@ export default {
   }
 };
 </script>
+
+<style lang="sass">
+  .balance
+    display: flex
+    justify-content: space-around
+    align-items: center
+    font-size: 80%
+    width: 100%
+</style>

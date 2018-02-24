@@ -141,7 +141,7 @@ export default {
   flex: 1 1 calc(100% / 3);
   text-align: center;
   vertical-align: middle;
-  padding: 1rem;
+  padding: 1em 0;
   /*font-size: 130%;*/
   font-weight: bold;
   color: #444;

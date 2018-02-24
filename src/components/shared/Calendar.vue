@@ -17,11 +17,6 @@
         <span class="tooltiptext" v-if="isHoliday(day)">{{ isHoliday(day) }}</span>
       </li>
     </ul>
-
-    <div class="balance light-grey">
-      <span>VACATION: {{ vacationRestDays }} days</span>
-      <span>SICKNESS: {{ seeknessDays }} days</span>
-    </div>
   </div>
 </template>
 
@@ -183,18 +178,13 @@ export default {
     grid-row-gap: 0.2rem
     grid-column-gap: 0.2rem
     width: 100%
-    height: 80%
-    padding: 1.2rem
+    height: 100%
+    margin: 0
+    padding: 0.5em 1em
     justify-items: center
     align-items: center
 
-  .balance
-    display: flex
-    justify-content: space-around
-    align-items: center
-    font-size: 80%
-    width: 100%
-    height: 20%
+
 
   .grid-item
     display: inline-block

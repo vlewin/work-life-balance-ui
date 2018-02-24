@@ -14,7 +14,7 @@
       &nbsp;+20&deg;C
     </div>
 
-    <h1>{{ duration }} hours</h1>
+    <h1>{{ duration }} Hours</h1>
 
     <h4 v-if="isHappy">
       <i class="fa fa-smile-o" aria-hidden="true"></i>
@@ -67,8 +67,7 @@ export default {
     width: 40vh
     border-radius: 50%
     border: 2vh solid $mid-grey
-    color: $black
-    justify-content: space-evenly
+    justify-content: space-around
 
     &.happy
       border: 2vh solid $green
