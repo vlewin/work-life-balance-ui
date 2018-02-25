@@ -14,31 +14,33 @@
 //  }
 // }
 
-import Record from "../services/record";
+import Record from "../services/record"
 
 export default {
   navigate: ({ commit }, page) => {
-    commit("SET_PAGE", page);
+    commit("SET_PAGE", page)
   },
 
   setCurrentDate: ({ commit }, date) => {
-    commit("SET_SELECTED_DAY", date);
+    commit("SET_SELECTED_DAY", date)
   },
 
-  fetchRecords: ({ commit }, week) => {
-    console.log("ACTIONS: fetchRecords", week);
-    Record.all({ week: week })
-      .then(response => {
-        commit("SET_RECORDS", response.data);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  }
+  fetchRecords: async ({ commit, state }) => {
+    const response = await Record.all({ week: state.currentWeekNumber })
+    commit("SET_RECORDS", response.data)
+    console.log("fetched")
+  },
 
-  // async fetchWeek({ commit }, week) {
-  //   console.log(commit, week);
-  //   const response = await Record.all();
-  //   commit("SET_SELECTED_DAY", response.data);
-  // }
-};
+  saveRecord: async ({ commit }, record) => {
+    const response = await Record.save(record)
+    // const response = await Record.all({ week: week });
+    commit("ADD_RECORD", response.data)
+    console.log("saved")
+  },
+
+  updateRecord: async ({ commit }, record) => {
+    const response = await Record.save(record)
+    commit("ADD_RECORD", response.data)
+    console.log("saved")
+  }
+}
