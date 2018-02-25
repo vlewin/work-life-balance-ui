@@ -1,5 +1,4 @@
 <template>
-  <login-form v-if="false"></login-form>
   <pager :active="page" v-else>
     <report-page slot="left"></report-page>
     <home-page slot="center"></home-page>
@@ -8,7 +7,6 @@
 </template>
 
 <script>
-import LoginForm from "./LoginForm"
 import Pager from "./shared/Pager"
 import HomePage from "./HomePage"
 import ReportPage from "./ReportPage"
@@ -17,7 +15,6 @@ import AbsencePage from "./AbsencePage"
 export default {
   name: "Index",
   components: {
-    LoginForm,
     Pager,
     HomePage,
     ReportPage,

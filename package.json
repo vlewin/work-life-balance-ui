@@ -18,6 +18,7 @@
     "inspect": "vue inspect > output.js | cat"
   },
   "dependencies": {
+    "auth0-js": "^9.3.0",
     "axios": "^0.18.0",
     "calendator": "^2.1.0",
     "german-holiday": "^1.2.0",
@@ -44,9 +45,5 @@
     "sass-loader": "^6.0.6",
     "vue-template-compiler": "^2.5.13"
   },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not ie <= 8"
-  ]
+  "browserslist": ["> 1%", "last 2 versions", "not ie <= 8"]
 }

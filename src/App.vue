@@ -92,10 +92,7 @@ export default {
         docEl.webkitRequestFullScreen ||
         docEl.msRequestFullscreen
       var cancelFullScreen =
-        doc.exitFullscreen ||
-        doc.mozCancelFullScreen ||
-        doc.webkitExitFullscreen ||
-        doc.msExitFullscreen
+        doc.exitFullscreen || doc.mozCancelFullScreen || doc.webkitExitFullscreen || doc.msExitFullscreen
 
       if (
         !doc.fullscreenElement &&

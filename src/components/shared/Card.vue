@@ -57,6 +57,11 @@
   /*border-top: 1px solid #eee;*/
 }
 
+.card-footer button {
+  width: 100%;
+  height: 100%;
+}
+
 /* .card-footer button {
   background: none;
   border: none;

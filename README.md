@@ -12,8 +12,13 @@ TODO:
 * [ ] GraphQL data services
 * [ ] Unit / Functional / UI E2E acceptance testing (Chrome headless)
 * [x] completed
+* [ ] Auth0 vs AWS Cognito authentication
 
 SOURCES:
+
+## Auth0 Vue sample app
+
+https://manage.auth0.com/#/clients/fC4Z1HSO4PHNJTWu9K4Emn90bo6CCgCM/quickstart
 
 ## CSS AND LAYOUT
 
