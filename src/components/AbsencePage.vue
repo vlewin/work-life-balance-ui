@@ -28,13 +28,13 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions } from "vuex"
 
-import Card from "./shared/Card";
-import MonthPicker from "./shared/MonthPicker";
-import Slider from "./shared/Slider";
-import Calendar from "./shared/Calendar";
-import SimpleSwitch from "./shared/SimpleSwitch";
+import Card from "./shared/Card"
+import MonthPicker from "./shared/MonthPicker"
+import Slider from "./shared/Slider"
+import Calendar from "./shared/Calendar"
+import SimpleSwitch from "./shared/SimpleSwitch"
 
 export default {
   name: "AbsencePage",
@@ -58,7 +58,7 @@ export default {
         sickness: 1,
         holiday: 2
       }
-    };
+    }
   },
 
   methods: {
@@ -67,18 +67,18 @@ export default {
     ]),
 
     setDate(date) {
-      this.date = date;
+      this.date = date
     },
 
     toggleReason(reason) {
-      this.reason = this.reason === reason ? null : reason;
+      this.reason = this.reason === reason ? null : reason
     },
 
     reset() {
-      Object.assign(this.$data, this.$options.data.call(this));
+      Object.assign(this.$data, this.$options.data.call(this))
     }
   }
-};
+}
 </script>
 
 <style lang="sass">

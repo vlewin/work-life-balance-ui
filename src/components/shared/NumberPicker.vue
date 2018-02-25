@@ -20,22 +20,22 @@ export default {
     return {
       values: [0, 15, 30, 45, 60, 90, 120, 180, 240],
       selected: 30
-    };
+    }
   },
 
   computed: {
     setable() {
-      return this.values;
+      return this.values
     }
   },
 
   methods: {
     select(value) {
-      this.selected = value;
-      this.$emit("changed", value);
+      this.selected = value
+      this.$emit("changed", value)
     }
   }
-};
+}
 </script>
 
 <style scoped>

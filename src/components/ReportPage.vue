@@ -23,13 +23,13 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions } from "vuex"
 
-import VueTrend from "vuetrend";
-import VueBars from "vuebars";
+import VueTrend from "vuetrend"
+import VueBars from "vuebars"
 
-import Card from "./shared/Card";
-import MonthPicker from "./shared/MonthPicker";
+import Card from "./shared/Card"
+import MonthPicker from "./shared/MonthPicker"
 
 export default {
   name: "ReportPage",
@@ -75,21 +75,21 @@ export default {
         this.getRandomInt(),
         this.getRandomInt()
       ]
-    };
+    }
   },
 
   created() {},
 
   computed: {
     chartWidth() {
-      return document.getElementById("app").offsetWidth - 50;
+      return document.getElementById("app").offsetWidth - 50
     }
   },
 
   watch: {
     date() {
-      this.generate();
-      this.$forceUpdate();
+      this.generate()
+      this.$forceUpdate()
     }
   },
 
@@ -127,16 +127,16 @@ export default {
         this.getRandomInt(),
         this.getRandomInt(),
         this.getRandomInt()
-      ];
+      ]
     },
 
     getRandomInt(min = 6, max = 10) {
-      return Math.floor(Math.random() * (max - min + 1) + min);
+      return Math.floor(Math.random() * (max - min + 1) + min)
     },
 
     setDate(date) {
-      this.date = date;
+      this.date = date
     }
   }
-};
+}
 </script>

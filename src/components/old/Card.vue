@@ -55,7 +55,7 @@
 </template>
 
 <script>
-import TimePicker from "./TimePicker";
+import TimePicker from "./TimePicker"
 
 export default {
   name: "Time",
@@ -66,19 +66,19 @@ export default {
   data() {
     return {
       toggle: false
-    };
+    }
   },
 
   methods: {
     open() {
-      this.toggle = !this.toggle;
+      this.toggle = !this.toggle
     },
 
     done() {
-      this.open();
+      this.open()
     }
   }
-};
+}
 </script>
 
 <style>

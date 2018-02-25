@@ -18,30 +18,30 @@
 //   update: aws-work-life-balance-api-developement-update
 //   destroy: aws-work-life-balance-api-developement-destroy
 
-import axios from "axios";
+import axios from "axios"
 
 export default class Record {
   static get endpoint() {
-    return "https://6jq5tvia8d.execute-api.eu-central-1.amazonaws.com/development/records";
+    return "https://6jq5tvia8d.execute-api.eu-central-1.amazonaws.com/development/records"
   }
 
   static all(params = {}) {
-    return axios.get(this.endpoint, { params: params });
+    return axios.get(this.endpoint, { params: params })
   }
 
   static get(id) {
-    return axios.get(`${this.endpoint}/${id}`);
+    return axios.get(`${this.endpoint}/${id}`)
   }
 
   static save(record) {
-    return axios.post(this.endpoint, record);
+    return axios.post(this.endpoint, record)
   }
 
   static update(id, record) {
-    return axios.put(`${this.endpoint}/${id}`, record);
+    return axios.put(`${this.endpoint}/${id}`, record)
   }
 
   static delete(id) {
-    return axios.delete(`${this.endpoint}/${id}`);
+    return axios.delete(`${this.endpoint}/${id}`)
   }
 }

@@ -2,7 +2,7 @@
   <div class="time-picker">
     <input-time class="width-100 height-20 amber" :init-value="initValue" :value="time"></input-time>
     <ul class="flex-container">
-      <li class="flex-item" v-for="value in values" v-bind:class="{ disabled: !setable.includes(value) }" v-on:click="setTime(value)">
+      <li class="flex-item" v-for="(value, index) in values" :key="index" :class="{ disabled: !setable.includes(value) }" v-on:click="setTime(value)">
         {{ value }}
       </li>
     </ul>
@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import InputTime from "./InputTime";
+import InputTime from "./InputTime"
 
 export default {
   name: "TimePicker",
@@ -30,7 +30,7 @@ export default {
 
       timeout: null,
       time: ""
-    };
+    }
   },
 
   props: {
@@ -53,14 +53,14 @@ export default {
       if (this.time.startsWith("2") && this.time.length === 1) {
         // console.log("Starts with 2");
         // console.log(JSON.stringify(this.available.filter(h => h < 4)));
-        return this.available.filter(h => h < 4);
+        return this.available.filter(h => h < 4)
       }
 
-      return this.available;
+      return this.available
     },
 
     available() {
-      return this.valid[this.time.length] || [];
+      return this.valid[this.time.length] || []
     }
   },
 
@@ -68,50 +68,44 @@ export default {
     initValue(val) {
       if (val) {
         // console.log("TimePicker - initValue change - addEventListener", val);
-        window.addEventListener("keyup", this.keyup);
+        window.addEventListener("keyup", this.keyup)
       } else {
         // console.error("TimePicker - Empty initValue - removeEventListener !!!");
-        window.removeEventListener("keyup", this.keyup);
+        window.removeEventListener("keyup", this.keyup)
       }
     }
   },
 
   methods: {
     keyup(event) {
-      const key = parseInt(event.key);
+      const key = parseInt(event.key)
       if (event.key === "Backspace") {
-        this.time = this.time.endsWith(":")
-          ? this.time.substring(0, this.time.length - 2)
-          : this.time.substring(0, this.time.length - 1);
-        console.log(this.time);
+        this.time = this.time.endsWith(":") ? this.time.substring(0, this.time.length - 2) : this.time.substring(0, this.time.length - 1)
+        console.log(this.time)
       } else if (this.setable.includes(key)) {
-        this.setTime(event.key);
+        this.setTime(event.key)
       }
     },
 
     setTime(value) {
-      this.time = this.time + value;
+      this.time = this.time + value
 
       if (this.time.length === 4) {
-        clearTimeout(this.timeout);
+        clearTimeout(this.timeout)
         this.timeout = setTimeout(() => {
-          this.$emit(
-            "changed",
-            this.target,
-            this.time.match(/.{1,2}/g).join(":")
-          );
-          this.$emit("done");
-          this.time = "";
-        }, 500);
+          this.$emit("changed", this.target, this.time.match(/.{1,2}/g).join(":"))
+          this.$emit("done")
+          this.time = ""
+        }, 500)
       }
     },
 
     reset() {
-      window.removeEventListener("keyup");
-      this.time = "";
+      window.removeEventListener("keyup")
+      this.time = ""
     }
   }
-};
+}
 </script>
 
 

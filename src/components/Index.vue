@@ -8,11 +8,11 @@
 </template>
 
 <script>
-import LoginForm from "./LoginForm";
-import Pager from "./shared/Pager";
-import HomePage from "./HomePage";
-import ReportPage from "./ReportPage";
-import AbsencePage from "./AbsencePage";
+import LoginForm from "./LoginForm"
+import Pager from "./shared/Pager"
+import HomePage from "./HomePage"
+import ReportPage from "./ReportPage"
+import AbsencePage from "./AbsencePage"
 
 export default {
   name: "Index",
@@ -25,19 +25,19 @@ export default {
   },
 
   data() {
-    return {};
+    return {}
   },
 
   created() {
-    console.log("CREATED");
+    console.log("CREATED")
   },
 
   computed: {
     page() {
-      return this.$store.state.page;
+      return this.$store.state.page
     }
   },
 
   methods: {}
-};
+}
 </script>

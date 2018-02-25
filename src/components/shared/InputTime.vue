@@ -27,15 +27,10 @@ export default {
   name: "InputTime",
   data() {
     return {
-      fields: [
-        { v: "0", n: null },
-        { v: "0", n: null },
-        { v: "0", n: null },
-        { v: "0", n: null }
-      ],
+      fields: [{ v: "0", n: null }, { v: "0", n: null }, { v: "0", n: null }, { v: "0", n: null }],
       timeout: null,
       current: 0
-    };
+    }
   },
 
   props: {
@@ -51,11 +46,11 @@ export default {
 
   computed: {
     hours() {
-      return Array.from(this.fields).slice(0, 2);
+      return Array.from(this.fields).slice(0, 2)
     },
 
     minutes() {
-      return Array.from(this.fields).slice(2);
+      return Array.from(this.fields).slice(2)
     }
   },
 
@@ -67,27 +62,27 @@ export default {
           .replace(":", "")
           .split("")
           .forEach((v, index) => {
-            this.fields[index].v = v;
-            this.fields[index].n = null;
-          });
+            this.fields[index].v = v
+            this.fields[index].n = null
+          })
       } else {
         // console.error("InputTime - Empty initValue!!!");
-        this.reset();
+        this.reset()
       }
     },
 
     value(val, oldVal) {
-      console.log("InputTime - value change", val, oldVal);
-      const value = val.replace(":", "");
+      console.log("InputTime - value change", val, oldVal)
+      const value = val.replace(":", "")
       if (val.length > oldVal.length) {
-        this.fields[this.current].n = value[this.current];
-        this.next();
+        this.fields[this.current].n = value[this.current]
+        this.next()
       } else if (oldVal && oldVal.length > val.length) {
-        this.prev();
-        this.fields[this.current].n = null;
+        this.prev()
+        this.fields[this.current].n = null
       } else {
-        console.error("InputTime - Empty value!!!");
-        this.reset();
+        console.error("InputTime - Empty value!!!")
+        this.reset()
       }
     }
   },
@@ -95,26 +90,26 @@ export default {
   methods: {
     isDirty(value) {
       // console.log('InputTime - isDirty', JSON.stringify(value), !!value.n)
-      return !!value.n;
+      return !!value.n
     },
 
     next() {
-      this.current += 1;
+      this.current += 1
     },
 
     prev() {
-      this.current -= 1;
+      this.current -= 1
     },
 
     reset() {
       // console.error("InputTime - reset in 500ms");
-      clearTimeout(this.timeout);
+      clearTimeout(this.timeout)
       this.timeout = setTimeout(() => {
-        Object.assign(this.$data, this.$options.data.call(this));
-      }, 500);
+        Object.assign(this.$data, this.$options.data.call(this))
+      }, 500)
     }
   }
-};
+}
 </script>
 
 <style scoped>

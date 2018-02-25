@@ -26,7 +26,7 @@ export default {
     return {
       open: null,
       page: null
-    };
+    }
   },
 
   props: {
@@ -37,16 +37,16 @@ export default {
 
   methods: {
     prev(page) {
-      console.log("NEXT");
-      this.$parent.page = page;
+      console.log("NEXT")
+      this.$parent.page = page
     },
 
     next(page) {
-      console.log("NEXT");
-      this.$parent.page = page;
+      console.log("NEXT")
+      this.$parent.page = page
     }
   }
-};
+}
 </script>
 <style>
 .wrapper {

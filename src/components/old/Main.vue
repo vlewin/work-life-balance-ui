@@ -52,14 +52,14 @@
 </template>
 
 <script>
-import SimpleSwitch from "./SimpleSwitch";
-import DatePicker from "./DatePicker";
-import TimePicker from "./TimePicker";
-import InputTime from "./InputTime";
-import InputNumber from "./InputNumber";
-import Calendar from "./Calendar";
-import SelectBox from "./SelectBox";
-import Info from "./Info";
+import SimpleSwitch from "./SimpleSwitch"
+import DatePicker from "./DatePicker"
+import TimePicker from "./TimePicker"
+import InputTime from "./InputTime"
+import InputNumber from "./InputNumber"
+import Calendar from "./Calendar"
+import SelectBox from "./SelectBox"
+import Info from "./Info"
 
 export default {
   name: "Time",
@@ -90,88 +90,88 @@ export default {
       mode: null,
       toggle: null,
       animationClass: null
-    };
+    }
   },
 
   computed: {
     sliderOpen() {
-      return this.mode;
+      return this.mode
     },
 
     pickerOpen() {
-      return this.picker.target;
+      return this.picker.target
     }
   },
 
   methods: {
     selectDay(day) {
-      this.today = day;
-      this.$parent.day = day;
+      this.today = day
+      this.$parent.day = day
     },
 
     openPicker(target, value) {
       if (this.picker.target === target) {
-        this.mode = null;
+        this.mode = null
         this.picker = {
           target: null,
           value: null
-        };
+        }
       } else {
-        this.mode = "picker";
+        this.mode = "picker"
         this.picker = {
           target: target,
           value: value
-        };
+        }
       }
     },
 
     setValue(target, value) {
-      console.log("set", target, value);
-      this.form[target] = value;
+      console.log("set", target, value)
+      this.form[target] = value
     },
 
     closePicker() {
-      console.log("Close picker");
-      this.mode = null;
+      console.log("Close picker")
+      this.mode = null
       this.picker = {
         target: null,
         value: null
-      };
+      }
     },
 
     openCalendar() {
-      this.closePicker();
-      this.mode = "calendar";
+      this.closePicker()
+      this.mode = "calendar"
     },
 
     closeCalendar() {
-      this.mode = null;
+      this.mode = null
     },
 
     open(element) {
-      console.log("toggle");
+      console.log("toggle")
       if (element === "calendar") {
-        this.closePicker();
+        this.closePicker()
       }
 
       if (this.toggle === element) {
-        this.toggle = null;
+        this.toggle = null
       } else {
-        this.toggle = element;
+        this.toggle = element
       }
     },
 
     close() {
-      this.mode = null;
-      this.closePicker();
-      this.closeCalendar();
+      this.mode = null
+      this.closePicker()
+      this.closeCalendar()
     },
 
     done() {
-      this.open();
+      this.open()
     }
   }
-};
+}
 </script>
 <style>
 @-webkit-keyframes blinker {

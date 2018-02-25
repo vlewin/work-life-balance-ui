@@ -20,7 +20,7 @@
 Array.range = (start, end) =>
   [...Array(end - start + 1)].map((_, i) =>
     (start + i).toString().padStart(2, "0")
-  );
+  )
 
 export default {
   name: "TimePicker",
@@ -39,7 +39,7 @@ export default {
         hh: null,
         mm: null
       }
-    };
+    }
   },
 
   props: {
@@ -54,10 +54,10 @@ export default {
 
   created() {
     if (this.value && this.value.match(/^[0-9]{1,2}:[0-9]{1,2}$/)) {
-      this.values.hh = this.value.split(":")[0];
+      this.values.hh = this.value.split(":")[0]
       this.values.mm = this.round(this.value.split(":")[1])
         .toString()
-        .padStart(2, "0");
+        .padStart(2, "0")
     }
   },
 
@@ -66,10 +66,10 @@ export default {
   watch: {
     value(val) {
       if (val && val.match(/^[0-9]{1,2}:[0-9]{1,2}$/)) {
-        this.values.hh = val.split(":")[0];
+        this.values.hh = val.split(":")[0]
         this.values.mm = this.round(val.split(":")[1])
           .toString()
-          .padStart(2, "0");
+          .padStart(2, "0")
       }
     }
   },
@@ -84,35 +84,35 @@ export default {
     //   }
     // }
     round(value) {
-      return (parseInt(value) + 5 - parseInt(value) % 5) % 60;
+      return (parseInt(value) + 5 - parseInt(value) % 5) % 60
     },
 
     toggle() {
-      this.visible = !this.visible;
+      this.visible = !this.visible
       if (this.visible) {
-        this.$emit("open", this.target);
+        this.$emit("open", this.target)
       } else {
-        this.$emit("close", this.target);
+        this.$emit("close", this.target)
       }
     },
 
     select(key, value) {
-      this.values[key] = value;
+      this.values[key] = value
       // this.$emit('time-change', this.target, key, value)
 
       if (this.values.hh && this.values.mm) {
-        clearTimeout(this.timeout);
-        const time = `${this.values.hh}:${this.values.mm}`;
-        this.$emit("done", this.target, time);
+        clearTimeout(this.timeout)
+        const time = `${this.values.hh}:${this.values.mm}`
+        this.$emit("done", this.target, time)
 
         this.timeout = setTimeout(() => {
           // this.toggle()
-        }, 2000);
-        this.values = { hh: null, mm: null };
+        }, 2000)
+        this.values = { hh: null, mm: null }
       }
     }
   }
-};
+}
 </script>
 
 <style scoped>

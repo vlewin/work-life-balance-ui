@@ -80,7 +80,7 @@
 </template>
 
 <script>
-import TimePicker from "./TimePicker";
+import TimePicker from "./TimePicker"
 
 export default {
   name: "Time",
@@ -109,134 +109,134 @@ export default {
         pause: null,
         estimatedPause: null
       }
-    };
+    }
   },
 
   filters: {},
 
   created() {
-    this.init();
+    this.init()
   },
 
   computed: {
     date() {
-      return this.today.format("ddd, D MMMM");
+      return this.today.format("ddd, D MMMM")
     },
 
     time() {
-      return this.now.format("HH:mm:ss");
+      return this.now.format("HH:mm:ss")
     },
 
     start() {
-      return this.form.start;
+      return this.form.start
     },
 
     end() {
-      return this.form.end;
+      return this.form.end
     },
 
     pause() {
-      console.log("duration", this.duration);
+      console.log("duration", this.duration)
       if (this.duration <= 6) {
-        return 0;
+        return 0
       } else if (this.duration > 6 && this.duration <= 9) {
-        return 30;
+        return 30
       } else if (this.duration > 9) {
-        return 45;
+        return 45
       }
-      return "N/A";
+      return "N/A"
     },
 
     duration() {
-      const start = this.toTimeString(this.form.start);
-      const end = this.toTimeString(this.form.end);
+      const start = this.toTimeString(this.form.start)
+      const end = this.toTimeString(this.form.end)
       return (
         end.subtract(this.form.pause, "minutes").diff(start, "minutes") / 60
-      );
+      )
     },
 
     total() {
-      const start = this.toTimeString(this.form.start);
-      const end = this.toTimeString(this.form.end);
-      return end.diff(start, "minutes") / 60;
+      const start = this.toTimeString(this.form.start)
+      const end = this.toTimeString(this.form.end)
+      return end.diff(start, "minutes") / 60
     }
   },
 
   watch: {
     // eslint-disable-next-line
       'form.start': function (val) {
-      console.log(val);
-      this.estimateEnd();
+      console.log(val)
+      this.estimateEnd()
     },
 
     // eslint-disable-next-line
       'form.pause': function (val) {
-      console.log(val);
-      this.estimateEnd();
+      console.log(val)
+      this.estimateEnd()
     },
 
     // eslint-disable-next-line
       'form.end': function (val) {
-      console.log(val);
-      this.estimatePause();
+      console.log(val)
+      this.estimatePause()
     }
   },
 
   methods: {
     init() {
       setInterval(() => {
-        this.now = this.$time();
-      }, 1000);
+        this.now = this.$time()
+      }, 1000)
 
-      this.form.date = this.today;
-      this.form.start = this.now.format("HH:mm");
-      this.form.pause = 30;
-      this.form.end = this.now.add(8, "h").format("HH:mm");
+      this.form.date = this.today
+      this.form.start = this.now.format("HH:mm")
+      this.form.pause = 30
+      this.form.end = this.now.add(8, "h").format("HH:mm")
     },
 
     toTimeString(value) {
-      return this.$time(value, "HH:mm");
+      return this.$time(value, "HH:mm")
     },
 
     set(input) {
       if (input === "start") {
-        this.form.start = this.$time().format("HH:mm");
+        this.form.start = this.$time().format("HH:mm")
       } else {
         this.form.end = this.$time()
           .add(8, "h")
-          .format("HH:mm");
+          .format("HH:mm")
       }
     },
 
     estimatePause() {
-      console.log("estimatePause");
+      console.log("estimatePause")
       if (this.duration <= 6) {
-        this.form.estimatedPause = 0;
+        this.form.estimatedPause = 0
       } else if (this.duration > 6 && this.duration <= 9) {
-        this.form.estimatedPause = 30;
+        this.form.estimatedPause = 30
       } else if (this.duration > 9) {
-        this.form.estimatedPause = 45;
+        this.form.estimatedPause = 45
       }
-      return "N/A";
+      return "N/A"
     },
 
     estimateEnd() {
-      console.log("estimateEnd");
+      console.log("estimateEnd")
       this.form.end = this.toTimeString(this.form.start)
         .add(8, "h")
         .add(this.form.pause, "m")
-        .format("HH:mm");
+        .format("HH:mm")
     },
 
     submit() {
-      console.log(JSON.stringify(this.form));
+      console.log(JSON.stringify(this.form))
     },
 
     toggleTimePicker(target) {
       if (this.picker === target) {
-        this.picker = null;
+        this.picker = null
       } else {
-        this.picker = target;
+        this.picker = target
       }
     },
 
@@ -245,20 +245,20 @@ export default {
     //   this.form[target][unit] = value
     // },
     setOpen(target) {
-      this.picker = target;
+      this.picker = target
     },
 
     setClose(target) {
-      this.picker = null;
+      this.picker = null
     },
 
     setTime(target, value) {
-      console.log("setTime", value, target);
-      this.form[target] = value;
-      this.picker = null;
+      console.log("setTime", value, target)
+      this.form[target] = value
+      this.picker = null
     }
   }
-};
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import LoginForm from "./LoginForm";
+import LoginForm from "./LoginForm"
 
 export default {
   name: "Index",
@@ -30,21 +30,21 @@ export default {
   },
 
   data() {
-    return {};
+    return {}
   },
 
   created() {
-    console.log("CREATED");
+    console.log("CREATED")
   },
 
   computed: {
     page() {
-      return this.$store.state.page;
+      return this.$store.state.page
     }
   },
 
   methods: {}
-};
+}
 </script>
 
 <style lang="sass">

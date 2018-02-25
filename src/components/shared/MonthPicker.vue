@@ -13,41 +13,41 @@
 </template>
 
 <script>
-import addMonths from "date-fns/add_months";
-import subMonths from "date-fns/sub_months";
+import addMonths from "date-fns/add_months"
+import subMonths from "date-fns/sub_months"
 
 export default {
   name: "MonthPicker",
   data() {
     return {
       date: new Date()
-    };
+    }
   },
 
   created() {},
 
   computed: {
     month() {
-      return this.date.toLocaleString("en-US", { month: "long" });
+      return this.date.toLocaleString("en-US", { month: "long" })
     },
 
     year() {
-      return this.date.getFullYear();
+      return this.date.getFullYear()
     }
   },
 
   methods: {
     prevMonth() {
-      this.date = subMonths(this.date, 1);
-      this.$emit("date-change", this.date);
+      this.date = subMonths(this.date, 1)
+      this.$emit("date-change", this.date)
     },
 
     nextMonth() {
-      this.date = addMonths(this.date, 1);
-      this.$emit("date-change", this.date);
+      this.date = addMonths(this.date, 1)
+      this.$emit("date-change", this.date)
     }
   }
-};
+}
 </script>
 
 <style scoped>

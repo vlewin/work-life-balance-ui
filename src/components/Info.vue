@@ -32,7 +32,7 @@
 export default {
   name: "Info",
   data() {
-    return {};
+    return {}
   },
 
   props: {
@@ -46,17 +46,17 @@ export default {
 
   computed: {
     isHappy() {
-      return this.duration >= 8 && this.duration <= 9;
+      return this.duration >= 8 && this.duration <= 9
     }
   },
 
   methods: {
     navigate(page) {
-      console.log("Navigate", page, this.$parent.page);
-      this.$parent.page = page;
+      console.log("Navigate", page, this.$parent.page)
+      this.$parent.page = page
     }
   }
-};
+}
 </script>
 
 <style lang="sass">

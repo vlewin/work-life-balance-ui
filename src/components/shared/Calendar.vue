@@ -21,14 +21,11 @@
 </template>
 
 <script>
-Array.range = (start, end) =>
-  [...Array(end - start + 1)].map((_, i) =>
-    (start + i).toString().padStart(2, "0")
-  );
+Array.range = (start, end) => [...Array(end - start + 1)].map((_, i) => (start + i).toString().padStart(2, "0"))
 
-import Calendator from "calendator";
-import holiday from "german-holiday";
-const calendator = new Calendator(Calendator.MON);
+import Calendator from "calendator"
+import holiday from "german-holiday"
+const calendator = new Calendator(Calendator.MON)
 
 export default {
   name: "Calendar",
@@ -38,7 +35,7 @@ export default {
       year: this.date.getFullYear(),
       weekdays: ["MO", "TU", "WE", "TH", "FR", "SA", "SU"],
       selected: []
-    };
+    }
   },
 
   props: {
@@ -59,37 +56,32 @@ export default {
 
   filters: {
     toNumber: function(value) {
-      return value ? value.getDate() : null;
+      return value ? value.getDate() : null
     }
   },
 
   computed: {
     weeks() {
-      return calendator.giveMeCalendarForMonthYear(
-        this.date.getMonth(),
-        this.date.getFullYear()
-      );
+      return calendator.giveMeCalendarForMonthYear(this.date.getMonth(), this.date.getFullYear())
     },
 
     currentMonth() {
-      return this.date.toLocaleString("en-US", { month: "long" });
+      return this.date.toLocaleString("en-US", { month: "long" })
     },
 
     days() {
       return this.weeks.reduce((a, b) => a.concat(b)).map(d => {
-        return d
-          ? new Date(this.date.getFullYear(), this.date.getMonth(), d)
-          : null;
-      });
+        return d ? new Date(this.date.getFullYear(), this.date.getMonth(), d) : null
+      })
     },
 
     vacationRestDays() {
       // TODO: Number of vacation days from settings
-      return 30 - this.selected.length;
+      return 30 - this.selected.length
     },
 
     seeknessDays() {
-      return this.selected.length;
+      return this.selected.length
     }
   },
 
@@ -97,56 +89,56 @@ export default {
 
   methods: {
     isSelected(date) {
-      return this.selected.includes(date);
+      return this.selected.includes(date)
     },
 
     isWeekend(day) {
-      return [5, 6].includes(day % 7);
+      return [5, 6].includes(day % 7)
     },
 
     isHoliday(date) {
-      return date && holiday.holidayCheck(date, "BY");
+      return date && holiday.holidayCheck(date, "BY")
     },
 
     isEmpty(date) {
-      return !date;
+      return !date
     },
 
     prevMonth() {
       if (this.month === 1) {
-        this.month = 11;
-        this.year -= 1;
+        this.month = 11
+        this.year -= 1
       } else {
-        this.month -= 1;
+        this.month -= 1
       }
 
-      console.log("prevMonth", this.month, this.year);
+      console.log("prevMonth", this.month, this.year)
 
-      this.weeks = calendator.giveMeCalendarForMonthYear(this.month, this.year);
+      this.weeks = calendator.giveMeCalendarForMonthYear(this.month, this.year)
     },
 
     nextMonth() {
       if (this.month === 11) {
-        this.month = 0;
-        this.year += 1;
+        this.month = 0
+        this.year += 1
       } else {
-        this.month += 1;
+        this.month += 1
       }
 
-      console.log("nextMonth", this.month, this.year);
+      console.log("nextMonth", this.month, this.year)
 
-      this.weeks = calendator.giveMeCalendarForMonthYear(this.month + 1, 2017);
+      this.weeks = calendator.giveMeCalendarForMonthYear(this.month + 1, 2017)
     },
 
     select(date) {
       if (this.selected.includes(date)) {
-        this.selected.splice(this.selected.indexOf(date), 1);
+        this.selected.splice(this.selected.indexOf(date), 1)
       } else {
-        this.selected.push(date);
+        this.selected.push(date)
       }
     }
   }
-};
+}
 </script>
 
 <style lang="sass">

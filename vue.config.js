@@ -27,6 +27,7 @@ const path = require("path");
 module.exports = {
   baseUrl: "./",
   configureWebpack: {
+    devtool: "inline-source-map",
     name: "vue-work-life-balance",
     output: {
       publicPath: "./"

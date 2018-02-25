@@ -19,8 +19,8 @@
 </template>
 
 <script>
-import VueTimepicker from "vue2-timepicker";
-import Timestamp from "../models/timestamp";
+import VueTimepicker from "vue2-timepicker"
+import Timestamp from "../models/timestamp"
 export default {
   name: "Time",
   components: { VueTimepicker },
@@ -42,62 +42,62 @@ export default {
       ],
       date: new Date(),
       timestamp: new Timestamp()
-    };
+    }
   },
 
   filters: {},
 
   created() {
-    window.Timestamp = Timestamp;
+    window.Timestamp = Timestamp
 
     setInterval(() => {
-      this.time = new Date();
-    }, 1000);
+      this.time = new Date()
+    }, 1000)
   },
 
   watch: {
     "timestamp.start": function(val) {
       if (val) {
-        this.timestamp.estimatedPause = this.pause;
-        this.timestamp.end = Timestamp.calculateEnd(this.timestamp);
+        this.timestamp.estimatedPause = this.pause
+        this.timestamp.end = Timestamp.calculateEnd(this.timestamp)
       }
     },
 
     "timestamp.pause": function(val) {
       if (val) {
-        this.timestamp.end = Timestamp.calculateEnd(this.timestamp);
+        this.timestamp.end = Timestamp.calculateEnd(this.timestamp)
       }
     },
 
     "timestamp.end": function(val) {
       if (val) {
-        this.timestamp.estimatedPause = this.pause;
-        this.timestamp.duration = this.duration;
-        this.timestamp.total = this.total;
+        this.timestamp.estimatedPause = this.pause
+        this.timestamp.duration = this.duration
+        this.timestamp.total = this.total
       }
     }
   },
 
   computed: {
     pause() {
-      return Timestamp.calculatePause(this.duration).toString();
+      return Timestamp.calculatePause(this.duration).toString()
     },
 
     duration() {
-      return Timestamp.calculateDuration(this.timestamp);
+      return Timestamp.calculateDuration(this.timestamp)
     },
 
     total() {
-      return Timestamp.calculateTotal(this.timestamp);
+      return Timestamp.calculateTotal(this.timestamp)
     }
   },
 
   methods: {
     submit() {
-      console.log(new Timestamp(this.timestamp));
+      console.log(new Timestamp(this.timestamp))
     }
   }
-};
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

@@ -67,11 +67,11 @@
 </template>
 
 <script>
-import TimePicker from "./TimePicker";
-import Timestamp from "../models/timestamp";
-import Vue from "vue";
-import VueTimepicker from "vue2-timepicker";
-Vue.use(VueTimepicker);
+import TimePicker from "./TimePicker"
+import Timestamp from "../models/timestamp"
+import Vue from "vue"
+import VueTimepicker from "vue2-timepicker"
+Vue.use(VueTimepicker)
 
 export default {
   name: "Time",
@@ -90,56 +90,56 @@ export default {
         pause: null,
         end: this.endTime
       }
-    };
+    }
   },
 
   filters: {
     leadingZero: value => {
       const formated = value.split(":").map(value => {
-        const intValue = value;
+        const intValue = value
         if (intValue > 0 && intValue < 10) {
-          return `0${intValue}`;
+          return `0${intValue}`
         }
-        return intValue;
-      });
+        return intValue
+      })
 
-      return formated.join(":");
+      return formated.join(":")
     },
 
     toTime: function(value) {
-      return Timestamp.toTime(value);
+      return Timestamp.toTime(value)
     },
 
     toTimeWithSeconds: function(value) {
-      return Timestamp.toTime(value, { seconds: true });
+      return Timestamp.toTime(value, { seconds: true })
     }
   },
 
   created() {
-    window.Timestamp = Timestamp;
+    window.Timestamp = Timestamp
     this.day = {
       start: this.startTime,
       end: this.endTime
-    };
+    }
 
     setInterval(() => {
-      this.time = new Date();
-    }, 1000);
+      this.time = new Date()
+    }, 1000)
   },
 
   computed: {
     date() {
       return `${
         this.weekdays[this.time.getDay() - 1]
-      }, ${this.time.toLocaleDateString()}`;
+      }, ${this.time.toLocaleDateString()}`
     },
 
     start() {
-      return this.day.start || "08:00";
+      return this.day.start || "08:00"
     },
 
     end() {
-      return this.day.end || "17:00";
+      return this.day.end || "17:00"
     },
 
     today() {},
@@ -148,28 +148,28 @@ export default {
       return {
         HH: this.start.getHours(),
         mm: this.start.getMinutes()
-      };
+      }
     },
 
     endTime() {
       return {
         HH: this.end.getHours(),
         mm: this.end.getMinutes()
-      };
+      }
     }
   },
 
   methods: {
     showTimePicker(target) {
-      this.target = target;
+      this.target = target
     },
 
     setTime(value) {
-      this.day[this.target] = value;
-      this.target = null;
+      this.day[this.target] = value
+      this.target = null
     }
   }
-};
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

@@ -16,25 +16,30 @@
         </div>
 
         <div class="form-info" v-on:click="navigate('page-1')">
-          <info :duration="duration" :total="total"></info>
-          <!-- <pre>
-            {{ form }}
-          </pre>
-          <pre>
-            {{ record }}
-          </pre> -->
+          <info v-if="isRecorded" :duration="duration" :total="total"></info>
+          <div v-else>
+            {{ isRecorded }} {{ total }} {{ duration }}
+            <pre>
+              {{ form }}
+            </pre>
+          </div>
         </div>
       </div>
 
       <time-picker class="simple-slider-item" slot="down" :init-value="form[slider.target]" :target="slider.target" v-on:changed="setValue" v-on:done="closeSlider"></time-picker>
     </simple-slider>
 
-    <simple-switch slot="footer" class="vertical animated primary">
-      <button slot="up" v-on:click="save">SAVE</button>
-      <button slot="down">DONE ;)</button>
+    <simple-switch v-show="!timepicker" slot="footer" class="vertical animated primary" :active="loading">
+      <button slot="up" v-on:click="save">
+        {{ isRecorded? 'UPDATE' : 'SAVE'}}
+      </button>
+      <button slot="down">
+        <i class="fa fa-spinner spin"></i>
+        SAVING ...
+      </button>
     </simple-switch>
 
-    <simple-switch slot="footer" class="horizontal animated primary" :active="timepicker">
+    <simple-switch slot="footer" class="horizontal animated" :active="timepicker">
       <button slot="up" v-on:click="navigate('page-3')">ABSENCE</button>
       <button slot="down" :class="{active: timepicker }" v-on:click="closeSlider">CANCEL</button>
     </simple-switch>
@@ -43,22 +48,18 @@
 
 <script>
 // import axios from 'axios'
-import differenceInMinutes from "date-fns/difference_in_minutes";
-import format from "date-fns/format";
-import addHours from "date-fns/add_hours";
-import getISOWeek from "date-fns/get_iso_week";
-import { mapActions } from "vuex";
-import { timeToNumber } from "../helpers/date";
+import differenceInMinutes from "date-fns/difference_in_minutes"
+import format from "date-fns/format"
+import addHours from "date-fns/add_hours"
+import { mapActions, mapGetters, mapState } from "vuex"
+import { timeToNumber, timeToDateTime } from "../helpers/date"
 
-import Card from "./shared/Card";
-import DatePicker from "./shared/DatePicker";
-import SimpleSlider from "./shared/SimpleSlider";
-import SimpleSwitch from "./shared/SimpleSwitch";
-import TimePicker from "./shared/TimePicker";
-import Info from "./Info";
-
-import Timestamp from "../services/timestamp";
-import Record from "../services/record";
+import Card from "./shared/Card"
+import DatePicker from "./shared/DatePicker"
+import SimpleSlider from "./shared/SimpleSlider"
+import SimpleSwitch from "./shared/SimpleSwitch"
+import TimePicker from "./shared/TimePicker"
+import Info from "./Info"
 
 export default {
   name: "HomePage",
@@ -78,154 +79,127 @@ export default {
         target: null
       },
 
-      form: {},
+      form: {
+        start: "",
+        pause: "",
+        finish: ""
+      },
 
+      loading: false,
+      saved: false,
       timepicker: false
-    };
+    }
   },
 
   created: async function() {
-    this.initForm();
+    console.log("HomePage: create")
+    this.initForm()
   },
 
   computed: {
+    ...mapGetters(["currentFomatedDate", "currentWeekNumber", "currentRecord"]),
+    ...mapState(["currentDate", "records"]),
     isRecorded() {
-      return !!this.record;
-    },
-
-    record() {
-      return this.$store.getters.findRecordByDate(this.date);
-    },
-
-    currentDate() {
-      return this.$store.state.currentDate;
-    },
-
-    week() {
-      return getISOWeek(this.currentDate);
-    },
-
-    date() {
-      return format(this.currentDate, "DD.MM.YYYY");
-    },
-
-    start() {
-      if (this.form.start && this.form.start.includes(":")) {
-        return new Date(
-          `${format(this.currentDate, "YYYY/MM/DD")} ${this.form.start}`
-        );
-      }
-
-      return new Date();
-    },
-
-    pause() {
-      return this.form.pause;
-    },
-
-    finish() {
-      console.log(this.date);
-      return new Date(
-        `${format(this.currentDate, "YYYY/MM/DD")} ${this.form.finish}`
-      );
+      console.log("RECTIVE ???")
+      return !!this.currentRecord
     },
 
     duration() {
-      return this.total - timeToNumber(this.pause);
+      return this.total - timeToNumber(this.form.pause)
     },
 
     total() {
-      return (differenceInMinutes(this.finish, this.start) / 60).toFixed(2);
+      const start = timeToDateTime(this.currentDate, this.form.start)
+      const finish = timeToDateTime(this.currentDate, this.form.finish)
+      return (differenceInMinutes(finish, start) / 60).toFixed(2)
     }
   },
 
   watch: {
-    start(val) {
+    "form.start"(val) {
       if (val) {
-        console.log("HomePage - start value changed", val);
-        this.calculateEnd();
+        console.log("HomePage - start value changed", val)
+        this.calculateEnd()
       }
     },
 
-    pause(val) {
+    "form.pause"(val) {
       if (val) {
-        console.log("HomePage - pause value changed", val);
-        this.calculateEnd();
+        console.log("HomePage - pause value changed", val)
+        this.calculateEnd()
       }
     },
 
     currentDate() {
-      this.initForm();
+      this.initForm()
     }
   },
 
   filters: {
     timeToNumber: function(value) {
-      const splitted = value.split(":");
-      return parseInt(splitted[0]) * 60 + parseInt(splitted[1]);
+      const splitted = value.split(":")
+      return parseInt(splitted[0]) * 60 + parseInt(splitted[1])
     }
   },
 
   methods: {
-    ...mapActions([
-      "navigate" // map `this.increment()` to `this.$store.dispatch('increment')`
-    ]),
+    ...mapActions(["navigate"]),
 
     initForm() {
       if (this.isRecorded) {
-        Object.assign(this.form, this.record);
+        console.log("isRecorded", JSON.stringify(this.currentRecord))
+        Object.assign(this.form, this.currentRecord)
       } else {
+        console.log("NOT recorded", this.duration)
+
         this.form = {
-          date: this.date,
-          week: this.week,
+          date: this.currentFomatedDate,
+          week: this.currentWeekNumber,
           start: "09:00",
           pause: "00:30",
           finish: "17:30"
-        };
+        }
       }
     },
 
     calculateEnd() {
-      const diff = 8 + timeToNumber(this.pause);
-      this.form.finish = format(addHours(this.start, diff), "HH:mm");
+      const diff = 8 + timeToNumber(this.form.pause)
+      const start = timeToDateTime(this.currentDate, this.form.start)
+      this.form.finish = format(addHours(start, diff), "HH:mm")
     },
 
     openSlider(options) {
-      this.slider = options;
-      this.togglePicker(true);
+      this.slider = options
+      this.togglePicker(true)
     },
 
     closeSlider() {
-      this.slider = this.$options.data().slider;
-      this.togglePicker(false);
+      this.slider = this.$options.data().slider
+      this.togglePicker(false)
     },
 
     togglePicker(open = true) {
-      this.timepicker = open;
+      this.timepicker = open
     },
 
     setValue(target, value) {
-      this.form[target] = value;
+      this.form[target] = value
     },
-
-    setPause(value) {
-      this.form.pause = value;
-      this.closeSlider();
-    },
-
-    setDate(date) {
-      this.currentDate = date;
-    },
-
-    update() {},
 
     save: async function() {
-      this.form.duration = this.duration;
-      await Record.save(this.form);
-      this.$store.dispatch("fetchRecords", this.week);
+      this.loading = true
+      this.form.duration = this.duration
+      // await Record.save(this.form);
+
+      await this.$store.dispatch("saveRecord", this.form)
+
+      setTimeout(() => {
+        this.loading = false
+      }, 500)
+      // this.$store.dispatch("fetchRecords", this.currentWeekNumber);
     }
   }
-};
+}
 </script>
 
 <style lang="sass" scoped>

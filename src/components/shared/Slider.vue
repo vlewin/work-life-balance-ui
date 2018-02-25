@@ -21,7 +21,7 @@ export default {
   data() {
     return {
       // focused: null
-    };
+    }
   },
 
   props: {
@@ -36,20 +36,20 @@ export default {
 
   methods: {
     isFocused(field) {
-      return this.focused === field;
+      return this.focused === field
     },
 
     focusField(field) {
       if (this.focused) {
-        this.focused = null;
-        this.$emit("unfocused");
+        this.focused = null
+        this.$emit("unfocused")
       } else {
-        this.focused = field;
-        this.$emit("focused");
+        this.focused = field
+        this.$emit("focused")
       }
     }
   }
-};
+}
 </script>
 
 <style>

@@ -30,17 +30,17 @@
 </template>
 
 <script>
-import Pager from "./Pager";
-import Card from "./Card";
-import Slider from "./Slider";
-import SimpleSwitch from "./SimpleSwitch";
-import DatePicker from "./DatePicker";
-import Info from "./Info";
-import TimePicker from "./TimePicker";
-import InputTime from "./InputTime";
-import InputNumber from "./InputNumber";
-import Calendar from "./Calendar";
-import SelectBox from "./SelectBox";
+import Pager from "./Pager"
+import Card from "./Card"
+import Slider from "./Slider"
+import SimpleSwitch from "./SimpleSwitch"
+import DatePicker from "./DatePicker"
+import Info from "./Info"
+import TimePicker from "./TimePicker"
+import InputTime from "./InputTime"
+import InputNumber from "./InputNumber"
+import Calendar from "./Calendar"
+import SelectBox from "./SelectBox"
 
 export default {
   name: "FormPage",
@@ -76,51 +76,51 @@ export default {
       timepicker: false,
       field: null,
       selected: 0
-    };
+    }
   },
 
   created() {
-    console.log("CREATED");
+    console.log("CREATED")
   },
 
   computed: {
     minutes() {
-      return "HUHU";
+      return "HUHU"
     }
   },
 
   methods: {
     navigate(page) {
-      this.$parent.$parent.page = page;
-      this.mode = "edit";
+      this.$parent.$parent.page = page
+      this.mode = "edit"
     },
 
     openSlider(options) {
-      this.slider = options;
-      this.openPicker();
+      this.slider = options
+      this.openPicker()
     },
 
     closeSlider() {
-      this.slider = this.$options.data().slider;
+      this.slider = this.$options.data().slider
     },
 
     openPicker() {
-      this.timepicker = true;
+      this.timepicker = true
     },
 
     closePicker() {
-      this.timepicker = false;
+      this.timepicker = false
     },
 
     close() {
-      this.closeSlider();
-      this.closePicker();
+      this.closeSlider()
+      this.closePicker()
     },
 
     setValue(target, value) {
-      console.log("setValue", target, value);
-      this.form[target] = value;
+      console.log("setValue", target, value)
+      this.form[target] = value
     }
   }
-};
+}
 </script>

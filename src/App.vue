@@ -28,7 +28,7 @@ export default {
     return {
       date: new Date(),
       time: new Date()
-    };
+    }
   },
 
   computed: {
@@ -42,60 +42,60 @@ export default {
           .getMinutes()
           .toString()
           .padStart(2, "0")
-      };
+      }
     },
 
     selected() {
-      return this.$store.state.currentDate;
+      return this.$store.state.currentDate
     },
 
     day() {
       return new Date(this.selected)
         .getDate()
         .toString()
-        .padStart(2, "0");
+        .padStart(2, "0")
     },
 
     weekday() {
       return new Date(this.selected).toLocaleString("en-US", {
         weekday: "long"
-      });
+      })
     },
 
     month() {
-      return new Date(this.selected).toLocaleString("en-US", { month: "long" });
+      return new Date(this.selected).toLocaleString("en-US", { month: "long" })
     },
 
     year() {
-      return new Date(this.selected).getFullYear();
+      return new Date(this.selected).getFullYear()
     }
   },
 
   created() {
-    document.body.webkitRequestFullScreen();
+    document.body.webkitRequestFullScreen()
     // window.history.go(-1);
     // var metaViewport = document.querySelector("meta[name=viewport]");
     // metaViewport.setAttribute("width", "380");
     setInterval(() => {
-      this.time = new Date();
-    }, 1000);
+      this.time = new Date()
+    }, 1000)
   },
 
   methods: {
     toggleFullScreen() {
-      var doc = window.document;
-      var docEl = doc.documentElement;
+      var doc = window.document
+      var docEl = doc.documentElement
 
       var requestFullScreen =
         docEl.requestFullscreen ||
         docEl.mozRequestFullScreen ||
         docEl.webkitRequestFullScreen ||
-        docEl.msRequestFullscreen;
+        docEl.msRequestFullscreen
       var cancelFullScreen =
         doc.exitFullscreen ||
         doc.mozCancelFullScreen ||
         doc.webkitExitFullscreen ||
-        doc.msExitFullscreen;
+        doc.msExitFullscreen
 
       if (
         !doc.fullscreenElement &&
@@ -103,11 +103,11 @@ export default {
         !doc.webkitFullscreenElement &&
         !doc.msFullscreenElement
       ) {
-        requestFullScreen.call(docEl);
+        requestFullScreen.call(docEl)
       } else {
-        cancelFullScreen.call(doc);
+        cancelFullScreen.call(doc)
       }
     }
   }
-};
+}
 </script>

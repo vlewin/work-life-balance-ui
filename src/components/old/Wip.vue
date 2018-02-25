@@ -124,9 +124,9 @@
 </template>
 
 <script>
-import Calendar from "./Calendar.vue";
-import DatePicker from "./DatePicker.vue";
-import TimePicker from "./TimePicker";
+import Calendar from "./Calendar.vue"
+import DatePicker from "./DatePicker.vue"
+import TimePicker from "./TimePicker"
 
 export default {
   name: "Wip",
@@ -135,20 +135,20 @@ export default {
     return {
       open: null,
       panel: null
-    };
+    }
   },
 
   methods: {
     togglePicker(picker) {
-      this.open = this.open ? null : picker;
+      this.open = this.open ? null : picker
     },
 
     togglePanel(panel) {
-      console.log("Toggle", panel);
-      this.panel = this.panel === panel ? null : panel;
+      console.log("Toggle", panel)
+      this.panel = this.panel === panel ? null : panel
     }
   }
-};
+}
 </script>
 
 <style>

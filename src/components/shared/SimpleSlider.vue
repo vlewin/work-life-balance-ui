@@ -14,7 +14,7 @@ export default {
     return {
       time: "",
       timeout: null
-    };
+    }
   },
 
   props: {
@@ -26,7 +26,7 @@ export default {
       type: Boolean
     }
   }
-};
+}
 </script>
 
 <style lang="sass" scoped>

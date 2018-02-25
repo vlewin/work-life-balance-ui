@@ -7,5 +7,5 @@ module.exports = (on, config) => {
     screenshotsFolder: "test/e2e/screenshots",
     videosFolder: "test/e2e/videos",
     supportFile: "test/e2e/support/index.js"
-  });
-};
+  })
+}
