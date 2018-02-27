@@ -180,7 +180,7 @@ export default {
 
   .grid-item
     display: inline-block
-    color: $dark-grey
+    color: #444
     list-style: none
     height: 2.2rem
     width: 2.2rem

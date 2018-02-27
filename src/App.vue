@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" v-on:dblclick="toggleFullScreen">
     <div class="header">
       <div class="header-left">
         <h1 class="day">{{ day }}</h1>
@@ -13,7 +13,15 @@
           {{ now.hh }}
           <span class="blink">:</span>
           {{ now.mm }}
+          &nbsp;
+          <!-- <i aria-hidden="true" v-on:click="logout" class="fa fa-user"></i> -->
+          <i v-if="authenticated()" class="fa fa-sign-out" v-on:click="logout"></i>
+
+
+          <!-- <i aria-hidden="true" v-on:click="toggleFullScreen" class="fa fa-window-maximize"></i> -->
         </div>
+        <!-- <i aria-hidden="true" class="fa fa-camera-retro"></i> -->
+        <!-- <i aria-hidden="true" class="fa fa-smile-o"></i> -->
       </div>
     </div>
 
@@ -22,6 +30,8 @@
 </template>
 
 <script>
+import AuthService from "./main"
+
 export default {
   name: "App",
   data() {
@@ -82,6 +92,15 @@ export default {
   },
 
   methods: {
+    // FIXME: Move to store getters
+    authenticated() {
+      return AuthService.isAuthenticated()
+    },
+
+    logout() {
+      AuthService.logout()
+    },
+
     toggleFullScreen() {
       var doc = window.document
       var docEl = doc.documentElement

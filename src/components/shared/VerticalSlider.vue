@@ -1,18 +1,17 @@
 <template>
   <div class="vertical-slider" v-bind:class="[section]">
     <div class="vertical-slider-window">
-      <div class="slider-item top">
+      <div class="slider-item top" v-on:click.stop="toggle('middle')">
         <slot name="top"></slot>
-        <button v-on:click="toggle('middle')">DOWN</button>
       </div>
-      <div class="slider-item center">
+      <div class="slider-item middle">
+        <!-- <button v-on:click="toggle('top')">UP</button> -->
         <slot name="middle"></slot>
-        <button v-on:click="toggle('top')">UP</button>
-        <button v-on:click="toggle('bottom')">DOWN</button>
+        <!-- <button v-on:click="toggle('bottom')">DOWN</button> -->
       </div>
       <div class="slider-item bottom">
+      <!-- <div class="slider-item bottom" v-on:click.prevent.stop="toggle('middle')"> -->
         <slot name="bottom"></slot>
-        <button v-on:click="toggle('middle')">UP</button>
       </div>
     </div>
   </div>
@@ -24,20 +23,16 @@ export default {
   data() {
     return {
       // focused: null
-      section: "middle",
       active: false
     }
   },
 
-  // props: {
-  //   active: {
-  //     type: Boolean
-  //   },
-  //
-  //   focused: {
-  //     type: Number
-  //   }
-  // },
+  props: {
+    section: {
+      type: String,
+      default: "middle"
+    }
+  },
 
   methods: {
     toggle(section) {
@@ -96,7 +91,7 @@ export default {
 .top {
   background: tomato;
 }
-.center {
+.middle {
   background: #ffbf00;
 }
 .bottom {
