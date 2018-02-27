@@ -16,13 +16,16 @@
         </div>
 
         <div class="form-info" v-on:click="navigate('page-1')">
-          <info v-if="isRecorded" :duration="duration" :total="total"></info>
-          <div v-else>
+          <smiley v-if="isRecorded" :mood="mood"></smiley>
+          <smiley v-else mood="neutral"></smiley>
+
+          <!-- <info v-if="isRecorded" :duration="duration" :total="total"></info> -->
+          <!-- <div v-else>
             {{ isRecorded }} {{ total }} {{ duration }}
             <pre>
               {{ form }}
             </pre>
-          </div>
+          </div> -->
         </div>
       </div>
 
@@ -60,16 +63,18 @@ import SimpleSlider from "./shared/SimpleSlider"
 import SimpleSwitch from "./shared/SimpleSwitch"
 import TimePicker from "./shared/TimePicker"
 import Info from "./Info"
+import Smiley from "./shared/Smiley"
 
 export default {
   name: "HomePage",
   components: {
     Card,
     DatePicker,
+    TimePicker,
     SimpleSlider,
     SimpleSwitch,
     Info,
-    TimePicker
+    Smiley
   },
 
   data() {
@@ -99,6 +104,21 @@ export default {
   computed: {
     ...mapGetters(["currentFomatedDate", "currentWeekNumber", "currentRecord"]),
     ...mapState(["currentDate", "records"]),
+
+    mood() {
+      if (this.duration < 6.5 || this.duration >= 9.5) {
+        return "dead"
+      } else if (this.duration < 8 || this.duration >= 8.5) {
+        return "bad"
+      } else if (this.duration >= 8 && this.duration < 8.5) {
+        return "good"
+      } else if (this.duration >= 6.5 && this.duration < 9.5) {
+        return "neutral"
+      } else {
+        return "dead"
+      }
+    },
+
     isRecorded() {
       console.log("RECTIVE ???")
       return !!this.currentRecord

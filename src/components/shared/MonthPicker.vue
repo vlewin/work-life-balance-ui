@@ -50,41 +50,37 @@ export default {
 }
 </script>
 
-<style scoped>
-ul {
-  padding: 0;
-  margin: 0;
+<style lang="sass" scoped>
+  @import '~@/assets/_variables.sass'
 
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  height: 100%;
+  ul
+    padding: 0
+    margin: 0
+    display: flex
+    justify-content: space-between
+    align-items: center
+    width: 100%
+    height: 100%
+    font-weight: bold
+    background: $dark-blue
+    color: #fff
 
-  font-weight: bold;
-  background: #004a9f;
-  color: #fff;
-}
+  li
+    cursor: pointer
+    list-style: none
+    height: 2rem
+    line-height: 2rem
+    text-align: center
+    border-radius: 50%
+    vertical-align: middle
+    transition: color 0.2s, background 1s
+    /*background: rgba(0,0,0,0.1);
 
-li {
-  cursor: pointer;
-  list-style: none;
-  height: 2rem;
-  line-height: 2rem;
-  text-align: center;
-  border-radius: 50%;
-  vertical-align: middle;
-  transition: color 0.2s, background 1s;
-  /*background: rgba(0,0,0,0.1);*/
-}
-
-.arrow {
-  width: 2rem;
-  height: 2rem;
-  line-height: 2rem;
-}
-
-.arrow:hover {
-  background: rgba(0, 0, 0, 0.1);
-}
+  .arrow
+    width: 2rem
+    height: 2rem
+    font-size: 1.4rem
+    line-height: 2rem
+    &:hover
+      background: rgba(255, 255, 255, 0.1)
 </style>

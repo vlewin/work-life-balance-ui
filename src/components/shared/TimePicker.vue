@@ -80,7 +80,9 @@ export default {
     keyup(event) {
       const key = parseInt(event.key)
       if (event.key === "Backspace") {
-        this.time = this.time.endsWith(":") ? this.time.substring(0, this.time.length - 2) : this.time.substring(0, this.time.length - 1)
+        this.time = this.time.endsWith(":")
+          ? this.time.substring(0, this.time.length - 2)
+          : this.time.substring(0, this.time.length - 1)
         console.log(this.time)
       } else if (this.setable.includes(key)) {
         this.setTime(event.key)
@@ -136,7 +138,7 @@ export default {
   text-align: center;
   vertical-align: middle;
   padding: 1em 0;
-  /*font-size: 130%;*/
+  font-size: 130%;
   font-weight: bold;
   color: #444;
   cursor: pointer;

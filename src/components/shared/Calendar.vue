@@ -184,8 +184,10 @@ export default {
     list-style: none
     height: 2.2rem
     width: 2.2rem
-    line-height: calc(2.2rem - 0.2rem)
+    line-height: 2.3rem
     text-align: center
+    font-size: 1.2em
+
     border: 0.1rem solid #fff
     &:not(.label):not(.weekend)
       &:not(.holiday)

@@ -4,12 +4,12 @@
       <div class="slider-item top" v-on:click.stop="toggle('middle')">
         <slot name="top"></slot>
       </div>
-      <div class="slider-item middle">
+      <div class="slider-item middle" v-on:click="toggle('bottom')">
         <!-- <button v-on:click="toggle('top')">UP</button> -->
         <slot name="middle"></slot>
         <!-- <button v-on:click="toggle('bottom')">DOWN</button> -->
       </div>
-      <div class="slider-item bottom">
+      <div class="slider-item bottom" v-on:click="toggle('up')">
       <!-- <div class="slider-item bottom" v-on:click.prevent.stop="toggle('middle')"> -->
         <slot name="bottom"></slot>
       </div>
@@ -34,6 +34,11 @@ export default {
     }
   },
 
+  mounted() {
+    // this.$el.setAttribute("data-height", 11)
+    this.$el.style.setProperty("--height", `${this.$root.$el.offsetHeight * 0.9}px`)
+  },
+
   methods: {
     toggle(section) {
       this.section = section
@@ -42,32 +47,33 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .vertical-slider {
   width: 100%;
   height: 100%;
-  background: #fff;
   overflow: hidden;
+  height: var(--height);
 }
 
 .vertical-slider-window {
   transition: all 500ms;
-  height: 300vh;
+  /* height: 240vh; */
+  height: calc(var(--height) * 3);
   display: flex;
   flex-direction: column;
-  transform: translateY(-100vh);
-}
-
-.vertical-slider.top .vertical-slider-window {
   transform: translateY(0vh);
 }
 
+.vertical-slider.top .vertical-slider-window {
+  transform: translateY(0);
+}
+
 .vertical-slider.middle .vertical-slider-window {
-  transform: translateY(-100vh);
+  transform: translateY(calc(var(--height) * -1));
 }
 
 .vertical-slider.bottom .vertical-slider-window {
-  transform: translateY(-200vh);
+  transform: translateY(calc(var(--height) * -2));
 }
 
 .vertical-slider .slider-item {
@@ -81,6 +87,7 @@ export default {
 }
 
 .vertical-slider .slider-item > * {
+  height: 100%;
   /* display: flex;
   justify-content: center;
   align-items: center;
@@ -88,7 +95,7 @@ export default {
   width: 100%; */
 }
 
-.top {
+/* .top {
   background: tomato;
 }
 .middle {
@@ -96,5 +103,5 @@ export default {
 }
 .bottom {
   background: #42b983;
-}
+} */
 </style>

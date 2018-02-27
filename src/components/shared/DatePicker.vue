@@ -33,6 +33,7 @@ export default {
   created: async function() {
     this.week = weekDaysRange(this.selected)
     await this.$store.dispatch("fetchRecords")
+    window.holiday = holiday
   },
 
   computed: {
@@ -40,7 +41,6 @@ export default {
     ...mapState(["currentDate", "records"]),
     dates() {
       return weekDaysRange(this.selected).map(date => {
-        console.log(date)
         let record = this.records[date.toLocaleDateString()] || {}
         return {
           date: date,
@@ -48,6 +48,7 @@ export default {
           duration: record.duration,
           selected: this.isSelected(date),
           weekend: this.isWeekend(date),
+          holiday: this.isHoliday(date),
           recorded: !!record.date
         }
       })
@@ -82,8 +83,10 @@ export default {
     },
 
     isHoliday(date) {
-      // TODO: State from settings page
-      return holiday.holidayCheck(date, "BY")
+      // FIXME: Verify date format
+      console.log(date, new Date(date.toDateString()), "is", holiday.holidayCheck(new Date(date.toDateString()), "BY"))
+
+      return !!holiday.holidayCheck(new Date(date.toDateString()), "BY")
     },
 
     isRecorded(date) {
@@ -137,78 +140,73 @@ export default {
 }
 </script>
 
-<style scoped>
-ul {
-  padding: 0;
-  margin: 0;
+<style lang="sass" scoped>
+  @import '~@/assets/_variables.sass'
 
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  height: 100%;
+  ul
+    padding: 0
+    margin: 0
+    display: flex
+    justify-content: space-between
+    align-items: center
+    width: 100%
+    height: 100%
+    background: $dark-blue
+    color: #fff
+    padding: 0 0.2rem
 
-  background: #004a9f;
-  color: #fff;
-  padding: 0 0.2rem;
-}
+  li
+    cursor: pointer
+    list-style: none
+    width: 2.2rem
+    height: 2.2rem
+    line-height: 2.4rem
+    border-radius: 50%
+    transition: color 0.2s, background 1s
+    border: 0.1rem solid $blue
+    cursor: pointer
+    font-size: 0.8rem
+    font-weight: bold
+    position: relative
 
-li {
-  cursor: pointer;
-  list-style: none;
-  width: 2.2rem;
-  height: 2.2rem;
-  line-height: 2.4rem;
-  border-radius: 50%;
-  transition: color 0.2s, background 1s;
-  border: 0.1rem solid #004a9f;
-  cursor: pointer;
-  font-size: 0.8rem;
-  font-weight: bold;
-  position: relative;
-}
+  .arrow
+    background: rgba(0, 0, 0, 0.1)
+    font-size: 1.4rem
+    line-height: 2rem
+    border: none
 
-.arrow {
-  background: rgba(0, 0, 0, 0.1);
-  font-size: 1.4rem;
-  line-height: 2rem;
-}
+  .selected
+    background: $light-grey
+    color: $blue
 
-.selected {
-  background: #fff;
-  color: #004a9f;
-}
+  .weekend
+    /*background: rgba(0,0,0,0.3);
+    color: #607d8d
+    pointer-events: none
+    border: none
 
-.weekend {
-  /*background: rgba(0,0,0,0.3);*/
-  color: #607d8d;
-  pointer-events: none;
-}
+  .holiday
+    background: tomato
+    color: #fff
+    pointer-events: none
+    border: none
 
-.holiday {
-  background: tomato;
-  color: #fff;
-  pointer-events: none;
-}
-
-.recorded::after {
-  content: attr(data-hours);
-  font-size: 0.1rem;
-  display: block;
-  position: absolute;
-  width: 1rem;
-  height: 1rem;
-  line-height: 1rem;
-  border-radius: 100%;
-  top: -0.1rem;
-  right: -0.4rem;
-  border: 1px solid #004a9f;
-  background: tomato;
-  color: white;
-  z-index: 1;
-}
-
-.recorded.positive::after {
-  background: #42b983;
-}
+  .recorded
+    &::after
+      content: attr(data-hours)
+      font-size: 0.1rem
+      display: block
+      position: absolute
+      width: 1rem
+      height: 1rem
+      line-height: 1rem
+      border-radius: 100%
+      top: -0.4rem
+      right: -0.4rem
+      border: 0.1rem solid $blue
+      background: tomato
+      color: white
+      z-index: 1
+    &.positive::after
+      background: #42b983
 </style>

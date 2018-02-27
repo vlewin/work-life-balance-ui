@@ -23,7 +23,7 @@
 //     }
 //   }
 // };
-const path = require("path");
+const path = require("path")
 module.exports = {
   baseUrl: "./",
   configureWebpack: {
@@ -36,7 +36,18 @@ module.exports = {
       alias: {
         "@": path.resolve("src")
       }
-    }
+    },
+    rules: [
+      {
+        test: /\.svg$/,
+        use: [
+          {
+            loader: "svg-inline-loader",
+            options: {}
+          }
+        ]
+      }
+    ]
   }
   // css: {
   //   // Enable CSS source maps.
@@ -48,4 +59,4 @@ module.exports = {
   // Split dependencies into their own bundle.
   // https://github.com/vuejs/vue-cli/blob/dev/docs/cli-service.md#dll-mode
   // dll: true
-};
+}

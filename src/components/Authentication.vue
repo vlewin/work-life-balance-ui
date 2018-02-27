@@ -1,61 +1,32 @@
 <template>
   <div>
-    <vertical-slider :section="section">
-      <div slot="top" class="flex flex-center flex-column height-80">
-        <h1 class="text-white">WORK</h1>
-        <h4 class="text-white">This is a demo Vue.js SPA/PWA application</h4>
+    <vertical-slider class="dark-blue" :section="section">
+      <div slot="top" class="flex flex-center flex-column">
+        <h1 class="text-white">READY</h1>
+        <i class="fa fa-clock-o fa-10x text-white" aria-hidden="true"></i>
+        <h2 class="text-white">Record you time</h2>
       </div>
 
-      <div slot="middle" class="flex flex-center flex-column height-80">
-        <h1 class="text-white">WORK-LIFE</h1>
-        <!-- <svg version="1.1" viewBox="0 0 500.00001 500.00001" xmlns="http://www.w3.org/2000/svg">
-         <g transform="translate(0 -552.36)">
-          <path d="m250 571.78 199.69 115.29-1e-5 230.58-199.69 115.29-199.69-115.29 7e-6 -230.58z" fill="none" stroke="#555" stroke-linecap="round" stroke-width="18.446"/>
-          <g transform="translate(0 .020371)" fill="#555" fill-rule="evenodd" shape-rendering="auto">
-           <path d="m185.61 740.19a9.9393 9.9393 0 0 0 -6.832 3.0059l-51.805 51.805a9.9393 9.9393 0 0 0 0 14.055l51.805 51.805a9.9393 9.9393 0 1 0 14.055 -14.055l-44.775-44.777 44.775-44.777a9.9393 9.9393 0 0 0 -7.2226 -17.061z" color="#000000" color-rendering="auto" image-rendering="auto" solid-color="#000000" style="block-progression:tb;isolation:auto;mix-blend-mode:normal;text-decoration-color:#000000;text-decoration-line:none;text-decoration-style:solid;text-indent:0;text-transform:none;white-space:normal"/>
-           <path d="m314.09 740.19a9.9393 9.9393 0 0 0 -6.9238 17.066l44.775 44.777-44.775 44.777a9.9393 9.9393 0 1 0 14.055 14.055l51.805-51.805a9.9393 9.9393 0 0 0 0 -14.055l-51.805-51.805a9.9393 9.9393 0 0 0 -7.1309 -3.0117z" color="#000000" color-rendering="auto" image-rendering="auto" solid-color="#000000" style="block-progression:tb;isolation:auto;mix-blend-mode:normal;text-decoration-color:#000000;text-decoration-line:none;text-decoration-style:solid;text-indent:0;text-transform:none;white-space:normal"/>
-           <path d="m262.01 724.5a9.9393 9.9393 0 0 0 -9.6406 8.0742l-27.861 135.57a9.9393 9.9393 0 1 0 19.471 4.002l27.861-135.57a9.9393 9.9393 0 0 0 -9.8301 -12.076z" color="#000000" color-rendering="auto" image-rendering="auto" solid-color="#000000" style="block-progression:tb;isolation:auto;mix-blend-mode:normal;text-decoration-color:#000000;text-decoration-line:none;text-decoration-style:solid;text-indent:0;text-transform:none;white-space:normal"/>
-          </g>
-         </g>
-        </svg> -->
-        <h4 class="text-white">This is a demo Vue.js SPA/PWA application</h4>
-
-          <!-- <h2 class="text-white">WORK-LIFE-BALANCE</h2>
-
-          <svg version="1.1" viewBox="0 0 500.00001 500.00001" xmlns="http://www.w3.org/2000/svg">
-           <g transform="translate(0 -552.36)">
-            <path d="m250 571.78 199.69 115.29-1e-5 230.58-199.69 115.29-199.69-115.29 7e-6 -230.58z" fill="none" stroke="#555" stroke-linecap="round" stroke-width="18.446"/>
-            <g transform="translate(0 .020371)" fill="#555" fill-rule="evenodd" shape-rendering="auto">
-             <path d="m185.61 740.19a9.9393 9.9393 0 0 0 -6.832 3.0059l-51.805 51.805a9.9393 9.9393 0 0 0 0 14.055l51.805 51.805a9.9393 9.9393 0 1 0 14.055 -14.055l-44.775-44.777 44.775-44.777a9.9393 9.9393 0 0 0 -7.2226 -17.061z" color="#000000" color-rendering="auto" image-rendering="auto" solid-color="#000000" style="block-progression:tb;isolation:auto;mix-blend-mode:normal;text-decoration-color:#000000;text-decoration-line:none;text-decoration-style:solid;text-indent:0;text-transform:none;white-space:normal"/>
-             <path d="m314.09 740.19a9.9393 9.9393 0 0 0 -6.9238 17.066l44.775 44.777-44.775 44.777a9.9393 9.9393 0 1 0 14.055 14.055l51.805-51.805a9.9393 9.9393 0 0 0 0 -14.055l-51.805-51.805a9.9393 9.9393 0 0 0 -7.1309 -3.0117z" color="#000000" color-rendering="auto" image-rendering="auto" solid-color="#000000" style="block-progression:tb;isolation:auto;mix-blend-mode:normal;text-decoration-color:#000000;text-decoration-line:none;text-decoration-style:solid;text-indent:0;text-transform:none;white-space:normal"/>
-             <path d="m262.01 724.5a9.9393 9.9393 0 0 0 -9.6406 8.0742l-27.861 135.57a9.9393 9.9393 0 1 0 19.471 4.002l27.861-135.57a9.9393 9.9393 0 0 0 -9.8301 -12.076z" color="#000000" color-rendering="auto" image-rendering="auto" solid-color="#000000" style="block-progression:tb;isolation:auto;mix-blend-mode:normal;text-decoration-color:#000000;text-decoration-line:none;text-decoration-style:solid;text-indent:0;text-transform:none;white-space:normal"/>
-            </g>
-           </g>
-          </svg>
-
-          <button class="btn-large dark-blue text-white" v-on:click="login">
-            SIGN IN
-          </button> -->
+      <div slot="middle" class="flex flex-center flex-column">
+        <h1 class="text-white">STEADY</h1>
+        <i class="fa fa-calendar-check-o fa-10x text-white" aria-hidden="true"></i>
+        <h2 class="text-white">Record your absence</h2>
       </div>
 
-      <div slot="bottom" class="flex flex-center flex-column height-80">
-        <!-- <button class="btn-default btn-large" v-on:click="logout">LOGOUT</button> -->
-        <h1 class="text-white">WORK-LIFE-BALANCE</h1>
-        <p>
+      <div slot="bottom" class="flex flex-center flex-column fore">
+        <h1 class="text-white center">
+          WORK-LIFE-BALANCE
+          <br />
+          <small>Enjoy Your Life And Your Job!</small>
+        </h1>
+        <p class="">
           <i class="fa fa-balance-scale fa-10x" aria-hidden="true"></i>
         </p>
 
-        <!-- <svg version="1.1" viewBox="0 0 500.00001 500.00001" xmlns="http://www.w3.org/2000/svg">
-         <g transform="translate(0 -552.36)">
-          <path d="m250 571.78 199.69 115.29-1e-5 230.58-199.69 115.29-199.69-115.29 7e-6 -230.58z" fill="none" stroke="#555" stroke-linecap="round" stroke-width="18.446"/>
-          <g transform="translate(0 .020371)" fill="#555" fill-rule="evenodd" shape-rendering="auto">
-           <path d="m185.61 740.19a9.9393 9.9393 0 0 0 -6.832 3.0059l-51.805 51.805a9.9393 9.9393 0 0 0 0 14.055l51.805 51.805a9.9393 9.9393 0 1 0 14.055 -14.055l-44.775-44.777 44.775-44.777a9.9393 9.9393 0 0 0 -7.2226 -17.061z" color="#000000" color-rendering="auto" image-rendering="auto" solid-color="#000000" style="block-progression:tb;isolation:auto;mix-blend-mode:normal;text-decoration-color:#000000;text-decoration-line:none;text-decoration-style:solid;text-indent:0;text-transform:none;white-space:normal"/>
-           <path d="m314.09 740.19a9.9393 9.9393 0 0 0 -6.9238 17.066l44.775 44.777-44.775 44.777a9.9393 9.9393 0 1 0 14.055 14.055l51.805-51.805a9.9393 9.9393 0 0 0 0 -14.055l-51.805-51.805a9.9393 9.9393 0 0 0 -7.1309 -3.0117z" color="#000000" color-rendering="auto" image-rendering="auto" solid-color="#000000" style="block-progression:tb;isolation:auto;mix-blend-mode:normal;text-decoration-color:#000000;text-decoration-line:none;text-decoration-style:solid;text-indent:0;text-transform:none;white-space:normal"/>
-           <path d="m262.01 724.5a9.9393 9.9393 0 0 0 -9.6406 8.0742l-27.861 135.57a9.9393 9.9393 0 1 0 19.471 4.002l27.861-135.57a9.9393 9.9393 0 0 0 -9.8301 -12.076z" color="#000000" color-rendering="auto" image-rendering="auto" solid-color="#000000" style="block-progression:tb;isolation:auto;mix-blend-mode:normal;text-decoration-color:#000000;text-decoration-line:none;text-decoration-style:solid;text-indent:0;text-transform:none;white-space:normal"/>
-          </g>
-         </g>
-        </svg> -->
         <br />
+        <!-- <button v-on:click="slideUp">3</button>
+        <button v-on:click="slideMiddle">2</button> -->
+
         <button class="btn-large dark-blue text-white" v-on:click="login">
           SIGN IN
         </button>
@@ -68,10 +39,12 @@
 <script>
 import AuthService from "../main"
 import VerticalSlider from "./shared/VerticalSlider.vue"
+// import VueLogo from "./VueLogo.vue"
 
 export default {
   name: "Authentication",
   components: { VerticalSlider },
+  // components: { VerticalSlider, VueLogo },
 
   data() {
     return {
@@ -124,8 +97,64 @@ export default {
     height: 10vh
   svg
     height: 40vh
+
   button
+    border: none
+    background-color: #213345
+    border-radius: 1em
+
+    &:hover
+      background-color: #0d1d26
     // height: 10vh
+
+  h1
+    small
+      font-size: 0.5em
+
+  i.fa-balance-scale
+    color: #46608F
+
+  .area
+    background-size: cover
+
+  .fore, .mid, .bk, .container
+    @extend .area
+
+  .fore
+    background: #fff
+    background: url('../assets/svg/fire-mountains.svg')
+    background: url('../assets/svg/night-background.svg')
+    // background: url('../assets/svg/sandy-desert.svg')
+
+
+    transform: translateZ(0)
+    background-size: cover
+
+
+  .mid
+    background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/28963/mid.svg')
+    animation: bk 15s -5s linear infinite
+    transform: translateZ(0)
+
+
+  .bk
+    background: url('../assets/star.svg')
+    animation: bk 20s -5s linear infinite
+
+
+  @media (min-width: 20em)
+    .fore
+      animation: bk 30s -5s linear infinite
+
+  @media (min-width: 40em)
+    .fore
+      animation: bk 60s -5s linear infinite
+
+  @keyframes bk
+    100%
+      background-position: 200vw 0
+
+
 
 
 </style>
