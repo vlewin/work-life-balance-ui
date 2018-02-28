@@ -15,7 +15,9 @@
     "e2e": "vue-cli-service e2e",
     "lint": "vue-cli-service lint",
     "e2e:open": "vue-cli-service e2e:open",
-    "inspect": "vue inspect > output.js | cat"
+    "inspect": "vue inspect > output.js | cat",
+    "provision": "serverless deploy",
+    "deploy": "yarn run build; serverless s3deploy -v"
   },
   "dependencies": {
     "auth0-js": "^9.3.0",
@@ -43,6 +45,8 @@
     "eslint-plugin-vue": "^4.3.0",
     "node-sass": "^4.7.2",
     "sass-loader": "^6.0.6",
+    "serverless": "^1.26.1",
+    "serverless-s3-deploy": "^0.5.0",
     "svg-inline-loader": "^0.8.0",
     "svg-loader": "^0.0.2",
     "vue-template-compiler": "^2.5.13"

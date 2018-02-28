@@ -1,6 +1,6 @@
 <template>
-  <div id="app" v-on:dblclick="toggleFullScreen">
-    <div class="header">
+  <div id="app">
+    <div class="header" v-on:dblclick="toggleFullScreen">
       <div class="header-left">
         <h1 class="day">{{ day }}</h1>
         <div class="date">
@@ -24,8 +24,9 @@
         <!-- <i aria-hidden="true" class="fa fa-smile-o"></i> -->
       </div>
     </div>
-
-    <router-view class="content"></router-view>
+    <transition name="fade" mode="out-in">
+      <router-view class="content"></router-view>
+    </transition>
   </div>
 </template>
 
@@ -127,3 +128,16 @@ export default {
   }
 }
 </script>
+
+<style lang="sass">
+  .fade-enter-active, .fade-leave-active
+    transition-property: opacity
+    transition-duration: 0.25s
+
+  .fade-enter-active
+    transition-delay: 0.25s
+
+
+  .fade-enter, .fade-leave-active
+    opacity: 0
+</style>

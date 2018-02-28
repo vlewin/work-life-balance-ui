@@ -52,6 +52,11 @@ export function dateToDateTime(date) {
   return new Date(date)
 }
 
+import germanHolidays from "german-holiday"
+export function isHoliday(date) {
+  // FIXME: Verify date format
+  return germanHolidays.holidayCheck(new Date(date.toDateString()), "BY")
+}
 // timeToNumber: function(value) {
 //   console.log("timeToNumber", value);
 //   const splitted = value.split(":");

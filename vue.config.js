@@ -27,7 +27,6 @@ const path = require("path")
 module.exports = {
   baseUrl: "./",
   configureWebpack: {
-    devtool: "inline-source-map",
     name: "vue-work-life-balance",
     output: {
       publicPath: "./"
@@ -36,18 +35,7 @@ module.exports = {
       alias: {
         "@": path.resolve("src")
       }
-    },
-    rules: [
-      {
-        test: /\.svg$/,
-        use: [
-          {
-            loader: "svg-inline-loader",
-            options: {}
-          }
-        ]
-      }
-    ]
+    }
   }
   // css: {
   //   // Enable CSS source maps.

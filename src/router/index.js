@@ -5,6 +5,7 @@ import Index from "@/components/Index"
 import Authentication from "@/components/Authentication"
 import Callback from "@/components/Callback"
 import Flex from "@/components/Flex"
+import CheatSheet from "@/components/CheatSheet"
 import AuthService from "../main"
 
 Vue.use(Router)
@@ -16,6 +17,7 @@ const router = new Router({
     { path: "/login", name: "Authentication", component: Authentication, props: { initSection: "top" } },
     { path: "/logout", name: "Authentication", component: Authentication, props: { initSection: "bottom" } },
     { path: "/callback", name: "Callback", component: Callback },
+    { path: "/help", name: "Help", component: CheatSheet },
     { path: "/playground", name: "Flex", component: Flex }
   ]
 })
@@ -31,6 +33,7 @@ router.beforeEach((to, from, next) => {
       next({ path: "/login" })
     }
   } else {
+    console.log("??? Unknown route", to)
     // NOTE: Move to /callback handler
     // AuthService.handleAuthentication()
     next()

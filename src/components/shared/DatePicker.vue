@@ -14,9 +14,12 @@
 
 <script>
 // FIXME: replace with date-fns
-import addHours from "date-fns/add_hours"
+// import addHours from "date-fns/add_hours"
+// import getDay from 'date-fns/get_day'
+// FIXME: Check bundle size
 import holiday from "german-holiday"
-import { weekNumber, weekStartDay, weekDaysRange } from "../../helpers/date"
+import { isWeekend, addHours } from "date-fns"
+import { weekNumber, weekStartDay, weekDaysRange, isHoliday } from "../../helpers/date"
 import { mapGetters, mapState } from "vuex"
 
 export default {
@@ -24,6 +27,7 @@ export default {
   data() {
     return {
       current: weekNumber(),
+      // FIXME
       year: new Date().getFullYear(),
       week: [],
       weekdays: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"]
@@ -41,14 +45,16 @@ export default {
     ...mapState(["currentDate", "records"]),
     dates() {
       return weekDaysRange(this.selected).map(date => {
-        let record = this.records[date.toLocaleDateString()] || {}
+        let formattedDate = date.toLocaleDateString()
+        let record = this.records[formattedDate] || {}
         return {
           date: date,
+          formattedDate: formattedDate,
           weekday: this.weekdays[date.getDay()],
-          duration: record.duration,
           selected: this.isSelected(date),
           weekend: this.isWeekend(date),
           holiday: this.isHoliday(date),
+          duration: record.duration,
           recorded: !!record.date
         }
       })
@@ -79,14 +85,13 @@ export default {
     },
 
     isWeekend(date) {
-      return date.getDay() == 6 || date.getDay() == 0
+      return isWeekend(date)
+      // return date.getDay() == 6 || date.getDay() == 0
     },
 
     isHoliday(date) {
-      // FIXME: Verify date format
-      console.log(date, new Date(date.toDateString()), "is", holiday.holidayCheck(new Date(date.toDateString()), "BY"))
-
-      return !!holiday.holidayCheck(new Date(date.toDateString()), "BY")
+      console.log(date, new Date(date.toDateString()), "is", isHoliday(date))
+      return isHoliday(date)
     },
 
     isRecorded(date) {
@@ -99,7 +104,7 @@ export default {
     },
 
     selectDay(date) {
-      this.$store.dispatch("setCurrentDate", addHours(date, 1))
+      this.$store.dispatch("setCurrentDate", date)
     },
 
     hours(date) {

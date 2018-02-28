@@ -1,0 +1,33 @@
+service: vue-work-life-balance
+
+plugins:
+  - serverless-s3-deploy
+
+provider:
+  name: aws
+  stage: development
+  region: eu-central-1
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - s3:*
+      Resource: "arn:aws:s3:::${self:service}/*"
+
+custom:
+  bucketName: vue-work-life-balance
+  assets:
+     - bucket: ${self:custom.bucketName}
+       files:
+        - source: ./dist/
+          globs: "**/*"
+
+resources:
+  Resources:
+    S3BucketUiKit:
+      Type: AWS::S3::Bucket
+      Properties:
+        AccessControl: PublicRead
+        BucketName: ${self:custom.bucketName}
+        WebsiteConfiguration:
+          IndexDocument: index.html
+          ErrorDocument: error.html
