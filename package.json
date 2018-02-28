@@ -47,9 +47,11 @@
     "sass-loader": "^6.0.6",
     "serverless": "^1.26.1",
     "serverless-s3-deploy": "^0.5.0",
+    "svg-fill-loader": "^0.0.8",
     "svg-inline-loader": "^0.8.0",
     "svg-loader": "^0.0.2",
-    "vue-template-compiler": "^2.5.13"
+    "vue-template-compiler": "^2.5.13",
+    "webpack-merge": "^4.1.2"
   },
   "browserslist": [
     "> 1%",

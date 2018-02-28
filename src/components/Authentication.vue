@@ -122,7 +122,7 @@ export default {
 
   .fore
     background: #fff
-    background: url('../assets/svg/fire-mountains.svg')
+    // background: url('../assets/svg/fire-mountains.svg')
     background: url('../assets/svg/night-background.svg')
     // background: url('../assets/svg/sandy-desert.svg')
 
@@ -131,15 +131,15 @@ export default {
     background-size: cover
 
 
-  .mid
-    background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/28963/mid.svg')
-    animation: bk 15s -5s linear infinite
-    transform: translateZ(0)
-
-
-  .bk
-    background: url('../assets/star.svg')
-    animation: bk 20s -5s linear infinite
+  // .mid
+  //   background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/28963/mid.svg')
+  //   animation: bk 15s -5s linear infinite
+  //   transform: translateZ(0)
+  //
+  //
+  // .bk
+  //   background: url('../assets/star.svg')
+  //   animation: bk 20s -5s linear infinite
 
 
   @media (min-width: 20em)

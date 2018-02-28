@@ -8,7 +8,7 @@ export default class AuthService {
     this.auth = new auth0.WebAuth({
       domain: "mrstealth.eu.auth0.com",
       clientID: "fC4Z1HSO4PHNJTWu9K4Emn90bo6CCgCM",
-      redirectUri: "http://192.168.178.20:8080/callback",
+      redirectUri: new URL("#/callback", window.location.href).href,
       audience: "https://mrstealth.eu.auth0.com/userinfo",
       responseType: "token id_token",
       scope: "openid"
@@ -19,14 +19,14 @@ export default class AuthService {
     this.auth.authorize()
   }
 
-  handleAuthentication() {
+  handleAuthentication(redirectUrl = "/") {
     this.auth.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
         this.setSession(authResult)
-        console.log("Redirect to /")
+        console.log("Redirect to", redirectUrl)
         // FIXME: navigate to the home route
         setTimeout(() => {
-          router.replace("/")
+          router.replace(redirectUrl)
         }, 2000)
       } else if (err) {
         // FIXME: navigate to the home route

@@ -23,10 +23,23 @@
 //     }
 //   }
 // };
+
+const merge = require("webpack-merge")
 const path = require("path")
 module.exports = {
   baseUrl: "./",
   configureWebpack: {
+    module: {
+      rules: [
+        {
+          test: /\.svg$/,
+          loader: "url-loader?limit=10000&mimetype=image/svg+xml",
+          options: {
+            name: "[name].[ext]"
+          }
+        }
+      ]
+    },
     name: "vue-work-life-balance",
     output: {
       publicPath: "./"

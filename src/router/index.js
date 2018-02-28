@@ -11,7 +11,7 @@ import AuthService from "../main"
 Vue.use(Router)
 
 const router = new Router({
-  mode: "history",
+  // mode: "history",
   routes: [
     { path: "/", name: "Index", component: Index, meta: { requiresAuth: true } },
     { path: "/login", name: "Authentication", component: Authentication, props: { initSection: "top" } },
@@ -34,8 +34,10 @@ router.beforeEach((to, from, next) => {
     }
   } else {
     console.log("??? Unknown route", to)
-    // NOTE: Move to /callback handler
-    // AuthService.handleAuthentication()
+    // FIXME:  Workaround for vue-router hash mode
+    if (window.location.href.includes("access_token")) {
+      AuthService.handleAuthentication()
+    }
     next()
   }
 })

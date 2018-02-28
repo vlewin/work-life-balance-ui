@@ -24,7 +24,7 @@
         <!-- <i aria-hidden="true" class="fa fa-smile-o"></i> -->
       </div>
     </div>
-    <transition name="fade" mode="out-in">
+    <transition name="slide-left" mode="out-in">
       <router-view class="content"></router-view>
     </transition>
   </div>
@@ -140,4 +140,24 @@ export default {
 
   .fade-enter, .fade-leave-active
     opacity: 0
+
+  .fade-enter-active, .fade-leave-active
+    transition: opacity .5s ease
+
+  .fade-enter, .fade-leave-active
+    opacity: 0
+
+  .child-view
+    position: absolute
+    transition: all 0.5s cubic-bezier(0.55, 0, 0.1, 1)
+
+  .slide-left-enter, .slide-right-leave-active
+    opacity: 0
+    -webkit-transform: translate(30px, 0)
+    transform: translate(30px, 0)
+
+  .slide-left-leave-active, .slide-right-enter
+    opacity: 0
+    -webkit-transform: translate(-30px, 0)
+    transform: translate(-30px, 0)
 </style>
