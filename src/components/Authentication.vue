@@ -13,7 +13,7 @@
         <h2 class="text-white">Record your absence</h2>
       </div>
 
-      <div slot="bottom" class="flex flex-center flex-column fore">
+      <div slot="bottom" class="flex flex-center flex-column background-animation">
         <h1 class="text-white center">
           WORK-LIFE-BALANCE
           <br />
@@ -114,41 +114,23 @@ export default {
   i.fa-balance-scale
     color: #46608F
 
-  .area
-    background-size: cover
-
-  .fore, .mid, .bk, .container
-    @extend .area
-
-  .fore
+  .background-animation
     background: #fff
-    // background: url('../assets/svg/fire-mountains.svg')
-    background: url('../assets/svg/night-background.svg')
-    // background: url('../assets/svg/sandy-desert.svg')
-
-
+    background: url('./../assets/night-background.svg')
     transform: translateZ(0)
     background-size: cover
-
-
-  // .mid
-  //   background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/28963/mid.svg')
-  //   animation: bk 15s -5s linear infinite
-  //   transform: translateZ(0)
-  //
-  //
-  // .bk
-  //   background: url('../assets/star.svg')
-  //   animation: bk 20s -5s linear infinite
+    backface-visibility: hidden
 
 
   @media (min-width: 20em)
-    .fore
+    .background-animation
       animation: bk 30s -5s linear infinite
+      transform: translateZ(0)
 
   @media (min-width: 40em)
-    .fore
+    .background-animation
       animation: bk 60s -5s linear infinite
+      transform: translateZ(0)
 
   @keyframes bk
     100%

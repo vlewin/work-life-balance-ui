@@ -77,22 +77,13 @@ export default {
 }
 
 .vertical-slider .slider-item {
-  height: 100%;
   overflow: hidden;
   transition: flex 0.3s;
-  /* display: flex;
-  justify-content: space-around;
-  align-items: center;
-  cursor: pointer; */
+  height: var(--height);
 }
 
 .vertical-slider .slider-item > * {
   height: 100%;
-  /* display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  width: 100%; */
 }
 
 /* .top {

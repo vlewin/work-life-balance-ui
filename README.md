@@ -87,6 +87,10 @@ https://alligator.io/vuejs/using-new-vue-cli-3/ ~/.vuerc,
 
 https://css-tricks.com/making-custom-properties-css-variables-dynamic/
 
+### Animation performance
+
+https://css-tricks.com/forums/topic/css3-animations-are-burning-my-computer/
+
 ### SVG ANIMATIONS
 
 https://codepen.io/ariona/details/JYGzBB

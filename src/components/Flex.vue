@@ -54,7 +54,7 @@
   </div>
 </template>
 
-<style>
+<style scoped>
 .slider {
   display: flex;
   justify-content: center;

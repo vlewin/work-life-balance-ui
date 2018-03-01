@@ -24,40 +24,37 @@
 //   }
 // };
 
-const merge = require("webpack-merge")
+// const merge = require("webpack-merge")
 const path = require("path")
 module.exports = {
-  baseUrl: "./",
+  // baseUrl: "./",
   configureWebpack: {
     module: {
-      rules: [
-        {
-          test: /\.svg$/,
-          loader: "url-loader?limit=10000&mimetype=image/svg+xml",
-          options: {
-            name: "[name].[ext]"
-          }
-        }
-      ]
+      // rules: [
+      //   test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+      //   loader: 'url-loader',
+      //   options: {
+      //     limit: 10000,
+      //     name: utils.assetsPath('img/[name].[hash:7].[ext]')
+      //   },
+      //
+      //   // {
+      //   test: /\.svg$/,
+      //   loader: "url-loader?limit=10000&mimetype=image/svg+xml",
+      //   options: {
+      //     name: "[name].[ext]"
+      //   }
+      // }
+      // ]
     },
     name: "vue-work-life-balance",
-    output: {
-      publicPath: "./"
-    },
+    // output: {
+    //   publicPath: "/"
+    // },
     resolve: {
       alias: {
         "@": path.resolve("src")
       }
     }
   }
-  // css: {
-  //   // Enable CSS source maps.
-  //   sourceMap: true,
-  //   // Enable CSS modules for all CSS/pre-processor files.
-  //   // This option does not affect *.vue files.
-  //   modules: true
-  // },
-  // Split dependencies into their own bundle.
-  // https://github.com/vuejs/vue-cli/blob/dev/docs/cli-service.md#dll-mode
-  // dll: true
 }
