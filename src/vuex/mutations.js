@@ -1,6 +1,10 @@
 import Vue from "vue"
 
 export default {
+  SET_ONLINE(state, condition) {
+    state.online = condition
+  },
+
   SET_PAGE(state, page) {
     Vue.set(state, "page", page)
   },

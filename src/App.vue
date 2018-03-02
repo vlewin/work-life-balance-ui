@@ -42,6 +42,17 @@ export default {
     }
   },
 
+  mounted() {
+    window.addEventListener("online", () => {
+      console.log("online")
+      this.$store.dispatch("online", navigator.onLine)
+    })
+    window.addEventListener("offline", () => {
+      console.log("offline")
+      this.$store.dispatch("online", navigator.onLine)
+    })
+  },
+
   computed: {
     now() {
       return {

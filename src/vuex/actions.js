@@ -17,6 +17,10 @@
 import Record from "../services/record"
 
 export default {
+  online: async ({ commit }, condition) => {
+    commit("SET_ONLINE", condition)
+  },
+
   navigate: ({ commit }, page) => {
     commit("SET_PAGE", page)
   },

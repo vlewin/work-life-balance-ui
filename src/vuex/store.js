@@ -10,6 +10,7 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
   state: {
     page: "page-2",
+    online: navigator.onLine,
     currentDate: new Date(),
     records: {},
     debug: false

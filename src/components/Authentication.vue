@@ -1,6 +1,6 @@
 <template>
   <div>
-    <vertical-slider class="dark-blue" :section="section">
+    <vertical-slider class="dark-blue" :section="currentSection">
       <div slot="top" class="flex flex-center flex-column">
         <h1 class="text-white">READY</h1>
         <i class="fa fa-clock-o fa-10x text-white" aria-hidden="true"></i>
@@ -68,12 +68,17 @@ export default {
     }, 1000)
   },
 
-  computed: {},
+  computed: {
+    currentSection() {
+      return this.$store.state.online ? "bottom" : "top"
+    }
+  },
 
   methods: {
     slideUp() {
       this.section = "top"
     },
+
     slideMiddle() {
       this.section = "middle"
     },
