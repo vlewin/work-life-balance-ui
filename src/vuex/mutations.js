@@ -5,6 +5,26 @@ export default {
     state.online = condition
   },
 
+  SET_LOADING(state, condition) {
+    if (condition) {
+      state.loading = condition
+    } else {
+      setTimeout(() => {
+        state.loading = condition
+      }, 500)
+    }
+  },
+
+  SET_FETCHING(state, condition) {
+    if (condition) {
+      state.fetching = condition
+    } else {
+      setTimeout(() => {
+        state.fetching = condition
+      }, 500)
+    }
+  },
+
   SET_PAGE(state, page) {
     Vue.set(state, "page", page)
   },

@@ -9,7 +9,7 @@
         <slot name="middle"></slot>
         <!-- <button v-on:click="toggle('bottom')">DOWN</button> -->
       </div>
-      <div class="slider-item bottom" v-on:click="toggle('up')">
+      <div class="slider-item bottom">
       <!-- <div class="slider-item bottom" v-on:click.prevent.stop="toggle('middle')"> -->
         <slot name="bottom"></slot>
       </div>

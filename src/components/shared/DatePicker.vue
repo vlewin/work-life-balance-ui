@@ -19,7 +19,7 @@
 // FIXME: Check bundle size
 import holiday from "german-holiday"
 import { isWeekend, addHours } from "date-fns"
-import { weekNumber, weekStartDay, weekDaysRange, isHoliday } from "../../helpers/date"
+import { weekNumber, weekStartDay, weekDaysRange, isHappy, isHoliday } from "../../helpers/date"
 import { mapGetters, mapState } from "vuex"
 
 export default {
@@ -35,16 +35,22 @@ export default {
   },
 
   created: async function() {
-    this.week = weekDaysRange(this.selected)
+    // NOTE: Return only working days, include Sa?
+    this.week = weekDaysRange(this.selected).filter(d => {
+      return !isWeekend(d)
+    })
+    if (isWeekend(this.currentDate)) {
+      this.$store.dispatch("setCurrentDate", addHours(this.week[0], 1))
+    }
+
     await this.$store.dispatch("fetchRecords")
-    window.holiday = holiday
   },
 
   computed: {
     ...mapGetters(["currentWeekNumber", "currentFomatedDate", "currentRecord"]),
     ...mapState(["currentDate", "records"]),
     dates() {
-      return weekDaysRange(this.selected).map(date => {
+      return this.week.map(date => {
         let formattedDate = date.toLocaleDateString()
         let record = this.records[formattedDate] || {}
         return {
@@ -55,6 +61,7 @@ export default {
           weekend: this.isWeekend(date),
           holiday: this.isHoliday(date),
           duration: record.duration,
+          positive: isHappy(record.duration),
           recorded: !!record.date
         }
       })
@@ -76,7 +83,7 @@ export default {
         weekend: date.weekend,
         holiday: date.holiday,
         recorded: date.recorded,
-        positive: date.duration >= 8
+        positive: date.positive
       }
     },
 
@@ -100,7 +107,7 @@ export default {
 
     isPositive(date) {
       const record = this.records[date.toLocaleDateString()]
-      return record ? record.duration >= 8 : null
+      return record ? record.duration >= 8 && record.duration <= 9 : null
     },
 
     selectDay(date) {

@@ -29,6 +29,8 @@
 </template>
 
 <script>
+import { mapState } from "vuex"
+
 export default {
   name: "Info",
   data() {
@@ -45,6 +47,7 @@ export default {
   },
 
   computed: {
+    ...mapState(["loading"]),
     isHappy() {
       return this.duration >= 8 && this.duration <= 9
     }

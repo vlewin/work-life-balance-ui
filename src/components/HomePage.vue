@@ -15,9 +15,19 @@
           </div>
         </div>
 
-        <div class="form-info" v-on:click="navigate('page-1')">
-          <smiley v-if="isRecorded" :mood="mood"></smiley>
-          <smiley v-else mood="neutral"></smiley>
+        <div class="form-info flex flex-center" v-on:click="navigate('page-1')">
+          <div v-if="fetching" class="center text-blue">
+            <i class="fa fa-spinner fa-large fa-5x spin "></i>
+            <h1 class="">Please wait ...</h1>
+          </div>
+          <div v-else>
+            <!-- <h3 class="center">
+              <i class="wi wi-night-sleet"></i>
+              &nbsp;+20&deg;C
+            </h3> -->
+            <smiley :mood="mood"></smiley>
+            <!-- <h3 class="center">{{ duration }} Hours</h3> -->
+          </div>
 
           <!-- <info v-if="isRecorded" :duration="duration" :total="total"></info> -->
           <!-- <div v-else>
@@ -55,7 +65,7 @@ import differenceInMinutes from "date-fns/difference_in_minutes"
 import format from "date-fns/format"
 import addHours from "date-fns/add_hours"
 import { mapActions, mapGetters, mapState } from "vuex"
-import { timeToNumber, timeToDateTime } from "../helpers/date"
+import { isHappy, timeToNumber, timeToDateTime } from "../helpers/date"
 
 import Card from "./shared/Card"
 import DatePicker from "./shared/DatePicker"
@@ -90,7 +100,6 @@ export default {
         finish: ""
       },
 
-      loading: false,
       saved: false,
       timepicker: false
     }
@@ -103,20 +112,21 @@ export default {
 
   computed: {
     ...mapGetters(["currentFomatedDate", "currentWeekNumber", "currentRecord"]),
-    ...mapState(["currentDate", "records"]),
+    ...mapState(["fetching", "loading", "currentDate", "records"]),
 
     mood() {
-      if (this.duration < 6.5 || this.duration >= 9.5) {
-        return "dead"
-      } else if (this.duration < 8 || this.duration >= 8.5) {
-        return "bad"
-      } else if (this.duration >= 8 && this.duration < 8.5) {
-        return "good"
-      } else if (this.duration >= 6.5 && this.duration < 9.5) {
-        return "neutral"
-      } else {
-        return "dead"
+      if (this.isRecorded) {
+        return isHappy(this.form.duration) ? "good" : "bad"
       }
+
+      return "neutral"
+      // if (this.duration < 8 || this.duration > 9) {
+      //   return "bad"
+      // } else if (this.duration >= 8 && this.duration <= 9) {
+      //   return "good"
+      // } else {
+      //   return "neutral"
+      // }
     },
 
     isRecorded() {
@@ -207,16 +217,8 @@ export default {
     },
 
     save: async function() {
-      this.loading = true
       this.form.duration = this.duration
-      // await Record.save(this.form);
-
       await this.$store.dispatch("saveRecord", this.form)
-
-      setTimeout(() => {
-        this.loading = false
-      }, 500)
-      // this.$store.dispatch("fetchRecords", this.currentWeekNumber);
     }
   }
 }
@@ -254,8 +256,5 @@ export default {
     width: 100%
     height: 80%
     cursor: pointer
-    display: flex
-    align-items: center
-    justify-content: center
     flex-direction: column
 </style>

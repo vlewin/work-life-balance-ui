@@ -29,6 +29,10 @@ export function weekDaysRange(date = new Date()) {
   return eachDay(startOfISOWeek(date), endOfISOWeek(date)).map(d => addHours(d, 1))
 }
 
+export function isHappy(duration) {
+  return duration >= 8 && duration <= 9
+}
+
 export function timeToNumber(time) {
   if (time) {
     const split = time.split(":")

@@ -11,6 +11,8 @@ const store = new Vuex.Store({
   state: {
     page: "page-2",
     online: navigator.onLine,
+    fetching: false,
+    loading: false,
     currentDate: new Date(),
     records: {},
     debug: false

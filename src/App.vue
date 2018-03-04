@@ -24,9 +24,9 @@
         <!-- <i aria-hidden="true" class="fa fa-smile-o"></i> -->
       </div>
     </div>
-    <transition name="slide-left" mode="out-in">
+    <!-- <transition name="slide-left" mode="out-in"> -->
       <router-view class="content"></router-view>
-    </transition>
+    <!-- </transition> -->
   </div>
 </template>
 
