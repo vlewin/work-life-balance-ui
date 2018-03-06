@@ -7,6 +7,7 @@ import Callback from "@/components/Callback"
 import Flex from "@/components/Flex"
 import CheatSheet from "@/components/CheatSheet"
 import AuthService from "../main"
+import Preview from "@/components/charts/Preview"
 
 Vue.use(Router)
 
@@ -18,7 +19,8 @@ const router = new Router({
     { path: "/logout", name: "Authentication", component: Authentication, props: { initSection: "bottom" } },
     { path: "/callback", name: "Callback", component: Callback },
     { path: "/help", name: "Help", component: CheatSheet },
-    { path: "/playground", name: "Flex", component: Flex }
+    { path: "/playground", name: "Flex", component: Flex },
+    { path: "/preview", name: "Preview", component: Preview },
   ]
 })
 

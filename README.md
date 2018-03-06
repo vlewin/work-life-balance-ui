@@ -92,7 +92,7 @@ https://css-tricks.com/making-custom-properties-css-variables-dynamic/
 https://css-tricks.com/forums/topic/css3-animations-are-burning-my-computer/
 
 ### SVG ANIMATIONS
-
+https://www.uplabs.com/posts/simple-material-vcard
 https://codepen.io/ariona/details/JYGzBB
 https://codepen.io/carsy/pen/zrvwGR
 http://antoniodinardo.com/TEST/weather_card/

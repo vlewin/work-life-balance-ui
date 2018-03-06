@@ -72,7 +72,7 @@ export default {
     },
 
     value(val, oldVal) {
-      console.log("InputTime - value change", val, oldVal)
+      // console.log("InputTime - value change", val, oldVal)
       const value = val.replace(":", "")
       if (val.length > oldVal.length) {
         this.fields[this.current].n = value[this.current]
@@ -81,7 +81,7 @@ export default {
         this.prev()
         this.fields[this.current].n = null
       } else {
-        console.error("InputTime - Empty value!!!")
+        // console.error("InputTime - Empty value!!!")
         this.reset()
       }
     }

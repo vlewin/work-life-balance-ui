@@ -8,15 +8,21 @@
       <h4 slot="right" v-on:click="toggleReason('holiday')">HOLIDAY</h4>
     </slider>
 
-    <calendar slot="body" class="height-70 white" :date="date"></calendar>
+    <calendar slot="body" class="height-70 white" :date="date" :records="records" v-on:changed="setSelectedDates"></calendar>
 
     <div slot="body" class="balance light-grey height-10">
-      <span>VACATION: {{ vacationRestDays }} days</span>
-      <span>SICKNESS: {{ seeknessDays }} days</span>
+      <template v-if="this.dates.length">
+        CLEAR
+      </template>
+
+      <template v-else>
+        <span>VACATION: {{ vacationRestDays }} days</span>
+        <span>SICKNESS: {{ seeknessDays }} days</span>
+      </template>
     </div>
 
     <simple-switch slot="footer" class="vertical animated">
-      <button slot="up">SAVE</button>
+      <button slot="up" v-on:click="save">SAVE</button>
       <button slot="down">DONE ;)</button>
     </simple-switch>
 
@@ -28,13 +34,14 @@
 </template>
 
 <script>
-import { mapActions } from "vuex"
+import { mapState, mapActions } from "vuex"
 
 import Card from "./shared/Card"
 import MonthPicker from "./shared/MonthPicker"
 import Slider from "./shared/Slider"
 import Calendar from "./shared/Calendar"
 import SimpleSwitch from "./shared/SimpleSwitch"
+import getISOWeek from "date-fns/get_iso_week"
 
 export default {
   name: "AbsencePage",
@@ -53,6 +60,7 @@ export default {
       date: new Date(),
       vacationRestDays: 28,
       seeknessDays: 2,
+      dates: [],
       sliderMap: {
         vacation: 0,
         sickness: 1,
@@ -61,6 +69,21 @@ export default {
     }
   },
 
+  computed: {
+    ...mapState(["records"]),
+    // ...mapGetters(["currentWeekNumber"]),
+
+    items() {
+      return this.dates.map(date => {
+        return {
+          date: date.toLocaleDateString(),
+          week: getISOWeek(date),
+          absence: this.reason,
+          duration: 8
+        }
+      })
+    }
+  },
   methods: {
     ...mapActions([
       "navigate" // map `this.increment()` to `this.$store.dispatch('increment')`
@@ -72,6 +95,14 @@ export default {
 
     toggleReason(reason) {
       this.reason = this.reason === reason ? null : reason
+    },
+
+    setSelectedDates(dates) {
+      this.dates = dates
+    },
+
+    async save() {
+      await this.$store.dispatch("saveRecord", { records: this.items })
     },
 
     reset() {

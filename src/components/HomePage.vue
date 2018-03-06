@@ -4,15 +4,20 @@
     <simple-slider slot="body" :active="slider.open">
       <div class="simple-slider-item form" slot="up">
         <div class="form-input blue">
-          <div class="form-trigger" v-on:click="openSlider({ open: true, target: 'start' })">
-            {{ form.start }}
+          <div v-if="absence" class="uppercase">
+            {{ absence }}
           </div>
-          <div class="form-trigger" v-on:click="openSlider({ open: true, target: 'pause' })">
-            {{ form.pause | timeToNumber }}
-          </div>
-          <div class="form-trigger" v-on:click="openSlider({ open: true, target: 'finish' })">
-            {{ form.finish }}
-          </div>
+          <template v-else>
+            <div class="form-trigger" v-on:click="openSlider({ open: true, target: 'start' })">
+              {{ form.start }}
+            </div>
+            <div class="form-trigger" v-on:click="openSlider({ open: true, target: 'pause' })">
+              {{ form.pause | timeToNumber }}
+            </div>
+            <div class="form-trigger" v-on:click="openSlider({ open: true, target: 'finish' })">
+              {{ form.finish }}
+            </div>
+          </template>
         </div>
 
         <div class="form-info flex flex-center" v-on:click="navigate('page-1')">
@@ -21,28 +26,25 @@
             <h1 class="">Please wait ...</h1>
           </div>
           <div v-else>
-            <!-- <h3 class="center">
-              <i class="wi wi-night-sleet"></i>
-              &nbsp;+20&deg;C
-            </h3> -->
-            <smiley :mood="mood"></smiley>
-            <!-- <h3 class="center">{{ duration }} Hours</h3> -->
+            <info v-if="absence" :absence="absence" :duration="duration" :total="total"></info>
+            <smiley v-else :mood="mood"></smiley>
+
+            <!-- <div>
+              {{ isRecorded }} {{ total }} {{ duration }}
+              <pre>
+                {{ form }}
+              </pre>
+            </div> -->
           </div>
 
-          <!-- <info v-if="isRecorded" :duration="duration" :total="total"></info> -->
-          <!-- <div v-else>
-            {{ isRecorded }} {{ total }} {{ duration }}
-            <pre>
-              {{ form }}
-            </pre>
-          </div> -->
+
         </div>
       </div>
 
       <time-picker class="simple-slider-item" slot="down" :init-value="form[slider.target]" :target="slider.target" v-on:changed="setValue" v-on:done="closeSlider"></time-picker>
     </simple-slider>
 
-    <simple-switch v-show="!timepicker" slot="footer" class="vertical animated primary" :active="loading">
+    <simple-switch v-show="!absence && !timepicker" slot="footer" class="vertical animated primary" :active="loading">
       <button slot="up" v-on:click="save">
         {{ isRecorded? 'UPDATE' : 'SAVE'}}
       </button>
@@ -64,8 +66,11 @@
 import differenceInMinutes from "date-fns/difference_in_minutes"
 import format from "date-fns/format"
 import addHours from "date-fns/add_hours"
+import differenceInHours from "date-fns/difference_in_hours"
+import isSameDay from "date-fns/is_same_day"
+
 import { mapActions, mapGetters, mapState } from "vuex"
-import { isHappy, timeToNumber, timeToDateTime } from "../helpers/date"
+import { isHappy, timeToNumber, timeToDateTime, dateTimeToTime } from "../helpers/date"
 
 import Card from "./shared/Card"
 import DatePicker from "./shared/DatePicker"
@@ -106,7 +111,7 @@ export default {
   },
 
   created: async function() {
-    console.log("HomePage: create")
+    console.log("CREATED")
     this.initForm()
   },
 
@@ -116,52 +121,72 @@ export default {
 
     mood() {
       if (this.isRecorded) {
-        return isHappy(this.form.duration) ? "good" : "bad"
+        return isHappy(this.duration) ? "good" : "bad"
+      } else {
+        return "neutral"
       }
-
-      return "neutral"
-      // if (this.duration < 8 || this.duration > 9) {
-      //   return "bad"
-      // } else if (this.duration >= 8 && this.duration <= 9) {
-      //   return "good"
-      // } else {
-      //   return "neutral"
-      // }
     },
 
     isRecorded() {
-      console.log("RECTIVE ???")
       return !!this.currentRecord
     },
 
+    absence() {
+      if (this.isRecorded) {
+        return this.currentRecord.absence
+      }
+    },
+
     duration() {
-      return this.total - timeToNumber(this.form.pause)
+      const duration = this.total - timeToNumber(this.form.pause)
+      console.log("Duration", duration, this.total, "-", timeToNumber(this.form.pause))
+
+      this.form.duration = duration
+      return duration
     },
 
     total() {
       const start = timeToDateTime(this.currentDate, this.form.start)
       const finish = timeToDateTime(this.currentDate, this.form.finish)
-      return (differenceInMinutes(finish, start) / 60).toFixed(2)
+      const total = (differenceInMinutes(finish, start) / 60).toFixed(2)
+
+      console.log("Total", total)
+      return total
+
+      // return differenceInHours(finish, start)
     }
   },
 
   watch: {
-    "form.start"(val) {
+    "form.start"(val, oldVal) {
       if (val) {
         console.log("HomePage - start value changed", val)
         this.calculateEnd()
       }
     },
 
-    "form.pause"(val) {
+    "form.pause"(val, oldVal) {
       if (val) {
         console.log("HomePage - pause value changed", val)
         this.calculateEnd()
       }
     },
 
+    "form.finish"(val, oldVal) {
+      if (val) {
+        console.log("HomePage - finish value changed", val)
+        this.calculateDuration()
+      }
+    },
+
     currentDate() {
+      console.log("HomePage - currentDate changed", this.currentDate)
       this.initForm()
+    },
+
+    currentRecord(oldVal, val) {
+      console.log("HomePage - currentRecord changed", oldVal, val)
+      this.initRecord()
     }
   },
 
@@ -175,27 +200,66 @@ export default {
   methods: {
     ...mapActions(["navigate"]),
 
+    initRecord() {
+      if (this.isRecorded) {
+        console.log("this.isRecorded")
+        console.log(JSON.stringify(Object.assign(this.form, this.currentRecord)))
+        // Object.assign(this.form, this.currentRecord)
+        this.form.start = this.currentRecord.start
+        this.form.pause = this.currentRecord.pause
+        this.form.finish = this.currentRecord.finish
+
+        // this.$set(this, "form", this.currentRecord)
+      }
+    },
+
     initForm() {
       if (this.isRecorded) {
-        console.log("isRecorded", JSON.stringify(this.currentRecord))
+        console.log("this.isRecorded")
+        console.log(JSON.stringify(Object.assign(this.form, this.currentRecord)))
         Object.assign(this.form, this.currentRecord)
       } else {
-        console.log("NOT recorded", this.duration)
-
+        console.log("initForm")
         this.form = {
           date: this.currentFomatedDate,
           week: this.currentWeekNumber,
-          start: "09:00",
+          start: dateTimeToTime(new Date()),
           pause: "00:30",
-          finish: "17:30"
+          mood: this.mood
         }
+        this.calculateEnd()
       }
     },
 
     calculateEnd() {
-      const diff = 8 + timeToNumber(this.form.pause)
+      if(this.isRecorded) {
+        console.log('Skip end calculation')
+      } else {
+        const diff = 8 + timeToNumber(this.form.pause)
+        const start = timeToDateTime(this.currentDate, this.form.start)
+        const finish = format(addHours(start, diff))
+        console.log(start, finish)
+        if (isSameDay(start, finish)) {
+          this.form.finish = format(addHours(start, diff), "HH:mm")
+          console.log(this.form.finish)
+        } else {
+          this.form.finish = "23:55"
+        }
+      }
+
+    },
+
+    calculateDuration() {
+      console.log("Duration", duration, this.total, "-", timeToNumber(this.form.pause))
       const start = timeToDateTime(this.currentDate, this.form.start)
-      this.form.finish = format(addHours(start, diff), "HH:mm")
+      const finish = timeToDateTime(this.currentDate, this.form.finish)
+      const total = (differenceInMinutes(finish, start) / 60).toFixed(2)
+      const duration = total - timeToNumber(this.form.pause)
+
+      console.log("Duration", duration, total, "-", timeToNumber(this.form.pause))
+
+      this.$set(this.form, "duration", duration)
+      return duration
     },
 
     openSlider(options) {
@@ -213,11 +277,18 @@ export default {
     },
 
     setValue(target, value) {
-      this.form[target] = value
+      console.log("Set Value", target, value)
+      this.$set(this.form, target, value)
+
+      if (["start", "pause"].includes(target)) {
+        this.calculateEnd()
+      }
+
+      this.calculateDuration()
+      console.log(JSON.stringify(this.form))
     },
 
     save: async function() {
-      this.form.duration = this.duration
       await this.$store.dispatch("saveRecord", this.form)
     }
   }

@@ -7,13 +7,13 @@
     </p> -->
 
     <ul class="grid">
-      <li class="grid-item label" v-for="weekday in weekdays" v-bind:class="{ weekend: ['SA', 'SU'].includes(weekday) }">
+      <li class="grid-item label" v-for="weekday in weekdays" :class="{ weekend: ['SA', 'SU'].includes(weekday) }">
         {{ weekday }}
       </li>
 
-      <li class="grid-item round day" v-for="(day, i) in days" v-on:click="select(day)"
-        :class="{ selected: isSelected(day), weekend: isWeekend(i), holiday: isHoliday(day), empty: isEmpty(day) }">
+      <li class="grid-item round day" v-for="(day, i) in days" v-on:click="select(day)" :class="addClasses(day)">
         {{ day | toNumber }}
+        <!-- <span class="tooltiptext" v-if="isRecorded(day)">{{ record(day).absence }}</span> -->
         <span class="tooltiptext" v-if="isHoliday(day)">{{ isHoliday(day) }}</span>
       </li>
     </ul>
@@ -24,7 +24,9 @@
 Array.range = (start, end) => [...Array(end - start + 1)].map((_, i) => (start + i).toString().padStart(2, "0"))
 
 import Calendator from "calendator"
-import holiday from "german-holiday"
+import Holiday from "german-holiday"
+import { isWeekend } from "date-fns"
+
 const calendator = new Calendator(Calendator.MON)
 
 export default {
@@ -49,6 +51,10 @@ export default {
 
     target: {
       required: false
+    },
+
+    records: {
+      type: Object
     }
   },
 
@@ -88,6 +94,17 @@ export default {
   watch: {},
 
   methods: {
+    addClasses(date) {
+      return {
+        selected: this.isSelected(date),
+        weekend: isWeekend(date),
+        holiday: this.isHoliday(date),
+        empty: this.isEmpty(date),
+        vacation: this.isVacation(date),
+        sickness: this.isSickeness(date)
+      }
+    },
+
     isSelected(date) {
       return this.selected.includes(date)
     },
@@ -97,11 +114,31 @@ export default {
     },
 
     isHoliday(date) {
-      return date && holiday.holidayCheck(date, "BY")
+      return date && (Holiday.holidayCheck(date, "BY") || this.record(date).absence === "holiday")
     },
 
     isEmpty(date) {
       return !date
+    },
+
+    isRecorded(date) {
+      return date && this.records[date.toLocaleDateString("de-DE")]
+    },
+
+    isVacation(date) {
+      return this.record(date).absence === "vacation"
+    },
+
+    isSickeness(date) {
+      return this.record(date).absence === "sickness"
+    },
+
+    record(date) {
+      if (this.isRecorded(date)) {
+        return this.records[date.toLocaleDateString("de-DE")]
+      }
+
+      return {}
     },
 
     prevMonth() {
@@ -136,12 +173,14 @@ export default {
       } else {
         this.selected.push(date)
       }
+
+      this.$emit("changed", this.selected)
     }
   }
 }
 </script>
 
-<style lang="sass">
+<style lang="sass" scoped>
   @import '~@/assets/_variables.sass'
 
   .calendar
@@ -149,7 +188,6 @@ export default {
     justify-content: space-around
     align-items: center
     flex-direction: column
-    /*height: 100%;
     width: 100%
 
   .month
@@ -157,7 +195,6 @@ export default {
     display: flex
     justify-content: space-around
     align-items: center
-    /*padding: 10px;
     padding: 2% 0
     min-width: 70%
     margin: 0
@@ -176,8 +213,6 @@ export default {
     justify-items: center
     align-items: center
 
-
-
   .grid-item
     display: inline-block
     color: #444
@@ -187,8 +222,8 @@ export default {
     line-height: 2.3rem
     text-align: center
     font-size: 1.2em
+    // border: 0.1rem solid #fff
 
-    border: 0.1rem solid #fff
     &:not(.label):not(.weekend)
       &:not(.holiday)
         cursor: pointer
@@ -235,8 +270,23 @@ export default {
   @media only screen and (min-width: 600px)
     .grid
 
-  /* Tooltip container
 
+  .vacation, .sickness, .holiday
+    // pointer-events: none
+
+  .vacation
+    border: 0.1rem solid $green
+    color: $green
+
+  .sickness
+    border: 0.1rem solid $amber
+    color: $amber
+
+  .holiday
+    border: 0.1rem solid $red
+    color: $red
+
+  /* Tooltip container
   .holiday
     position: relative
     display: inline-block

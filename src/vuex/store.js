@@ -3,7 +3,7 @@ import Vuex from "vuex"
 import actions from "./actions"
 import mutations from "./mutations"
 import getters from "./getters"
-// import { dateTimeToDate } from "../helpers/date";
+import { getNextBusinessDay } from "../helpers/date"
 
 Vue.use(Vuex)
 
@@ -13,7 +13,7 @@ const store = new Vuex.Store({
     online: navigator.onLine,
     fetching: false,
     loading: false,
-    currentDate: new Date(),
+    currentDate: getNextBusinessDay(),
     records: {},
     debug: false
   },

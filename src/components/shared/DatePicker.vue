@@ -3,7 +3,7 @@
     <li class="arrow" v-on:click="prevWeek">
       &laquo;
     </li>
-    <li class="uppercase" v-for="(item, index) in dates" :key="index" :data-hours="item.duration" :class="addClasses(item)" v-on:click="selectDay(item.date)">
+    <li class="uppercase" v-for="(item, index) in dates" :key="index" :data-hours="label(item)" :class="addClasses(item)" v-on:click="selectDay(item.date)">
       {{ item.weekday }}
     </li>
     <li class="arrow" v-on:click="nextWeek">
@@ -61,6 +61,7 @@ export default {
           weekend: this.isWeekend(date),
           holiday: this.isHoliday(date),
           duration: record.duration,
+          absence: record.absence,
           positive: isHappy(record.duration),
           recorded: !!record.date
         }
@@ -70,6 +71,8 @@ export default {
       //   return this.records[key];
       // });
     },
+
+
 
     selected() {
       return this.$store.state.currentDate
@@ -87,6 +90,22 @@ export default {
       }
     },
 
+    label(item) {
+      const mapping = {
+        "vacation": "V",
+        "holiday": "H",
+        "sickness": "S"
+      }
+
+      if(this.isRecorded(item.date)) {
+        if(item.absence) {
+          return item.absence[0]
+        } else {
+          return item.duration
+        }
+      }
+    },
+
     isSelected(date) {
       return this.currentDate.toLocaleDateString() === date.toLocaleDateString()
     },
@@ -97,7 +116,6 @@ export default {
     },
 
     isHoliday(date) {
-      console.log(date, new Date(date.toDateString()), "is", isHoliday(date))
       return isHoliday(date)
     },
 
@@ -128,7 +146,9 @@ export default {
         this.year -= 1
       }
 
-      this.week = weekDaysRange(weekStartDay(this.current, this.year))
+      this.week = weekDaysRange(weekStartDay(this.current, this.year)).filter(d => {
+        return !isWeekend(d)
+      })
       this.$store.dispatch("setCurrentDate", addHours(this.week[0], 1))
       this.$store.dispatch("fetchRecords", this.current)
       this.$emit("prevWeek")
@@ -143,7 +163,10 @@ export default {
         this.current = this.current + 1
       }
 
-      this.week = weekDaysRange(weekStartDay(this.current, this.year))
+      this.week = weekDaysRange(weekStartDay(this.current, this.year)).filter(d => {
+        return !isWeekend(d)
+      })
+
       this.$store.dispatch("setCurrentDate", addHours(this.week[0], 1))
       this.$store.dispatch("fetchRecords", this.current)
       this.$emit("nextWeek")

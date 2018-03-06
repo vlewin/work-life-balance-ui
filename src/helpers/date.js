@@ -48,8 +48,29 @@ export function timeToDateTime(date, time) {
   return new Date()
 }
 
+import startOfWeek from "date-fns/start_of_week"
+import isWeekend from "date-fns/is_weekend"
+
+export function getNextBusinessDay(date = new Date()) {
+  if (isWeekend(date)) {
+    console.warn("Return start of the week", startOfWeek(date, { weekStartsOn: 1 }))
+    return startOfWeek(date, { weekStartsOn: 1 })
+  }
+  return date
+}
+
+export function roundTo(d = new Date(), minutes = 5) {
+  let ms = 1000 * 60 * minutes // convert minutes to ms
+  let roundedDate = new Date(Math.round(d.getTime() / ms) * ms)
+  return roundedDate
+}
+
 export function dateTimeToDate(datetime, dateFormat = "DD.MM.YYYY") {
   return format(datetime, dateFormat)
+}
+
+export function dateTimeToTime(datetime, dateFormat = "HH:mm") {
+  return format(roundTo(datetime, 5), dateFormat)
 }
 
 export function dateToDateTime(date) {

@@ -5,14 +5,13 @@
       <i class="fa fa-line-chart" aria-hidden="true"></i>
       Trend
     </h3>
-
-    <vue-trend slot="body" :data="trend" :stroke-width="2" :height="30" :width="chartWidth" smooth :gradient="trendGradient" auto-draw />
+    <vue-trend slot="body" :data="trend" :stroke-width="4" :key='date.toLocaleDateString()' :height="30" :width="chartWidth" :gradient="trendGradient" auto-draw smooth />
     <h3 class="text-grey-blue" slot="body">
       <i class="fa fa-bar-chart" aria-hidden="true"></i>
       Month overview
     </h3>
 
-    <vue-bars slot="body" :data="data" :bar-width="6" :width="chartWidth" :gradient="barsGradient"></vue-bars>
+    <vue-bars slot="body" :data="data" :bar-width="8" :key='getRandomInt()' :width="chartWidth" :gradient="barsGradient" :growDuration="1"></vue-bars>
     <h3 class="text-grey-blue" slot="body">
       <i class="fa fa-balance-scale" aria-hidden="true"></i>
       BALANCE: 2 hours
@@ -45,40 +44,15 @@ export default {
       date: new Date(),
       trendGradient: ["#98c2c2", "#50a7c2", "#42b983"],
       barsGradient: ["#50a7c2", "#42b983"],
-      trend: [8, 8, 8, 7.5, 9, 7.5, 8, 8],
-      data: [
-        0,
-        this.getRandomInt(),
-        this.getRandomInt(),
-        this.getRandomInt(),
-        this.getRandomInt(),
-        this.getRandomInt(),
-        0,
-        0,
-        this.getRandomInt(),
-        this.getRandomInt(),
-        this.getRandomInt(),
-        this.getRandomInt(),
-        this.getRandomInt(),
-        0,
-        0,
-        this.getRandomInt(),
-        this.getRandomInt(),
-        this.getRandomInt(),
-        this.getRandomInt(),
-        this.getRandomInt(),
-        0,
-        0,
-        this.getRandomInt(),
-        this.getRandomInt(),
-        this.getRandomInt(),
-        this.getRandomInt(),
-        this.getRandomInt()
-      ]
+      trend: [],
+      data: []
     }
   },
 
-  created() {},
+  created() {
+    this.generate()
+    this.generateTrend()
+  },
 
   computed: {
     chartWidth() {
@@ -89,6 +63,7 @@ export default {
   watch: {
     date() {
       this.generate()
+      this.generateTrend()
       this.$forceUpdate()
     }
   },
@@ -97,6 +72,16 @@ export default {
     ...mapActions([
       "navigate" // map `this.increment()` to `this.$store.dispatch('increment')`
     ]),
+
+    generateTrend() {
+      this.trend = [
+        this.getRandomInt(),
+        this.getRandomInt(),
+        this.getRandomInt(),
+        this.getRandomInt(),
+        this.getRandomInt()
+      ]
+    },
 
     generate() {
       this.data = [

@@ -14,7 +14,7 @@
   </div>
 </template>
 
-<style>
+<style scoped>
 .card {
   width: 100%;
   height: 100%;
