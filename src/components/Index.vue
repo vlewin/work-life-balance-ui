@@ -1,6 +1,6 @@
 <template>
   <pager :active="page" v-else>
-    <preview slot="left"></preview>
+    <report-page slot="left"></report-page>
     <!-- <report-page slot="left"></report-page> -->
     <home-page slot="center"></home-page>
     <absence-page slot="right"></absence-page>
