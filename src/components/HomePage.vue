@@ -1,5 +1,8 @@
 <template>
   <card>
+    <div class="header" slot="header">
+      ssss
+    </div>
     <date-picker slot="header"></date-picker>
     <simple-slider slot="body" :active="slider.open">
       <div class="simple-slider-item form" slot="up">

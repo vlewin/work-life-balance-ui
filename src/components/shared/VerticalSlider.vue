@@ -36,7 +36,7 @@ export default {
 
   mounted() {
     // this.$el.setAttribute("data-height", 11)
-    this.$el.style.setProperty("--height", `${this.$root.$el.offsetHeight * 0.9}px`)
+    this.$el.style.setProperty("--height", `${this.$root.$el.offsetHeight * 1}px`)
   },
 
   methods: {

@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div class="header" v-on:dblclick="toggleFullScreen">
+    <!-- <div class="header" v-on:dblclick="toggleFullScreen">
       <div class="header-left">
         <h1 class="day">{{ day }}</h1>
         <div class="date">
@@ -14,20 +14,11 @@
           <span class="blink">:</span>
           {{ now.mm }}
           &nbsp;
-          <!-- <i aria-hidden="true" v-on:click="logout" class="fa fa-user"></i> -->
-          <i v-if="authenticated()" class="fa fa-times-circle" aria-hidden="true"></i>
-          <!-- <i v-if="authenticated()" class="fa fa-sign-out" v-on:click="logout"></i> -->
-
-
-          <!-- <i aria-hidden="true" v-on:click="toggleFullScreen" class="fa fa-window-maximize"></i> -->
+          <i v-if="authenticated()" class="fa fa-sign-out" v-on:click="logout"></i>
         </div>
-        <!-- <i aria-hidden="true" class="fa fa-camera-retro"></i> -->
-        <!-- <i aria-hidden="true" class="fa fa-smile-o"></i> -->
       </div>
-    </div>
-    <!-- <transition name="slide-left" mode="out-in"> -->
-      <router-view class="content"></router-view>
-    <!-- </transition> -->
+    </div> -->
+    <router-view class="content"></router-view>
   </div>
 </template>
 

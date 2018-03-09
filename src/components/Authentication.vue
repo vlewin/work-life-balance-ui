@@ -114,7 +114,7 @@ export default {
     },
 
     currentSection() {
-      return this.online ? "bottom" : "top"
+      return this.online ? this.section : "top"
     }
   },
 
@@ -153,7 +153,7 @@ export default {
     border-radius: 1em
 
     &:hover
-      background-color: #0d1d26
+      background-color: #071c27
     // height: 10vh
 
   h1

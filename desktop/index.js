@@ -97,8 +97,9 @@ const createWindow = () => {
     window.setPosition(position.x, position.y, false);
   }
 
-  const indexFile = path.join(__dirname, "../dist/index.html");
-  window.loadURL(`file://${indexFile}`);
+  // const indexFile = path.join(__dirname, "../dist/index.html");
+  // window.loadURL(`file://${indexFile}`);
+  window.loadURL('https://d2r9gzfrckd05h.cloudfront.net/login')
 
   // Hide the window when it loses focus
   window.on("blur", () => {

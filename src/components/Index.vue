@@ -1,7 +1,6 @@
 <template>
   <pager :active="page" v-else>
-    <report-page slot="left"></report-page>
-    <!-- <report-page slot="left"></report-page> -->
+    <overview-page slot="left"></overview-page>
     <home-page slot="center"></home-page>
     <absence-page slot="right"></absence-page>
   </pager>
@@ -12,15 +11,15 @@ import Pager from "./shared/Pager"
 import HomePage from "./HomePage"
 import ReportPage from "./ReportPage"
 import AbsencePage from "./AbsencePage"
-import Preview from "./charts/Preview"
+import BarChart from "./charts/BarChart"
+import OverviewPage from "./OverviewPage"
 
 export default {
   name: "Index",
   components: {
     Pager,
+    OverviewPage,
     HomePage,
-    ReportPage,
-    Preview,
     AbsencePage
   },
 
