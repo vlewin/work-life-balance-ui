@@ -15,7 +15,8 @@
           {{ now.mm }}
           &nbsp;
           <!-- <i aria-hidden="true" v-on:click="logout" class="fa fa-user"></i> -->
-          <i v-if="authenticated()" class="fa fa-sign-out" v-on:click="logout"></i>
+          <i v-if="authenticated()" class="fa fa-times-circle" aria-hidden="true"></i>
+          <!-- <i v-if="authenticated()" class="fa fa-sign-out" v-on:click="logout"></i> -->
 
 
           <!-- <i aria-hidden="true" v-on:click="toggleFullScreen" class="fa fa-window-maximize"></i> -->
@@ -140,7 +141,10 @@ export default {
 }
 </script>
 
-<style lang="sass">
+<style lang="sass" scoped>
+  i.fa-times-circle
+    margin-right: 0.2em
+
   .fade-enter-active, .fade-leave-active
     transition-property: opacity
     transition-duration: 0.25s

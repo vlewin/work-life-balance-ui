@@ -9,12 +9,15 @@
           </div>
           <template v-else>
             <div class="form-trigger" v-on:click="openSlider({ open: true, target: 'start' })">
+              <small><i class="fa fa-clock-o"></i>&nbsp;</small>
               {{ form.start }}
             </div>
             <div class="form-trigger" v-on:click="openSlider({ open: true, target: 'pause' })">
+              <small><i class="fa fa-coffee"></i>&nbsp;</small>
               {{ form.pause | timeToNumber }}
             </div>
             <div class="form-trigger" v-on:click="openSlider({ open: true, target: 'finish' })">
+              <small><i class="fa fa-clock-o"></i>&nbsp;</small>
               {{ form.finish }}
             </div>
           </template>
@@ -296,6 +299,8 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+  @import '~@/assets/_variables.sass'
+
   .form
     display: flex
     height: 100%
@@ -305,6 +310,10 @@ export default {
     flex-direction: column
     overflow: hidden
     white-space: nowrap
+
+  small
+    font-size: 60%
+    opacity: 0.5
 
   .form-input
     height: 20%

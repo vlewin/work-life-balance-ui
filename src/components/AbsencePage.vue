@@ -3,9 +3,18 @@
     <month-picker slot="header" class="uppercase dark-blue" v-on:date-change="setDate"></month-picker>
 
     <slider slot="body" class="height-20 horizontal text-white" :focused="sliderMap[reason]">
-      <h4 slot="left" v-on:click="toggleReason('vacation')">VACATION</h4>
-      <h4 slot="center" v-on:click="toggleReason('sickness')">SICKNESS</h4>
-      <h4 slot="right" v-on:click="toggleReason('holiday')">HOLIDAY</h4>
+      <h4 slot="left" v-on:click="toggleReason('vacation')">
+        <i class="fa fa-plane"></i>
+        VACATION
+      </h4>
+      <h4 slot="center" v-on:click="toggleReason('sickness')">
+        <i class="fa fa-heartbeat"></i>
+        SICKNESS
+      </h4>
+      <h4 slot="right" v-on:click="toggleReason('holiday')">
+        <i class="fa fa-gift" aria-hidden="true"></i>
+        HOLIDAY
+      </h4>
     </slider>
 
     <calendar slot="body" class="height-70 white" :date="date" :records="records" v-on:changed="setSelectedDates"></calendar>
@@ -112,11 +121,16 @@ export default {
 }
 </script>
 
-<style lang="sass">
+<style lang="sass" scoped>
   .balance
     display: flex
     justify-content: space-around
     align-items: center
     font-size: 80%
     width: 100%
+
+  i
+    margin-right: 5px
+    vertical-align: middle
+    height: 1.1em
 </style>

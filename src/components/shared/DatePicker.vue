@@ -198,6 +198,7 @@ export default {
     line-height: 2.4rem
     border-radius: 50%
     transition: color 0.2s, background 1s
+    background: #2F4462
     border: 0.1rem solid $blue
     cursor: pointer
     font-size: 0.8rem
