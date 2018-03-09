@@ -1,23 +1,31 @@
-// The Vue build version to load with the `import` command
-// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
-import Vue from 'vue'
+import Vue from "vue"
+import App from "./App.vue"
+import store from "./vuex/store"
+import router from "./router"
 
-import App from './App'
-import router from './router'
-import store from './vuex/store'
-import moment from 'moment'
-import './assets/application.sass'
+import "./registerServiceWorker"
+import "./assets/application.sass"
 
+// import auth0 from "auth0-js"
+// console.log(auth0)
+// const auth = new auth0.WebAuth({
+//   domain: "mrstealth.eu.auth0.com",
+//   clientID: "fC4Z1HSO4PHNJTWu9K4Emn90bo6CCgCM",
+//   redirectUri: "http://localhost:8080",
+//   audience: "https://mrstealth.eu.auth0.com/userinfo",
+//   responseType: "token id_token",
+//   scope: "openid"
+// })
+//
+// export default auth
+import AuthenticationService from "./services/authentication"
+const AuthService = new AuthenticationService()
+export default AuthService
 
-Vue.config.productionTip = false
+Vue.config.productionTip = process.env.VUE_PRODUCTION_TIP === "true"
 
-Object.defineProperty(Vue.prototype, '$time', { value: moment })
-
-/* eslint-disable no-new */
 new Vue({
-  el: '#app',
-  router,
   store,
-  template: '<App/>',
-  components: { App }
-})
+  router,
+  render: h => h(App)
+}).$mount("#app")

@@ -1,8 +1,8 @@
-import axios from 'axios'
+import axios from "axios"
 
 export default class Timestamp {
   static get endpoint() {
-    return 'http://127.0.0.1:8000/api/timestamps'
+    return "http://127.0.0.1:8000/api/timestamps"
   }
 
   static all(params = {}) {

@@ -11,6 +11,14 @@
   justify-content: center
   align-items: center
 
+.flex-around
+  justify-content: space-around
+  align-items: center
+
+.flex-between
+  justify-content: space-between
+  align-items: center
+
 @for $i from 0 through 20
   .height-#{$i*5}
     height: $i * 5%
@@ -27,3 +35,6 @@
 
 .round
   border-radius: 50%
+
+.center
+  text-align: center

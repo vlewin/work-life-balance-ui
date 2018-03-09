@@ -4,240 +4,328 @@
     <simple-slider slot="body" :active="slider.open">
       <div class="simple-slider-item form" slot="up">
         <div class="form-input blue">
-          <div class="form-trigger" v-on:click="openSlider({ open: true, target: 'start' })">
-            {{ form.start }}
+          <div v-if="absence" class="uppercase">
+            {{ absence }}
           </div>
-          <div class="form-trigger" v-on:click="openSlider({ open: true, target: 'pause' })">
-            {{ form.pause | timeToNumber }}
-          </div>
-          <div class="form-trigger" v-on:click="openSlider({ open: true, target: 'finish' })">
-            {{ form.finish }}
-          </div>
+          <template v-else>
+            <div class="form-trigger" v-on:click="openSlider({ open: true, target: 'start' })">
+              {{ form.start }}
+            </div>
+            <div class="form-trigger" v-on:click="openSlider({ open: true, target: 'pause' })">
+              {{ form.pause | timeToNumber }}
+            </div>
+            <div class="form-trigger" v-on:click="openSlider({ open: true, target: 'finish' })">
+              {{ form.finish }}
+            </div>
+          </template>
         </div>
 
-        <div class="form-info" v-on:click="navigate('page-1')">
-          <info :duration="duration"></info>
+        <div class="form-info flex flex-center" v-on:click="navigate('page-1')">
+          <div v-if="fetching" class="center text-blue">
+            <i class="fa fa-spinner fa-large fa-5x spin "></i>
+            <h1 class="">Please wait ...</h1>
+          </div>
+          <div v-else>
+            <info v-if="absence" :absence="absence" :duration="duration" :total="total"></info>
+            <smiley v-else :mood="mood"></smiley>
+
+            <!-- <div>
+              {{ isRecorded }} {{ total }} {{ duration }}
+              <pre>
+                {{ form }}
+              </pre>
+            </div> -->
+          </div>
+
+
         </div>
       </div>
 
       <time-picker class="simple-slider-item" slot="down" :init-value="form[slider.target]" :target="slider.target" v-on:changed="setValue" v-on:done="closeSlider"></time-picker>
     </simple-slider>
 
-    <simple-switch slot="footer" class="vertical animated primary">
-      <button slot="up" v-on:click="save">SAVE</button>
-      <button slot="down">DONE ;)</button>
+    <simple-switch v-show="!absence && !timepicker" slot="footer" class="vertical animated primary" :active="loading">
+      <button slot="up" v-on:click="save">
+        {{ isRecorded? 'UPDATE' : 'SAVE'}}
+      </button>
+      <button slot="down">
+        <i class="fa fa-spinner spin"></i>
+        SAVING ...
+      </button>
     </simple-switch>
 
-    <simple-switch slot="footer" class="horizontal animated primary" :active="timepicker">
+    <simple-switch slot="footer" class="horizontal animated" :active="timepicker">
       <button slot="up" v-on:click="navigate('page-3')">ABSENCE</button>
-      <button slot="down" v-on:click="closeSlider">CANCEL</button>
+      <button slot="down" :class="{active: timepicker }" v-on:click="closeSlider">CANCEL</button>
     </simple-switch>
   </card>
 </template>
 
 <script>
-  // import axios from 'axios'
-  import differenceInMinutes from 'date-fns/difference_in_minutes'
-  import format from 'date-fns/format'
-  import addHours from 'date-fns/add_hours'
-  import getISOWeek from 'date-fns/get_iso_week'
-  import { mapActions } from 'vuex'
+// import axios from 'axios'
+import differenceInMinutes from "date-fns/difference_in_minutes"
+import format from "date-fns/format"
+import addHours from "date-fns/add_hours"
+import differenceInHours from "date-fns/difference_in_hours"
+import isSameDay from "date-fns/is_same_day"
 
-  import Card from './shared/Card'
-  import DatePicker from './shared/DatePicker'
-  import SimpleSlider from './shared/SimpleSlider'
-  import SimpleSwitch from './shared/SimpleSwitch'
-  import TimePicker from './shared/TimePicker'
-  import Info from './Info'
+import { mapActions, mapGetters, mapState } from "vuex"
+import { isHappy, timeToNumber, timeToDateTime, dateTimeToTime } from "../helpers/date"
 
-  import Timestamp from '../services/timestamp'
+import Card from "./shared/Card"
+import DatePicker from "./shared/DatePicker"
+import SimpleSlider from "./shared/SimpleSlider"
+import SimpleSwitch from "./shared/SimpleSwitch"
+import TimePicker from "./shared/TimePicker"
+import Info from "./Info"
+import Smiley from "./shared/Smiley"
 
-  export default {
-    name: 'HomePage',
-    components: {
-      Card,
-      DatePicker,
-      SimpleSlider,
-      SimpleSwitch,
-      Info,
-      TimePicker
-    },
+export default {
+  name: "HomePage",
+  components: {
+    Card,
+    DatePicker,
+    TimePicker,
+    SimpleSlider,
+    SimpleSwitch,
+    Info,
+    Smiley
+  },
 
-    data () {
-      return {
-        slider: {
-          open: false,
-          target: null
-        },
+  data() {
+    return {
+      slider: {
+        open: false,
+        target: null
+      },
 
-        form: {
-          start: '09:00',
-          pause: '00:30',
-          finish: '17:30',
-        },
+      form: {
+        start: "",
+        pause: "",
+        finish: ""
+      },
 
-        timepicker: false
+      saved: false,
+      timepicker: false
+    }
+  },
+
+  created: async function() {
+    console.log("CREATED")
+    this.initForm()
+  },
+
+  computed: {
+    ...mapGetters(["currentFomatedDate", "currentWeekNumber", "currentRecord"]),
+    ...mapState(["fetching", "loading", "currentDate", "records"]),
+
+    mood() {
+      if (this.isRecorded) {
+        return isHappy(this.duration) ? "good" : "bad"
+      } else {
+        return "neutral"
       }
     },
 
-    created () {
-      // this.$store.dispatch('fetchTimestamps')
-      window.component = this
-      // this.update()
-      // axios.get(`http://127.0.0.1:8000/api/timestamps?week=${this.week}`).then((r) => {
-      //   console.log('GET BY WEEK', r.data.length)
-      // })
+    isRecorded() {
+      return !!this.currentRecord
     },
 
-    computed: {
-      date () {
-        return this.$store.state.selectedDay
-      },
+    absence() {
+      if (this.isRecorded) {
+        return this.currentRecord.absence
+      }
+    },
 
-      week() {
-        return getISOWeek(this.date)
-      },
+    duration() {
+      const duration = this.total - timeToNumber(this.form.pause)
+      console.log("Duration", duration, this.total, "-", timeToNumber(this.form.pause))
 
-      formatedDate() {
-        return format(this.date, 'YYYY-MM-DD')
-      },
+      this.form.duration = duration
+      return duration
+    },
 
-      start () {
-        if(this.form.start && this.form.start.includes(':')) {
-          return new Date(`${this.formatedDate} ${this.form.start}`)
+    total() {
+      const start = timeToDateTime(this.currentDate, this.form.start)
+      const finish = timeToDateTime(this.currentDate, this.form.finish)
+      const total = (differenceInMinutes(finish, start) / 60).toFixed(2)
+
+      console.log("Total", total)
+      return total
+
+      // return differenceInHours(finish, start)
+    }
+  },
+
+  watch: {
+    "form.start"(val, oldVal) {
+      if (val) {
+        console.log("HomePage - start value changed", val)
+        this.calculateEnd()
+      }
+    },
+
+    "form.pause"(val, oldVal) {
+      if (val) {
+        console.log("HomePage - pause value changed", val)
+        this.calculateEnd()
+      }
+    },
+
+    "form.finish"(val, oldVal) {
+      if (val) {
+        console.log("HomePage - finish value changed", val)
+        this.calculateDuration()
+      }
+    },
+
+    currentDate() {
+      console.log("HomePage - currentDate changed", this.currentDate)
+      this.initForm()
+    },
+
+    currentRecord(oldVal, val) {
+      console.log("HomePage - currentRecord changed", oldVal, val)
+      this.initRecord()
+    }
+  },
+
+  filters: {
+    timeToNumber: function(value) {
+      const splitted = value.split(":")
+      return parseInt(splitted[0]) * 60 + parseInt(splitted[1])
+    }
+  },
+
+  methods: {
+    ...mapActions(["navigate"]),
+
+    initRecord() {
+      if (this.isRecorded) {
+        console.log("this.isRecorded")
+        console.log(JSON.stringify(Object.assign(this.form, this.currentRecord)))
+        // Object.assign(this.form, this.currentRecord)
+        this.form.start = this.currentRecord.start
+        this.form.pause = this.currentRecord.pause
+        this.form.finish = this.currentRecord.finish
+
+        // this.$set(this, "form", this.currentRecord)
+      }
+    },
+
+    initForm() {
+      if (this.isRecorded) {
+        console.log("this.isRecorded")
+        console.log(JSON.stringify(Object.assign(this.form, this.currentRecord)))
+        Object.assign(this.form, this.currentRecord)
+      } else {
+        console.log("initForm")
+        this.form = {
+          date: this.currentFomatedDate,
+          week: this.currentWeekNumber,
+          start: dateTimeToTime(new Date()),
+          pause: "00:30",
+          mood: this.mood
         }
-
-        return null
-      },
-
-      finish () {
-        return new Date(`${this.formatedDate} ${this.form.finish}`)
-      },
-
-      duration () {
-        return this.total - (parseInt(this.form.pause) / 60).toFixed(2)
-      },
-
-      total () {
-        return (differenceInMinutes(this.finish, this.start) / 60).toFixed(2)
+        this.calculateEnd()
       }
     },
 
-    watch: {
-      start(val) {
-        if(val) {
-          console.log('HomePage - start value changed', val)
-          this.calculateEnd()
+    calculateEnd() {
+      if(this.isRecorded) {
+        console.log('Skip end calculation')
+      } else {
+        const diff = 8 + timeToNumber(this.form.pause)
+        const start = timeToDateTime(this.currentDate, this.form.start)
+        const finish = format(addHours(start, diff))
+        console.log(start, finish)
+        if (isSameDay(start, finish)) {
+          this.form.finish = format(addHours(start, diff), "HH:mm")
+          console.log(this.form.finish)
+        } else {
+          this.form.finish = "23:55"
         }
-
       }
+
     },
 
-    filters: {
-      timeToNumber: function (value) {
-        console.log('timeToNumber', value)
-        const splitted = value.split(':')
-        return parseInt(splitted[0]) * 60 + parseInt(splitted[1])
-      }
+    calculateDuration() {
+      console.log("Duration", duration, this.total, "-", timeToNumber(this.form.pause))
+      const start = timeToDateTime(this.currentDate, this.form.start)
+      const finish = timeToDateTime(this.currentDate, this.form.finish)
+      const total = (differenceInMinutes(finish, start) / 60).toFixed(2)
+      const duration = total - timeToNumber(this.form.pause)
+
+      console.log("Duration", duration, total, "-", timeToNumber(this.form.pause))
+
+      this.$set(this.form, "duration", duration)
+      return duration
     },
 
-    methods: {
-      ...mapActions([
-        'navigate', // map `this.increment()` to `this.$store.dispatch('increment')`
-      ]),
+    openSlider(options) {
+      this.slider = options
+      this.togglePicker(true)
+    },
 
-      calculateEnd() {
-        console.log('HomePage - calculateEnd:', format(addHours(this.start, 8), 'HH:mm'))
-        this.form.finish = format(addHours(this.start, 8.5), 'HH:mm')
-      },
+    closeSlider() {
+      this.slider = this.$options.data().slider
+      this.togglePicker(false)
+    },
 
-      openSlider(options) {
-        this.slider = options
-        this.togglePicker(true)
-      },
+    togglePicker(open = true) {
+      this.timepicker = open
+    },
 
-      closeSlider() {
-        this.slider = this.$options.data().slider
-        this.togglePicker(false)
-      },
+    setValue(target, value) {
+      console.log("Set Value", target, value)
+      this.$set(this.form, target, value)
 
-      togglePicker(open=true) {
-        this.timepicker = open
-      },
-
-      setValue(target, value) {
-        this.form[target] = value
-      },
-
-      setPause(value) {
-        this.form.pause = value
-        this.closeSlider()
-        // this.slider = { target: null, open: false}
-      },
-
-      setDate(date) {
-        this.date = date
-      },
-
-      update() {
-        Timestamp.update(this.form).then(() => {
-          console.log('UPDATED!')
-        }).catch((error) => {
-          console.log(error)
-        })
-      },
-
-      save() {
-        this.form.date = this.date
-        this.form.week = this.week
-
-        Timestamp.save(this.form).then(() => {
-          console.log('SAVED!')
-        }).catch((error) => {
-          console.log(error)
-        })
+      if (["start", "pause"].includes(target)) {
+        this.calculateEnd()
       }
+
+      this.calculateDuration()
+      console.log(JSON.stringify(this.form))
+    },
+
+    save: async function() {
+      await this.$store.dispatch("saveRecord", this.form)
     }
   }
+}
 </script>
 
-<style scoped>
-  .form {
-    display: flex;
-    height: 100%;
-    width: 100%;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    overflow: hidden;
-    white-space: nowrap;
-  }
+<style lang="sass" scoped>
+  .form
+    display: flex
+    height: 100%
+    width: 100%
+    align-items: center
+    justify-content: center
+    flex-direction: column
+    overflow: hidden
+    white-space: nowrap
 
-  .form-input {
-    height: 20%;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    font-size: 2rem;
-    font-weight: bold;
-  }
+  .form-input
+    height: 20%
+    width: 100%
+    display: flex
+    align-items: center
+    justify-content: center
+    color: #fff
+    font-size: 2rem
+    font-weight: bold
 
-  .form-input .form-trigger {
-    flex:1 1 33%;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+    .form-trigger
+      flex: 1 1 33%
+      cursor: pointer
+      display: flex
+      align-items: center
+      justify-content: center
 
-  .form-info {
-    height: 80%;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-  }
+  .form-info
+    width: 100%
+    height: 80%
+    cursor: pointer
+    flex-direction: column
 </style>

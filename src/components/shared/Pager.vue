@@ -20,74 +20,75 @@
 </template>
 
 <script>
-  export default {
-    name: 'Pager',
-    data () {
-      return {
-        open: null,
-        page: null
-      }
+export default {
+  name: "Pager",
+  data() {
+    return {
+      open: null,
+      page: null
+    }
+  },
+
+  props: {
+    active: {
+      type: String
+    }
+  },
+
+  methods: {
+    prev(page) {
+      console.log("NEXT")
+      this.$parent.page = page
     },
 
-    props: {
-      active: {
-        type: String
-      }
-    },
-
-    methods: {
-      prev (page) {
-        console.log('NEXT')
-        this.$parent.page = page
-      },
-
-      next (page) {
-        console.log('NEXT')
-        this.$parent.page = page
-      }
+    next(page) {
+      console.log("NEXT")
+      this.$parent.page = page
     }
   }
+}
 </script>
 <style>
-  .wrapper {
-    width: 100%;
-    height: 100%;
-    background: #fff;
-  }
+.wrapper {
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  overflow: hidden;
+}
 
-  .window {
-    width: calc(300%);
-    height: 100%;
-    overflow: hidden;
-    display: flex;
-    transform: translateX(-33.333333333%);
-    transition: transform 0.5s ease-in-out;
-    transition: transform .5s ease;
-  }
+.window {
+  width: calc(300%);
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  transform: translateX(-33.333333333%);
+  transition: transform 0.5s ease-in-out;
+  transition: transform 0.5s ease;
+}
 
-  .window.page-1 {
-    transform: translateX(calc(0%));
-  }
+.window.page-1 {
+  transform: translateX(calc(0%));
+}
 
-  .window.page-2 {
-    transform: translateX(calc(-100% / 3));
-  }
+.window.page-2 {
+  transform: translateX(calc(-100% / 3));
+}
 
-  .window.page-3 {
-    transform: translateX(calc(-100% / 1.5));
-  }
+.window.page-3 {
+  transform: translateX(calc(-100% / 1.5));
+}
 
-  .page {
-    width: calc(300% / 3);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    /*color: #fff;*/
-    /*font-size: 200%;*/
-    height: 101%;
-  }
+.page {
+  width: calc(300% / 3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #fff;
+  /*color: #fff;*/
+  /*font-size: 200%;*/
+}
 
-  /*.page-1 {
+/*.page-1 {
     background: #00bcd7;
   }
   .page-2 {
@@ -101,7 +102,7 @@
   }*/
 </style>
 <style scoped>
-  /*.wrap {
+/*.wrap {
     flex: 1;
     overflow: hidden;
     height: 90%;
