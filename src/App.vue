@@ -35,6 +35,10 @@ export default {
   },
 
   mounted() {
+    setTimeout(function () {
+      window.scrollTo(0, 1)
+    }, 1000)
+
     window.addEventListener("online", () => {
       console.log("online")
       this.$store.dispatch("online", navigator.onLine)

@@ -1,37 +1,50 @@
 <template>
   <div class="c-responsive">
     <div class="c-header flex flex-around flex-column blue">
-      <i class="fa fa-ban fa-6x" aria-hidden="true"></i>
+      <i class="fa fa-calendar fa-5x" aria-hidden="true"></i>
+      <div class="flex flex-center height-20">
+        <div class="font-2" v-on:click="navigate('page-1')">
+          <i class="fa fa-area-chart" aria-hidden="true"></i>
+        </div>
+        <div class="font-2" v-on:click="navigate('page-2')">
+          <i class="fa fa-clock-o" aria-hidden="true"></i>
+        </div>
+        <div class="font-2">
+          <i class="fa fa-sliders" aria-hidden="true"></i>
+        </div>
+      </div>
     </div>
 
     <div class="c-body flex flex-between flex-column">
-      <div class="flex flex-center v-height-15 width-100">
-        <ul class="flex flex-between">
+      <div class="flex flex-center v-height-15">
+        <!-- <ul class="flex flex-between">
           <li><i class="fa fa-chevron-left" aria-hidden="true"></i></li>
           <li class="active">March 2018</li>
           <li><i class="fa fa-chevron-right" aria-hidden="true"></i></li>
-        </ul>
+        </ul> -->
+        <month-picker class="uppercase" v-on:date-change="setDate"></month-picker>
       </div>
 
       <!-- <p class="date-selector height-10">
         << Tu, 12 March >>
       </p> -->
 
-      <div class="chart flex flex-around">
-        <!-- <calendar :date="new Date()" :records="records"></calendar> -->
+      <div class="flex flex-around">
+        <calendar class="width-90" :date="currentDate" :records="records"></calendar>
       </div>
+
       <div class="flex flex-center v-height-15">
         <div>
           <i class="fa fa-gift" aria-hidden="true"></i>
-          Holidays: 0
+          <button>Holidays</button>
         </div>
         <div>
           <i class="fa fa-heartbeat" aria-hidden="true"></i>
-          Sickness: 0
+          <button>Sickness</button>
         </div>
         <div>
           <i class="fa fa-plane" aria-hidden="true"></i>
-          Vacation: 0
+          <button>Vacation</button>
         </div>
       </div>
     </div>
@@ -42,15 +55,15 @@
       </div>
 
       <div class="flex flex-center flex-column">
-        <i class="fa fa-ban fa-6x" aria-hidden="true"></i>
+        <i class="fa fa-calendar fa-6x" aria-hidden="true"></i>
       </div>
       <!-- <div class=""><span class="font-2">TOTAL: +2.5</span></div> -->
       <div class="flex flex-center height-15">
-        <div class="font-2">
-          <i class="fa fa-clock-o" aria-hidden="true"></i>
-        </div>
-        <div class="font-2">
+        <div class="font-2" v-on:click="navigate('page-1')">
           <i class="fa fa-area-chart" aria-hidden="true"></i>
+        </div>
+        <div class="font-2" v-on:click="navigate('page-2')">
+          <i class="fa fa-clock-o" aria-hidden="true"></i>
         </div>
         <div class="font-2">
           <i class="fa fa-sliders" aria-hidden="true"></i>
@@ -66,32 +79,36 @@
 </template>
 
 <script>
-  import Calendar from "../shared/Calendar"
+  import { mapState, mapActions } from "vuex"
+  import MonthPicker from "./MonthPicker"
+  import Calendar from "./Calendar"
 
   export default {
     name: "Index",
     components: {
-      Calendar,
+      MonthPicker,
+      Calendar
     },
     data() {
       return {
-        records: []
+        date: new Date()
       }
     },
 
-    // computed: {
-    //   ...mapState(["records"]),
-    // },
-    //
-    // methods: {
-    //   ...mapActions([
-    //     "navigate" // map `this.increment()` to `this.$store.dispatch('increment')`
-    //   ]),
-    //
-    //   setDate(date) {
-    //     this.date = date
-    //   }
-    // }
+    computed: {
+      ...mapState(["currentDate", "records"]),
+    },
+
+    methods: {
+      ...mapActions([
+        "navigate" // map `this.increment()` to `this.$store.dispatch('increment')`
+      ]),
+
+      setDate(date) {
+        this.$store.dispatch("setCurrentDate", date)
+        // this.date = date
+      }
+    }
   }
 </script>
 
@@ -120,9 +137,15 @@
     height: 100%
     width: 100%
     display: grid
-    grid-template-columns: 1fr auto
-    grid-template-rows: 25% auto 10%
-    grid-template-areas: "c-header c-header"  "c-body c-sidebar" "c-footer c-footer"
+    grid-template-areas: "c-header c-header"  "c-body c-body" "c-footer c-footer"
+
+    // NOTE: Broken on safari
+    // grid-template-columns: 1fr auto
+    // grid-template-rows: 25% auto 10%
+
+    // NOTE: Works on safari
+    grid-template-columns: 100%
+    grid-template-rows: 30% 60% 10%
 
     button
       font-weight: bold

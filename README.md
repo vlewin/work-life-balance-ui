@@ -4,12 +4,14 @@
 
 TODO:
 
+
 * [x] Vue.js reusable components
 * [x] CSS Grid Layout with FlexBox
 * [ ] Vue SSR vs Vue Prerendering
 * [ ] PWA / PRA Progressive Web Applications /
       [Progressive Real-Time Applications](https://www.youtube.com/watch?v=QjLUt37lX1s)
 * [ ] GraphQL data services
+* [ ] Switch to http://icofont.com/icons/ or Font Awesome 5
 * [ ] Unit / Functional / UI E2E acceptance testing (Chrome headless)
 * [x] completed
 * [ ] Auth0 vs AWS Cognito authentication

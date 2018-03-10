@@ -9,7 +9,7 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
-    page: "page-1",
+    page: "page-2",
     online: navigator.onLine,
     fetching: false,
     loading: false,

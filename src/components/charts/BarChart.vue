@@ -92,7 +92,7 @@
 
   .svg-container {
     background-color: #fff;
-    height: 100%;
+    /* height: 100%; */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -110,8 +110,8 @@
   rect.background {
     /* fill:rgb(255,255,255); */
     stroke-width: 0;
-    stroke:rgb(200,200,200);
-    fill: rgb(200,200,200, 0.5);
+    stroke:rgba(200,200,200);
+    fill: rgba(200,200,200, 0.5);
 
     rx: 0.2em;
     ry: 0.2em;
