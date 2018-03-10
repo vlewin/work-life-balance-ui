@@ -1,6 +1,6 @@
 <template>
   <card slot="left">
-    <month-picker slot="header" class="uppercase dark-blue" v-on:date-change="setDate"></month-picker>
+    <month-picker slot="header" class="uppercase green" v-on:date-change="setDate"></month-picker>
     <h3 class="text-grey-blue" slot="body">
       <!-- <i class="fa fa-line-chart" aria-hidden="true"></i> -->
       TREND

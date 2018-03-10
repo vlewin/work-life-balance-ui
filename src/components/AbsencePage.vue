@@ -1,6 +1,6 @@
 <template>
   <card>
-    <month-picker slot="header" class="uppercase dark-blue" v-on:date-change="setDate"></month-picker>
+    <month-picker slot="header" class="uppercase" v-on:date-change="setDate"></month-picker>
 
     <slider slot="body" class="height-20 horizontal text-white" :focused="sliderMap[reason]">
       <h4 slot="left" v-on:click="toggleReason('vacation')">

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <vertical-slider class="dark-blue" :section="currentSection">
+    <vertical-slider class="green" :section="currentSection">
       <div slot="top" class="flex flex-center flex-column">
         <!-- <h1 class="text-white">READY</h1> -->
         <template v-if="online">
@@ -67,7 +67,7 @@
         <!-- <button v-on:click="slideUp">3</button>
         <button v-on:click="slideMiddle">2</button> -->
 
-        <button class="btn-large dark-blue text-white" v-on:click="login">
+        <button class="btn-large text-white" v-on:click="login">
           SIGN IN
         </button>
       </div>

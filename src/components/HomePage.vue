@@ -1,12 +1,9 @@
 <template>
   <card>
-    <div class="header" slot="header">
-      ssss
-    </div>
     <date-picker slot="header"></date-picker>
     <simple-slider slot="body" :active="slider.open">
       <div class="simple-slider-item form" slot="up">
-        <div class="form-input blue">
+        <div class="form-input green">
           <div v-if="absence" class="uppercase">
             {{ absence }}
           </div>
@@ -27,7 +24,7 @@
         </div>
 
         <div class="form-info flex flex-center" v-on:click="navigate('page-1')">
-          <div v-if="fetching" class="center text-blue">
+          <div v-if="fetching" class="center text-green">
             <i class="fa fa-spinner fa-large fa-5x spin "></i>
             <h1 class="">Please wait ...</h1>
           </div>
@@ -50,7 +47,7 @@
       <time-picker class="simple-slider-item" slot="down" :init-value="form[slider.target]" :target="slider.target" v-on:changed="setValue" v-on:done="closeSlider"></time-picker>
     </simple-slider>
 
-    <simple-switch v-show="!absence && !timepicker" slot="footer" class="vertical animated primary" :active="loading">
+    <simple-switch v-show="!absence && !timepicker" slot="footer" class="vertical animated green" :active="loading">
       <button slot="up" v-on:click="save">
         {{ isRecorded? 'UPDATE' : 'SAVE'}}
       </button>

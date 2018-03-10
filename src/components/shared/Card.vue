@@ -8,7 +8,7 @@
       <slot name="body">BODY</slot>
     </div>
 
-    <div class="card-footer blue">
+    <div class="card-footer green">
       <slot name="footer">FOOTER</slot>
     </div>
   </div>

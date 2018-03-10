@@ -1,5 +1,5 @@
 <template>
-  <ul class="month-picker">
+  <ul class="month-picker opacity-90">
     <li class="arrow" v-on:click="prevMonth">
       &laquo;
     </li>
@@ -62,7 +62,7 @@ export default {
     width: 100%
     height: 100%
     font-weight: bold
-    background: $dark-blue
+    background: $green
     color: #fff
 
   li

@@ -8,6 +8,7 @@ import Flex from "@/components/Flex"
 import CheatSheet from "@/components/CheatSheet"
 import AuthService from "../main"
 import Preview from "@/components/charts/Preview"
+import Temp from "@/components/Temp"
 
 Vue.use(Router)
 
@@ -21,6 +22,7 @@ const router = new Router({
     { path: "/help", name: "Help", component: CheatSheet },
     { path: "/playground", name: "Flex", component: Flex },
     { path: "/preview", name: "Preview", component: Preview },
+    { path: "/temp", name: "Preview", component: Temp },
   ]
 })
 

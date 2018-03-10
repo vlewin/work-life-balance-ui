@@ -1,5 +1,5 @@
 <template>
-  <pager :active="page" v-else>
+  <pager :active="page">
     <overview-page slot="left"></overview-page>
     <home-page slot="center"></home-page>
     <absence-page slot="right"></absence-page>

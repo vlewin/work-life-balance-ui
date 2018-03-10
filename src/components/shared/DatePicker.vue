@@ -1,5 +1,5 @@
 <template>
-  <ul>
+  <ul class="opacity-90">
     <li class="arrow" v-on:click="prevWeek">
       &laquo;
     </li>
@@ -186,7 +186,7 @@ export default {
     align-items: center
     width: 100%
     height: 100%
-    background: $dark-blue
+    background: $green
     color: #fff
     padding: 0 0.2rem
 
@@ -198,8 +198,8 @@ export default {
     line-height: 2.4rem
     border-radius: 50%
     transition: color 0.2s, background 1s
-    background: #2F4462
-    border: 0.1rem solid $blue
+    // background: rgba(0, 0, 0, 0.1)
+    border: 0.1rem solid white
     cursor: pointer
     font-size: 0.8rem
     font-weight: bold
@@ -213,7 +213,7 @@ export default {
 
   .selected
     background: $light-grey
-    color: $blue
+    color: $green
 
   .weekend
     /*background: rgba(0,0,0,0.3);
@@ -239,7 +239,7 @@ export default {
       border-radius: 100%
       top: -0.4rem
       right: -0.4rem
-      border: 0.1rem solid $blue
+      border: 0.1rem solid white
       background: tomato
       color: white
       z-index: 1

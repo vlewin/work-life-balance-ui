@@ -1,5 +1,5 @@
 <template>
-  <div class="white flex flex-center flex-column dark-blue">
+  <div class="white flex flex-center flex-column green">
     <i class="fa fa-spinner fa-large fa-10x spin text-white"></i>
     <h1 class="text-white">Please wait ...</h1>
   </div>
