@@ -24,8 +24,8 @@
     data() {
       return {
         // data: [6.5, 8, 9, 8.5, 7, 0, 0, 6.5, 8, 9, 8.5, 7, 0, 0, 6.5, 8, 9, 8.5, 7, 0, 0],
-        data: [6.5, 8, 9, 8.5, 7, 0, 0, 6.5, 8, 9, 8.5, 7, 0, 0],
-        // data: [6.5, 8, 9, 8.5, 7, 0, 0],
+        // data: [6.5, 8, 9, 8.5, 7, 0, 0, 6.5, 8, 9, 8.5, 7, 0, 0],
+        data: [6.5, 8, 9, 8.5, 7, 0, 0],
 
         chartHeight: 0,
         barValue: 5,
@@ -91,7 +91,7 @@
   }
 
   .svg-container {
-    background-color: #42b983;
+    background-color: #fff;
     height: 100%;
     display: flex;
     justify-content: center;
@@ -100,9 +100,9 @@
   }
 
   text {
-    font-size: 80%;
+    font-size: 50%;
     font-weight: bold;
-    fill: #42b983;
+    fill: #fff;
     text-anchor: middle;
     alignment-baseline: middle;
   }
@@ -118,7 +118,7 @@
   }
 
   .value {
-    fill: white;
+    fill: #42b983;
     stroke-width: 0;
     stroke: #FFBF00;
     /* rx: 0.2em;

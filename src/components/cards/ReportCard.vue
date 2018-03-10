@@ -1,19 +1,14 @@
 <template>
   <div class="c-responsive">
-    <div class="c-header flex flex-around flex-column green">
-      <!-- <i class="fa fa-clock-o fa-5x text-white"></i> -->
-      <i class="fa fa-check-circle fa-7x" aria-hidden="true"></i>
+    <div class="c-header flex flex-around flex-column tomato">
+      <i class="fa fa-area-chart fa-5x" aria-hidden="true"></i>
     </div>
 
     <div class="c-body flex flex-between flex-column">
       <div class="flex flex-center v-height-15 width-100">
         <ul class="flex flex-between">
           <li><i class="fa fa-chevron-left" aria-hidden="true"></i></li>
-          <li class="active">Mo</li>
-          <li>Di</li>
-          <li>Mi</li>
-          <li>Do</li>
-          <li>Fr</li>
+          <li class="active">March 2018</li>
           <li><i class="fa fa-chevron-right" aria-hidden="true"></i></li>
         </ul>
       </div>
@@ -22,74 +17,40 @@
         << Tu, 12 March >>
       </p> -->
 
-      <!-- <div class="time-selector flex flex-around">
-        <h4>
-          <span class="">
-            <small><i class="fa fa-clock-o"></i></small>
-            08:00
-          </span>
-        </h4>
-        <h4>
-          <span class="">
-            <small><i class="fa fa-coffee"></i></small>
-            00:30
-          </span>
-        </h4>
-        <h4>
-          <span class="">
-            <small><i class="fa fa-clock-o"></i></small>
-            18:00
-          </span>
-        </h4>
-      </div> -->
-
-      <div class="flex flex-center flex-column v-height-25">
-        <i class="fa fa-smile-o fa-6x" aria-hidden="true"></i>
-        <div class="font-4">
-          8.5<small>h</small>
-        </div>
+      <div class="chart flex flex-around">
+        <bar-chart :data="data"></bar-chart>
       </div>
-
       <div class="flex flex-center v-height-15">
         <div>
-          <i class="fa fa-clock-o" aria-hidden="true"></i>
-          Come: 8:00
+          <i class="fa fa-gift" aria-hidden="true"></i>
+          Holidays: 0
         </div>
         <div>
-          <i class="fa fa-coffee" aria-hidden="true"></i>
-          Pause: 00:00
+          <i class="fa fa-heartbeat" aria-hidden="true"></i>
+          Sickness: 0
         </div>
         <div>
-          <i class="fa fa-clock-o" aria-hidden="true"></i>
-          Leave: 17.30
+          <i class="fa fa-plane" aria-hidden="true"></i>
+          Vacation: 0
         </div>
       </div>
-
-      <!-- <div class="flex flex-center v-height-15">
-        TODAY: +0.5
-      </div> -->
     </div>
 
-    <div class="c-sidebar flex flex-between flex-column green">
+    <div class="c-sidebar flex flex-between flex-column tomato">
       <div class="flex flex-center v-height-15">
-        Sa, 12 March
+        Week: 13
       </div>
 
       <div class="flex flex-center flex-column">
-        <!-- <i class="fa fa-clock-o fa-5x text-white"></i> -->
-        <i class="fa fa-heartbeat fa-6x" aria-hidden="true"></i>
-        <div class="font-4">
-          8.5<small>h</small>
-        </div>
+        <i class="fa fa-area-chart fa-5x" aria-hidden="true"></i>
       </div>
       <!-- <div class=""><span class="font-2">TOTAL: +2.5</span></div> -->
       <div class="flex flex-center height-15">
         <div class="font-2">
-          <i class="fa fa-ban" aria-hidden="true"></i>
-          <!-- <i class="fa fa-file-text" aria-hidden="true"></i> -->
+          <i class="fa fa-clock-o" aria-hidden="true"></i>
         </div>
         <div class="font-2">
-          <i class="fa fa-area-chart" aria-hidden="true"></i>
+          <i class="fa fa-ban" aria-hidden="true"></i>
         </div>
         <div class="font-2">
           <i class="fa fa-sliders" aria-hidden="true"></i>
@@ -98,15 +59,50 @@
     </div>
 
 
-    <div class="c-footer flex flex-center">
-      <button class="font-2">SAVE</button>
-      <button class="font-2">DELETE</button>
+    <div class="c-footer flex flex-around">
+      <div>
+        TOTAL: +4h
+      </div>
+      <!-- <button class="font-2">BACK</button> -->
     </div>
   </div>
 </template>
 
+<script>
+  import BarChart from "../charts/BarChart"
+
+  export default {
+    name: "Index",
+    components: {
+      BarChart,
+    },
+    data() {
+      return {
+        data: []
+      }
+    },
+
+    // computed: {
+    //   ...mapState(["records"]),
+    // },
+    //
+    // methods: {
+    //   ...mapActions([
+    //     "navigate" // map `this.increment()` to `this.$store.dispatch('increment')`
+    //   ]),
+    //
+    //   setDate(date) {
+    //     this.date = date
+    //   }
+    // }
+  }
+</script>
+
 <style lang="sass" scoped>
   @import '~@/assets/_variables.sass'
+  .chart, .info
+    width: 100%
+    height: 50%
 
   .flex
     div
@@ -162,6 +158,7 @@
   .c-footer
     border-top: 0.1rem dotted #ccc
     border-bottom: 0.1rem dotted #ccc
+
     grid-area: c-footer
     background-color: white
     color: black

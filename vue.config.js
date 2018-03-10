@@ -48,9 +48,9 @@ module.exports = {
       // ]
     },
     name: "vue-work-life-balance",
-    output: {
-      publicPath: "./"
-    },
+    // output: {
+    //   publicPath: "./"
+    // },
     resolve: {
       alias: {
         "@": path.resolve("src")

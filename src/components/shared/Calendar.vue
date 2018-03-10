@@ -217,11 +217,11 @@ export default {
     display: inline-block
     color: #444
     list-style: none
-    height: 2.2rem
-    width: 2.2rem
-    line-height: 2.3rem
+    height: 1.2rem
+    width: 1.2rem
+    line-height: 1.2rem
     text-align: center
-    font-size: 1.2em
+    font-size: 1.0em
     // border: 0.1rem solid #fff
 
     &:not(.label):not(.weekend)

@@ -8,7 +8,7 @@ import Flex from "@/components/Flex"
 import CheatSheet from "@/components/CheatSheet"
 import AuthService from "../main"
 import Preview from "@/components/charts/Preview"
-import Temp from "@/components/Temp"
+import Temp from "@/components/cards/Index"
 
 Vue.use(Router)
 
