@@ -1,9 +1,9 @@
 <template>
   <div>
     <pager :active="page">
-      <report-card slot="left"></report-card>
-      <time-card slot="center"></time-card>
-      <absence-card slot="right"></absence-card>
+      <report-card slot="left" :class="{ active: page === 'page-1'}"></report-card>
+      <time-card slot="center" :class="{ active: page === 'page-2'}"></time-card>
+      <absence-card slot="right" :class="{ active: page === 'page-3'}"></absence-card>
     </pager>
   </div>
 </template>

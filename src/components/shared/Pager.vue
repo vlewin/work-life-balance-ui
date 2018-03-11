@@ -61,18 +61,25 @@ export default {
     display: flex;
     transition: transform 0.5s ease-in-out;
     transition: transform 0.5s ease;
+    /* transition: transform 500ms cubic-bezier(0.8, 0, 0.2, 1); */
   }
 
   .window.page-1 {
     transform: translateX(0);
+    /* transition: transform 500ms cubic-bezier(0.8, 0, 0.2, 1); */
+    /* transform: translate3d(0%, 0px, 0px); */
   }
 
   .window.page-2 {
     transform: translateX(calc(-100% / 3));
+    /* transition: transform 500ms cubic-bezier(0.8, 0, 0.2, 1); */
+    /* transform: translate3d(calc(-100% / 3), 0px, 0px); */
   }
 
   .window.page-3 {
     transform: translateX(calc(-100% / 1.5));
+    /* transition: transform 500ms cubic-bezier(0.8, 0, 0.2, 1); */
+    /* transform: translate3d(calc(-100% / 1.5), 0px, 0px); */
   }
 
   .page {
@@ -81,5 +88,6 @@ export default {
     justify-content: center;
     align-items: center;
     background: #fff;
+    transform: translateZ(0);
   }
 </style>

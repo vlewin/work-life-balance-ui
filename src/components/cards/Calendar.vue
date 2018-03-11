@@ -11,7 +11,7 @@
         {{ weekday }}
       </li>
 
-      <li class="grid-item round day" v-for="(day, i) in days" v-on:click="select(day)" :class="addClasses(day)">
+      <li class="grid-item day" v-for="(day, i) in days" v-on:click="select(day)" :class="addClasses(day)">
         {{ day | toNumber }}
         <!-- <span class="tooltiptext" v-if="isRecorded(day)">{{ record(day).absence }}</span> -->
         <span class="tooltiptext" v-if="isHoliday(day)">{{ isHoliday(day) }}</span>
@@ -203,7 +203,7 @@ export default {
   .grid
     display: grid
     grid-template-columns: repeat(7, 1fr)
-    grid-template-rows: repeat(7, 1fr)
+    // grid-template-rows: repeat(7, 1fr)
     grid-row-gap: 0.2rem
     grid-column-gap: 0.2rem
     width: 90%
@@ -218,12 +218,15 @@ export default {
     display: inline-block
     color: #444
     list-style: none
-    height: 1.5rem
-    width: 1.5rem
-    line-height: 1.5rem
+
     text-align: center
     font-size: 1.0em
     // border: 0.1rem solid #fff
+
+    &:not(.label)
+      height: 1.8rem
+      width: 1.8rem
+      line-height: 1.8rem
 
     &:not(.label):not(.weekend)
       &:not(.holiday)
@@ -231,8 +234,11 @@ export default {
       &:not(.selected):not(.holiday):hover
         background: rgba(0, 0, 0, 0.1)
     &.selected:not(.holiday)
-      border: 0.1rem solid $blue
-      color: $blue
+      // border: 0.1rem solid $blue
+      background: $blue
+      // color: $blue
+      color: white
+
 
   .label
     color: $dark-grey
@@ -251,7 +257,7 @@ export default {
 
   .holiday
     background: tomato
-    border: 0.1rem solid tomato
+    // border: 0.1rem solid tomato
     color: #fff !important
 
   .disabled
@@ -276,16 +282,19 @@ export default {
     // pointer-events: none
 
   .vacation
-    border: 0.1rem solid $green
-    color: $green
+    // border: 0.1rem solid $green
+    background: $green
+    color: white
 
   .sickness
-    border: 0.1rem solid $amber
-    color: $amber
+    // border: 0.1rem solid $amber
+    background: $amber
+    color: white
 
   .holiday
-    border: 0.1rem solid $red
-    color: $red
+    // border: 0.1rem solid $red
+    background: $red
+    color: white
 
   /* Tooltip container
   .holiday

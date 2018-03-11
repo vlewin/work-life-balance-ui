@@ -22,6 +22,9 @@
 .flex-align-start
   align-items: flex-start
 
+.flex > div
+  width: 100%
+  text-align: center
 
 @for $i from 0 through 10
   .font-#{$i}
@@ -29,7 +32,7 @@
 
 @for $i from 0 through 10
   .line-height-#{$i}
-    line-height: $i * 60%
+    line-height: $i * 55%
 
 @for $i from 0 through 20
   .height-#{$i*5}

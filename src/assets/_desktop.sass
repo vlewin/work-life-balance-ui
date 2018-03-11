@@ -4,6 +4,20 @@
 // 	padding: 0
 // 	margin: 0
 
+@keyframes AnimationName
+  0%
+    background-position: 0% 43%
+
+  50%
+    background-position: 100% 58%
+
+  100%
+    background-position: 0% 43%
+
+// @import url('https://fonts.googleapis.com/css?family=Dosis')
+@import url('https://fonts.googleapis.com/css?family=Oxygen:300,400,500,700')
+
+
 html, body
 	outline: 0
 	padding: 0
@@ -12,17 +26,25 @@ html, body
 body
   width: 100vw
   height: 100vh
-
-  font-family: "Roboto", Helvetica, Arial, sans-serif
-  color: #444444
+  // font-family: 'Dosis', sans-serif
+  font-family: 'Oxygen', Helvetica, Arial, sans-serif
+  color: #34495e
   // color: #0d4a59
   display: flex
   justify-content: center
   align-items: center
-  background: #98c2c2
+  // background: #98c2c2
   background-image: linear-gradient(to top, #98C2C2 50%, #50A7C2 100%)
-  // -webkit-font-smoothing: antialiased
-  // -moz-osx-font-smoothing: grayscale
+  -webkit-font-smoothing: antialiased
+  -moz-osx-font-smoothing: grayscale
+
+  // background: linear-gradient(135deg, #9121E8, #98C2C2, #50A7C2, #98C2C2, #50A7C2)
+  // animation: AnimationName 20s ease infinite
+  // background-size: 600% 600%
+
+
+
+
 
 #app
   display: grid

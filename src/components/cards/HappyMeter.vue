@@ -1,7 +1,22 @@
 <template>
+  <svg viewBox="0 0 200 100" preserveAspectRatio="none">
+
+    <g data-v-553f6c65="" class="bar">
+      <circle data-v-553f6c65="" stroke="#efefef" stroke-width="10" fill="none" x="0" y="30" cx="15" cy="35" r="5"></circle>
+      <rect data-v-553f6c65="" x="30" y="30" height="10" width="140" class="background"></rect>
+      <text data-v-553f6c65="" x="40" transform="scale(1,-1) translate(10,-10)">Text</text>
+      <circle data-v-553f6c65="" stroke="#efefef" stroke-width="10" fill="none" y="30" cx="185" cy="35" r="5"></circle>
+    </g>
+
+    <g data-v-553f6c65="" class="smiley">
+      <circle data-v-553f6c65="" stroke="#000" stroke-width="10" fill="none" x="0" y="30" cx="15" cy="35" r="1"></circle>
+      <circle data-v-553f6c65="" stroke="#000" stroke-width="10" fill="none" x="0" y="30" cx="15" cy="35" r="1"></circle>
+    </g>
+  </svg>
+
   <!-- <div class="svg-container"> -->
     <!-- {{ viewBox }} -->
-    <svg :viewBox="viewBox" preserveAspectRatio="none">
+    <!-- <svg :viewBox="viewBox" preserveAspectRatio="none">
       <g transform="scale(1,-1) translate(10,-100)">
         <g class="bar" v-for="d, i in data" :key="i">
           <rect class="background" :x="i*40" y="0" fill="white" height="100" :width="width" ></rect>
@@ -11,7 +26,7 @@
           <text :x="i*40" transform="scale(1,-1) translate(10,-10)">{{ d }}</text>
         </g>
       </g>
-    </svg>
+    </svg> -->
   <!-- </div> -->
 </template>
 
@@ -25,8 +40,7 @@
       return {
         // data: [6.5, 8, 9, 8.5, 7, 0, 0, 6.5, 8, 9, 8.5, 7, 0, 0, 6.5, 8, 9, 8.5, 7, 0, 0],
         // data: [6.5, 8, 9, 8.5, 7, 0, 0, 6.5, 8, 9, 8.5, 7, 0, 0],
-        data: [6.5, 8, 9, 8.5, 7, 0, 0],
-
+        data: [6.5],
         chartHeight: 0,
         barValue: 5,
         value: 25,
@@ -113,8 +127,8 @@
     stroke:rgba(200,200,200);
     fill: rgba(200,200,200, 0.5);
 
-    rx: 0.1em;
-    ry: 0.1em;
+    rx: 0.2em;
+    ry: 0.2em;
   }
 
   .value {

@@ -1,20 +1,8 @@
 <template>
-  <card hcolor="green">
+  <card hcolor="teal">
     <i slot="c-header-icon" class="fa fa-clock-o fa-6x" aria-hidden="true"></i>
 
-    <div slot="c-header-actions" class="font-2" v-on:click="navigate('page-1')">
-      <i class="fa fa-area-chart" aria-hidden="true"></i>
-    </div>
-    <div slot="c-header-actions" class="font-2" v-on:click="navigate('page-3')">
-      <i class="fa fa-calendar" aria-hidden="true"></i>
-    </div>
-    <div slot="c-header-actions" class="font-2" v-on:click="navigate('page-2')">
-      <i class="fa fa-sliders" aria-hidden="true"></i>
-    </div>
-
-    <date-picker class="flex flex-center width-90 v-height-15" slot="c-body"></date-picker>
-
-    <div slot="c-body" class="flex flex-around width-100 v-height-30">
+    <!-- <div slot="c-body" class="flex flex-around width-100">
       <div class="circle flex flex-around flex-column">
         <small class="font-1">Come</small>
         <div class="font-3">08:00</div>
@@ -32,39 +20,88 @@
         <div class="font-3">18:00</div>
         <i class="fa fa-clock-o" aria-hidden="true"></i>
       </div>
-    </div>
+    </div> -->
 
-    <div slot="c-body" class="flex flex-center v-height-15">
+    <!-- <div class="flex flex-center v-height-15">
       <div>
-        <i class="fa fa-gift" aria-hidden="true"></i>
-        Holidays: 0
+        <i class="fa fa-balance-scale" aria-hidden="true"></i>
+        Balance: 0
       </div>
       <div>
-        <i class="fa fa-heartbeat" aria-hidden="true"></i>
-        Sickness: 0
+        <i class="fa fa-chevron-circle-up" aria-hidden="true"></i>
+        Today: 0
       </div>
-      <div>
-        <i class="fa fa-plane" aria-hidden="true"></i>
-        Vacation: 0
+    </div> -->
+
+    <simple-slider slot="c-body" :active="timePicker">
+      <div slot="up" class="simple-slider-item flex flex-between flex-column">
+        <date-picker class="flex flex-center width-85 v-height-15"></date-picker>
+
+        <!-- <div class="flex flex-around flex-align-start v-height-35" v-on:click="timePicker=!timePicker">
+          <div class="circle flex flex-around flex-column">
+            <small class="font-1">Come</small>
+            <div class="font-3">08:00</div>
+            <i class="fa fa-clock-o" aria-hidden="true"></i>
+          </div>
+
+          <div class="circle flex flex-around flex-column">
+            <small class="font-1">Break</small>
+            <div class="font-3">00:30</div>
+            <i class="fa fa-coffee" aria-hidden="true"></i>
+          </div>
+
+          <div class="circle flex flex-around flex-column">
+            <small class="font-1">Leave</small>
+            <div class="font-3">18:00</div>
+            <i class="fa fa-clock-o" aria-hidden="true"></i>
+          </div>
+        </div> -->
+
+        <!-- <div class="flex flex-center v-height-15">
+          <div>
+            <i class="fa fa-balance-scale" aria-hidden="true"></i>
+            Balance: 0
+          </div>
+          <div>
+            <i class="fa fa-chevron-circle-up" aria-hidden="true"></i>
+            Today: 0
+          </div>
+        </div> -->
+
+
+        <div class="flex flex-center v-height-15">
+          <div>
+            <div class="font-2">
+              8.5
+            </div>
+            <small class="font-1">TOTAL</small>
+          </div>
+          <div>
+            <!-- <div class="font-3 v-height-15">{{ currentFomatedDate }} {{ currentWeekNumber }}</div> -->
+          </div>
+          <div>
+            <div class="font-2">
+              +0.5
+            </div>
+            <small class="font-1">BALANCE</small>
+          </div>
+        </div>
+
       </div>
-    </div>
+
+      <div class="simple-slider-item green" slot="down">
+        BOTTOM
+        <!-- <time-picker></time-picker> -->
+      </div>
+    </simple-slider>
 
     <template slot="c-sidebar-title">{{ currentFomatedDate }}</template>
+
     <i slot="c-sidebar-icon" class="fa fa-clock-o fa-5x" aria-hidden="true"></i>
 
-    <div slot="c-sidebar-actions" class="font-2" v-on:click="navigate('page-2')">
-      <i class="fa fa-clock-o" aria-hidden="true"></i>
-    </div>
-    <div slot="c-sidebar-actions" class="font-2" v-on:click="navigate('page-3')">
-      <i class="fa fa-calendar" aria-hidden="true"></i>
-    </div>
-    <div slot="c-sidebar-actions" class="font-2">
-      <i class="fa fa-sliders" aria-hidden="true"></i>
-    </div>
-
     <template slot="c-footer">
-      <button class="font-1">SAVE</button>
-      <button class="font-1">DELETE</button>
+      <button>SAVE</button>
+      <button v-on:click="timePicker=!timePicker">CANCEL</button>
     </template>
   </card>
 </template>
@@ -73,17 +110,28 @@
   import { mapState, mapGetters, mapActions } from "vuex"
   import Card from "./ResponsiveCard"
   import DatePicker from "./DatePicker"
+  // import HappyMeter from "./HappyMeter"
+  import TimePicker from "./TimePicker"
+  import SimpleSlider from "./SimpleSlider"
 
   export default {
     name: "Index",
     components: {
       Card,
-      DatePicker
+      DatePicker,
+      TimePicker,
+      SimpleSlider
+    },
+
+    data() {
+      return {
+        timePicker: false
+      }
     },
 
     computed: {
       ...mapGetters(["currentFomatedDate", "currentWeekNumber", "currentRecord"]),
-      ...mapState(["page"])
+      ...mapState(["currentDate", "page"])
     },
 
     methods: {
@@ -96,8 +144,8 @@
   @import '~@/assets/_variables.sass'
 
   .circle
-    height: 6rem
-    width: 6rem!important
-    border: 1vh solid $green
+    height: 5rem
+    width: 5rem
+    border: 0.5rem solid $green
     border-radius: 50%
 </style>

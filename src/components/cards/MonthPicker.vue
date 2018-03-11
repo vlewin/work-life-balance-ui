@@ -70,8 +70,6 @@ export default {
   li
     cursor: pointer
     list-style: none
-    height: 2rem
-    line-height: 2rem
     text-align: center
     border-radius: 50%
     vertical-align: middle
@@ -79,10 +77,6 @@ export default {
     /*background: rgba(0,0,0,0.1);
 
   .arrow
-    width: 2rem
-    height: 2rem
-    font-size: 1.4rem
-    line-height: 2rem
     &:hover
       background: rgba(255, 255, 255, 0.1)
 </style>

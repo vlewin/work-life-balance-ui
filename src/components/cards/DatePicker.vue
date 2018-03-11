@@ -184,16 +184,17 @@ export default {
     display: flex
     justify-content: space-between
     align-items: center
-    // width: 100%
+    width: 85%
 
   li
     cursor: pointer
     list-style: none
     font-weight: bold
+    padding: 0.2em
 
   .selected
-    background: $light-grey
-    color: $green
+    background: $green
+    color: white
 
   .weekend
     color: #607d8d

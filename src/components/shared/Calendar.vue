@@ -188,7 +188,7 @@ export default {
     justify-content: space-around
     align-items: center
     flex-direction: column
-    width: 100%
+    // width: 100%
 
   .month
     color: #444

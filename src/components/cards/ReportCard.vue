@@ -1,7 +1,7 @@
 <template>
-  <card hcolor="red">
+  <card hcolor="tomato">
     <i slot="c-header-icon" class="fa fa-area-chart fa-6x" aria-hidden="true"></i>
-    <div slot="c-header-actions" class="font-2" v-on:click="navigate('page-2')">
+    <!-- <div slot="c-header-actions" class="font-2" v-on:click="navigate('page-2')">
       <i class="fa fa-clock-o" aria-hidden="true"></i>
     </div>
     <div slot="c-header-actions" class="font-2" v-on:click="navigate('page-3')">
@@ -9,13 +9,13 @@
     </div>
     <div slot="c-header-actions" class="font-2">
       <i class="fa fa-sliders" aria-hidden="true"></i>
-    </div>
+    </div> -->
 
     <div slot="c-body" class="flex flex-center v-height-15">
       <month-picker class="uppercase" v-on:date-change="setDate"></month-picker>
     </div>
 
-    <bar-chart class="height-30" slot="c-body" :data="data"></bar-chart>
+    <bar-chart class="height-50" slot="c-body" :data="data"></bar-chart>
 
     <div slot="c-body" class="flex flex-center v-height-15">
       <div>
@@ -35,7 +35,7 @@
     <template slot="c-sidebar-title">Week: 13</template>
     <i slot="c-sidebar-icon" class="fa fa-area-chart fa-5x" aria-hidden="true"></i>
 
-    <div slot="c-sidebar-actions" class="font-2" v-on:click="navigate('page-2')">
+    <!-- <div slot="c-sidebar-actions" class="font-2" v-on:click="navigate('page-2')">
       <i class="fa fa-clock-o" aria-hidden="true"></i>
     </div>
     <div slot="c-sidebar-actions" class="font-2" v-on:click="navigate('page-3')">
@@ -43,7 +43,7 @@
     </div>
     <div slot="c-sidebar-actions" class="font-2">
       <i class="fa fa-sliders" aria-hidden="true"></i>
-    </div>
+    </div> -->
 
     <template slot="c-footer">
       TOTAL: +4h
