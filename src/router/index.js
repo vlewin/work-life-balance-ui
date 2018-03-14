@@ -9,6 +9,7 @@ import CheatSheet from "@/components/CheatSheet"
 import AuthService from "../main"
 import Preview from "@/components/charts/Preview"
 import Temp from "@/components/cards/Index"
+// import CircleMenu from "@/components/cards/CircleMenu"
 
 Vue.use(Router)
 

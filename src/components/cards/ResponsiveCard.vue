@@ -53,7 +53,7 @@
     </div>
 
 
-    <div class="c-footer flex flex-center" :class="[hcolor]">
+    <div class="c-footer flex flex-center grey-2">
       <slot name="c-footer"></slot>
     </div>
   </div>
@@ -98,7 +98,7 @@
     height: 100%
     width: 100%
     display: grid
-    background: #ccc
+    background: #AABCBB
     grid-template-areas: "c-header c-header"  "c-body c-body" "c-footer c-footer"
 
     // NOTE: Broken on safari
@@ -117,7 +117,9 @@
       background: transparent
       border: none
       outline: none
-      color: white
+      // color: white
+      color: #222
+
 
   .c-header
     grid-area: c-header
@@ -127,7 +129,7 @@
 
   .c-body
     grid-area: c-body
-    background-color: white
+    background-color: #fff
 
   .c-sidebar
     grid-area: unset
@@ -140,11 +142,11 @@
     transition: clip-path 0.5s 0.5s ease
 
   .c-footer
-    border-top: 0.1rem dotted #ccc
-    border-bottom: 0.1rem dotted #ccc
+    border-top: 0.1rem dotted #AABCBB
+    // border-bottom: 0.1rem dotted #ccc
     grid-area: c-footer
     // background-color: white
-    color: white
+    color: #222
 
 
   @media (min-width: 40em)

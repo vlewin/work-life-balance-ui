@@ -22,8 +22,15 @@ SOURCES:
 
 https://manage.auth0.com/#/clients/fC4Z1HSO4PHNJTWu9K4Emn90bo6CCgCM/quickstart
 
-## CSS AND LAYOUT
+## 3D CSS objects
+https://cssanimation.rocks/spheres/
 
+## Responsive design - Landscape / Portrait mode
+https://www.smashingmagazine.com/2012/08/designing-device-orientation-portrait-landscape/
+https://www.creativebloq.com/web-design/master-screen-orientation-html5-101517371
+
+
+## CSS AND LAYOUT
 * https://medium.com/flexbox-and-grids/how-to-efficiently-master-the-css-grid-in-a-jiffy-585d0c213577
 * https://gridbyexample.com/examples/
 * https://css-tricks.com/css-grid-replace-flexbox/
@@ -65,6 +72,10 @@ DESIGN INSPIRATIONS:
 * https://codepen.io/hrtzt/pen/JdYaEZ
 * https://codepen.io/CesarGabriel/pen/KLqEb
 
+
+https://css-tricks.com/building-a-circular-navigation-with-css-clip-paths/
+http://pmg.softwaretailoring.net/
+
 ### Custom domain
 
 https://gist.github.com/mapsam/ce60b87eea561ea6bdbf
@@ -92,6 +103,10 @@ https://css-tricks.com/making-custom-properties-css-variables-dynamic/
 ### Animation performance
 
 https://css-tricks.com/forums/topic/css3-animations-are-burning-my-computer/
+
+
+### Parallax
+http://matthew.wagerfield.com/parallax/
 
 ### SVG ANIMATIONS
 https://www.uplabs.com/posts/simple-material-vcard
