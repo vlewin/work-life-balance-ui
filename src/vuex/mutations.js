@@ -36,7 +36,9 @@ export default {
   SET_RECORDS(state, records) {
     const data = {}
     records.forEach(item => (data[item.date] = item))
-    state.records = Object.assign({}, state.records, data)
+    state.records = data
+
+    // state.records = Object.assign({}, state.records, data)
     console.log(state.records)
     // Vue.set(state, "records", records.map(record => ({ key: record.date, val: record })));
   },

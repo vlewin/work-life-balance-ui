@@ -1,11 +1,23 @@
 <template>
-  <div class="time-picker">
-    <input-time class="width-100 amber" :init-value="initValue" :value="time"></input-time>
+  <div class="time-picker flex-column flex-arround">
+    <input-time class="width-100 amber v-height-15" :init-value="initValue" :value="time"></input-time>
     <ul class="flex-container">
       <li class="flex-item" v-for="(value, index) in values" :key="index" :class="{ disabled: !setable.includes(value) }" v-on:click="setTime(value)">
         {{ value }}
       </li>
+      <li class="flex-item" v-on:click="close">
+        <i class="fa fa-times-circle" aria-hidden="true"></i>
+      </li>
+      <li class="flex-item" :class="{ disabled: !setable.includes(0) }" v-on:click="setTime(0)">
+        0
+      </li>
+      <li class="flex-item">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+      </li>
     </ul>
+    <!-- <div class="width-100 v-height-10 flex flex-center" v-on:click="close">
+      <b>CANCEL</b>
+    </div> -->
   </div>
 </template>
 
@@ -20,7 +32,7 @@ export default {
 
   data() {
     return {
-      values: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0],
+      values: [1, 2, 3, 4, 5, 6, 7, 8, 9],
       valid: {
         0: [0, 1, 2],
         1: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
@@ -96,10 +108,14 @@ export default {
         clearTimeout(this.timeout)
         this.timeout = setTimeout(() => {
           this.$emit("changed", this.target, this.time.match(/.{1,2}/g).join(":"))
-          this.$emit("done")
+          this.$emit("close")
           this.time = ""
         }, 500)
       }
+    },
+
+    close() {
+      this.$emit("close")
     },
 
     reset() {

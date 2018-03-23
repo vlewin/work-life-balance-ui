@@ -17,7 +17,7 @@
 
     <bar-chart class="height-50" slot="c-body" :data="data"></bar-chart>
 
-    <div slot="c-body" class="flex flex-center v-height-15">
+    <div slot="c-body" class="flex flex-center v-height-10">
       <div>
         <i class="fa fa-gift" aria-hidden="true"></i>
         Holidays: 0

@@ -8,7 +8,7 @@
       <calendar class="width-90" :date="currentDate" :records="records"></calendar>
     </div>
 
-    <div slot="c-body" class="flex flex-center v-height-15">
+    <div slot="c-body" class="flex flex-center v-height-10">
       <div>
         <i class="fa fa-gift" aria-hidden="true"></i>
         Holidays: 0

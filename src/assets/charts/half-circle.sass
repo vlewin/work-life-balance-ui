@@ -1,0 +1,104 @@
+svg
+  display: block
+  // background-color: white
+
+circle
+  fill: #EA2A55
+
+.slice
+  stroke-width: 0
+  transform-origin: 50% 50%
+  // stroke-dasharray: 900
+  // stroke-dashoffset: 900
+  transition: all 1s linear
+  // stroke-dashoffset: 0
+  // transform-origin: center center
+  // transform: rotate(0deg)
+  // stroke-dashoffset: 0
+
+// .path
+//   fill: orange
+
+
+@for $i from 0 through 20
+  .slice-#{$i}
+    stroke: #111
+    // animation: rotate 1s ease
+    stroke-dashoffset: 0
+    // transform: rotate(($i * 60deg) * -1)
+
+    fill: #86d8ef
+
+    // transform: rotate(($i * 30deg) * -1)
+    // animation: draw 1s ease #{$i * 0.5 + 1}s forwards, rotate-#{$i} .5s ease #{$i * 0.5 + 0.5}s forwards
+
+
+@for $i from 0 through 360
+  .rotate-#{$i}
+    transform: rotate($i * -1deg)
+    transform-origin: center center
+    // animation: rotate-#{$i} .5s ease 1s forwards
+
+
+@for $i from 0 through 20
+  @keyframes rotate-#{$i*60}
+    // to
+    //   transform: rotate(($i * 60deg) * -1)
+    // from
+    //   transform: rotate(0deg), scale(0.5)
+    to
+      transform: rotate(($i * 60deg) * -1)
+
+
+@keyframes draw
+  to
+    stroke-dashoffset: 0
+
+
+// .slice-1 path.animate
+//   stroke: #aaa
+//   animation: draw 1s ease forwards
+//
+// .slice-2 path.animate
+//   stroke: #111
+//   animation: draw 1s ease 1s forwards, rotate-2 .5s ease 2s forwards
+//
+// .slice-3 path.animate
+//   stroke: #111
+//   animation: draw 1s ease 2s forwards, rotate-3 .5s ease 3s forwards
+//
+// .slice-4 path.animate
+//   stroke: #111
+//   animation: draw 1s ease 3s forwards, rotate-4 .5s ease 4s forwards
+//
+// .slice-5 path.animate
+//   stroke: #111
+//   animation: draw 1s ease 4s forwards, rotate-5 .5s ease 5s forwards
+//
+// .slice-6 path.animate
+//   stroke: #111
+//   animation: draw 1s ease 5s forwards, rotate-6 .5s ease 6s forwards
+
+// @keyframes rotate-2
+//   to
+//     transform: rotate(-30deg)
+//
+//
+// @keyframes rotate-3
+//   to
+//     transform: rotate(-60deg)
+//
+//
+// @keyframes rotate-4
+//   to
+//     transform: rotate(-90deg)
+//
+//
+// @keyframes rotate-5
+//   to
+//     transform: rotate(-120deg)
+//
+//
+// @keyframes rotate-6
+//   to
+//     transform: rotate(-150deg)

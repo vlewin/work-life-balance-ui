@@ -68,7 +68,7 @@
   import VerticalSlider from './VerticalSlider'
 
   export default {
-    name: "Index",
+    name: "ResponsiveCard",
     components: {
       VerticalSlider
     },
@@ -109,17 +109,6 @@
     grid-template-columns: 100%
     grid-template-rows: 30% 60% 10%
 
-    button
-      font-weight: bold
-      width: 100%
-      height: 100%
-      font-size: 100%
-      background: transparent
-      border: none
-      outline: none
-      // color: white
-      color: #222
-
 
   .c-header
     grid-area: c-header
@@ -147,7 +136,18 @@
     grid-area: c-footer
     // background-color: white
     color: #222
+    z-index: 100
 
+    button
+      font-weight: bold
+      width: 100%
+      height: 100%
+      font-size: 100%
+      background: transparent
+      border: none
+      outline: none
+      // color: white
+      color: #222
 
   @media (min-width: 40em)
     .c-responsive

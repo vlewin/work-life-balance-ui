@@ -9,6 +9,9 @@ import CheatSheet from "@/components/CheatSheet"
 import AuthService from "../main"
 import Preview from "@/components/charts/Preview"
 import Temp from "@/components/cards/Index"
+import Circle from "@/components/cards/Circle"
+import Arc from "@/components/cards/Arc"
+
 // import CircleMenu from "@/components/cards/CircleMenu"
 
 Vue.use(Router)
@@ -24,6 +27,9 @@ const router = new Router({
     { path: "/playground", name: "Flex", component: Flex },
     { path: "/preview", name: "Preview", component: Preview },
     { path: "/temp", name: "Preview", component: Temp },
+    { path: "/circle", name: "Arc", component: Circle },
+    { path: "/arc", name: "Arc", component: Arc },
+
   ]
 })
 

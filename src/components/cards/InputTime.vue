@@ -117,7 +117,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0 2vw;
+  /* padding: 0 2vw; */
   cursor: pointer;
   font-size: 2rem;
   color: #fff;

@@ -191,6 +191,7 @@ export default {
     list-style: none
     font-weight: bold
     padding: 0.2em
+    position: relative
 
   .selected
     background: $green
@@ -206,4 +207,30 @@ export default {
     color: #fff
     pointer-events: none
     border: none
+
+  .recorded
+    &::after
+      content: attr(data-hours)
+      font-size: 0.8rem
+      display: block
+      position: absolute
+      width: 1rem
+      height: 1rem
+      line-height: 1rem
+      border-radius: 100%
+      top: 1.0rem
+      right: -0.7rem
+      border: 0.1rem solid #fff
+      // background: tomato
+      // color: white
+      background: #fff
+      color: tomato
+      font-weight: bold
+      z-index: 1
+      text-align: center
+
+    &.positive::after
+      // background: #42b983
+      color: #42b983
+
 </style>
