@@ -1,9 +1,10 @@
 <template>
-  <div id="circle-menu">
-    <div class="circle">
+  <div id="circle-menu" :class="{ loading: loading }">
+    <div class="circle" v-on:click="toggleLoading">
+      <h3 class="hidden">LOADING ...</h3>
       <h2 class="no-margin">
-        {{ duration }}<small> h</small>
-        <label>{{ form.date }}</label>
+        {{ duration }}
+        <label>hours</label>
       </h2>
       <h3 class="no-margin">
         <small>{{ form.start }} - {{ form.finish }}</small>
@@ -47,8 +48,8 @@
     <svg height="0" width="0">
       <defs>
         <clipPath clipPathUnits="objectBoundingBox" id="sector">
-          <circle></circle>
-          <path fill="none" stroke="#111" stroke-width="1" class="sector" d="M0.5,0.5 l0.5,0 A0.5,0.5 0 0,0 0.75,.066987298 z"></path>
+          <!-- <circle></circle> -->
+          <!-- <path fill="none" stroke="#111" stroke-width="1" class="sector" d="M0.5,0.5 l0.5,0 A0.5,0.5 0 0,0 0.75,.066987298 z"></path> -->
           <path fill="none" stroke="#111" stroke-width="1" class="big-sector" d="M0.5,0.5 l0.5,0 A0.5,0.5 0 0,0 0.75,.066987298 z"></path>
         </clipPath>
       </defs>
@@ -64,6 +65,7 @@
 
     data() {
       return {
+        loading: false,
         timeout: null,
         open: false
       }
@@ -108,6 +110,10 @@
     },
 
     methods: {
+      toggleLoading() {
+        this.loading = !this.loading
+      },
+
       toggle() {
         clearTimeout(this.timeout)
 
@@ -125,28 +131,33 @@
 </script>
 
 <style lang="scss">
-  // @import url(//fonts.googleapis.com/css?family=Indie+Flower);
-  @keyframes move_eye { from { margin-left: -20%; } to { margin-left: 100%; }  }
-  @keyframes rotate {
-    from { transform: rotate(360deg), scale(0.75); }
-    to { transform: scale(0.5) }
-  }
-
-
-  @keyframes heartbeat {
-    from { transform: rotate(360deg), scale(0.75); }
-    to { transform: scale(0.5) }
-  }
-
-
-
   $base: #A5E2F3;
-  #circle-menu {
-    // position: relative;
-    // display: inline-flex;
-    // justify-content: center;
-    // align-items: center;
 
+  .hidden {
+    display: none;
+  }
+
+  #circle-menu.loading {
+    .circle {
+      transform: scale(1.5);
+
+      :not(.hidden) {
+        display: none;
+      }
+    }
+
+    .menu {
+      transform: rotate(270deg);
+      animation: spin 1s ease-out;
+      animation-iteration-count: infinite;
+    }
+
+    .hidden {
+      display: inline;
+    }
+  }
+
+  #circle-menu {
     .circle {
       position: absolute;
       top: 20%;
@@ -156,7 +167,7 @@
       margin-right: auto;
       z-index: 99;
       background: #fff;
-      border: 0.4rem solid darken($base, 0%);;
+      border: 0.75rem solid darken($base, 0%);;
       border-radius: 50%;
       width: 8rem;
       height: 8rem;
@@ -166,7 +177,11 @@
       flex-direction: column;
       align-items: center;
       justify-content: space-around;
+
+
     }
+
+
   }
 
   h2, h3 {
@@ -181,6 +196,10 @@
     }
   }
 
+  h2 {
+    font-size: 2.3rem;
+  }
+
   h3 {
     color: grey;
   }
@@ -191,12 +210,12 @@
     list-style: none;
     position: relative;
     margin: auto;
-    width: 15rem;
+    width: 16rem;
     /* padding: 60% 0 0% 0; */
-    padding-top: 15rem;
+    padding-top: 16rem;
     color: #fff;
     transform: scale(1.0);
-    transition: all .25s ease;
+    transition: transform .25s ease;
 
     /* -webkit-transition: all 3s ease; */
 
@@ -214,7 +233,7 @@
 
   .menu.open {
     transform: scale(1.0);
-    transition: all 0.5s ease;
+    transition: transform 0.5s ease;
   }
 
   // @media all and (max-width: 320px) {
@@ -237,10 +256,11 @@
     left: 0;
     width: 100%;
     height: 100%;
-    transition: all 1s ease;
+    // transition: all 1s ease;
     clip-path: url(#sector);
     /* try this one in Chrome/Opera/Safari */
     // clip-path: polygon(50% 50%, 100% 50%, 75% 6.6%);
+    // clip-path: inset(10px 20px 30px 40px);
 
     a {
       display: block;
@@ -249,7 +269,7 @@
     }
 
     &:hover {
-      background-color: gold;
+      background-color: #FFBF00;
     }
   }
 
@@ -320,34 +340,43 @@
     to { transform: scale(0.5) }
   }
 
+  // @media screen and (orientation: portrait) {
 
 
-  @media screen and (min-width: 40em) {
+  @media screen and (max-width: 50em) and (orientation: landscape) {
     .menu {
-      width: 18rem;
-      padding-top: 18rem;
-      // transform: scale(1.05);
-      /* -webkit-transition: all 3s ease; */
-
-      // transform: scale(0.8);
-      /* -webkit-transition: all 3s ease; */
-      // animation: 1s linear 0s 0s alternate scale;
-      // animation: 1s linear 0s infinite alternate scale;
+      // width: 18rem;
+      // padding-top: 18rem;
     }
 
     #circle-menu .circle {
-      // top: 20%;
-      width: 10rem;
-      height: 10rem;
-
-
+      top: 20%;
+      width: 8rem;
+      height: 8rem;
     }
-
   }
 
-  .loading {
-    animation: pulsate 1s ease-out;
-    animation-iteration-count: infinite;
+  @media screen and (min-width: 50em) {
+    .menu {
+      width: 18rem;
+      padding-top: 18rem;
+    }
+
+    #circle-menu .circle {
+      top: unset;
+      width: 10rem;
+      height: 10rem;
+    }
+  }
+
+  // .loading {
+  //   animation: pulsate 1s ease-out;
+  //   animation-iteration-count: infinite;
+  // }
+
+  @keyframes spin {
+      from {transform:rotate(0deg);}
+      to {transform:rotate(360deg);}
   }
 
   @keyframes pulsate {

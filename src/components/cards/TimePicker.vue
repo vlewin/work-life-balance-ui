@@ -1,7 +1,7 @@
 <template>
-  <div class="time-picker flex-column flex-arround">
-    <input-time class="width-100 amber v-height-15" :init-value="initValue" :value="time"></input-time>
-    <ul class="flex-container">
+  <div id="time-picker" class="flex-column flex-arround">
+    <input-time class="width-100 amber" :init-value="initValue" :value="time"></input-time>
+    <ul class="flex">
       <li class="flex-item" v-for="(value, index) in values" :key="index" :class="{ disabled: !setable.includes(value) }" v-on:click="setTime(value)">
         {{ value }}
       </li>
@@ -15,6 +15,14 @@
         <i class="fa fa-chevron-left" aria-hidden="true"></i>
       </li>
     </ul>
+
+    <!-- <div class="time-picker-top">
+    </div>
+
+    <div class="time-picker-body">
+
+    </div> -->
+
     <!-- <div class="width-100 v-height-10 flex flex-center" v-on:click="close">
       <b>CANCEL</b>
     </div> -->
@@ -128,25 +136,26 @@ export default {
 
 
 <style scoped>
-.time-picker {
+#time-picker {
   width: 100%;
-  /* height: 100%; */
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
+  z-index: 0;
 }
 
-.flex-container {
+
+ul {
+  width: 100%;
   padding: 0;
   margin: 0;
-  list-style: none;
   display: flex;
+  list-style: none;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  width: 80%;
-  /* height: 80%; */
 }
 
 .flex-item {
@@ -172,4 +181,36 @@ export default {
 .selected {
   background: #42b983;
 }
+
+
+@media screen and (orientation: portrait) {
+  .input-time {
+    height: 10vh;
+  }
+
+  ul {
+    width: 100%;
+    height: calc(100% - 10vh);
+  }
+
+  .flex-item {
+    padding: 7% 0;
+  }
+}
+
+@media screen and (orientation: landscape) {
+  .input-time {
+    height: 15vh;
+  }
+
+  ul {
+    width: 80%;
+    height: calc(100% - 15vh);
+  }
+
+  .flex-item {
+    padding: 4% 0;
+  }
+}
+
 </style>

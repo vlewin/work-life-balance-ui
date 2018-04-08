@@ -184,14 +184,20 @@ export default {
     display: flex
     justify-content: space-between
     align-items: center
-    width: 85%
+    width: 100%
+    background: #eee
+    height: 10vh
+
 
   li
     cursor: pointer
     list-style: none
     font-weight: bold
-    padding: 0.2em
     position: relative
+    height: 2.5em
+    width: 2.5em
+    line-height: 2.5em
+    text-align: center
 
   .selected
     background: $green
@@ -232,5 +238,9 @@ export default {
     &.positive::after
       // background: #42b983
       color: #42b983
+
+  @media screen and (max-width: 50em) and (orientation: landscape)
+    ul
+      height: 15vh
 
 </style>

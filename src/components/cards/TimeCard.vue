@@ -6,21 +6,29 @@
 
     <i slot="c-header-icon" class="fa fa-clock-o fa-6x" aria-hidden="true"></i>
 
-    <date-picker slot="c-body" class="flex flex-center width-85 v-height-15"></date-picker>
+    <date-picker slot="c-body" class="flex flex-center"></date-picker>
 
-    <div slot="c-body" class="flex-body">
-      <circle-menu class="flex flex-center relative" :form="form" :duration="duration" v-on:open="openPicker"></circle-menu>
-
-      <div class="info flex flex-center">
-        <div>
-          <i class="fa fa-calendar" aria-hidden="true"></i>
-          Week: {{ form.week }}
-        </div>
-        <div>
-          <i class="fa fa-balance-scale" aria-hidden="true"></i>
-          Balance: 0
-        </div>
+    <!-- <div slot="c-body" class="height-100 flex-body"> -->
+    <div slot="c-body" class="flex flex-center height-100 container">
+      <div class="flex flex-center content">
+        <circle-menu class="flex flex-center relative" :form="form" :duration="duration" v-on:open="openPicker"></circle-menu>
       </div>
+
+        <!-- <div class="flex flex-center info v-height-10">
+        <div>
+          <i class="fa fa-gift" aria-hidden="true"></i>
+          Holidays: 0
+        </div>
+        <div>
+          <i class="fa fa-heartbeat" aria-hidden="true"></i>
+          Sickness: 0
+        </div>
+        <div>
+          <i class="fa fa-plane" aria-hidden="true"></i>
+          Vacation: 0
+        </div>
+      </div> -->
+
     </div>
 
     <template slot="c-sidebar-title">{{ currentFomatedDate }}</template>
@@ -28,8 +36,8 @@
     <i slot="c-sidebar-icon" class="fa fa-clock-o fa-5x" aria-hidden="true"></i>
 
     <simple-switch slot="c-footer" class="horizontal animated" :active="picker.open">
-      <button slot="up" v-on:click="navigate('page-3')">SAVE</button>
-      <button slot="down" :class="{active: picker.open }" v-on:click="closePicker">CLOSE</button>
+      <button class="text-white" slot="up">SAVE</button>
+      <button class="text-white" slot="down" :class="{ active: picker.open }" v-on:click="closePicker">CLOSE</button>
     </simple-switch>
 
     <!-- <template slot="c-footer">
@@ -266,8 +274,7 @@
 </script>
 
 <style lang="sass" scoped>
-  .info
-    height: 10vh
+
 
   // @media screen and (min-height: 40em) and (orientation:landscape)
 
@@ -280,20 +287,21 @@
     border: none
     outline: none
     // color: white
-    color: #222
+    // color: #222
 
 
   @media screen and (max-height: 40em) and (orientation:landscape)
-    .flex-body
+    .container
       display: flex
       justify-content: space-around
+      margin: auto
 
       .info
         flex-direction: column
         height: auto
 
         div
-          height: 50%
+          // height: 50%
           display: flex
           justify-content: center
           align-items: center
@@ -305,11 +313,10 @@
     z-index: 100
     position: absolute
     transform: translateY(100%)
-    transition: all 0.25s
+    transition: transform 0.25s
     background: #fff
 
-
-  @media screen and (orientation:portrait)
+  @media screen and (orientation: portrait)
     .pane
       width: 100%
 
@@ -317,7 +324,17 @@
       transform: translateY(0)
       height: 60%
 
-  @media screen and (orientation:landscape)
+    .container
+      flex-direction: column
+
+    .content
+      width: 100%
+
+    .info
+      width: 100%
+      height: 10vh
+
+  @media screen and (orientation: landscape)
     .pane
       width: 70%
       // height: 85%
@@ -326,7 +343,14 @@
       transform: translateY(0%)
       height: 85%
 
-  @import '~@/assets/_variables.sass'
+    .content
+      width: 70%
+
+    .info
+      flex-direction: column
+      width: 30%
+      height: 10vh
+
   .img-responsive
     width: 40%
     height: auto

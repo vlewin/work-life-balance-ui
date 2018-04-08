@@ -1,19 +1,7 @@
 <template>
   <card hcolor="tomato">
     <i slot="c-header-icon" class="fa fa-area-chart fa-6x" aria-hidden="true"></i>
-    <!-- <div slot="c-header-actions" class="font-2" v-on:click="navigate('page-2')">
-      <i class="fa fa-clock-o" aria-hidden="true"></i>
-    </div>
-    <div slot="c-header-actions" class="font-2" v-on:click="navigate('page-3')">
-      <i class="fa fa-calendar" aria-hidden="true"></i>
-    </div>
-    <div slot="c-header-actions" class="font-2">
-      <i class="fa fa-sliders" aria-hidden="true"></i>
-    </div> -->
-
-    <div slot="c-body" class="flex flex-center v-height-15">
-      <month-picker class="uppercase" v-on:date-change="setDate"></month-picker>
-    </div>
+    <month-picker slot="c-body" class="flex flex-center uppercase" v-on:date-change="setDate"></month-picker>
 
     <bar-chart class="height-50" slot="c-body" :data="data"></bar-chart>
 

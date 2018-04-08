@@ -53,7 +53,7 @@
     </div>
 
 
-    <div class="c-footer flex flex-center grey-2">
+    <div class="c-footer flex flex-center text-white" :class="[hcolor]">
       <slot name="c-footer"></slot>
     </div>
   </div>
@@ -98,7 +98,7 @@
     height: 100%
     width: 100%
     display: grid
-    background: #AABCBB
+    // background: #AABCBB
     grid-template-areas: "c-header c-header"  "c-body c-body" "c-footer c-footer"
 
     // NOTE: Broken on safari
@@ -118,7 +118,7 @@
 
   .c-body
     grid-area: c-body
-    background-color: #fff
+    // background-color: red
 
   .c-sidebar
     grid-area: unset
@@ -129,13 +129,14 @@
 
     clip-path: circle(10% at 50% 50%)
     transition: clip-path 0.5s 0.5s ease
+    z-index: 1
+
 
   .c-footer
-    border-top: 0.1rem dotted #AABCBB
+    // border-top: 0.1rem solid black
     // border-bottom: 0.1rem dotted #ccc
     grid-area: c-footer
     // background-color: white
-    color: #222
     z-index: 100
 
     button
@@ -146,14 +147,18 @@
       background: transparent
       border: none
       outline: none
+      color: inherit
+
       // color: white
-      color: #222
+      // color: #222
 
   @media (min-width: 40em)
     .c-responsive
       grid-template-areas: "c-header c-header"  "c-body c-sidebar" "c-footer c-sidebar"
       grid-template-columns: auto 30%
       grid-template-rows: 0 1fr 15%
+
+      .c-header
 
       .c-body
         width: 100%

@@ -61,22 +61,31 @@ export default {
     display: flex
     justify-content: space-between
     align-items: center
-    width: 85%
+    width: 100%
     height: 100%
     font-weight: bold
     background: white
-    // color: #fff
+    height: 10vh
+    background: #fafafa
 
   li
     cursor: pointer
     list-style: none
     text-align: center
-    border-radius: 50%
     vertical-align: middle
     transition: color 0.2s, background 1s
-    /*background: rgba(0,0,0,0.1);
+    // background: rgba(0,0,0,0.1)
+
+    height: 2.5em
+    min-width: 2.5em
+    line-height: 2.5em
+    text-align: center
 
   .arrow
     &:hover
       background: rgba(255, 255, 255, 0.1)
+
+  @media screen and (max-width: 50em) and (orientation: landscape)
+    ul
+      height: 15vh
 </style>
