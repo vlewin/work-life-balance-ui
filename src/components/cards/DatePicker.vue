@@ -217,16 +217,16 @@ export default {
   .recorded
     &::after
       content: attr(data-hours)
-      font-size: 0.8rem
+      font-size: 0.4rem
       display: block
       position: absolute
       width: 1rem
       height: 1rem
       line-height: 1rem
       border-radius: 100%
-      top: 1.0rem
-      right: -0.7rem
-      border: 0.1rem solid #fff
+      top: 1.5rem
+      right: -0.5rem
+      border: 0.2rem solid #eee
       // background: tomato
       // color: white
       background: #fff

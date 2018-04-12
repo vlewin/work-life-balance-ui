@@ -33,6 +33,13 @@
         radius: 85,
       }
     },
+
+    props: {
+      // data: {
+      //   type: Array
+      // }
+    },
+
     computed: {
       viewBox() {
         return `0 0 ${this.view} 100`

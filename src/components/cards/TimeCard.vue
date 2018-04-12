@@ -1,10 +1,13 @@
 <template>
   <card hcolor="blue-2">
+    <i slot="c-header-icon" class="fa fa-clock fa-5x" aria-hidden="true"></i>
+    <template slot="c-header-title">
+      {{ currentDate.toLocaleDateString("de-DE", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) }}
+    </template>
+
     <div slot="c-body" class="pane" :class="{ open: picker.open }">
       <time-picker :target="picker.target" :init-value="picker.value" v-on:changed="setValue" v-on:close="closePicker"></time-picker>
     </div>
-
-    <i slot="c-header-icon" class="fa fa-clock-o fa-6x" aria-hidden="true"></i>
 
     <date-picker slot="c-body" class="flex flex-center"></date-picker>
 
@@ -31,12 +34,16 @@
 
     </div>
 
-    <template slot="c-sidebar-title">{{ currentFomatedDate }}</template>
+    <template slot="c-sidebar-title">
+      {{ currentDate.toLocaleDateString("de-DE", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) }}
+    </template>
 
-    <i slot="c-sidebar-icon" class="fa fa-clock-o fa-5x" aria-hidden="true"></i>
+    <i slot="c-sidebar-icon" class="fa fa-clock fa-6x" aria-hidden="true"></i>
 
     <simple-switch slot="c-footer" class="horizontal animated" :active="picker.open">
-      <button class="text-white" slot="up">SAVE</button>
+      <button class="text-white" slot="up" v-on:click="save">
+        {{ isRecorded? 'UPDATE' : 'SAVE'}}
+      </button>
       <button class="text-white" slot="down" :class="{ active: picker.open }" v-on:click="closePicker">CLOSE</button>
     </simple-switch>
 

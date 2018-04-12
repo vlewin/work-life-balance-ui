@@ -1,5 +1,5 @@
 <template>
-  <div id="circle-menu" :class="{ loading: loading }">
+  <div id="circle-menu" :class="{ loading: fetching }">
     <div class="circle" v-on:click="toggleLoading">
       <h3 class="hidden">LOADING ...</h3>
       <h2 class="no-margin">
@@ -15,17 +15,17 @@
     <ul class="menu" :class="{ open: open }">
       <li class="one">
         <a href="#">
-          <span class="icon" v-on:click="emit('start')">{{ start }}</span>
+          <span class="icon" v-on:click="emit('start')">{{ form.start }}</span>
         </a>
       </li>
       <li class="two">
         <a href="#">
-          <span class="icon" v-on:click="emit('pause')">{{ pause }}</span>
+          <span class="icon" v-on:click="emit('pause')">{{ form.pause }}</span>
         </a>
       </li>
       <li class="three">
         <a href="#">
-          <span class="icon" v-on:click="emit('finish')">{{ finish }}</span>
+          <span class="icon" v-on:click="emit('finish')">{{ form.finish }}</span>
         </a>
       </li>
       <li class="four">
@@ -58,7 +58,7 @@
 </template>
 
 <script>
-  import { mapGetters } from "vuex"
+  import { mapGetters, mapState } from "vuex"
 
   export default {
     name: "CircleMenu",
@@ -95,18 +95,7 @@
 
     computed: {
       ...mapGetters(["currentFomatedDate"]),
-
-      start() {
-        return this.form.start
-      },
-
-      pause() {
-        return this.form.pause
-      },
-
-      finish() {
-        return this.form.finish
-      },
+      ...mapState(["fetching"]),
     },
 
     methods: {
@@ -158,6 +147,9 @@
   }
 
   #circle-menu {
+    border-radius: 100%;
+
+
     .circle {
       position: absolute;
       top: 20%;
@@ -167,7 +159,7 @@
       margin-right: auto;
       z-index: 99;
       background: #fff;
-      border: 0.75rem solid darken($base, 0%);;
+      border: 0.75rem solid #eee;
       border-radius: 50%;
       width: 8rem;
       height: 8rem;
@@ -177,6 +169,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: space-around;
+
 
 
     }
@@ -210,9 +203,8 @@
     list-style: none;
     position: relative;
     margin: auto;
-    width: 16rem;
-    /* padding: 60% 0 0% 0; */
-    padding-top: 16rem;
+    width: calc(16rem - 0.4rem);
+    padding-top: calc(16rem - 0.4rem);
     color: #fff;
     transform: scale(1.0);
     transition: transform .25s ease;
@@ -276,30 +268,36 @@
   .one {
     background-color: $base;
     transform: rotate(-120deg);
-    background-color: darken($base, 10%);
+    background-color: darken($base, 20%);
   }
   .two {
-    background-color: darken($base, 20%);
+    background-color: darken($base, 10%);
     transform: rotate(-60deg);
   }
   .three {
-    background-color: darken($base, 30%);
+    background-color: darken($base, 20%);
     transform: rotate(0deg);
   }
   .four {
-    background-color: darken($base, 40%);
+    // border: 1px solid darken($base, 10%);
+    // background-color: darken($base, 40%);
+    background-color: darken($base, 10%);
     transform: rotate(-180deg);
   }
   .five {
-    background-color: darken($base, 40%);
+    // background-color: darken($base, 40%);
     // background-color: darken($base, 28%);
+    background-color: darken($base, 10%);
     transform: rotate(-240deg);
   }
   .six {
 
-    background-color: darken($base, 40%);
+    // background-color: darken($base, 40%);
     // background-color: darken($base, 35%);
+    background-color: darken($base, 10%);
     transform: rotate(-300deg);
+
+
     // transform: rotate(-240deg);
 
   }
@@ -349,24 +347,40 @@
       // padding-top: 18rem;
     }
 
-    #circle-menu .circle {
-      top: 20%;
-      width: 8rem;
-      height: 8rem;
+    // #circle-menu {
+    //   border: 5px solid darken($base, 40%);
+    //   width: 16rem;
+    //   height: 16rem;
+    // }
+
+    #circle-menu {
+      .circle {
+        top: 20%;
+        width: 8rem;
+        height: 8rem;
+      }
     }
   }
 
   @media screen and (min-width: 50em) {
     .menu {
-      width: 18rem;
-      padding-top: 18rem;
+      width: 16rem;
+      padding-top: 16rem;
     }
 
-    #circle-menu .circle {
-      top: unset;
-      width: 10rem;
-      height: 10rem;
+    #circle-menu {
+      // border: 5px solid darken($base, 40%);
+      // width: 16rem;
+      // height: 16rem;
+
+      .circle {
+        top: unset;
+        width: 9rem;
+        height: 9rem;
+      }
     }
+
+
   }
 
   // .loading {

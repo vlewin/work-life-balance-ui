@@ -1,22 +1,23 @@
 <template>
   <div class="c-responsive">
     <div class="c-header flex flex-around flex-column width-100" :class="[hcolor]">
-      <slot name="c-header-icon">HEADER</slot>
+      <slot name="c-header-icon">ICON</slot>
+      <slot name="c-header-title">&nbsp;</slot>
 
       <div class="flex flex-center width-100 height-15">
         <!-- <slot name="c-header-actions">HEADER</slot> -->
 
         <div slot="c-header-actions" class="font-2" v-on:click="navigate('page-1')">
-          <i class="fa fa-area-chart" aria-hidden="true"></i>
+          <i class="fas fa-chart-pie"></i>
         </div>
         <div slot="c-header-actions" class="font-2" v-on:click="navigate('page-2')">
-          <i class="fa fa-clock-o" aria-hidden="true"></i>
+          <i class="fas fa-clock"></i>
         </div>
         <div slot="c-header-actions" class="font-2" v-on:click="navigate('page-3')">
-          <i class="fa fa-calendar" aria-hidden="true"></i>
+          <i class="fas fa-calendar-plus"></i>
         </div>
         <div slot="c-header-actions" class="font-2" v-on:click="navigate('page-1')">
-          <i class="fa fa-sliders" aria-hidden="true"></i>
+          <i class="fas fa-sliders-h"></i>
         </div>
       </div>
     </div>
@@ -38,16 +39,16 @@
         <!-- <slot name="c-sidebar-actions">ACTIONS</slot> -->
 
         <div slot="c-header-actions" class="font-2" v-on:click="navigate('page-1')">
-          <i class="fa fa-area-chart" aria-hidden="true"></i>
+          <i class="fas fa-chart-pie"></i>
         </div>
         <div slot="c-header-actions" class="font-2" v-on:click="navigate('page-2')">
-          <i class="fa fa-clock-o" aria-hidden="true"></i>
+          <i class="fas fa-clock"></i>
         </div>
         <div slot="c-header-actions" class="font-2" v-on:click="navigate('page-3')">
-          <i class="fa fa-calendar" aria-hidden="true"></i>
+          <i class="fas fa-calendar-plus"></i>
         </div>
         <div slot="c-header-actions" class="font-2" v-on:click="navigate('page-4')">
-          <i class="fa fa-sliders" aria-hidden="true"></i>
+          <i class="fas fa-sliders-h"></i>
         </div>
       </div>
     </div>
@@ -98,7 +99,7 @@
     height: 100%
     width: 100%
     display: grid
-    // background: #AABCBB
+    background: #888
     grid-template-areas: "c-header c-header"  "c-body c-body" "c-footer c-footer"
 
     // NOTE: Broken on safari
@@ -115,10 +116,11 @@
     overflow: auto
     color: white
     position: relative
+    font-weight: bold
 
   .c-body
     grid-area: c-body
-    // background-color: red
+    background-color: white
 
   .c-sidebar
     grid-area: unset
@@ -126,6 +128,7 @@
     overflow: hidden
     overflow: auto
     width: 0px
+    font-weight: bold
 
     clip-path: circle(10% at 50% 50%)
     transition: clip-path 0.5s 0.5s ease
@@ -169,19 +172,19 @@
 
   // ANIMATIONS
   .c-header
-    clip-path: circle(10% at 50% 34%)
-    transition: clip-path 0.5s 0.25s ease
+    clip-path: circle(20% at 50% 34%)
+    transition: clip-path 0.5s 0.5s ease
 
   .c-sidebar
-    clip-path: circle(10% at 50% 50%)
-    transition: clip-path 0.5s 0.25s ease
+    clip-path: circle(20% at 50% 50%)
+    transition: clip-path 0.5s 0.5s ease
 
   .active
     .c-header
       clip-path: circle(100% at 50% 34%)
-      transition: clip-path 0.5s 0.25s ease
+      transition: clip-path 0.5s 0.5s ease
 
     .c-sidebar
       clip-path: circle(100% at 50% 50%)
-      transition: clip-path 0.5s 0.25s ease
+      transition: clip-path 0.5s 0.5s ease
 </style>

@@ -1,6 +1,6 @@
 <template>
   <card hcolor="blue">
-    <i slot="c-header-icon" class="fa fa-calendar fa-5x" aria-hidden="true"></i>
+    <i slot="c-header-icon" class="fa fa-calendar-plus fa-5x" aria-hidden="true"></i>
     <month-picker slot="c-body" class="flex flex-center uppercase" v-on:date-change="setDate"></month-picker>
 
     <div slot="c-body" class="flex flex-between container">
@@ -10,16 +10,28 @@
       <simple-switch slot="c-footer" class="info animated" :class="{ horizontal: isLandscape }" :active="!!selected.length">
         <div class="flex flex-center height-100" slot="up">
           <div class="flex flex-center flex-column flex-item">
-            <i class="fa fa-plane text-green" aria-hidden="true"></i>
-            VACATION: 0
+            <!-- <i class="fa fa-plane text-green" aria-hidden="true"></i> -->
+            <span>8</span>
+            <label>
+              <i class="fa fa-plane text-green" aria-hidden="true"></i>
+              VACATION
+            </label>
           </div>
           <div class="flex flex-center flex-column flex-item">
-            <i class="fa fa-heartbeat text-amber" aria-hidden="true"></i>
-            SICKNESS: 0
+            <!-- <i class="fa fa-heartbeat text-amber" aria-hidden="true"></i> -->
+            <span>2</span>
+            <label>
+              <i class="fa fa-heartbeat text-amber" aria-hidden="true"></i>
+              SICKNESS
+            </label>
           </div>
           <div class="flex flex-center flex-column flex-item">
-            <i class="fa fa-gift text-tomato" aria-hidden="true"></i>
-            HOLIDAY: 0
+            <!-- <i class="fa fa-gift text-tomato" aria-hidden="true"></i> -->
+            <span>1</span>
+            <label>
+              <i class="fa fa-gift text-tomato" aria-hidden="true"></i>
+              HOLIDAY
+            </label>
           </div>
         </div>
 
@@ -29,7 +41,6 @@
             <div>
               VACATION
             </div>
-
           </div>
           <div slot="center">
             <i class="fa fa-heartbeat"></i>
@@ -41,22 +52,25 @@
           <div slot="right">
             <i class="fa fa-gift" aria-hidden="true"></i>
             <div>
-
+              HOLIDAY
             </div>
-            HOLIDAY
           </div>
         </slider>
       </simple-switch>
-
     </div>
 
 
     <template slot="c-sidebar-title">TEXT</template>
-    <i slot="c-sidebar-icon" class="fa fa-calendar fa-5x" aria-hidden="true"></i>
+    <i slot="c-sidebar-icon" class="fa fa-calendar-plus fa-6x" aria-hidden="true"></i>
 
-    <template slot="c-footer">
-      <button>SAVE</button>
-      <button>DELETE</button>
+    <template slot="c-footer" >
+      {{ isLandscape }}
+      <button v-if="valid">SAVE</button>
+      <span v-else>
+        <i class="fas fa-info-circle"></i>
+        select absence type
+      </span>
+      <!-- <button>DELETE</button> -->
     </template>
   </card>
 </template>
@@ -85,6 +99,7 @@
         reason: null,
         selected: [],
         active: false,
+        isLandscape: window.screen.width > window.screen.height,
         // orientation: window.screen.orientation.type,
         sliderMap: [
           "vacation",
@@ -94,27 +109,30 @@
       }
     },
 
-    // created() {
-    //   window.addEventListener("orientationchange", () => {
-    //     console.log(screen.orientation.type)
-    //     this.orientation = window.screen.orientation.type
-    //   });
-    // },
-    //
-    // beforeDestroy() {
-    //   window.removeEventListener("orientationchange", () => {
-    //     console.log(screen.orientation.type)
-    //     this.orientation = window.screen.orientation.type
-    //   });
-    // },
+    created() {
+      window.addEventListener("orientationchange", () => {
+        console.log(screen.orientation.type)
+        this.isLandscape = window.screen.width > window.screen.height
+      });
+    },
+
+    beforeDestroy() {
+      window.removeEventListener("orientationchange", () => {
+        console.log(screen.orientation.type)
+        this.isLandscape = window.screen.width > window.screen.height
+      });
+    },
 
     computed: {
       ...mapState(["currentDate", "records"]),
-      isLandscape() {
-        console.log(window.screen.width)
-        return window.screen.width > 600 && (window.screen.width > window.screen.height)
-        // return this.orientation.includes('landscape')
-      }
+      valid() {
+        return this.selected.length && this.reason
+      },
+
+      // isLandscape() {
+      //   return window.screen.width > window.screen.height
+      //   // return this.orientation.includes('landscape')
+      // }
     },
 
     methods: {
@@ -155,6 +173,18 @@
       height: 10vh
       width: 100%
 
+      .flex-item
+        border-top: 0.2rem solid #eee
+        height: 100%
+
+      span
+        font-size: 2rem
+        line-height: 1.8rem
+
+      label
+        font-size: 0.6rem
+        line-height: 1rem
+
   @media screen and (orientation: landscape)
     .container
       margin: auto
@@ -167,10 +197,19 @@
       flex-direction: column
       width: 25%
 
+      span
+        font-size: 3rem
+        line-height: 3rem
+
+      label
+        font-size: 0.6rem
+        line-height: 0.6rem
+
       .flex
         height: 100%
         flex-direction: column
 
       .flex-item
         height: calc(100% / 3)
+        border-left: 1px solid #eee
 </style>
