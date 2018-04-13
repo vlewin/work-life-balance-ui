@@ -1,18 +1,10 @@
 import Vue from "vue"
 import Router from "vue-router"
-
-import Index from "@/components/Index"
-import Authentication from "@/components/Authentication"
-import Callback from "@/components/Callback"
-import Flex from "@/components/Flex"
-import CheatSheet from "@/components/CheatSheet"
 import AuthService from "../main"
-import Preview from "@/components/charts/Preview"
-import Temp from "@/components/cards/Index"
-import Circle from "@/components/cards/Circle"
-import Arc from "@/components/cards/Arc"
 
-// import CircleMenu from "@/components/cards/CircleMenu"
+import Authentication from "@/components/Authentication"
+import Index from "@/components/Index"
+import Callback from "@/components/Callback"
 
 Vue.use(Router)
 
@@ -23,13 +15,6 @@ const router = new Router({
     { path: "/login", name: "Authentication", component: Authentication, props: { initSection: "top" } },
     { path: "/logout", name: "Authentication", component: Authentication, props: { initSection: "bottom" } },
     { path: "/callback", name: "Callback", component: Callback },
-    { path: "/help", name: "Help", component: CheatSheet },
-    { path: "/playground", name: "Flex", component: Flex },
-    { path: "/preview", name: "Preview", component: Preview },
-    { path: "/temp", name: "Preview", component: Temp },
-    { path: "/circle", name: "Arc", component: Circle },
-    { path: "/arc", name: "Arc", component: Arc },
-
   ]
 })
 

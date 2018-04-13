@@ -1,19 +1,3 @@
-// export default {
-//
-//   async getDeployments({ commit, state }, { skip, limit }) {
-//       // signal to the views that we are loading data
-//    commit(types.PROCESSING_DEPLOYMENTS);
-//
-//    const results = await deployments.getDeployments(skip, limit);
-//
-//    if (results) {
-//        commit(types.RECEIVED_DEPLOYMENTS, { results, noMoreData: results.length < limit });
-//    } else {
-//        commit(types.DEPLOYMENTS_FETCH_ERRORS);
-//    }
-//  }
-// }
-
 import Record from "../services/record"
 
 export default {

@@ -1,15 +1,15 @@
 <template>
-  <div class="vertical-slider" v-bind:class="[section]">
-    <div class="vertical-slider-window">
-      <div class="slider-item top" v-on:click.stop="toggle('middle')">
+  <div id="vertical-slider">
+    <div id="vertical-slider-window" v-bind:class="[section]">
+      <div class="vertical-slider-item top">
         <slot name="top"></slot>
       </div>
-      <div class="slider-item middle" v-on:click="toggle('bottom')">
+      <div class="vertical-slider-item middle">
         <!-- <button v-on:click="toggle('top')">UP</button> -->
         <slot name="middle"></slot>
         <!-- <button v-on:click="toggle('bottom')">DOWN</button> -->
       </div>
-      <div class="slider-item bottom">
+      <div class="vertical-slider-item bottom">
       <!-- <div class="slider-item bottom" v-on:click.prevent.stop="toggle('middle')"> -->
         <slot name="bottom"></slot>
       </div>
@@ -22,8 +22,6 @@ export default {
   name: "VerticalSlider",
   data() {
     return {
-      // focused: null
-      active: false
     }
   },
 
@@ -48,51 +46,42 @@ export default {
 </script>
 
 <style scoped>
-.vertical-slider {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  height: var(--height);
-}
+  #vertical-slider {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    height: var(--height);
+    border-radius: 5px;
+    box-shadow: 0 14px 28px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.22);
+  }
 
-.vertical-slider-window {
-  transition: all 500ms;
-  /* height: 240vh; */
-  height: calc(var(--height) * 3);
-  display: flex;
-  flex-direction: column;
-  transform: translateY(0vh);
-}
+  #vertical-slider-window {
+    transition: all 500ms;
+    height: calc(var(--height) * 3);
+    display: flex;
+    flex-direction: column;
+    transform: translateY(0vh);
+  }
 
-.vertical-slider.top .vertical-slider-window {
-  transform: translateY(0);
-}
+  #vertical-slider-window.top {
+    transform: translateY(0);
+  }
 
-.vertical-slider.middle .vertical-slider-window {
-  transform: translateY(calc(var(--height) * -1));
-}
+  #vertical-slider-window.middle {
+    transform: translateY(calc(var(--height) * -1));
+  }
 
-.vertical-slider.bottom .vertical-slider-window {
-  transform: translateY(calc(var(--height) * -2));
-}
+  #vertical-slider-window.bottom {
+    transform: translateY(calc(var(--height) * -2));
+  }
 
-.vertical-slider .slider-item {
-  overflow: hidden;
-  transition: flex 0.3s;
-  height: var(--height);
-}
+  #vertical-slider .vertical-slider-item {
+    overflow: hidden;
+    transition: flex 0.3s;
+    height: var(--height);
+  }
 
-.vertical-slider .slider-item > * {
-  height: 100%;
-}
-
-/* .top {
-  background: tomato;
-}
-.middle {
-  background: #ffbf00;
-}
-.bottom {
-  background: #42b983;
-} */
+  #vertical-slider .vertical-slider-item > * {
+    height: 100%;
+  }
 </style>

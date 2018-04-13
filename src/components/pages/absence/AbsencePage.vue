@@ -7,10 +7,10 @@
       <div class="flex flex-center content">
         <calendar class="width-90" :date="currentDate" :records="records" v-on:changed="setSelected"></calendar>
       </div>
+
       <simple-switch slot="c-footer" class="info animated" :class="{ horizontal: isLandscape }" :active="!!selected.length">
         <div class="flex flex-center height-100" slot="up">
           <div class="flex flex-center flex-column flex-item">
-            <!-- <i class="fa fa-plane text-green" aria-hidden="true"></i> -->
             <span>8</span>
             <label>
               <i class="fa fa-plane text-green" aria-hidden="true"></i>
@@ -18,7 +18,6 @@
             </label>
           </div>
           <div class="flex flex-center flex-column flex-item">
-            <!-- <i class="fa fa-heartbeat text-amber" aria-hidden="true"></i> -->
             <span>2</span>
             <label>
               <i class="fa fa-heartbeat text-amber" aria-hidden="true"></i>
@@ -26,7 +25,6 @@
             </label>
           </div>
           <div class="flex flex-center flex-column flex-item">
-            <!-- <i class="fa fa-gift text-tomato" aria-hidden="true"></i> -->
             <span>1</span>
             <label>
               <i class="fa fa-gift text-tomato" aria-hidden="true"></i>
@@ -35,7 +33,7 @@
           </div>
         </div>
 
-        <slider slot="down" class="text-white" :class="{ horizontal: isLandscape }" v-on:changed="setReason">
+        <simple-slider slot="down" class="text-white" :class="{ horizontal: isLandscape }" v-on:changed="setReason">
           <div slot="left">
             <i class="fa fa-plane"></i>
             <div>
@@ -47,7 +45,6 @@
             <div>
               SICKNESS
             </div>
-
           </div>
           <div slot="right">
             <i class="fa fa-gift" aria-hidden="true"></i>
@@ -55,7 +52,7 @@
               HOLIDAY
             </div>
           </div>
-        </slider>
+        </simple-slider>
       </simple-switch>
     </div>
 
@@ -77,11 +74,12 @@
 
 <script>
   import { mapState, mapActions } from "vuex"
-  import Card from "./ResponsiveCard"
-  import MonthPicker from "./MonthPicker"
+
   import Calendar from "./Calendar"
-  import SimpleSwitch from "./SimpleSwitch"
-  import Slider from "./Slider"
+  import Card from "../../shared/ResponsiveCard"
+  import MonthPicker from "../../shared/MonthPicker"
+  import SimpleSwitch from "../../shared/SimpleSwitch"
+  import SimpleSlider from "../../shared/SimpleSlider"
 
   export default {
     name: "AbsenceCard",
@@ -90,7 +88,7 @@
       MonthPicker,
       Calendar,
       SimpleSwitch,
-      Slider
+      SimpleSlider
     },
 
     data() {

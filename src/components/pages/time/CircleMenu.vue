@@ -15,27 +15,27 @@
     <ul class="menu" :class="{ open: open }">
       <li class="one">
         <a href="#">
-          <span class="icon" v-on:click="emit('start')">{{ form.start }}</span>
+          <span class="text" v-on:click="emit('start')">{{ form.start }}</span>
         </a>
       </li>
       <li class="two">
         <a href="#">
-          <span class="icon" v-on:click="emit('pause')">{{ form.pause }}</span>
+          <span class="text" v-on:click="emit('pause')">{{ form.pause }}</span>
         </a>
       </li>
       <li class="three">
         <a href="#">
-          <span class="icon" v-on:click="emit('finish')">{{ form.finish }}</span>
+          <span class="text" v-on:click="emit('finish')">{{ form.finish }}</span>
         </a>
       </li>
       <li class="four">
         <a href="#">
-          <span class="icon"></span>
+          <span class="text"></span>
         </a>
       </li>
       <li class="five">
         <a href="#">
-          <span class="icon">****</span>
+          <span class="text">****</span>
         </a>
       </li>
       <li class="six">
@@ -122,10 +122,6 @@
 <style lang="scss">
   $base: #A5E2F3;
 
-  .hidden {
-    display: none;
-  }
-
   #circle-menu.loading {
     .circle {
       transform: scale(1.5);
@@ -149,10 +145,9 @@
   #circle-menu {
     border-radius: 100%;
 
-
     .circle {
       position: absolute;
-      top: 20%;
+      // top: 20%;
       left: 0;
       right: 0;
       margin-left: auto;
@@ -161,24 +156,17 @@
       background: #fff;
       border: 0.75rem solid #eee;
       border-radius: 50%;
-      width: 8rem;
-      height: 8rem;
-      // line-height: 4rem;
+      // width: 8rem;
+      // height: 8rem;
       text-align: center;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: space-around;
-
-
-
     }
-
-
   }
 
   h2, h3 {
-    // height: 50%;
     small {
       font-size: 50%;
     }
@@ -208,15 +196,6 @@
     color: #fff;
     transform: scale(1.0);
     transition: transform .25s ease;
-
-    /* -webkit-transition: all 3s ease; */
-
-    // transform: scale(0.8);
-    /* -webkit-transition: all 3s ease; */
-    // transition: all 3s ease;
-    // animation: 1s linear 0s 0s alternate scale;
-
-    // animation: 1s linear 0s infinite alternate rotate;
   }
 
   .menu {
@@ -228,28 +207,14 @@
     transition: transform 0.5s ease;
   }
 
-  // @media all and (max-width: 320px) {
-  //   .menu {
-  //     width: 230px;
-  //     height: 230px;
-  //     padding: 0;
-  //   }
-  // }
-
-  // @media all and (min-width: 40em) {
-  //   .menu {
-  //     transform: scale(1.4);
-  //   }
-  // }
-
   .menu li {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    // transition: all 1s ease;
     clip-path: url(#sector);
+
     /* try this one in Chrome/Opera/Safari */
     // clip-path: polygon(50% 50%, 100% 50%, 75% 6.6%);
     // clip-path: inset(10px 20px 30px 40px);
@@ -266,71 +231,44 @@
   }
 
   .one {
-    background-color: $base;
     transform: rotate(-120deg);
     background-color: darken($base, 20%);
   }
+
   .two {
     background-color: darken($base, 10%);
     transform: rotate(-60deg);
   }
+
   .three {
     background-color: darken($base, 20%);
     transform: rotate(0deg);
   }
+
   .four {
-    // border: 1px solid darken($base, 10%);
-    // background-color: darken($base, 40%);
     background-color: darken($base, 10%);
     transform: rotate(-180deg);
   }
+
   .five {
-    // background-color: darken($base, 40%);
-    // background-color: darken($base, 28%);
     background-color: darken($base, 10%);
     transform: rotate(-240deg);
   }
-  .six {
 
-    // background-color: darken($base, 40%);
-    // background-color: darken($base, 35%);
+  .six {
     background-color: darken($base, 10%);
     transform: rotate(-300deg);
-
-
-    // transform: rotate(-240deg);
-
   }
 
-  .icon {
+  .text {
     position: absolute;
-    /* exact values here depend on what you are placing inside the items (icon, image, text, etc.) */
     right: 4%;
     top: 25%;
-    /* make sure it it rotated enough; angle of rotation = angle of the sector itself */
     transform: rotate(60deg);
-
-    /* style further as needed */
-    color: darken($base, 60%);
-    // font-family: Indie Flower;
     font-size: 1.4rem;
     color: #fff;
-
-
     height: 2rem;
     width: 4rem;
-
-  }
-
-  .five .icon {
-    // right: 10%;
-    // transform: rotate(240deg);
-  }
-
-  p {
-    text-align: center;
-    width: 80%;
-    margin: 0 auto;
   }
 
   @keyframes scale {
@@ -338,24 +276,24 @@
     to { transform: scale(0.5) }
   }
 
-  // @media screen and (orientation: portrait) {
-
-
-  @media screen and (max-width: 50em) and (orientation: landscape) {
+  @media screen and (orientation: portrait) {
     .menu {
-      // width: 18rem;
-      // padding-top: 18rem;
+      width: 18rem;
+      padding-top: 18rem;
     }
-
-    // #circle-menu {
-    //   border: 5px solid darken($base, 40%);
-    //   width: 16rem;
-    //   height: 16rem;
-    // }
 
     #circle-menu {
       .circle {
-        top: 20%;
+        width: 10rem;
+        height: 10rem;
+      }
+    }
+  }
+
+
+  @media screen and (max-width: 50em) and (orientation: landscape) {
+    #circle-menu {
+      .circle {
         width: 8rem;
         height: 8rem;
       }
@@ -364,50 +302,35 @@
 
   @media screen and (min-width: 50em) {
     .menu {
-      width: 16rem;
-      padding-top: 16rem;
+      width: 20rem;
+      padding-top: 20rem;
     }
 
     #circle-menu {
-      // border: 5px solid darken($base, 40%);
-      // width: 16rem;
-      // height: 16rem;
-
       .circle {
         top: unset;
-        width: 9rem;
-        height: 9rem;
+        width: 11rem;
+        height: 11rem;
       }
     }
-
-
   }
 
-  // .loading {
-  //   animation: pulsate 1s ease-out;
-  //   animation-iteration-count: infinite;
-  // }
-
   @keyframes spin {
-      from {transform:rotate(0deg);}
-      to {transform:rotate(360deg);}
+    from {transform:rotate(0deg);}
+    to {transform:rotate(360deg);}
   }
 
   @keyframes pulsate {
-      0% {
-        transform: scale(.1);
-        opacity: 0.0;
-      }
-      50% {
-        opacity: 1;
-      }
-      100% {
-        transform: scale(1.2);
-        opacity: 0;
-      }
+    0% {
+      transform: scale(.1);
+      opacity: 0.0;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1.2);
+      opacity: 0;
+    }
   }
-
-
-
-
 </style>

@@ -1,21 +1,21 @@
 <template>
   <div>
-    <vertical-slider class="green" :section="currentSection">
+    <vertical-slider class="blue" :section="currentSection">
       <div slot="top" class="flex flex-center flex-column">
         <!-- <h1 class="text-white">READY</h1> -->
         <template v-if="online">
-          <i class="fa fa-clock-o fa-10x text-white" aria-hidden="true"></i>
+          <i class="far fa-clock fa-10x text-white" aria-hidden="true"></i>
           <h2 class="text-white">Record you time</h2>
         </template>
         <template v-else>
-          <i class="fa fa-exclamation-circle fa-10x text-white" aria-hidden="true"></i>
+          <i class="far fa-exclamation-circle fa-10x text-white" aria-hidden="true"></i>
           <h2 class="text-white">You are offline.</h2>
         </template>
       </div>
 
       <div slot="middle" class="flex flex-center flex-column">
         <!-- <h1 class="text-white">STEADY</h1> -->
-        <i class="fa fa-calendar-check-o fa-10x text-white" aria-hidden="true"></i>
+        <i class="far fa-calendar-check fa-10x text-white" aria-hidden="true"></i>
         <h2 class="text-white">Track your absence</h2>
       </div>
 
@@ -60,7 +60,7 @@
           <small>Enjoy Your Work And Your Life!</small>
         </h1>
         <p class="">
-          <i class="fa fa-balance-scale fa-10x" aria-hidden="true"></i>
+          <i class="fas fa-balance-scale fa-10x" aria-hidden="true"></i>
         </p>
 
         <br />
@@ -162,6 +162,14 @@ export default {
 
   i.fa-balance-scale
     color: #46608F
+
+  .btn-large
+    font-weight: bold
+    font-size: 1em
+    padding: 0 4em
+    height: 6em
+    line-height: 6em
+
 
   .background-animation
     background: #fff

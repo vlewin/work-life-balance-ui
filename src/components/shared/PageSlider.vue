@@ -21,7 +21,7 @@
 
 <script>
 export default {
-  name: "Pager",
+  name: "PageSlider",
   data() {
     return {
       open: null,
@@ -59,9 +59,9 @@ export default {
     height: 100%;
     overflow: hidden;
     display: flex;
-    transition: transform 0.5s ease-in-out;
-    transition: transform 0.5s ease;
-    /* transition: transform 500ms cubic-bezier(0.8, 0, 0.2, 1); */
+    transition: transform 0.3s ease-in-out;
+    transition: transform 0.3s ease;
+    transition: transform 500ms cubic-bezier(0.8, 0, 0.2, 1);
   }
 
   .window.page-1 {
@@ -78,8 +78,6 @@ export default {
 
   .window.page-3 {
     transform: translateX(calc(-100% / 1.5));
-    /* transition: transform 500ms cubic-bezier(0.8, 0, 0.2, 1); */
-    /* transform: translate3d(calc(-100% / 1.5), 0px, 0px); */
   }
 
   .page {
@@ -90,4 +88,16 @@ export default {
     background: #fff;
     transform: translateZ(0);
   }
+
+  @media (min-width: 50em) {
+    .wrapper {
+      border-radius: 5px;
+      box-shadow: 0 14px 28px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.22);
+    }
+
+    .window.page-2 {
+      transform: translateX(calc(-100% / 3 + 0px));
+    }
+  }
+
 </style>

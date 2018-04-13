@@ -4,7 +4,7 @@
       <slot name="c-header-icon">ICON</slot>
       <slot name="c-header-title">&nbsp;</slot>
 
-      <div class="flex flex-center width-100 height-15">
+      <div class="flex flex-center width-100 height-10">
         <!-- <slot name="c-header-actions">HEADER</slot> -->
 
         <div slot="c-header-actions" class="font-2" v-on:click="navigate('page-1')">
@@ -27,11 +27,12 @@
     </div>
 
     <div class="c-sidebar flex flex-between flex-column" :class="[hcolor]">
-      <div class="flex flex-center v-height-15">
+      <!-- FIXME: Fix title height -->
+      <div class="c-sidebar-title flex flex-center v-height-15">
         <slot name="c-sidebar-title">TITLE</slot>
       </div>
 
-      <div class="flex flex-center flex-column height-70">
+      <div class="flex flex-center flex-column">
         <slot name="c-sidebar-icon">ICON</slot>
       </div>
 
@@ -66,14 +67,9 @@
 
 <script>
   import { mapState, mapGetters, mapActions } from "vuex"
-  import VerticalSlider from './VerticalSlider'
 
   export default {
     name: "ResponsiveCard",
-    components: {
-      VerticalSlider
-    },
-
     props: {
       hcolor: {
         type: String,
@@ -82,8 +78,7 @@
     },
 
     computed: {
-      ...mapGetters(["currentFomatedDate", "currentWeekNumber", "currentRecord"]),
-      ...mapState(["page"])
+      ...mapState([""])
     },
 
     methods: {
@@ -136,10 +131,7 @@
 
 
   .c-footer
-    // border-top: 0.1rem solid black
-    // border-bottom: 0.1rem dotted #ccc
     grid-area: c-footer
-    // background-color: white
     z-index: 100
 
     button
@@ -151,9 +143,6 @@
       border: none
       outline: none
       color: inherit
-
-      // color: white
-      // color: #222
 
   @media (min-width: 40em)
     .c-responsive

@@ -2,8 +2,37 @@
 @import '_animations'
 @import '_colors'
 @import '_font'
-@import '_actions'
-@import '_desktop'
-@import '_media'
 
-@import "components/_components.sass"
+@import url('https://fonts.googleapis.com/css?family=Oxygen:300,400,500,700')
+
+html, body
+	outline: 0
+	padding: 0
+	margin: 0
+
+body
+  width: 100vw
+  height: 100vh
+  font-family: 'Oxygen', Helvetica, Arial, sans-serif
+  display: flex
+  justify-content: center
+  align-items: center
+
+  -webkit-font-smoothing: antialiased
+  -moz-osx-font-smoothing: grayscale
+
+  color: #34495e
+  background: linear-gradient(-45deg, #9121E8, #23A6D5, #98C2C2, #23D5AB)
+  background-size: 400% 400%
+  animation: Gradient 15s ease infinite
+
+#app
+  display: grid
+  justify-content: center
+  grid-template-rows: 0vh 100vh
+  grid-template-columns: 100vw
+  grid-template-areas: "header" "content"
+
+// .main
+//   background: #fff
+//   grid-area: content

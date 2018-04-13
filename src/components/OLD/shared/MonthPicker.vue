@@ -1,15 +1,13 @@
 <template>
-  <ul class="month-picker">
+  <ul class="month-picker opacity-90">
     <li class="arrow" v-on:click="prevMonth">
-      <!-- &laquo; -->
-      <i class="fa fa-chevron-left" aria-hidden="true"></i>
+      &laquo;
     </li>
     <li>
       {{ month }} ({{ year}})
     </li>
     <li class="arrow" v-on:click="nextMonth">
-      <!-- &raquo; -->
-      <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      &raquo;
     </li>
   </ul>
 </template>
@@ -64,28 +62,25 @@ export default {
     width: 100%
     height: 100%
     font-weight: bold
-    background: white
-    height: 10vh
-    background: #fafafa
+    background: $green
+    color: #fff
 
   li
     cursor: pointer
     list-style: none
+    height: 2rem
+    line-height: 2rem
     text-align: center
+    border-radius: 50%
     vertical-align: middle
     transition: color 0.2s, background 1s
-    // background: rgba(0,0,0,0.1)
-
-    height: 2.5em
-    min-width: 2.5em
-    line-height: 2.5em
-    text-align: center
+    /*background: rgba(0,0,0,0.1);
 
   .arrow
+    width: 2rem
+    height: 2rem
+    font-size: 1.4rem
+    line-height: 2rem
     &:hover
       background: rgba(255, 255, 255, 0.1)
-
-  @media screen and (max-width: 50em) and (orientation: landscape)
-    ul
-      height: 15vh
 </style>

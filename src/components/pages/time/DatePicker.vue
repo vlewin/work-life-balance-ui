@@ -19,7 +19,7 @@
 // FIXME: Check bundle size
 import holiday from "german-holiday"
 import { isWeekend, addHours } from "date-fns"
-import { weekNumber, weekStartDay, weekDaysRange, isHappy, isHoliday } from "../../helpers/date"
+import { weekNumber, weekStartDay, weekDaysRange, isHappy, isHoliday } from "@/helpers/date"
 import { mapGetters, mapState } from "vuex"
 
 export default {
@@ -49,6 +49,7 @@ export default {
   computed: {
     ...mapGetters(["currentWeekNumber", "currentFomatedDate", "currentRecord"]),
     ...mapState(["currentDate", "records"]),
+
     dates() {
       return this.week.map(date => {
         let formattedDate = date.toLocaleDateString()

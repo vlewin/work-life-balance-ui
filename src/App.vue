@@ -1,173 +1,119 @@
 <template>
   <div id="app">
-    <!-- <div class="header" v-on:dblclick="toggleFullScreen">
-      <div class="header-left">
-        <h1 class="day">{{ day }}</h1>
-        <div class="date">
-          <span>{{ month }} {{ year }}</span>
-          <span>{{ weekday }}</span>
-        </div>
-      </div>
-      <div class="header-right">
-        <div class="time">
-          {{ now.hh }}
-          <span class="blink">:</span>
-          {{ now.mm }}
-          &nbsp;
-          <i v-if="authenticated()" class="fa fa-sign-out" v-on:click="logout"></i>
-        </div>
-      </div>
-    </div> -->
     <router-view class="content"></router-view>
   </div>
 </template>
 
 <script>
-import AuthService from "./main"
+  import AuthService from "./main"
 
-export default {
-  name: "App",
-  data() {
-    return {
-      date: new Date(),
-      time: new Date()
-    }
-  },
-
-  mounted() {
-    setTimeout(function () {
-      window.scrollTo(0, 1)
-    }, 1000)
-
-    window.addEventListener("online", () => {
-      console.log("online")
-      this.$store.dispatch("online", navigator.onLine)
-    })
-    window.addEventListener("offline", () => {
-      console.log("offline")
-      this.$store.dispatch("online", navigator.onLine)
-    })
-  },
-
-  computed: {
-    now() {
+  export default {
+    name: "App",
+    data() {
       return {
-        hh: this.time
-          .getHours()
-          .toString()
-          .padStart(2, "0"),
-        mm: this.time
-          .getMinutes()
-          .toString()
-          .padStart(2, "0")
       }
     },
 
-    selected() {
-      return this.$store.state.currentDate
-    },
+    mounted() {
+      setTimeout(function () {
+        window.scrollTo(0, 1)
+      }, 1000)
 
-    day() {
-      return new Date(this.selected)
-        .getDate()
-        .toString()
-        .padStart(2, "0")
-    },
+      window.addEventListener("online", () => {
+        console.log("online")
+        this.$store.dispatch("online", navigator.onLine)
+      })
 
-    weekday() {
-      return new Date(this.selected).toLocaleString("en-US", {
-        weekday: "long"
+      window.addEventListener("offline", () => {
+        console.log("offline")
+        this.$store.dispatch("online", navigator.onLine)
       })
     },
 
-    month() {
-      return new Date(this.selected).toLocaleString("en-US", { month: "long" })
+    created() {
+      document.body.webkitRequestFullScreen()
+
+      // setInterval(() => {
+      //   this.time = new Date()
+      // }, 1000)
     },
 
-    year() {
-      return new Date(this.selected).getFullYear()
-    }
-  },
+    methods: {
+      // FIXME: Move to store getters
+      // authenticated() {
+      //   return AuthService.isAuthenticated()
+      // },
+      //
+      // logout() {
+      //   AuthService.logout()
+      // },
 
-  created() {
-    document.body.webkitRequestFullScreen()
-    // window.history.go(-1);
-    // var metaViewport = document.querySelector("meta[name=viewport]");
-    // metaViewport.setAttribute("width", "380");
-    setInterval(() => {
-      this.time = new Date()
-    }, 1000)
-  },
+      toggleFullScreen() {
+        var doc = window.document
+        var docEl = doc.documentElement
 
-  methods: {
-    // FIXME: Move to store getters
-    authenticated() {
-      return AuthService.isAuthenticated()
-    },
+        var requestFullScreen =
+          docEl.requestFullscreen ||
+          docEl.mozRequestFullScreen ||
+          docEl.webkitRequestFullScreen ||
+          docEl.msRequestFullscreen
+        var cancelFullScreen =
+          doc.exitFullscreen || doc.mozCancelFullScreen || doc.webkitExitFullscreen || doc.msExitFullscreen
 
-    logout() {
-      AuthService.logout()
-    },
-
-    toggleFullScreen() {
-      var doc = window.document
-      var docEl = doc.documentElement
-
-      var requestFullScreen =
-        docEl.requestFullscreen ||
-        docEl.mozRequestFullScreen ||
-        docEl.webkitRequestFullScreen ||
-        docEl.msRequestFullscreen
-      var cancelFullScreen =
-        doc.exitFullscreen || doc.mozCancelFullScreen || doc.webkitExitFullscreen || doc.msExitFullscreen
-
-      if (
-        !doc.fullscreenElement &&
-        !doc.mozFullScreenElement &&
-        !doc.webkitFullscreenElement &&
-        !doc.msFullscreenElement
-      ) {
-        requestFullScreen.call(docEl)
-      } else {
-        cancelFullScreen.call(doc)
+        if (
+          !doc.fullscreenElement &&
+          !doc.mozFullScreenElement &&
+          !doc.webkitFullscreenElement &&
+          !doc.msFullscreenElement
+        ) {
+          requestFullScreen.call(docEl)
+        } else {
+          cancelFullScreen.call(doc)
+        }
       }
     }
   }
-}
 </script>
 
 <style lang="sass" scoped>
-  i.fa-times-circle
-    margin-right: 0.2em
-
-  .fade-enter-active, .fade-leave-active
-    transition-property: opacity
-    transition-duration: 0.25s
-
-  .fade-enter-active
-    transition-delay: 0.25s
+  @media (min-width: 20em)
+    #app
+      grid-template-rows: 100vh
+      grid-template-columns: 100vw
 
 
-  .fade-enter, .fade-leave-active
-    opacity: 0
+  @media (min-width: 30em)
+    /* smartphones, Android phones, landscape iPhone
+    #app
+      grid-template-columns: 90vw
 
-  .fade-enter-active, .fade-leave-active
-    transition: opacity .5s ease
+  @media (min-width: 40em)
+    /* portrait tablets, portrait iPad, e-readers (Nook/Kindle), landscape 800x480 phones (Android)
+    #app
+      grid-template-rows: 80vh
+      grid-template-columns: 90vw
 
-  .fade-enter, .fade-leave-active
-    opacity: 0
+  @media (min-width: 40em) and (orientation: landscape)
+    #app
+      grid-template-rows: 100vh
+      grid-template-columns: 100vw
 
-  .child-view
-    position: absolute
-    transition: all 0.5s cubic-bezier(0.55, 0, 0.1, 1)
+  @media (min-width: 50em)
+    /* tablet, landscape iPad, lo-res laptops ands desktops
+    #app
+      grid-template-rows: 80vh
+      grid-template-columns: 80vw
 
-  .slide-left-enter, .slide-right-leave-active
-    opacity: 0
-    -webkit-transform: translate(30px, 0)
-    transform: translate(30px, 0)
+  @media (min-width: 64em)
+    /* big landscape tablets, laptops, and desktops
+    #app
+      grid-template-rows: 80vh
+      grid-template-columns: 60vw
 
-  .slide-left-leave-active, .slide-right-enter
-    opacity: 0
-    -webkit-transform: translate(-30px, 0)
-    transform: translate(-30px, 0)
+  @media (min-width: 80em)
+    /* hi-res laptops and desktops
+    #app
+      grid-template-rows: 80vh
+      grid-template-columns: 60vw
+
 </style>

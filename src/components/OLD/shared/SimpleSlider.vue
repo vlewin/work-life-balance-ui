@@ -1,9 +1,7 @@
 <template>
   <div class="wrapper">
     <div class="simple-slider" v-bind:class="{ active: active }">
-      <slot name="left"></slot>
       <slot name="up"></slot>
-      <slot name="right"></slot>
       <slot name="down"></slot>
     </div>
   </div>
@@ -33,17 +31,19 @@ export default {
 
 <style lang="sass" scoped>
   .wrapper
-    // width: 100%
-    // height: 100%
-    // background: #fff
+    width: 100%
+    height: 100%
+    background: #fff
     overflow: hidden
 
   .simple-slider
-    width: 100%!important
+    width: 100%
     height: 200%
     overflow: hidden
     display: flex
     flex-direction: column
+    // transition: transform 0.5s ease-in-out
+    // transition: transform .5s ease
     transition: transform 0.75s, opacity 0.75s ease-in-out
     will-change: transform, opacity
 

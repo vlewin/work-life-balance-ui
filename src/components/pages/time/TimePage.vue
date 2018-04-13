@@ -11,27 +11,10 @@
 
     <date-picker slot="c-body" class="flex flex-center"></date-picker>
 
-    <!-- <div slot="c-body" class="height-100 flex-body"> -->
     <div slot="c-body" class="flex flex-center height-100 container">
       <div class="flex flex-center content">
         <circle-menu class="flex flex-center relative" :form="form" :duration="duration" v-on:open="openPicker"></circle-menu>
       </div>
-
-        <!-- <div class="flex flex-center info v-height-10">
-        <div>
-          <i class="fa fa-gift" aria-hidden="true"></i>
-          Holidays: 0
-        </div>
-        <div>
-          <i class="fa fa-heartbeat" aria-hidden="true"></i>
-          Sickness: 0
-        </div>
-        <div>
-          <i class="fa fa-plane" aria-hidden="true"></i>
-          Vacation: 0
-        </div>
-      </div> -->
-
     </div>
 
     <template slot="c-sidebar-title">
@@ -41,45 +24,39 @@
     <i slot="c-sidebar-icon" class="fa fa-clock fa-6x" aria-hidden="true"></i>
 
     <simple-switch slot="c-footer" class="horizontal animated" :active="picker.open">
-      <button class="text-white" slot="up" v-on:click="save">
-        {{ isRecorded? 'UPDATE' : 'SAVE'}}
-      </button>
+      <simple-switch slot="up" class="vertical animated" :active="loading">
+        <button class="text-white" slot="up" v-on:click="save">
+          {{ isRecorded? 'UPDATE' : 'SAVE'}}
+        </button>
+        <button class="text-white" slot="down" disabled>PLEASE WAIT...</button>
+      </simple-switch>
       <button class="text-white" slot="down" :class="{ active: picker.open }" v-on:click="closePicker">CLOSE</button>
     </simple-switch>
-
-    <!-- <template slot="c-footer">
-      <button>SAVE</button>
-      <button v-on:click="timePicker=!timePicker">CANCEL</button>
-    </template> -->
   </card>
 </template>
 
 <script>
   import { mapState, mapGetters, mapActions } from "vuex"
-  import Card from "./ResponsiveCard"
   import DatePicker from "./DatePicker"
-  import Gauge from "./Gauge"
+  import TimePicker from "./TimePicker"
   import CircleMenu from "./CircleMenu"
 
-  // import HappyMeter from "./HappyMeter"
-  import TimePicker from "./TimePicker"
-  import SimpleSlider from "./SimpleSlider"
-  import SimpleSwitch from "./SimpleSwitch"
+  import Card from "../../shared/ResponsiveCard"
+  import SimpleSwitch from "../../shared/SimpleSwitch"
 
   import differenceInMinutes from "date-fns/difference_in_minutes"
   import format from "date-fns/format"
   import addHours from "date-fns/add_hours"
   import differenceInHours from "date-fns/difference_in_hours"
   import isSameDay from "date-fns/is_same_day"
-  import { timeToNumber, timeToDateTime, dateTimeToTime } from "./helpers/date"
 
+  import { timeToNumber, timeToDateTime, dateTimeToTime } from "../../helpers/date"
 
   export default {
     name: "TimeCard",
     components: {
       Card,
       DatePicker,
-      Gauge,
       CircleMenu,
       TimePicker,
       SimpleSwitch
@@ -153,14 +130,6 @@
       ...mapGetters(["currentFomatedDate", "currentWeekNumber", "currentRecord"]),
       ...mapState(["fetching", "loading", "currentDate", "records", "page"]),
 
-      mood() {
-        if (this.isRecorded) {
-          return isHappy(this.duration) ? "good" : "bad"
-        } else {
-          return "neutral"
-        }
-      },
-
       isRecorded() {
         return !!this.currentRecord
       },
@@ -212,8 +181,7 @@
             date: this.currentFomatedDate,
             week: this.currentWeekNumber,
             start: dateTimeToTime(new Date()),
-            pause: "00:30",
-            mood: this.mood
+            pause: "00:30"
           }
           this.calculateEnd()
         }
@@ -226,6 +194,7 @@
           const diff = 8 + timeToNumber(this.form.pause)
           const start = timeToDateTime(this.currentDate, this.form.start)
           const finish = format(addHours(start, diff))
+
           console.log(start, finish)
           if (isSameDay(start, finish)) {
             this.form.finish = format(addHours(start, diff), "HH:mm")
@@ -281,10 +250,6 @@
 </script>
 
 <style lang="sass" scoped>
-
-
-  // @media screen and (min-height: 40em) and (orientation:landscape)
-
   button
     font-weight: bold
     width: 100%
@@ -293,8 +258,6 @@
     background: transparent
     border: none
     outline: none
-    // color: white
-    // color: #222
 
 
   @media screen and (max-height: 40em) and (orientation:landscape)
@@ -308,7 +271,6 @@
         height: auto
 
         div
-          // height: 50%
           display: flex
           justify-content: center
           align-items: center
@@ -344,7 +306,6 @@
   @media screen and (orientation: landscape)
     .pane
       width: 70%
-      // height: 85%
 
     &.open
       transform: translateY(0%)
@@ -368,6 +329,4 @@
     width: 5rem
     border: 0.5rem solid #ccc
     border-radius: 50%
-
-
 </style>

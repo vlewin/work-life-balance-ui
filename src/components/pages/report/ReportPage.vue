@@ -43,12 +43,12 @@
 
 <script>
   import { mapState, mapGetters, mapActions } from "vuex"
-  import Card from "./ResponsiveCard"
-  import MonthPicker from "./MonthPicker"
-  import BarChart from "../charts/BarChart"
+  import BarChart from "./BarChart"
+  import Card from "../../shared/ResponsiveCard"
+  import MonthPicker from "../../shared/MonthPicker"
 
   export default {
-    name: "Index",
+    name: "ReportPage",
     components: {
       Card,
       MonthPicker,
