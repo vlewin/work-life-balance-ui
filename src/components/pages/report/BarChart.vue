@@ -1,14 +1,17 @@
 <template>
   <!-- <div class="svg-container"> -->
     <!-- {{ viewBox }} -->
-    <svg :viewBox="viewBox" preserveAspectRatio="none">
-      <g transform="scale(1,-1) translate(10,-100)">
+    <svg :viewBox="viewBox">
+    <!-- <svg :viewBox="viewBox" preserveAspectRatio="none"> -->
+
+      <g transform="scale(1,-1) translate(10,-400)">
         <g class="bar" v-for="d, i in data" :key="i">
-          <rect class="background" :x="i*40" y="0" fill="white" height="100" :width="width" ></rect>
-          <rect class="value" :x="i*40" y="0" :width="width" >
-            <animate attributeName="height" from="0" :to="d*10" dur="0.5s" fill="freeze" />
+          <rect class="background" :x="i*40" y="0" fill="white" height="400" :width="width" ></rect>
+          <rect class="value" :x="i*40" y="0" :width="width" :class="{ over: d > 8, under: d < 8 }">
+            <animate attributeName="height" from="0" :to="d*50" dur="0.5s" fill="freeze" />
           </rect>
-          <text :x="i*40" transform="scale(1,-1) translate(10,-10)">{{ d }}</text>
+          <circle :cx="i*40+9" cy="-40" stroke="#00acc1" stroke-width="0" stroke-linecap="round" fill="none" r="18" />
+          <text :x="i*40" y="-40" transform="scale(1,-1) translate(10,82)">{{ d }}</text>
         </g>
       </g>
     </svg>
@@ -17,15 +20,14 @@
 
 <script>
   // https://codepen.io/PointC/pen/pydXLG
-  import { TweenMax, Sine } from 'gsap'
   import { mapState, mapActions } from "vuex"
 
   export default {
     data() {
       return {
-        // data: [6.5, 8, 9, 8.5, 7, 0, 0, 6.5, 8, 9, 8.5, 7, 0, 0, 6.5, 8, 9, 8.5, 7, 0, 0],
+        data: [8.5, 8, 7.5, 8.5, 7, 0, 0, 6.5, 8, 8, 8.5, 7, 0, 0, 6.5, 8, 8, 8, 8, 0, 0, 6.5, 8, 9.5, 8.5, 7, 0, 0],
         // data: [6.5, 8, 9, 8.5, 7, 0, 0, 6.5, 8, 9, 8.5, 7, 0, 0],
-        data: [6.5, 8, 9, 8.5, 7, 0, 0],
+        // data: [6.5, 8, 9, 8.5, 7, 0, 0],
 
         chartHeight: 0,
         barValue: 5,
@@ -42,7 +44,7 @@
 
     computed: {
       viewBox() {
-        return `0 0 ${this.view} 100`
+        return `0 0 ${this.view} 400`
       },
 
       view() {
@@ -61,29 +63,6 @@
       ]),
 
       x(i) { return i*40+38 },
-      startScissors() {
-        this.scissorAnim(this.$refs.rightscissor, 30)
-        // this.scissorAnim(this.$refs.leftscissor, -30)
-      },
-      scissorAnim(el, rot) {
-        console.log(el)
-        // TweenMax.to(el, 1, { x:-100 , opacity:0 , ease:Power1.easeInOut ,repeat:-1  });
-
-        TweenMax.to(el, 1, {
-            scale: 1.6,
-            repeat: 3,
-            z: 2 /* add this slight z-axis shift */
-        })
-
-        // TweenMax.to(el, 0.25, {
-        //   rotation: rot,
-        //   repeat: 3,
-        //   yoyo: true,
-        //   svgOrigin: '50 45',
-        //   ease: Sine.easeInOut
-        // })
-      }
-
     }
   }
 </script>
@@ -95,11 +74,12 @@
     width: auto;
     height: auto;
     overflow: visible;
+    width: 90%;
   }
 
   .svg-container {
     background-color: #fff;
-    height: 80%;
+    /* height: 80%; */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -107,9 +87,10 @@
   }
 
   text {
-    font-size: 50%;
+    font-size: 130%;
     font-weight: bold;
     fill: #fff;
+    fill: #444;
     text-anchor: middle;
     alignment-baseline: middle;
   }
@@ -132,13 +113,21 @@
     ry: 0.2em; */
   }
 
+  .over {
+    fill: #FFBF00;
+  }
+
+  .under {
+    fill: #FFBF00;
+  }
+
   .fill {
     fill: orange;
     z-index: 1;
   }
 
   circle {
-    fill: orange;
+    fill: #fafafa;
   }
 
   .round {
@@ -148,23 +137,3 @@
     ry: 10em;
   }
 </style>
-
-// <style lang="sass" scoped>
-// @media (min-width: 20em)
-//   svg
-//     width: 100%
-//     height: 50%
-//     border: 2px solid red
-//
-// @media (min-width: 40em)
-//   svg
-//     width: 100%
-//     height: 80%
-//     border: 2px solid yellow
-//
-// @media (min-width: 60em)
-//   svg
-//     width: 100%
-//     height: 80%
-//     border: 2px solid green
-// </style>
