@@ -36,9 +36,7 @@
         <slot name="c-sidebar-icon">ICON</slot>
       </div>
 
-      <div class="flex flex-center height-15">
-        <!-- <slot name="c-sidebar-actions">ACTIONS</slot> -->
-
+      <div class="c-sidebar-actions flex flex-center height-15">
         <div slot="c-header-actions" class="font-2" v-on:click="navigate('page-1')">
           <i class="fas fa-chart-pie"></i>
         </div>
@@ -55,7 +53,8 @@
     </div>
 
 
-    <div class="c-footer flex flex-center text-white" :class="[hcolor]">
+    <!-- <div class="c-footer flex flex-center text-white" :class="[hcolor]"> -->
+    <div class="c-footer flex flex-center text-white">
       <slot name="c-footer"></slot>
     </div>
   </div>
@@ -89,12 +88,14 @@
 
 <style lang="sass" scoped>
   @import '~@/assets/_variables.sass'
+  $base: #3C537A
 
   .c-responsive
     height: 100%
     width: 100%
     display: grid
-    background: #888
+    background: $grey
+
     grid-template-areas: "c-header c-header"  "c-body c-body" "c-footer c-footer"
 
     // NOTE: Broken on safari
@@ -106,12 +107,20 @@
     grid-template-rows: 30% 60% 10%
 
 
+  .c-header, .c-sidebar
+    background-color: darken($base, 10%)
+
+  .c-sidebar-actions, .c-footer
+    background-color: lighten($base, 5%)
+
   .c-header
     grid-area: c-header
     overflow: auto
     color: white
     position: relative
     font-weight: bold
+
+    // background: $base
 
   .c-body
     grid-area: c-body
@@ -129,6 +138,11 @@
     transition: clip-path 0.5s 0.5s ease
     z-index: 1
 
+    // background: $base
+
+
+  // .c-sidebar-actions
+  //   background-color: darken($base, 10%)
 
   .c-footer
     grid-area: c-footer
@@ -144,7 +158,7 @@
       outline: none
       color: inherit
 
-  @media (min-width: 40em)
+  @media (min-width: 30em)
     .c-responsive
       grid-template-areas: "c-header c-header"  "c-body c-sidebar" "c-footer c-sidebar"
       grid-template-columns: auto 30%

@@ -1,6 +1,6 @@
 <template>
   <div id="circle-menu" :class="{ loading: fetching }">
-    <div class="circle" v-on:click="toggleLoading">
+    <div id="inside" v-on:click="toggleLoading">
       <h3 class="hidden">LOADING ...</h3>
       <h2 class="no-margin">
         {{ duration }}
@@ -12,7 +12,7 @@
       </h3>
     </div>
 
-    <ul class="menu" :class="{ open: open }">
+    <ul id="outside" :class="{ open: open }">
       <li class="one">
         <a href="#">
           <span class="text" v-on:click="emit('start')">{{ form.start }}</span>
@@ -120,114 +120,111 @@
 </script>
 
 <style lang="scss">
-  $base: #A5E2F3;
+  $base: #3C537A;
 
   #circle-menu.loading {
-    .circle {
+    #inside {
       transform: scale(1.5);
+
+      .hidden {
+        display: inline;
+      }
 
       :not(.hidden) {
         display: none;
       }
     }
 
-    .menu {
+    #outside {
       transform: rotate(270deg);
       animation: spin 1s ease-out;
       animation-iteration-count: infinite;
-    }
 
-    .hidden {
-      display: inline;
+      .one, .three, .five {
+        background-color: darken($base, 20%);
+      }
+
+      .two, .four, .six {
+        background-color: lighten($base, 20%);
+      }
     }
   }
 
   #circle-menu {
     border-radius: 100%;
 
-    .circle {
+    #inside {
       position: absolute;
-      // top: 20%;
       left: 0;
       right: 0;
       margin-left: auto;
       margin-right: auto;
       z-index: 99;
       background: #fff;
-      border: 0.75rem solid #eee;
+      border: 0.5rem solid #eee;
       border-radius: 50%;
-      // width: 8rem;
-      // height: 8rem;
       text-align: center;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: space-around;
+
+      h2, h3 {
+        small {
+          font-size: 50%;
+        }
+
+        label {
+          font-size: 50%;
+          display: block;
+        }
+      }
+
+      h2 {
+        font-size: 2.3rem;
+      }
+
+      h3 {
+        color: grey;
+      }
     }
   }
 
-  h2, h3 {
-    small {
-      font-size: 50%;
-    }
 
-    label {
-      font-size: 50%;
-      display: block;
-    }
-  }
 
-  h2 {
-    font-size: 2.3rem;
-  }
-
-  h3 {
-    color: grey;
-  }
-
-  .menu {
+  #outside {
     padding: 0;
     height: 0;
     list-style: none;
     position: relative;
     margin: auto;
-    width: calc(16rem - 0.4rem);
-    padding-top: calc(16rem - 0.4rem);
     color: #fff;
-    transform: scale(1.0);
     transition: transform .25s ease;
-  }
-
-  .menu {
     transform: scale(0.5);
-  }
 
-  .menu.open {
-    transform: scale(1.0);
-    transition: transform 0.5s ease;
-  }
-
-  .menu li {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    clip-path: url(#sector);
-
-    /* try this one in Chrome/Opera/Safari */
-    // clip-path: polygon(50% 50%, 100% 50%, 75% 6.6%);
-    // clip-path: inset(10px 20px 30px 40px);
-
-    a {
-      display: block;
-      width: 100%;
-      height: 100%;
+    &.open {
+      transform: scale(1.0);
+      transition: transform 0.5s ease;
     }
 
-    &:hover {
-      background-color: #FFBF00;
-    }
+    li {
+       position: absolute;
+       top: 0;
+       left: 0;
+       width: 100%;
+       height: 100%;
+       clip-path: url(#sector);
+
+       a {
+         display: block;
+         width: 100%;
+         height: 100%;
+       }
+
+       &:hover {
+         background-color: #FFBF00;
+       }
+     }
   }
 
   .one {
@@ -236,7 +233,7 @@
   }
 
   .two {
-    background-color: darken($base, 10%);
+    background-color: darken($base, 20%);
     transform: rotate(-60deg);
   }
 
@@ -261,31 +258,41 @@
   }
 
   .text {
-    position: absolute;
-    right: 4%;
-    top: 25%;
-    transform: rotate(60deg);
-    font-size: 1.4rem;
-    color: #fff;
-    height: 2rem;
-    width: 4rem;
-  }
+    // position: absolute;
+    // top: 25%;
+    // right: 6%;
+    // transform: rotate(60deg);
+    // font-size: 1.6rem;
+    // color: #fff;
+    // height: 2rem;
+    // width: 4rem;
 
-  @keyframes scale {
-    from { transform: rotate(0deg), scale(0.75); }
-    to { transform: scale(0.5) }
+    position: absolute;
+    top: 20%;
+    right: 6%;
+    -webkit-transform: rotate(60deg);
+    transform: rotate(60deg);
+    font-size: 1.6rem;
+    color: #fff;
+    height: 5rem;
+    width: 6rem;
   }
 
   @media screen and (orientation: portrait) {
-    .menu {
-      width: 18rem;
-      padding-top: 18rem;
-    }
-
     #circle-menu {
-      .circle {
-        width: 10rem;
-        height: 10rem;
+      #outside {
+        width: 16rem;
+        padding-top: 16rem;
+
+        .text {
+          top: 19%;
+          right: 4%;
+        }
+      }
+
+      #inside {
+        width: 9rem;
+        height: 9rem;
       }
     }
   }
@@ -293,44 +300,40 @@
 
   @media screen and (max-width: 50em) and (orientation: landscape) {
     #circle-menu {
-      .circle {
-        width: 8rem;
-        height: 8rem;
+      #outside {
+        width: calc(13.4rem);
+        padding-top: calc(13.4rem);
+
+        .text {
+          top: 18%;
+          right: 4%;
+        }
+      }
+
+      #inside {
+        width: 6.8rem;
+        height: 6.8rem;
       }
     }
   }
 
   @media screen and (min-width: 50em) {
-    .menu {
-      width: 20rem;
-      padding-top: 20rem;
-    }
-
     #circle-menu {
-      .circle {
+      #outside {
+        width: 20rem;
+        padding-top: 20rem;
+
+        .text {
+          top: 22%;
+          right: 7%;
+        }
+      }
+
+      #inside {
         top: unset;
         width: 11rem;
         height: 11rem;
       }
-    }
-  }
-
-  @keyframes spin {
-    from {transform:rotate(0deg);}
-    to {transform:rotate(360deg);}
-  }
-
-  @keyframes pulsate {
-    0% {
-      transform: scale(.1);
-      opacity: 0.0;
-    }
-    50% {
-      opacity: 1;
-    }
-    100% {
-      transform: scale(1.2);
-      opacity: 0;
     }
   }
 </style>

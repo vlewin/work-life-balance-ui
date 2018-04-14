@@ -2,7 +2,6 @@
   <div>
     <vertical-slider class="blue" :section="currentSection">
       <div slot="top" class="flex flex-center flex-column">
-        <!-- <h1 class="text-white">READY</h1> -->
         <template v-if="online">
           <i class="far fa-clock fa-10x text-white" aria-hidden="true"></i>
           <h2 class="text-white">Record you time</h2>
@@ -14,30 +13,20 @@
       </div>
 
       <div slot="middle" class="flex flex-center flex-column">
-        <!-- <h1 class="text-white">STEADY</h1> -->
         <i class="far fa-calendar-check fa-10x text-white" aria-hidden="true"></i>
         <h2 class="text-white">Track your absence</h2>
       </div>
 
       <div slot="bottom" class="flex flex-center flex-column background-animation">
-        <!-- <div class="cloud"></div> -->
-        <!-- <div class="cloud small"></div> -->
-        <!-- <div class="cloud big"></div> -->
+        <!-- <div class="cloud"></div>
+        <div class="cloud small"></div>
+        <div class="cloud big"></div> -->
 
         <svg id="moon" viewBox="0 0 200 200" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
           <g>
-            <filter
-   inkscape:collect="always"
-   id="filter4412"
-   x="-0.24474119"
-   width="1.4894824"
-   y="-0.22916524"
-   height="1.4583305">
-  <feGaussianBlur
-     inkscape:collect="always"
-     stdDeviation="8.2730041"
-     id="feGaussianBlur4414" />
-</filter>
+            <filter inkscape:collect="always" id="filter4412" x="-0.24474119" width="1.4894824" y="-0.22916524" height="1.4583305">
+              <feGaussianBlur inkscape:collect="always" stdDeviation="8.2730041" id="feGaussianBlur4414" />
+            </filter>
             <path
              style="opacity:0.57009343;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3;marker:none;visibility:visible;display:inline;overflow:visible;filter:url(#filter4412);enable-background:accumulate"
              d="M 181.40625,40.53125 C 181.30935,40.55157 181.21474,40.5831 181.125,40.625 C 165.09026,47.541608 153.875,63.505237 153.875,82.0625 C 153.875,106.95605 174.0752,127.15625 198.96875,127.15625 C 213.5285,127.15625 226.50545,120.24847 234.75,109.53125 C 235.09027,109.08215 235.08598,108.40389 234.74,107.95913 C 234.39407,107.51437 233.73774,107.34325 233.2187,107.5625 C 228.05915,109.78751 222.38569,111.03125 216.4062,111.03125 C 192.90797,111.03125 173.87495,91.998229 173.87495,68.5 C 173.87495,58.750115 177.14651,49.762523 182.6562,42.59375 C 183.29318,41.774557 182.42716,40.345627 181.4062,40.53125 L 181.40625,40.53125 z"
@@ -54,22 +43,24 @@
                id="path4315" />
           </g>
         </svg>
+
         <h1 class="text-white center">
           WORK-LIFE-BALANCE
           <br />
           <small>Enjoy Your Work And Your Life!</small>
         </h1>
-        <p class="">
+
+        <div id="login-container" class="flex flex-center">
           <i class="fas fa-balance-scale fa-10x" aria-hidden="true"></i>
-        </p>
 
-        <br />
-        <!-- <button v-on:click="slideUp">3</button>
-        <button v-on:click="slideMiddle">2</button> -->
+          <br />
+          <!-- <button v-on:click="slideUp">3</button>
+          <button v-on:click="slideMiddle">2</button> -->
 
-        <button class="btn-large text-white" v-on:click="login">
-          SIGN IN
-        </button>
+          <button class="btn-large text-white" v-on:click="login">
+            SIGN IN
+          </button>
+        </div>
       </div>
 
     </vertical-slider>
@@ -245,6 +236,18 @@ export default {
 
 
       // transform: translate(40vw, 10vh)
+
+  @media screen and (orientation: portrait)
+    #login-container
+      flex-direction: column
+
+  @media screen and (orientation: landscape)
+    #login-container
+      flex-direction: row
+
+      i.fa-balance-scale
+        display: none
+
 
   .cloud
     position: absolute

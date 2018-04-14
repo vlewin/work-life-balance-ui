@@ -82,10 +82,10 @@
       grid-template-columns: 100vw
 
 
-  @media (min-width: 30em)
-    /* smartphones, Android phones, landscape iPhone
-    #app
-      grid-template-columns: 90vw
+  // @media (min-width: 30em)
+  //   /* smartphones, Android phones, landscape iPhone
+  //   #app
+  //     grid-template-columns: 90vw
 
   @media (min-width: 40em)
     /* portrait tablets, portrait iPad, e-readers (Nook/Kindle), landscape 800x480 phones (Android)

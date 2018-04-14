@@ -20,7 +20,7 @@
     "deploy": "yarn run build; serverless s3deploy -v"
   },
   "dependencies": {
-    "auth0-js": "^9.3.0",
+    "auth0-js": "9.3.0",
     "axios": "^0.18.0",
     "calendator": "^2.1.0",
     "german-holiday": "^1.2.0",

@@ -19,7 +19,23 @@
    transform: translateY(5px)
 
 .bounce
- animation: bounce 2s infinite
+  animation: bounce 2s infinite
+
+
+@keyframes pulsate
+  0%
+    transform: scale(.1)
+    opacity: 0.0
+
+  50%
+    opacity: 1
+
+  100%
+    transform: scale(1.2)
+    opacity: 0
+
+.bounce
+  animation: pulsate 2s infinite
 
 @keyframes Gradient
 	0%
@@ -30,6 +46,15 @@
 
 	100%
 		background-position: 0% 50%
+
+@keyframes scale
+  from
+    transform: rotate(0deg), scale(0.75)
+  to
+    transform: scale(0.5)
+
+.scale
+  animation: scale 2s infinite
 
 // _animations
 [class^="blink"]

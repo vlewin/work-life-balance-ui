@@ -79,8 +79,8 @@ const createWindow = () => {
     window.webContents.openDevTools();
   } else {
     window = new BrowserWindow({
-      width: 360,
-      height: 600,
+      width: 568,
+      height: 320,
       show: true,
       frame: false,
       fullscreenable: false,
@@ -100,6 +100,8 @@ const createWindow = () => {
   // const indexFile = path.join(__dirname, "../dist/index.html");
   // window.loadURL(`file://${indexFile}`);
   window.loadURL('https://d2r9gzfrckd05h.cloudfront.net/login')
+  window.loadURL('http://localhost:8080')
+
 
   // Hide the window when it loses focus
   window.on("blur", () => {

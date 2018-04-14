@@ -61,9 +61,9 @@
     <i slot="c-sidebar-icon" class="fa fa-calendar-plus fa-6x" aria-hidden="true"></i>
 
     <template slot="c-footer" >
-      {{ isLandscape }}
+      <!-- {{ isLandscape }} -->
       <button v-if="valid">SAVE</button>
-      <span v-else>
+      <span class="uppercase" v-else>
         <i class="fas fa-info-circle"></i>
         select absence type
       </span>
