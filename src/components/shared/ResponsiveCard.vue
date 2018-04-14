@@ -107,11 +107,11 @@
     grid-template-rows: 30% 60% 10%
 
 
-  .c-header, .c-sidebar
+  .c-header, .c-sidebar, .c-sidebar-actions
     background-color: darken($base, 10%)
 
-  .c-sidebar-actions, .c-footer
-    background-color: lighten($base, 5%)
+  .c-footer
+    background-color: darken($base, 5%)
 
   .c-header
     grid-area: c-header
@@ -119,6 +119,10 @@
     color: white
     position: relative
     font-weight: bold
+
+    i
+      padding-top: 0.2rem
+
 
     // background: $base
 
