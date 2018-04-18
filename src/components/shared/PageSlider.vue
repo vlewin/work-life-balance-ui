@@ -59,21 +59,15 @@ export default {
     height: 100%;
     overflow: hidden;
     display: flex;
-    transition: transform 0.3s ease-in-out;
-    transition: transform 0.3s ease;
-    transition: transform 500ms cubic-bezier(0.8, 0, 0.2, 1);
+    transition: transform 300ms cubic-bezier(0.8, 0, 0.2, 1);
   }
 
   .window.page-1 {
     transform: translateX(0);
-    /* transition: transform 500ms cubic-bezier(0.8, 0, 0.2, 1); */
-    /* transform: translate3d(0%, 0px, 0px); */
   }
 
   .window.page-2 {
     transform: translateX(calc(-100% / 3));
-    /* transition: transform 500ms cubic-bezier(0.8, 0, 0.2, 1); */
-    /* transform: translate3d(calc(-100% / 3), 0px, 0px); */
   }
 
   .window.page-3 {
@@ -86,7 +80,7 @@ export default {
     justify-content: center;
     align-items: center;
     background: #fff;
-    transform: translateZ(0);
+    will-change: transform;
   }
 
   @media (min-width: 50em) {

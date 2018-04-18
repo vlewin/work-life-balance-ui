@@ -137,7 +137,7 @@
     width: 0px
     font-weight: bold
 
-    clip-path: circle(10% at 50% 50%)
+    clip-path: circle(5% at 50% 50%)
     transition: clip-path 0.5s 0.5s ease
     z-index: 1
 
@@ -183,24 +183,6 @@
       .c-sidebar-actions
         height: 10vh
 
-  // ANIMATIONS
-  .c-header
-    clip-path: circle(20% at 50% 34%)
-    transition: clip-path 0.5s 0.5s ease
-
-  .c-sidebar
-    clip-path: circle(20% at 50% 50%)
-    transition: clip-path 0.5s 0.5s ease
-
-  .active
-    .c-header
-      clip-path: circle(100% at 50% 34%)
-      transition: clip-path 0.5s 0.5s ease
-
-    .c-sidebar
-      clip-path: circle(100% at 50% 50%)
-      transition: clip-path 0.5s 0.5s ease
-
   @media screen and (max-height: 40em) and (orientation: landscape)
     .c-responsive
       grid-template-rows: 0 1fr 15vh
@@ -211,4 +193,23 @@
       .c-sidebar-actions
         height: 15vh
 
+  // ANIMATIONS
+  // .c-header
+  //   clip-path: circle(20% at 50% 34%)
+  //   transition: clip-path 0.5s 0.5s ease
+  //
+  // .c-sidebar
+  //   clip-path: circle(20% at 50% 50%)
+  //   transition: clip-path 0.5s 0.5s ease
+
+  .active
+    .c-header
+      clip-path: circle(100% at 50% 34%)
+      transition: clip-path 0.75s 0.5s ease
+      will-change: clip-path
+
+    .c-sidebar
+      clip-path: circle(100% at 50% 50%)
+      transition: clip-path 0.75s 0.5s ease
+      will-change: clip-path
 </style>
