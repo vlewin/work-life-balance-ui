@@ -5,6 +5,7 @@ plugins:
 
 provider:
   name: aws
+  profile: vlewin
   stage: development
   region: eu-central-1
   iamRoleStatements:
@@ -14,7 +15,8 @@ provider:
       Resource: "arn:aws:s3:::${self:service}/*"
 
 custom:
-  bucketName: vue-work-life-balance
+  stage: "${opt:stage, self:provider.stage}"
+  bucketName: "vue-work-life-balance-${self:custom.stage}"
   assets:
      - bucket: ${self:custom.bucketName}
        files:
@@ -23,7 +25,7 @@ custom:
 
 resources:
   Resources:
-    S3BucketUiKit:
+    S3WorkLifeBalanceBucket:
       Type: AWS::S3::Bucket
       Properties:
         AccessControl: PublicRead
@@ -31,3 +33,9 @@ resources:
         WebsiteConfiguration:
           IndexDocument: index.html
           ErrorDocument: error.html
+
+  Outputs:
+    S3WorkLifeBalanceBucketOutput:
+      Description : "S3 Website Bucket URL"
+      Value:
+        Fn::GetAtt: [S3WorkLifeBalanceBucket, DomainName]
