@@ -21,7 +21,8 @@ export default {
   },
 
   mounted() {
-    AuthService.handleAuthentication()
+    console.log('Handle auth in callback')
+    AuthService.handleCallback()
   },
 
   computed: {},

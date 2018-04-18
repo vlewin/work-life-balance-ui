@@ -20,7 +20,7 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   console.log("beforeEach", to, from)
-  if (to.matched.some(record => record.meta.requiresAuth)) {
+  if (to.meta.requiresAuth) {
     if (AuthService.isAuthenticated()) {
       console.log("Authenticated")
       next()
@@ -28,13 +28,12 @@ router.beforeEach((to, from, next) => {
       console.log("Not authenticated")
       next({ path: "/login" })
     }
-  } else {
-    console.log("??? Unknown route", to)
-    // FIXME:  Workaround for vue-router hash mode
-    // if (window.location.href.includes("access_token")) {
-    //   AuthService.handleAuthentication()
-    // }
+  }
+
+  if (to.matched.length) {
     next()
+  } else {
+    next({ path: "/login" })
   }
 })
 

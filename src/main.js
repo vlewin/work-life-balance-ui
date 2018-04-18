@@ -19,7 +19,7 @@ import "./assets/application.sass"
 //
 // export default auth
 import AuthenticationService from "./services/authentication"
-const AuthService = new AuthenticationService()
+const AuthService = new AuthenticationService({ router: router })
 export default AuthService
 
 Vue.config.productionTip = process.env.VUE_PRODUCTION_TIP === "true"

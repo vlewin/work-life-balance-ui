@@ -27,8 +27,7 @@
     </div>
 
     <div class="c-sidebar flex flex-between flex-column" :class="[hcolor]">
-      <!-- FIXME: Fix title height -->
-      <div class="c-sidebar-title flex flex-center v-height-15">
+      <div class="c-sidebar-title flex flex-center">
         <slot name="c-sidebar-title">TITLE</slot>
       </div>
 
@@ -104,7 +103,7 @@
 
     // NOTE: Works on safari
     grid-template-columns: 100%
-    grid-template-rows: 30% 60% 10%
+    grid-template-rows: 30vh 60vh 10vh
 
 
   .c-header, .c-sidebar, .c-sidebar-actions
@@ -142,9 +141,6 @@
     transition: clip-path 0.5s 0.5s ease
     z-index: 1
 
-    // background: $base
-
-
   // .c-sidebar-actions
   //   background-color: darken($base, 10%)
 
@@ -162,11 +158,15 @@
       outline: none
       color: inherit
 
-  @media (min-width: 30em)
+  @media screen and (orientation: portrait)
+    .c-sidebar-title
+      height: 10vh
+
+  @media screen and (orientation: landscape)
     .c-responsive
       grid-template-areas: "c-header c-header"  "c-body c-sidebar" "c-footer c-sidebar"
       grid-template-columns: auto 30%
-      grid-template-rows: 0 1fr 15%
+      grid-template-rows: 0 1fr 10vh
 
       .c-header
 
@@ -176,6 +176,12 @@
       .c-sidebar
         grid-area: c-sidebar
         width: 100%
+
+      .c-sidebar-title
+        height: 10vh
+
+      .c-sidebar-actions
+        height: 10vh
 
   // ANIMATIONS
   .c-header
@@ -194,4 +200,15 @@
     .c-sidebar
       clip-path: circle(100% at 50% 50%)
       transition: clip-path 0.5s 0.5s ease
+
+  @media screen and (max-height: 40em) and (orientation: landscape)
+    .c-responsive
+      grid-template-rows: 0 1fr 15vh
+
+      .c-sidebar-title
+        height: 15vh
+
+      .c-sidebar-actions
+        height: 15vh
+
 </style>

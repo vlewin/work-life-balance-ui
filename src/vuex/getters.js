@@ -13,11 +13,13 @@ export default {
   },
 
   currentWeekNumber(state) {
-    getISOWeek()
-    const date = new Date(state.currentDate)
-    console.log(date)
-    return getISOWeek(date)
+    return getISOWeek(new Date(state.currentDate))
   },
+
+  currentMonthNumber(state) {
+    return new Date(state.currentDate).getMonth() + 1
+  },
+
 
   currentRecord(state) {
     return state.records[state.currentDate.toLocaleDateString("de-DE")]

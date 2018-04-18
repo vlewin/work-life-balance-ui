@@ -274,19 +274,19 @@
     transform: rotate(60deg);
     font-size: 1.6rem;
     color: #fff;
-    height: 5rem;
+    height: 2rem;
     width: 6rem;
   }
 
   @media screen and (orientation: portrait) {
     #circle-menu {
       #outside {
-        width: 16rem;
-        padding-top: 16rem;
+        width: 18rem;
+        padding-top: 18rem;
 
         .text {
-          top: 19%;
-          right: 4%;
+          top: 25%;
+          right: 0%;
         }
       }
 
@@ -301,12 +301,12 @@
   @media screen and (max-width: 50em) and (orientation: landscape) {
     #circle-menu {
       #outside {
-        width: calc(13.4rem);
-        padding-top: calc(13.4rem);
+        width: 13.9rem;
+        padding-top: 13.9rem;
 
         .text {
-          top: 18%;
-          right: 4%;
+          top: 24%;
+          right: -4%;
         }
       }
 
@@ -324,8 +324,8 @@
         padding-top: 20rem;
 
         .text {
-          top: 22%;
-          right: 7%;
+          top: 26%;
+          right: 2%;
         }
       }
 

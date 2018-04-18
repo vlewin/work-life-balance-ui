@@ -11,7 +11,7 @@
 
     <date-picker slot="c-body" class="flex flex-center"></date-picker>
 
-    <div slot="c-body" class="flex flex-center height-100 container">
+    <div slot="c-body" class="flex flex-center height-80 container">
       <div class="flex flex-center content">
         <circle-menu class="flex flex-center relative" :form="form" :duration="duration" v-on:open="openPicker"></circle-menu>
       </div>
@@ -127,7 +127,7 @@
     },
 
     computed: {
-      ...mapGetters(["currentFomatedDate", "currentWeekNumber", "currentRecord"]),
+      ...mapGetters(["currentFomatedDate", "currentWeekNumber", "currentMonthNumber", "currentRecord"]),
       ...mapState(["fetching", "loading", "currentDate", "records", "page"]),
 
       isRecorded() {
@@ -179,6 +179,7 @@
 
           this.form = {
             date: this.currentFomatedDate,
+            month: this.currentMonthNumber,
             week: this.currentWeekNumber,
             start: dateTimeToTime(new Date()),
             pause: "00:30"

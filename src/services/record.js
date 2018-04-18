@@ -26,6 +26,7 @@ export default class Record {
   }
 
   static all(params = {}) {
+    params['user_id'] = 'github|611466'
     return axios.get(this.endpoint, { params: params })
   }
 
@@ -34,6 +35,8 @@ export default class Record {
   }
 
   static save(record) {
+    record['user_id'] = 'github|611466'
+
     return axios.post(this.endpoint, record)
   }
 
