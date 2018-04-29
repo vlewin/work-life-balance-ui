@@ -1,4 +1,5 @@
 import Vue from "vue"
+import axios from "axios"
 import App from "./App.vue"
 import store from "./vuex/store"
 import router from "./router"
@@ -21,6 +22,21 @@ import "./assets/application.sass"
 import AuthenticationService from "./services/authentication"
 const AuthService = new AuthenticationService({ router: router })
 export default AuthService
+
+axios.interceptors.request.use(function (config) {
+  // Do something before request is sent
+  config.headers = {'Authorization': sessionStorage.access_token }
+
+  return config
+}, function (error) {
+  // Do something with request error
+  return Promise.reject(error)
+})
+
+
+Object.defineProperty(Vue.prototype, '$auth', { value: AuthService })
+Object.defineProperty(Vue.prototype, '$http', { value: axios })
+
 
 Vue.config.productionTip = process.env.VUE_PRODUCTION_TIP === "true"
 

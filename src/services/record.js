@@ -22,11 +22,12 @@ import axios from "axios"
 
 export default class Record {
   static get endpoint() {
-    return "https://6jq5tvia8d.execute-api.eu-central-1.amazonaws.com/development/records"
+    // return "https://6jq5tvia8d.execute-api.eu-central-1.amazonaws.com/development/records"
+    return "http://localhost:3000/records"
+
   }
 
   static all(params = {}) {
-    params['user_id'] = 'github|611466'
     return axios.get(this.endpoint, { params: params })
   }
 
@@ -35,8 +36,7 @@ export default class Record {
   }
 
   static save(record) {
-    record['user_id'] = 'github|611466'
-
+    console.log('POST', record)
     return axios.post(this.endpoint, record)
   }
 
