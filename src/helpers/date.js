@@ -29,6 +29,15 @@ export function weekDaysRange(date = new Date()) {
   return eachDay(startOfISOWeek(date), endOfISOWeek(date)).map(d => addHours(d, 1))
 }
 
+import startOfMonth from 'date-fns/start_of_month'
+import endOfMonth from 'date-fns/end_of_month'
+import setMonth from 'date-fns/set_month'
+
+export function monthRange(month) {
+  const date = setMonth(new Date(), month - 1)
+  return eachDay(startOfMonth(date), endOfMonth(date))
+}
+
 export function isHappy(duration) {
   return duration >= 8 && duration <= 9
 }
@@ -63,6 +72,11 @@ export function roundTo(d = new Date(), minutes = 5) {
   let ms = 1000 * 60 * minutes // convert minutes to ms
   let roundedDate = new Date(Math.round(d.getTime() / ms) * ms)
   return roundedDate
+}
+
+export function parseDate(date) {
+  const dmy = date.split(".")
+  return new Date(dmy[2], dmy[1] - 1, dmy[0])
 }
 
 export function dateTimeToDate(datetime, dateFormat = "DD.MM.YYYY") {

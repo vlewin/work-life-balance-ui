@@ -5,7 +5,16 @@
 
     <month-picker slot="c-body" class="flex flex-center uppercase" v-on:date-change="setDate"></month-picker>
 
-    <bar-chart class="height-50" slot="c-body" :data="values"></bar-chart>
+    <h1 v-if="fetching" slot="c-body" class="flex flex-center height-50">
+      LOADING...
+    </h1>
+
+    <h1 v-else-if="!fetching && !Object.keys(records).length" slot="c-body" class="flex flex-center height-50">
+      NO DATA
+    </h1>
+
+    <bar-chart v-else class="height-50" slot="c-body" :values="values"></bar-chart>
+
 
     <div slot="c-body" class="flex flex-center v-height-10">
       <div>
@@ -46,6 +55,8 @@
   import BarChart from "./BarChart"
   import Card from "../../shared/ResponsiveCard"
   import MonthPicker from "../../shared/MonthPicker"
+  import Record from "../../../services/record"
+  import { monthRange } from "../../../helpers/date"
 
   export default {
     name: "ReportPage",
@@ -60,25 +71,45 @@
     },
 
     computed: {
-      ...mapGetters(["currentWeekNumber"]),
-      ...mapState(["page", "records"]),
+      ...mapGetters(["currentMonthNumber"]),
+      ...mapState(["page", "fetching", "records"]),
 
-      data() {
-        console.log(this.records)
-        return Object.values(this.records).filter((record) => {
-          return record.week === this.currentWeekNumber;
-        })
-      },
+      // data() {
+      //   // debugger
+      //   const dates = Object.keys(this.records)
+      //   return monthRange(this.currentMonthNumber).map((date) => {
+      //     if(dates.includes(date.toLocaleDateString())) {
+      //       return { duration: this.records[date.toLocaleDateString()].duration }
+      //     } else {
+      //       return { duration: 0 }
+      //     }
+      //   })
+      // },
+
+      // values() {
+      //   return this.data.map((value) => value.duration)
+      // }
 
       values() {
-        return this.data.map((value) => value.duration)
+        const dates = Object.keys(this.records)
+        return monthRange(this.currentMonthNumber).map((date) => {
+          if(dates.includes(date.toLocaleDateString())) {
+            return this.records[date.toLocaleDateString()]
+          } else {
+            return { date: date.toLocaleDateString(), duration: 0 }
+          }
+        })
       }
     },
 
     methods: {
       ...mapActions(["navigate"]),
-      setDate(date) {
-        this.$store.dispatch("setCurrentDate", date)
+
+
+
+      async setDate(date) {
+        await this.$store.dispatch("setCurrentDate", date)
+        await this.$store.dispatch("fetchMonthRecords", this.currentMonthNumber)
       }
     }
   }

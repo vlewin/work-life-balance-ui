@@ -62,7 +62,7 @@
 
     <template slot="c-footer" >
       <!-- {{ isLandscape }} -->
-      <button v-if="valid">SAVE</button>
+      <button v-if="valid" v-on:click="save">SAVE</button>
       <span class="uppercase" v-else>
         <i class="fas fa-info-circle"></i>
         select absence type
@@ -111,14 +111,14 @@
       window.addEventListener("orientationchange", () => {
         console.log(screen.orientation.type)
         this.isLandscape = window.screen.width > window.screen.height
-      });
+      })
     },
 
     beforeDestroy() {
       window.removeEventListener("orientationchange", () => {
         console.log(screen.orientation.type)
         this.isLandscape = window.screen.width > window.screen.height
-      });
+      })
     },
 
     computed: {
@@ -151,6 +151,10 @@
         console.log(index)
         console.log(index, this.sliderMap[index])
         this.reason = this.sliderMap[index]
+      },
+
+      save() {
+        console.log(this.selected, this.reason)
       }
     }
   }

@@ -3,7 +3,7 @@
     <div id="inside" v-on:click="toggleLoading">
       <h3 class="hidden">LOADING ...</h3>
       <h2 class="no-margin">
-        {{ duration }}
+        {{ aduration.value }}
         <label>hours</label>
       </h2>
       <h3 class="no-margin">
@@ -90,12 +90,20 @@
     watch: {
       currentFomatedDate(oldVal, val) {
         this.toggle()
-      }
+      },
+
+      // duration() {
+      //   TweenLite.to(this.aduration, 1, { value:"+=0.1", onUpdate: () => { console.log(this.aduration )} })
+      // }
     },
 
     computed: {
       ...mapGetters(["currentFomatedDate"]),
       ...mapState(["fetching"]),
+
+      aduration() {
+        return { value: this.duration }
+      },
     },
 
     methods: {
@@ -125,6 +133,7 @@
   #circle-menu.loading {
     #inside {
       transform: scale(1.5);
+      transition: transform .25s ease;
 
       .hidden {
         display: inline;
@@ -168,6 +177,8 @@
       flex-direction: column;
       align-items: center;
       justify-content: space-around;
+      transition: transform 2s 0.5s ease;
+      box-shadow: inset 0 0 1em #1a2436;
 
       h2, h3 {
         small {
@@ -181,7 +192,7 @@
       }
 
       h2 {
-        font-size: 2.3rem;
+        font-size: 2.2rem;
       }
 
       h3 {
@@ -281,18 +292,23 @@
   @media screen and (orientation: portrait) {
     #circle-menu {
       #outside {
-        width: 18rem;
-        padding-top: 18rem;
+        width: 16.4rem;
+        padding-top: 16.4rem;
 
         .text {
-          top: 25%;
+          top: 20%;
           right: 0%;
+
+          line-height: 3rem;
+          color: #fff;
+          height: 5rem;
+          width: 7rem;
         }
       }
 
       #inside {
-        width: 9rem;
-        height: 9rem;
+        width: 8.4rem;
+        height: 8.4rem;
       }
     }
   }
@@ -301,18 +317,21 @@
   @media screen and (max-width: 50em) and (orientation: landscape) {
     #circle-menu {
       #outside {
-        width: 13.9rem;
-        padding-top: 13.9rem;
+        width: 14rem;
+        padding-top: 14rem;
 
         .text {
-          top: 24%;
-          right: -4%;
+          font-size: 1rem;
+          line-height: 0.6rem;
+          color: #fff;
+          height: 5rem;
+          width: 7rem;
         }
       }
 
       #inside {
-        width: 6.8rem;
-        height: 6.8rem;
+        width: 7.2rem;
+        height: 7.2rem;
       }
     }
   }

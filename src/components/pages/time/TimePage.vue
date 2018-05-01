@@ -11,10 +11,11 @@
 
     <date-picker slot="c-body" class="flex flex-center"></date-picker>
 
-    <div slot="c-body" class="flex flex-center height-80 container">
+    <div slot="c-body" class="flex flex-center container">
+      <circle-menu class="flex flex-center relative" :form="form" :duration="duration" v-on:open="openPicker"></circle-menu>
+<!--
       <div class="flex flex-center content">
-        <circle-menu class="flex flex-center relative" :form="form" :duration="duration" v-on:open="openPicker"></circle-menu>
-      </div>
+      </div> -->
     </div>
 
     <template slot="c-sidebar-title">
@@ -50,7 +51,7 @@
   import differenceInHours from "date-fns/difference_in_hours"
   import isSameDay from "date-fns/is_same_day"
 
-  import { timeToNumber, timeToDateTime, dateTimeToTime } from "../../helpers/date"
+  import { timeToNumber, timeToDateTime, dateTimeToTime } from "../../../helpers/date"
 
   export default {
     name: "TimeCard",
@@ -260,12 +261,14 @@
     border: none
     outline: none
 
+  .container
+    margin: auto
+
 
   @media screen and (max-height: 40em) and (orientation:landscape)
     .container
       display: flex
       justify-content: space-around
-      margin: auto
 
       .info
         flex-direction: column
