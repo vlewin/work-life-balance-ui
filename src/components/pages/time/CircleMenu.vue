@@ -3,7 +3,7 @@
     <div id="inside" v-on:click="toggleLoading">
       <h3 class="hidden">LOADING ...</h3>
       <h2 class="no-margin">
-        {{ aduration.value }}
+        {{ form.duration }}
         <label>hours</label>
       </h2>
       <h3 class="no-margin">
@@ -35,10 +35,8 @@
 
     <svg height="0" width="0">
       <defs>
-        <clipPath clipPathUnits="objectBoundingBox" id="sector">
-          <!-- <circle></circle> -->
+        <clipPath id="sector" clipPathUnits="objectBoundingBox">
           <path fill="none" stroke="#111" stroke-width="1" class="sector" d="M0.5,0.5 l0.5,0 A0.5,0.5 0 0,0 0.75,.066987298 z"></path>
-          <!-- <path fill="none" stroke="#111" stroke-width="1" class="big-sector" d="M0.5,0.5 l0.5,0 A0.5,0.5 0 0,0 0.75,.066987298 z"></path> -->
         </clipPath>
       </defs>
     </svg>
@@ -76,22 +74,14 @@
     },
 
     watch: {
-      currentFomatedDate(oldVal, val) {
+      currentFomatedDate() {
         this.toggle()
-      },
-
-      // duration() {
-      //   TweenLite.to(this.aduration, 1, { value:"+=0.1", onUpdate: () => { console.log(this.aduration )} })
-      // }
+      }
     },
 
     computed: {
       ...mapGetters(["currentFomatedDate"]),
       ...mapState(["fetching"]),
-
-      aduration() {
-        return { value: this.duration }
-      },
     },
 
     methods: {

@@ -5,15 +5,8 @@
 </template>
 
 <script>
-  import AuthService from "./main"
-
   export default {
     name: "App",
-    data() {
-      return {
-      }
-    },
-
     mounted() {
       setTimeout(function () {
         window.scrollTo(0, 1)
@@ -28,49 +21,6 @@
         console.log("offline")
         this.$store.dispatch("online", navigator.onLine)
       })
-    },
-
-    created() {
-      document.body.webkitRequestFullScreen()
-
-      // setInterval(() => {
-      //   this.time = new Date()
-      // }, 1000)
-    },
-
-    methods: {
-      // FIXME: Move to store getters
-      // authenticated() {
-      //   return AuthService.isAuthenticated()
-      // },
-      //
-      // logout() {
-      //   AuthService.logout()
-      // },
-
-      toggleFullScreen() {
-        var doc = window.document
-        var docEl = doc.documentElement
-
-        var requestFullScreen =
-          docEl.requestFullscreen ||
-          docEl.mozRequestFullScreen ||
-          docEl.webkitRequestFullScreen ||
-          docEl.msRequestFullscreen
-        var cancelFullScreen =
-          doc.exitFullscreen || doc.mozCancelFullScreen || doc.webkitExitFullscreen || doc.msExitFullscreen
-
-        if (
-          !doc.fullscreenElement &&
-          !doc.mozFullScreenElement &&
-          !doc.webkitFullscreenElement &&
-          !doc.msFullscreenElement
-        ) {
-          requestFullScreen.call(docEl)
-        } else {
-          cancelFullScreen.call(doc)
-        }
-      }
     }
   }
 </script>

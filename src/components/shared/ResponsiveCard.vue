@@ -64,7 +64,7 @@
 <!-- https://speckyboy.com/html-css-examples-of-material-design-in-action/ -->
 
 <script>
-  import { mapState, mapGetters, mapActions } from "vuex"
+  import { mapState, mapActions } from "vuex"
 
   export default {
     name: "ResponsiveCard",

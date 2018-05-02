@@ -17,7 +17,7 @@
 
   "rules": {
     "semi": [2, "never"],
-    'max-len': [2, { code: 120, ignoreUrls: true, ignoreStrings: true, ignoreTemplateLiterals: true }],
+    'max-len': [2, { code: 160, ignoreUrls: true, ignoreStrings: true, ignoreTemplateLiterals: true }],
     'no-debugger': 0,
     'no-console': 0
     # 'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,

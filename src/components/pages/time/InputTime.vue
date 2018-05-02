@@ -1,6 +1,6 @@
 <template>
   <div class="input-time">
-    <div class="input-time-field hours" v-for="(hour, index) in hours" v-bind:class="{ current: current == index, set: isDirty(hour) }">
+    <div class="input-time-field hours" v-for="(hour, index) in hours" :key="hour" :class="{ current: current == index, set: isDirty(hour) }">
       <div class="input-time-field-item">
         {{ hour.v }}
       </div>
@@ -11,7 +11,7 @@
 
     <div class="input-time-separator">:</div>
 
-    <div class="input-time-field minutes" v-for="(minute, index) in minutes"  v-bind:class="{ current: current == index+2, set: isDirty(minute) }">
+    <div class="input-time-field minutes" v-for="(minute, index) in minutes" :key="minute"  :class="{ current: current == index+2, set: isDirty(minute) }">
       <div class="input-time-field-item">
         {{ minute.v }}
       </div>

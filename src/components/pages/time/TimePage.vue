@@ -12,10 +12,7 @@
     <date-picker slot="c-body" class="flex flex-center"></date-picker>
 
     <div slot="c-body" class="flex flex-center container">
-      <circle-menu class="flex flex-center relative" :form="form" :duration="duration" v-on:open="openPicker"></circle-menu>
-<!--
-      <div class="flex flex-center content">
-      </div> -->
+      <circle-menu class="flex flex-center relative" :form="form" v-on:open="openPicker"></circle-menu>
     </div>
 
     <template slot="c-sidebar-title">
@@ -48,7 +45,6 @@
   import differenceInMinutes from "date-fns/difference_in_minutes"
   import format from "date-fns/format"
   import addHours from "date-fns/add_hours"
-  import differenceInHours from "date-fns/difference_in_hours"
   import isSameDay from "date-fns/is_same_day"
 
   import { timeToNumber, timeToDateTime, dateTimeToTime } from "../../../helpers/date"
@@ -95,21 +91,21 @@
     },
 
     watch: {
-      "form.start"(val, oldVal) {
+      "form.start"(val) {
         if (val) {
           console.log("HomePage - start value changed", val)
           this.calculateEnd()
         }
       },
 
-      "form.pause"(val, oldVal) {
+      "form.pause"(val) {
         if (val) {
           console.log("HomePage - pause value changed", val)
           this.calculateEnd()
         }
       },
 
-      "form.finish"(val, oldVal) {
+      "form.finish"(val) {
         if (val) {
           console.log("HomePage - finish value changed", val)
           this.calculateDuration()
@@ -139,25 +135,6 @@
         if (this.isRecorded) {
           return this.currentRecord.absence
         }
-      },
-
-      duration() {
-        const duration = this.total - timeToNumber(this.form.pause)
-        console.log("Duration", duration, this.total, "-", timeToNumber(this.form.pause))
-
-        this.form.duration = duration
-        return duration
-      },
-
-      total() {
-        const start = timeToDateTime(this.currentDate, this.form.start)
-        const finish = timeToDateTime(this.currentDate, this.form.finish)
-        const total = (differenceInMinutes(finish, start) / 60).toFixed(2)
-
-        console.log("Total", total)
-        return total
-
-        // return differenceInHours(finish, start)
       }
     },
 

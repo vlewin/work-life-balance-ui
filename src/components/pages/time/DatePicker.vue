@@ -17,7 +17,6 @@
 // import addHours from "date-fns/add_hours"
 // import getDay from 'date-fns/get_day'
 // FIXME: Check bundle size
-import holiday from "german-holiday"
 import { isWeekend, addHours } from "date-fns"
 import { weekNumber, weekStartDay, weekDaysRange, isHappy, isHoliday } from "@/helpers/date"
 import { mapGetters, mapState } from "vuex"
@@ -92,12 +91,6 @@ export default {
     },
 
     label(item) {
-      const mapping = {
-        "vacation": "V",
-        "holiday": "H",
-        "sickness": "S"
-      }
-
       if(this.isRecorded(item.date)) {
         if(item.absence) {
           return item.absence[0]
@@ -113,7 +106,6 @@ export default {
 
     isWeekend(date) {
       return isWeekend(date)
-      // return date.getDay() == 6 || date.getDay() == 0
     },
 
     isHoliday(date) {

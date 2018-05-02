@@ -55,7 +55,6 @@
   import BarChart from "./BarChart"
   import Card from "../../shared/ResponsiveCard"
   import MonthPicker from "../../shared/MonthPicker"
-  import Record from "../../../services/record"
   import { monthRange } from "../../../helpers/date"
 
   export default {

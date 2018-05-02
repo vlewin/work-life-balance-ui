@@ -5,7 +5,7 @@
     <!-- <svg :viewBox="viewBox"> -->
     <svg :viewBox="viewBox" preserveAspectRatio="none"> -->
       <g transform="scale(1,-1) translate(10,-400)">
-        <g class="bar" v-for="d, i in values" :key="d.date" :data-key="d.date">
+        <g class="bar" v-for="(d, i) in values" :key="d.date" :data-key="d.date">
           <rect class="background" x="0" y="0" fill="white" height="400" :width="width" >
 
           <animate attributeName="x"
@@ -31,14 +31,9 @@
   // https://gist.github.com/sma/0d1454e4641215e110ba31f63bd20e61
   // https://codepen.io/PointC/pen/pydXLG
   import { mapActions } from "vuex"
-  import AnimatedRect from "./AnimatedRect"
 
 
   export default {
-    components: {
-      AnimatedRect
-    },
-
     data() {
       return {
         // data: [8.5, 8, 7.5, 8.5, 7, 0, 0, 6.5, 8, 8, 8.5, 7, 0, 0, 6.5, 8, 8, 8, 8, 0, 0, 6.5, 8, 9.5, 8.5, 7, 0, 0],
@@ -59,18 +54,14 @@
     },
 
     mounted() {
-      window.component = this
     },
 
     computed: {
       viewBox() {
-        console.log('ViewBox')
         return `0 0 ${this.view} 400`
       },
 
       view() {
-        console.log('view')
-
         return this.values.length * 40
       },
 
@@ -79,15 +70,6 @@
       },
 
       y() { return 90 / 2 },
-
-
-    },
-
-    watch: {
-      values: function(a, o) {
-        console.log(this)
-        component.$forceUpdate()
-      }
     },
 
     methods: {

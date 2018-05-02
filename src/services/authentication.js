@@ -5,14 +5,12 @@ import defaultConfig from '../config'
 export default class AuthenticationService {
   constructor (options = {}) {
     this.config = Object.assign(defaultConfig, options.config || {})
-    this.router = options.router || Router
+    this.router = router
     this.store = options.store || window.sessionStorage
     this.auth = new auth0.WebAuth(this.config)
-    this.profile = this.store.getItem('profile')
   }
 
   login (options = {}) {
-    console.log(this.config)
     this.auth.authorize(options)
   }
 
@@ -27,6 +25,7 @@ export default class AuthenticationService {
         this.login({ redirectUri: redirectUri, errorDescription: error.errorDescription })
       } else if (authResult && authResult.accessToken && authResult.idToken) {
         this._setSession(authResult)
+
         setTimeout(() => {
           this.router.replace('/')
         }, 500)
@@ -42,16 +41,13 @@ export default class AuthenticationService {
   }
 
   isAuthenticated () {
-    // NOTE: Check whether expires_at exists in storage and the current time is past the Access Token's expiry time
     const expiresAt = this.store.getItem('expires_at')
     return !!(new Date().getTime() < parseInt(expiresAt))
   }
 
   getProfile () {
     if (this.isAuthenticated()) {
-      return new Promise((resolve, reject) => {
-        resolve(JSON.parse(this.profile))
-      })
+      return this.store.profile
     } else {
       return this._checkSession()
     }
@@ -64,31 +60,16 @@ export default class AuthenticationService {
     this.store.removeItem('expires_at')
     this.store.removeItem('profile')
 
-    this.profile = null
-    const defaultOptions = { returnTo: options.returnTo || window.location.href }
-
-    console.log('logout: Redirect to', defaultOptions.returnTo)
-    this.auth.logout(Object.assign(defaultOptions, options))
-
-    // FIXME: How to notify consumer?
-    // this.authNotifier.emit("authChange", false)
-
-    // FIXME: navigate to the home route
+    this.auth.logout({ returnTo: options.returnTo || window.location.href })
   }
 
   _checkSession () {
-    console.log('_checkSession')
-
-    return new Promise((resolve, reject) => {
-      this.auth.checkSession({}, (err, authResult) => {
-        if (err) {
-          reject(err)
-        } else {
-          console.log(authResult)
-          this._setSession(authResult)
-          resolve(authResult.idTokenPayload)
-        }
-      })
+    this.auth.checkSession({}, (err, authResult) => {
+      if (err) {
+        alert('Error', err)
+      } else {
+        this._setSession(authResult)
+      }
     })
   }
 
