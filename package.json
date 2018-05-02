@@ -27,8 +27,6 @@
     "register-service-worker": "^1.0.0",
     "vue": "^2.5.13",
     "vue-router": "^3.0.1",
-    "vuebars": "^0.1.1",
-    "vuetrend": "^0.3.2",
     "vuex": "^3.0.1"
   },
   "devDependencies": {
