@@ -835,7 +835,7 @@
   version "3.0.0-beta.9"
   resolved "https://registry.yarnpkg.com/@vue/cli-overlay/-/cli-overlay-3.0.0-beta.9.tgz#5eeef868473d0bb1e1d7658dad06fe66e07ad4ef"
 
-"@vue/cli-plugin-babel@^3.0.0-beta.6":
+"@vue/cli-plugin-babel@^3.0.0-beta.9":
   version "3.0.0-beta.9"
   resolved "https://registry.yarnpkg.com/@vue/cli-plugin-babel/-/cli-plugin-babel-3.0.0-beta.9.tgz#23d4b7a9ba89a894d649dc8235112c1a1c474c98"
   dependencies:
@@ -843,14 +843,14 @@
     "@vue/babel-preset-app" "^3.0.0-beta.9"
     babel-loader "^8.0.0-0"
 
-"@vue/cli-plugin-e2e-cypress@^3.0.0-beta.6":
+"@vue/cli-plugin-e2e-cypress@^3.0.0-beta.9":
   version "3.0.0-beta.9"
   resolved "https://registry.yarnpkg.com/@vue/cli-plugin-e2e-cypress/-/cli-plugin-e2e-cypress-3.0.0-beta.9.tgz#ed30445e12bdd1f07f1072132f74e4f18fdf2ce5"
   dependencies:
     cypress "^2.1.0"
     eslint-plugin-cypress "^2.0.1"
 
-"@vue/cli-plugin-eslint@^3.0.0-beta.6":
+"@vue/cli-plugin-eslint@^3.0.0-beta.9":
   version "3.0.0-beta.9"
   resolved "https://registry.yarnpkg.com/@vue/cli-plugin-eslint/-/cli-plugin-eslint-3.0.0-beta.9.tgz#d72c9eec7c3eeb70e7e20f54bec00942501e9138"
   dependencies:
@@ -859,13 +859,13 @@
     eslint-loader "^2.0.0"
     eslint-plugin-vue "^4.5.0"
 
-"@vue/cli-plugin-pwa@^3.0.0-beta.6":
+"@vue/cli-plugin-pwa@^3.0.0-beta.9":
   version "3.0.0-beta.9"
   resolved "https://registry.yarnpkg.com/@vue/cli-plugin-pwa/-/cli-plugin-pwa-3.0.0-beta.9.tgz#22638eac792789fc98ffadd14a028835411d0bb8"
   dependencies:
     workbox-webpack-plugin "^3.1.0"
 
-"@vue/cli-plugin-unit-jest@^3.0.0-beta.6":
+"@vue/cli-plugin-unit-jest@^3.0.0-beta.9":
   version "3.0.0-beta.9"
   resolved "https://registry.yarnpkg.com/@vue/cli-plugin-unit-jest/-/cli-plugin-unit-jest-3.0.0-beta.9.tgz#e877a7085ec0079a5f43baea5454be00b424fa91"
   dependencies:
@@ -875,7 +875,7 @@
     jest-transform-stub "^1.0.0"
     vue-jest "^2.5.0"
 
-"@vue/cli-service@^3.0.0-beta.6":
+"@vue/cli-service@^3.0.0-beta.9":
   version "3.0.0-beta.9"
   resolved "https://registry.yarnpkg.com/@vue/cli-service/-/cli-service-3.0.0-beta.9.tgz#7de900ed77f012f4469e541effaf0fe08f9049d5"
   dependencies:
@@ -935,7 +935,7 @@
     ora "^1.3.0"
     string.prototype.padstart "^3.0.0"
 
-"@vue/eslint-config-prettier@^3.0.0-beta.6":
+"@vue/eslint-config-prettier@^3.0.0-beta.9":
   version "3.0.0-beta.9"
   resolved "https://registry.yarnpkg.com/@vue/eslint-config-prettier/-/eslint-config-prettier-3.0.0-beta.9.tgz#0d534b7e740cd929eb8eb58062b53fa9e3a122bb"
   dependencies:
@@ -943,7 +943,7 @@
     eslint-plugin-prettier "^2.6.0"
     prettier "^1.12.1"
 
-"@vue/test-utils@^1.0.0-beta.14":
+"@vue/test-utils@^1.0.0-beta.15":
   version "1.0.0-beta.15"
   resolved "https://registry.yarnpkg.com/@vue/test-utils/-/test-utils-1.0.0-beta.15.tgz#9f8d85b9f2312217c81d72eba97e176fba23da09"
   dependencies:
@@ -1326,12 +1326,13 @@ atob@^2.0.0:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/atob/-/atob-2.1.1.tgz#ae2d5a729477f289d60dd7f96a6314a22dd6c22a"
 
-auth0-js@9.3.0:
-  version "9.3.0"
-  resolved "https://registry.yarnpkg.com/auth0-js/-/auth0-js-9.3.0.tgz#67083dc48f9027a0024e6d92994f3c83a4778feb"
+auth0-js@9.5.1:
+  version "9.5.1"
+  resolved "https://registry.yarnpkg.com/auth0-js/-/auth0-js-9.5.1.tgz#34dea6b0f11b5e5ee139605611f49b1c0f15dbb1"
   dependencies:
     base64-js "^1.2.0"
-    idtoken-verifier "^1.1.1"
+    idtoken-verifier "^1.2.0"
+    js-cookie "^2.2.0"
     qs "^6.4.0"
     superagent "^3.8.2"
     url-join "^1.1.0"
@@ -4641,7 +4642,7 @@ icss-utils@^2.1.0:
   dependencies:
     postcss "^6.0.1"
 
-idtoken-verifier@^1.1.1:
+idtoken-verifier@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/idtoken-verifier/-/idtoken-verifier-1.2.0.tgz#4654f1f07ab7a803fc9b1b8b36057e2a87ad8b09"
   dependencies:
@@ -5539,6 +5540,10 @@ js-beautify@^1.6.12, js-beautify@^1.6.14:
     editorconfig "^0.13.2"
     mkdirp "~0.5.0"
     nopt "~3.0.1"
+
+js-cookie@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/js-cookie/-/js-cookie-2.2.0.tgz#1b2c279a6eece380a12168b92485265b35b1effb"
 
 js-tokens@^3.0.0, js-tokens@^3.0.2:
   version "3.0.2"
@@ -8021,9 +8026,9 @@ sass-graph@^2.2.4:
     scss-tokenizer "^0.2.3"
     yargs "^7.0.0"
 
-sass-loader@^6.0.6:
-  version "6.0.7"
-  resolved "https://registry.yarnpkg.com/sass-loader/-/sass-loader-6.0.7.tgz#dd2fdb3e7eeff4a53f35ba6ac408715488353d00"
+sass-loader@^7.0.1:
+  version "7.0.1"
+  resolved "https://registry.yarnpkg.com/sass-loader/-/sass-loader-7.0.1.tgz#fd937259ccba3a9cfe0d5f8a98746d48adfcc261"
   dependencies:
     clone-deep "^2.0.1"
     loader-utils "^1.0.1"
@@ -8140,10 +8145,11 @@ serve-static@1.13.2:
     parseurl "~1.3.2"
     send "0.16.2"
 
-serverless-s3-deploy@^0.5.0:
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/serverless-s3-deploy/-/serverless-s3-deploy-0.5.0.tgz#3ae4e62b277f0490c08de016997330e333ba55ea"
+serverless-s3-deploy@^0.6.1:
+  version "0.6.1"
+  resolved "https://registry.yarnpkg.com/serverless-s3-deploy/-/serverless-s3-deploy-0.6.1.tgz#2a4fbd6a7366b1f3798ac9fea20ff61bae232e4b"
   dependencies:
+    bluebird "^3.5.1"
     glob-all "^3.1.0"
     mime-types "^2.1.14"
 
