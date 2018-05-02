@@ -1,11 +1,11 @@
 <template>
   <div class="calendar">
     <ul class="grid">
-      <li class="grid-item label" v-for="weekday in weekdays" :key="weekday" :class="{ weekend: ['SA', 'SU'].includes(weekday) }">
+      <li class="grid-item label" v-for="(weekday, i) in weekdays" :key="i+1*0.1" :class="{ weekend: ['SA', 'SU'].includes(weekday) }">
         {{ weekday }}
       </li>
 
-      <li class="grid-item day" v-for="day in days" :key="day" v-on:click="select(day)" :class="addClasses(day)">
+      <li class="grid-item day" v-for="(day, i) in days" :key="i+1*1" v-on:click="select(day)" :class="addClasses(day)">
         {{ day | toNumber }}
         <!-- <span class="tooltiptext" v-if="isRecorded(day)">{{ record(day).absence }}</span> -->
         <span class="tooltiptext" v-if="isHoliday(day)">{{ isHoliday(day) }}</span>

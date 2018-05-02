@@ -9,39 +9,10 @@
 import AuthService from "../main"
 
 export default {
-  name: "Authentication",
-  components: {},
-
-  data() {
-    return {}
-  },
-
-  beforeEnter() {
-    console.log(this.$router)
-  },
-
-  mounted() {
+  name: "Callback",
+  created() {
     console.log('Handle auth in callback')
     AuthService.handleCallback()
-  },
-
-  computed: {},
-
-  methods: {
-    slideUp() {
-      this.section = "top"
-    }
   }
 }
 </script>
-
-<style lang="sass" scoped>
-  h2
-    height: 10vh
-  svg
-    height: 40vh
-  button
-    // height: 10vh
-
-
-</style>
