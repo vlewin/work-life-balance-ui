@@ -14,34 +14,22 @@
 
     <ul id="outside" :class="{ open: open }">
       <li class="one">
-        <a href="#">
-          <span class="text" v-on:click="emit('start')">{{ form.start }}</span>
-        </a>
+        <span class="text" v-on:click="emit('start')">{{ form.start }}</span>
       </li>
       <li class="two">
-        <a href="#">
-          <span class="text" v-on:click="emit('pause')">{{ form.pause }}</span>
-        </a>
+        <span class="text" v-on:click="emit('pause')">{{ form.pause }}</span>
       </li>
       <li class="three">
-        <a href="#">
-          <span class="text" v-on:click="emit('finish')">{{ form.finish }}</span>
-        </a>
+        <span class="text" v-on:click="emit('finish')">{{ form.finish }}</span>
       </li>
       <li class="four">
-        <a href="#">
-          <span class="text"></span>
-        </a>
+        <span class="text"></span>
       </li>
       <li class="five">
-        <a href="#">
-          <span class="text">****</span>
-        </a>
+        <span class="text">&#11041;</span>
       </li>
       <li class="six">
-        <a href="#">
-          <span class="icon"></span>
-        </a>
+        <span class="icon"></span>
       </li>
     </ul>
 
@@ -49,8 +37,8 @@
       <defs>
         <clipPath clipPathUnits="objectBoundingBox" id="sector">
           <!-- <circle></circle> -->
-          <!-- <path fill="none" stroke="#111" stroke-width="1" class="sector" d="M0.5,0.5 l0.5,0 A0.5,0.5 0 0,0 0.75,.066987298 z"></path> -->
-          <path fill="none" stroke="#111" stroke-width="1" class="big-sector" d="M0.5,0.5 l0.5,0 A0.5,0.5 0 0,0 0.75,.066987298 z"></path>
+          <path fill="none" stroke="#111" stroke-width="1" class="sector" d="M0.5,0.5 l0.5,0 A0.5,0.5 0 0,0 0.75,.066987298 z"></path>
+          <!-- <path fill="none" stroke="#111" stroke-width="1" class="big-sector" d="M0.5,0.5 l0.5,0 A0.5,0.5 0 0,0 0.75,.066987298 z"></path> -->
         </clipPath>
       </defs>
     </svg>
@@ -296,19 +284,18 @@
         padding-top: 16.4rem;
 
         .text {
-          top: 20%;
-          right: 0%;
-
-          line-height: 3rem;
+          top: 24%;
+          right: -2%;
+          line-height: 1.8rem;
+          height: 2rem;
           color: #fff;
-          height: 5rem;
-          width: 7rem;
+          // border: 1px solid white;
         }
       }
 
       #inside {
-        width: 8.4rem;
-        height: 8.4rem;
+        width: 8.8rem;
+        height: 8.8rem;
       }
     }
   }

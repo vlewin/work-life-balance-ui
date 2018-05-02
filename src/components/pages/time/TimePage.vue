@@ -295,7 +295,7 @@
 
     &.open
       transform: translateY(0)
-      height: 60%
+      // height: 100%
 
     .container
       flex-direction: column
@@ -309,14 +309,16 @@
 
   @media screen and (orientation: landscape)
     .pane
-      width: 70%
+      // width: 70%
 
     &.open
       transform: translateY(0%)
-      height: 85%
+      // height: 85%
 
     .content
       width: 70%
+      height: 80%
+
 
     .info
       flex-direction: column

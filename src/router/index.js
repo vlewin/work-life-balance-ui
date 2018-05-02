@@ -33,7 +33,7 @@ router.beforeEach((to, from, next) => {
   if (to.matched.length) {
     next()
   } else {
-    next({ path: "/login" })
+    next({ path: "/" })
   }
 })
 

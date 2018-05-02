@@ -28,6 +28,7 @@
 const path = require("path")
 module.exports = {
   // baseUrl: "./",
+  lintOnSave: true,
   configureWebpack: {
     module: {
       // rules: [

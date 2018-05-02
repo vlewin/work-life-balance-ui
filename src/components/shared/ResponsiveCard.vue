@@ -128,6 +128,7 @@
   .c-body
     grid-area: c-body
     background-color: white
+    position: relative
 
   .c-sidebar
     grid-area: unset
