@@ -72,7 +72,7 @@
         form: {
           start: "",
           pause: "",
-          finish: ""
+          end: ""
         }
       }
     },
@@ -105,9 +105,9 @@
         }
       },
 
-      "form.finish"(val) {
+      "form.end"(val) {
         if (val) {
-          console.log("HomePage - finish value changed", val)
+          console.log("HomePage - end value changed", val)
           this.calculateDuration()
         }
       },
@@ -156,6 +156,7 @@
           console.info('INIT:', JSON.stringify(this.form))
 
           this.form = {
+            timestamp: this.currentDate,
             date: this.currentFomatedDate,
             month: this.currentMonthNumber,
             week: this.currentWeekNumber,
@@ -172,14 +173,14 @@
         } else {
           const diff = 8 + timeToNumber(this.form.pause)
           const start = timeToDateTime(this.currentDate, this.form.start)
-          const finish = format(addHours(start, diff))
+          const end = format(addHours(start, diff))
 
-          console.log(start, finish)
-          if (isSameDay(start, finish)) {
-            this.form.finish = format(addHours(start, diff), "HH:mm")
-            console.log(this.form.finish)
+          console.log(start, end)
+          if (isSameDay(start, end)) {
+            this.form.end = format(addHours(start, diff), "HH:mm")
+            console.log(this.form.end)
           } else {
-            this.form.finish = "23:55"
+            this.form.end = "23:55"
           }
         }
 
@@ -188,8 +189,8 @@
       calculateDuration() {
         console.log("Duration", duration, this.total, "-", timeToNumber(this.form.pause))
         const start = timeToDateTime(this.currentDate, this.form.start)
-        const finish = timeToDateTime(this.currentDate, this.form.finish)
-        const total = (differenceInMinutes(finish, start) / 60).toFixed(2)
+        const end = timeToDateTime(this.currentDate, this.form.end)
+        const total = (differenceInMinutes(end, start) / 60).toFixed(2)
         const duration = total - timeToNumber(this.form.pause)
 
         console.log("Duration", duration, total, "-", timeToNumber(this.form.pause))

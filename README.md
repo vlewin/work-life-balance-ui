@@ -29,6 +29,8 @@ https://cssanimation.rocks/spheres/
 https://www.smashingmagazine.com/2012/08/designing-device-orientation-portrait-landscape/
 https://www.creativebloq.com/web-design/master-screen-orientation-html5-101517371
 
+## Jest & Puppeteer setup
+https://blog.usejournal.com/getting-started-with-jest-and-puppeteer-7cf6c59a2cae
 
 ## CSS AND LAYOUT
 * https://medium.com/flexbox-and-grids/how-to-efficiently-master-the-css-grid-in-a-jiffy-585d0c213577

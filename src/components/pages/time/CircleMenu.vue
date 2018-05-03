@@ -7,7 +7,7 @@
         <label>hours</label>
       </h2>
       <h3 class="no-margin">
-        <small>{{ form.start }} - {{ form.finish }}</small>
+        <small>{{ form.start }} - {{ form.end }}</small>
         <label>&num; {{ form.week }}</label>
       </h3>
     </div>
@@ -20,7 +20,7 @@
         <span class="text" v-on:click="emit('pause')">{{ form.pause }}</span>
       </li>
       <li class="three">
-        <span class="text" v-on:click="emit('finish')">{{ form.finish }}</span>
+        <span class="text" v-on:click="emit('end')">{{ form.end }}</span>
       </li>
       <li class="four">
         <span class="text"></span>

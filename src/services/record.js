@@ -2,8 +2,8 @@ import axios from "axios"
 
 export default class Record {
   static get endpoint() {
-    return "https://5ens0ygiua.execute-api.eu-central-1.amazonaws.com/development/records"
-    // return "http://localhost:3000/records"
+    // return "https://5ens0ygiua.execute-api.eu-central-1.amazonaws.com/development/records"
+    return "http://localhost:3000/records"
 
   }
 
