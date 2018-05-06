@@ -14,7 +14,7 @@ TODO:
 * [ ] Switch to http://icofont.com/icons/ or Font Awesome 5
 * [ ] Unit / Functional / UI E2E acceptance testing (Chrome headless)
 * [x] completed
-* [ ] Auth0 vs AWS Cognito authentication
+* [x] Auth0 vs AWS Cognito authentication
 
 SOURCES:
 
@@ -77,6 +77,10 @@ DESIGN INSPIRATIONS:
 
 https://css-tricks.com/building-a-circular-navigation-with-css-clip-paths/
 http://pmg.softwaretailoring.net/
+
+
+### UI Development with Storybook
+- https://github.com/dpopp07/bartop/issues/96
 
 ### Custom domain
 
