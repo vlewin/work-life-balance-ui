@@ -9,7 +9,7 @@ export default {
   // },
 
   currentFomatedDate(state) {
-    return state.currentDate.toLocaleDateString()
+    return state.currentDate.toDateString()
   },
 
   currentWeekNumber(state) {
@@ -22,7 +22,7 @@ export default {
 
 
   currentRecord(state) {
-    return state.records[state.currentDate.toLocaleDateString("de-DE")]
+    return state.records[state.currentDate.toDateString()]
 
     // return state.records.find(record => {
     //   console.log(record.date, format(state.currentDate, "DD.MM.YYYY"));

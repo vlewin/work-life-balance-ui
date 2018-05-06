@@ -43,6 +43,7 @@ export default {
     commit("SET_LOADING", true)
     const response = await Record.save(record)
     // const response = await Record.all({ week: week });
+    console.log('Response data', response.data)
     commit("ADD_RECORD", response.data)
     commit("SET_LOADING", false)
     console.log("saved")

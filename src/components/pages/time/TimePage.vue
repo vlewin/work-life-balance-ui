@@ -154,12 +154,10 @@
           this.$set(this, 'form', this.currentRecord)
         } else {
           console.info('INIT:', JSON.stringify(this.form))
-
+          console.log(this.currentDate.toDateString())
           this.form = {
             timestamp: this.currentDate.getTime(),
-            date: this.currentDate,
-            month: this.currentMonthNumber,
-            week: this.currentWeekNumber,
+            date: this.currentDate.toDateString(),
             start: dateTimeToTime(new Date()),
             pause: "00:30"
           }
@@ -212,6 +210,7 @@
       },
 
       save: async function() {
+        console.log('save', JSON.stringify(this.form))
         await this.$store.dispatch("saveRecord", this.form)
       },
 

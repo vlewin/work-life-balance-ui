@@ -73,38 +73,32 @@
       ...mapGetters(["currentMonthNumber"]),
       ...mapState(["page", "fetching", "records"]),
 
-      // data() {
-      //   // debugger
-      //   const dates = Object.keys(this.records)
-      //   return monthRange(this.currentMonthNumber).map((date) => {
-      //     if(dates.includes(date.toLocaleDateString())) {
-      //       return { duration: this.records[date.toLocaleDateString()].duration }
-      //     } else {
-      //       return { duration: 0 }
-      //     }
-      //   })
-      // },
-
-      // values() {
-      //   return this.data.map((value) => value.duration)
-      // }
-
       values() {
         const dates = Object.keys(this.records)
         return monthRange(this.currentMonthNumber).map((date) => {
-          if(dates.includes(date.toLocaleDateString())) {
-            return this.records[date.toLocaleDateString()]
+          let key = date.toDateString()
+          if(dates.includes(key)) {
+            return this.records[key]
           } else {
-            return { date: date.toLocaleDateString(), duration: 0 }
+            return { date: key, duration: 0 }
           }
         })
       }
     },
 
+    watch: {
+      // FIXME: React on slide page event???
+      page(val) {
+        if (val === 'page-1') {
+          setTimeout(() => {
+            this.$store.dispatch("fetchMonthRecords", this.currentMonthNumber)
+          }, 250)
+        }
+      }
+    },
+
     methods: {
       ...mapActions(["navigate"]),
-
-
 
       async setDate(date) {
         await this.$store.dispatch("setCurrentDate", date)

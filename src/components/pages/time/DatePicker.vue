@@ -47,19 +47,20 @@ export default {
 
   computed: {
     ...mapGetters(["currentWeekNumber", "currentFomatedDate", "currentRecord"]),
-    ...mapState(["currentDate", "records"]),
+    ...mapState(["currentDate", "page", "records"]),
 
     dates() {
       return this.week.map(date => {
-        let formattedDate = date.toLocaleDateString()
+        let formattedDate = date.toDateString()
         let record = this.records[formattedDate] || {}
+
         return {
           date: date,
-          formattedDate: formattedDate,
+          formattedDate: record.date,
           weekday: this.weekdays[date.getDay()],
-          selected: this.isSelected(date),
-          weekend: this.isWeekend(date),
-          holiday: this.isHoliday(date),
+          selected: this.isSelected(record.date),
+          weekend: isWeekend(date),
+          holiday: isHoliday(date),
           duration: record.duration,
           absence: record.absence,
           positive: isHappy(record.duration),
@@ -79,6 +80,17 @@ export default {
     }
   },
 
+  watch: {
+    // FIXME: React on slide page event???
+    page(val) {
+      if (val === 'page-2') {
+        setTimeout(() => {
+          this.$store.dispatch("fetchRecords")
+        }, 250)
+      }
+    }
+  },
+
   methods: {
     addClasses(date) {
       return {
@@ -91,7 +103,7 @@ export default {
     },
 
     label(item) {
-      if(this.isRecorded(item.date)) {
+      if(this.isRecorded(item.formattedDate)) {
         if(item.absence) {
           return item.absence[0]
         } else {
@@ -101,7 +113,7 @@ export default {
     },
 
     isSelected(date) {
-      return this.currentDate.toLocaleDateString() === date.toLocaleDateString()
+      return this.currentFomatedDate === date
     },
 
     isWeekend(date) {
@@ -113,11 +125,11 @@ export default {
     },
 
     isRecorded(date) {
-      return !!this.records[date.toLocaleDateString()]
+      return !!this.records[date]
     },
 
     isPositive(date) {
-      const record = this.records[date.toLocaleDateString()]
+      const record = this.records[date]
       return record ? record.duration >= 8 && record.duration <= 9 : null
     },
 
@@ -126,7 +138,7 @@ export default {
     },
 
     hours(date) {
-      const record = this.records[date.toLocaleDateString()]
+      const record = this.records[date]
       return record ? record.duration : null
     },
 
