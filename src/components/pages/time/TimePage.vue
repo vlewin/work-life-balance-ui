@@ -156,8 +156,8 @@
           console.info('INIT:', JSON.stringify(this.form))
 
           this.form = {
-            timestamp: this.currentDate,
-            date: this.currentFomatedDate,
+            timestamp: this.currentDate.getTime(),
+            date: this.currentDate,
             month: this.currentMonthNumber,
             week: this.currentWeekNumber,
             start: dateTimeToTime(new Date()),
