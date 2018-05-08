@@ -93,7 +93,7 @@
           holiday: this.isHoliday(date),
           empty: this.isEmpty(date),
           vacation: this.isVacation(date),
-          sickness: this.isSickeness(date)
+          sickness: this.isSickness(date)
         }
       },
 
@@ -121,7 +121,7 @@
         return this.record(date).absence === "vacation"
       },
 
-      isSickeness(date) {
+      isSickness(date) {
         return this.record(date).absence === "sickness"
       },
 
