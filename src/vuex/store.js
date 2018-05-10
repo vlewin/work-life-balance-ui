@@ -15,6 +15,7 @@ const store = new Vuex.Store({
     loading: false,
     currentDate: getNextBusinessDay(),
     records: {},
+    balance: {},
     debug: false
   },
 

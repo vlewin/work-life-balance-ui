@@ -11,21 +11,21 @@
       <simple-switch slot="c-footer" class="info animated" :class="{ horizontal: isLandscape }" :active="!!selected.length">
         <div class="flex flex-center height-100" slot="up">
           <div class="flex flex-center flex-column flex-item">
-            <span>8</span>
+            <span>{{ balance.vacation }}</span>
             <label>
               <i class="fa fa-plane text-green" aria-hidden="true"></i>
               VACATION
             </label>
           </div>
           <div class="flex flex-center flex-column flex-item">
-            <span>2</span>
+            <span>{{ balance.sickness }}</span>
             <label>
               <i class="fa fa-heartbeat text-amber" aria-hidden="true"></i>
               SICKNESS
             </label>
           </div>
           <div class="flex flex-center flex-column flex-item">
-            <span>1</span>
+            <span>?</span>
             <label>
               <i class="fa fa-gift text-tomato" aria-hidden="true"></i>
               HOLIDAY
@@ -80,6 +80,8 @@
   import MonthPicker from "../../shared/MonthPicker"
   import SimpleSwitch from "../../shared/SimpleSwitch"
   import SimpleSlider from "../../shared/SimpleSlider"
+  import Balance from "../../shared/Balance"
+
 
   export default {
     name: "AbsenceCard",
@@ -88,7 +90,8 @@
       MonthPicker,
       Calendar,
       SimpleSwitch,
-      SimpleSlider
+      SimpleSlider,
+      Balance
     },
 
     data() {
@@ -122,7 +125,8 @@
     },
 
     computed: {
-      ...mapState(["currentDate", "records"]),
+      ...mapState(['currentDate', 'balance', 'records']),
+
       valid() {
         return this.selected.length && this.reason
       },
@@ -134,9 +138,7 @@
     },
 
     methods: {
-      ...mapActions([
-        "navigate" // map `this.increment()` to `this.$store.dispatch('increment')`
-      ]),
+      ...mapActions(["navigate"]),
 
       setDate(date) {
         this.$store.dispatch("setCurrentDate", date)

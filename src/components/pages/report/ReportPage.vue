@@ -17,35 +17,14 @@
 
 
     <div slot="c-body" class="flex flex-center v-height-10">
-      <div>
-        <i class="fa fa-gift" aria-hidden="true"></i>
-        Holidays: 0
-      </div>
-      <div>
-        <i class="fa fa-heartbeat" aria-hidden="true"></i>
-        Sickness: 0
-      </div>
-      <div>
-        <i class="fa fa-plane" aria-hidden="true"></i>
-        Vacation: 0
-      </div>
+      <balance></balance>
     </div>
 
     <template slot="c-sidebar-title">Week: 13</template>
     <i slot="c-sidebar-icon" class="fas fa-chart-pie fa-6x" aria-hidden="true"></i>
 
-    <!-- <div slot="c-sidebar-actions" class="font-2" v-on:click="navigate('page-2')">
-      <i class="fa fa-clock-o" aria-hidden="true"></i>
-    </div>
-    <div slot="c-sidebar-actions" class="font-2" v-on:click="navigate('page-3')">
-      <i class="fa fa-calendar" aria-hidden="true"></i>
-    </div>
-    <div slot="c-sidebar-actions" class="font-2">
-      <i class="fa fa-sliders" aria-hidden="true"></i>
-    </div> -->
-
     <template slot="c-footer">
-      TOTAL: +4h
+      TOTAL: {{ balance.total }}h
     </template>
   </card>
 </template>
@@ -55,6 +34,8 @@
   import BarChart from "./BarChart"
   import Card from "../../shared/ResponsiveCard"
   import MonthPicker from "../../shared/MonthPicker"
+  import Balance from "../../shared/Balance"
+
   import { monthRange } from "../../../helpers/date"
 
   export default {
@@ -63,6 +44,7 @@
       Card,
       MonthPicker,
       BarChart,
+      Balance
     },
     data() {
       return {
@@ -70,8 +52,8 @@
     },
 
     computed: {
-      ...mapGetters(["currentMonthNumber"]),
-      ...mapState(["page", "fetching", "records"]),
+      ...mapGetters(['currentMonthNumber']),
+      ...mapState(['page', 'fetching', 'balance', 'records']),
 
       values() {
         const dates = Object.keys(this.records)

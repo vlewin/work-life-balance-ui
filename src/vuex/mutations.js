@@ -33,6 +33,10 @@ export default {
     Vue.set(state, "currentDate", date)
   },
 
+  SET_BALANCE(state, balance) {
+    Vue.set(state, "balance", balance)
+  },
+
   SET_RECORDS(state, records) {
     const data = {}
     records.forEach(item => (data[item.date] = item))

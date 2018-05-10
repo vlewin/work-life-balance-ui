@@ -1,7 +1,7 @@
 service: vue-work-life-balance
 
 plugins:
-  - serverless-s3-deploy
+  # - serverless-s3-deploy
 
 provider:
   name: aws

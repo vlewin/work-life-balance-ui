@@ -1,4 +1,5 @@
 import Record from "../services/record"
+import Balance from "../services/balance"
 
 export default {
   online: async ({ commit }, condition) => {
@@ -21,6 +22,15 @@ export default {
     setTimeout(() => {
       commit("SET_LOADING", false)
     }, 500)
+  },
+
+  fetchBalance: async ({ commit }, userId) => {
+    console.log('*** Action - fetchBalance', userId)
+    commit("SET_FETCHING", true)
+    const response = await Balance.get('github|611466')
+
+    console.log('*** Action - fetchBalance - response', response.data)
+    commit("SET_BALANCE", response.data)
   },
 
   fetchMonthRecords: async ({ commit }, month) => {

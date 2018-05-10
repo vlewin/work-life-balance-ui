@@ -3,24 +3,29 @@
 ### [DEMO application](http://vlewin.me/vue-work-life-balance)
 
 TODO:
-
-
 * [x] Vue.js reusable components
 * [x] CSS Grid Layout with FlexBox
+* [x] Auth0 vs AWS Cognito authentication
+* [x] Switch to http://icofont.com/icons/ or Font Awesome 5
+
+* [ ] Try to use [feiertagejs](https://github.com/sfakir/feiertagejs)
 * [ ] Vue SSR vs Vue Prerendering
 * [ ] PWA / PRA Progressive Web Applications /
-      [Progressive Real-Time Applications](https://www.youtube.com/watch?v=QjLUt37lX1s)
+* [ ] Progressive Real-Time Applications(https://www.youtube.com/watch?v=QjLUt37lX1s)
 * [ ] GraphQL data services
-* [ ] Switch to http://icofont.com/icons/ or Font Awesome 5
 * [ ] Unit / Functional / UI E2E acceptance testing (Chrome headless)
-* [x] completed
-* [x] Auth0 vs AWS Cognito authentication
 
 SOURCES:
 
 ## Auth0 Vue sample app
 
 https://manage.auth0.com/#/clients/fC4Z1HSO4PHNJTWu9K4Emn90bo6CCgCM/quickstart
+
+## PWA
+- https://auth0.com/blog/introduction-to-progressive-apps-part-one/
+- https://auth0.com/blog/introduction-to-progressive-web-apps-instant-loading-part-2/
+- [Office League PWA example](http://webagility.com/posts/progressive-web-app-part-4)
+- [Auth0 issue](https://github.com/auth0/lock/issues/1065)
 
 ## 3D CSS objects
 https://cssanimation.rocks/spheres/

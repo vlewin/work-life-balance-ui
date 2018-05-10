@@ -13,6 +13,9 @@
 
     <div slot="c-body" class="flex flex-center container">
       <circle-menu class="flex flex-center relative" :form="form" v-on:open="openPicker"></circle-menu>
+      <small class="width-80 light-grey"><p>
+        {{ form }}
+      </p></small>
     </div>
 
     <template slot="c-sidebar-title">
@@ -79,6 +82,7 @@
 
     created() {
       this.initForm()
+
       // FIXME: Move to APP created and save in store
       // window.addEventListener("orientationchange", () => {
       //   if (window.orientation == 90 || window.orientation == -90) {
@@ -162,21 +166,24 @@
             pause: "00:30"
           }
           this.calculateEnd()
+          this.calculateDuration()
         }
       },
 
       calculateEnd() {
         if(this.isRecorded) {
-          console.log('Skip end calculation')
+          console.log('Skip end estimation')
         } else {
+          console.log('Estimate end')
+
           const diff = 8 + timeToNumber(this.form.pause)
           const start = timeToDateTime(this.currentDate, this.form.start)
-          const end = format(addHours(start, diff))
+          const end = addHours(start, diff)
 
           console.log(start, end)
           if (isSameDay(start, end)) {
             this.form.end = format(addHours(start, diff), "HH:mm")
-            console.log(this.form.end)
+            console.log('Estimated end time', this.form.end)
           } else {
             this.form.end = "23:55"
           }
