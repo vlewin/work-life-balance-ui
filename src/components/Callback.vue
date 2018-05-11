@@ -10,8 +10,8 @@ import AuthService from "../main"
 
 export default {
   name: "Callback",
-  created() {
-    console.log('Handle auth in callback')
+  mounted() {
+    console.log('*** CALLBACK - handle auth in callback')
     AuthService.handleCallback()
   }
 }

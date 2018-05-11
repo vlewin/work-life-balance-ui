@@ -22,8 +22,10 @@ SOURCES:
 https://manage.auth0.com/#/clients/fC4Z1HSO4PHNJTWu9K4Emn90bo6CCgCM/quickstart
 
 ## PWA
+- https://medium.com/@firt/progressive-web-apps-on-ios-are-here-d00430dee3a7
 - https://auth0.com/blog/introduction-to-progressive-apps-part-one/
 - https://auth0.com/blog/introduction-to-progressive-web-apps-instant-loading-part-2/
+- https://auth0.com/blog/introduction-to-progressive-web-apps-push-notifications-part-3/
 - [Office League PWA example](http://webagility.com/posts/progressive-web-app-part-4)
 - [Auth0 issue](https://github.com/auth0/lock/issues/1065)
 

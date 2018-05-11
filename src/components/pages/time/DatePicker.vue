@@ -58,7 +58,7 @@ export default {
           date: date,
           formattedDate: record.date,
           weekday: this.weekdays[date.getDay()],
-          selected: this.isSelected(record.date),
+          selected: this.isSelected(formattedDate),
           weekend: isWeekend(date),
           holiday: isHoliday(date),
           duration: record.duration,
@@ -76,6 +76,7 @@ export default {
 
 
     selected() {
+      console.log(this.$store.state.currentDate)
       return this.$store.state.currentDate
     }
   },

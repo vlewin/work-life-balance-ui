@@ -97,32 +97,32 @@
     watch: {
       "form.start"(val) {
         if (val) {
-          console.log("HomePage - start value changed", val)
+          // console.log("HomePage - start value changed", val)
           this.calculateEnd()
         }
       },
 
       "form.pause"(val) {
         if (val) {
-          console.log("HomePage - pause value changed", val)
+          // console.log("HomePage - pause value changed", val)
           this.calculateEnd()
         }
       },
 
       "form.end"(val) {
         if (val) {
-          console.log("HomePage - end value changed", val)
+          // console.log("HomePage - end value changed", val)
           this.calculateDuration()
         }
       },
 
       currentDate() {
-        console.log("HomePage - currentDate changed", this.currentDate)
+        // console.log("HomePage - currentDate changed", this.currentDate)
         this.initForm()
       },
 
       currentRecord(oldVal, val) {
-        console.log("HomePage - currentRecord changed", oldVal, val)
+        // console.log("HomePage - currentRecord changed", oldVal, val)
         this.initRecord()
       }
     },
@@ -147,18 +147,18 @@
 
       initRecord() {
         if (this.isRecorded) {
-          console.info('isRecorded:', JSON.stringify(this.currentRecord))
+          // console.info('isRecorded:', JSON.stringify(this.currentRecord))
           this.$set(this, 'form', this.currentRecord)
         }
       },
 
       initForm() {
         if (this.isRecorded) {
-          console.info('CURRENT:', JSON.stringify(this.currentRecord))
+          // console.info('CURRENT:', JSON.stringify(this.currentRecord))
           this.$set(this, 'form', this.currentRecord)
         } else {
-          console.info('INIT:', JSON.stringify(this.form))
-          console.log(this.currentDate.toDateString())
+          // console.info('INIT:', JSON.stringify(this.form))
+          // console.log(this.currentDate.toDateString())
           this.form = {
             timestamp: this.currentDate.getTime(),
             date: this.currentDate.toDateString(),
@@ -174,16 +174,14 @@
         if(this.isRecorded) {
           console.log('Skip end estimation')
         } else {
-          console.log('Estimate end')
+          // console.log('Estimate end')
 
           const diff = 8 + timeToNumber(this.form.pause)
           const start = timeToDateTime(this.currentDate, this.form.start)
           const end = addHours(start, diff)
 
-          console.log(start, end)
           if (isSameDay(start, end)) {
             this.form.end = format(addHours(start, diff), "HH:mm")
-            console.log('Estimated end time', this.form.end)
           } else {
             this.form.end = "23:55"
           }
@@ -192,20 +190,16 @@
       },
 
       calculateDuration() {
-        console.log("Duration", duration, this.total, "-", timeToNumber(this.form.pause))
         const start = timeToDateTime(this.currentDate, this.form.start)
         const end = timeToDateTime(this.currentDate, this.form.end)
         const total = (differenceInMinutes(end, start) / 60).toFixed(2)
         const duration = total - timeToNumber(this.form.pause)
-
-        console.log("Duration", duration, total, "-", timeToNumber(this.form.pause))
 
         this.$set(this.form, "duration", duration)
         return duration
       },
 
       setValue(target, value) {
-        console.log("Set Value", target, value)
         this.$set(this.form, target, value)
 
         if (["start", "pause"].includes(target)) {
@@ -213,16 +207,14 @@
         }
 
         this.calculateDuration()
-        console.log(JSON.stringify(this.form))
       },
 
       save: async function() {
-        console.log('save', JSON.stringify(this.form))
         await this.$store.dispatch("saveRecord", this.form)
+        await this.$store.dispatch("fetchBalance")
       },
 
       openPicker(target) {
-        console.log(target)
         this.picker.target = target
         this.picker.value = this.form[target]
         this.picker.open = true

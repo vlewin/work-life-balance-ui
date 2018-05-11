@@ -12,21 +12,35 @@ const router = new Router({
   mode: "history",
   routes: [
     { path: "/", name: "Index", component: Index, meta: { requiresAuth: true } },
-    { path: "/login", name: "Authentication", component: Authentication, props: { initSection: "top" } },
-    { path: "/logout", name: "Authentication", component: Authentication, props: { initSection: "bottom" } },
+    {
+      path: "/login",
+      name: "Authentication",
+      component: Authentication,
+      props: (route) => ({ message: route.query.message, initSection: "top" })
+    },
+    // { path: "/logout", name: "Authentication", component: Authentication, props: { initSection: "bottom" } },
     { path: "/callback", name: "Callback", component: Callback },
   ]
 })
 
 router.beforeEach((to, from, next) => {
-  console.log("beforeEach", to, from)
+  console.log("beforeEach - navigate from", from.name, from.fullPath, 'to', to.name, to.fullPath)
+
   if (to.meta.requiresAuth) {
     if (AuthService.isAuthenticated()) {
       console.log("Authenticated")
       next()
     } else {
       console.log("Not authenticated")
-      next({ path: "/login" })
+
+      // FIXME:  Workaround for vue-router hash mode
+      if (window.location.href.includes("access_token")) {
+        AuthService.handleCallback().then(() => {
+          next({ path: "/" })
+        })
+      } else {
+        next({ path: "/login" })
+      }
     }
   }
 

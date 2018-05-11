@@ -18,9 +18,6 @@
       </div>
 
       <div slot="bottom" class="flex flex-center flex-column background-animation">
-        <!-- <div class="cloud"></div>
-        <div class="cloud small"></div>
-        <div class="cloud big"></div> -->
         <svg id="moon" viewBox="0 0 200 200" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
           <g>
             <filter inkscape:collect="always" id="filter4412" x="-0.24474119" width="1.4894824" y="-0.22916524" height="1.4583305">
@@ -56,12 +53,14 @@
           <i class="fas fa-balance-scale fa-10x" aria-hidden="true"></i>
 
           <br />
-          <!-- <button v-on:click="slideUp">3</button>
-          <button v-on:click="slideMiddle">2</button> -->
 
           <button class="btn-large text-white" v-on:click="login">
             SIGN IN
           </button>
+        </div>
+
+        <div v-if="message" id="authentication-message" class="text-white">
+          {{ message }}
         </div>
       </div>
 
@@ -72,12 +71,10 @@
 <script>
 import AuthService from "../main"
 import VerticalSlider from "./shared/VerticalSlider.vue"
-// import VueLogo from "./VueLogo.vue"
 
 export default {
   name: "Authentication",
   components: { VerticalSlider },
-  // components: { VerticalSlider, VueLogo },
 
   data() {
     return {
@@ -85,20 +82,15 @@ export default {
     }
   },
 
-  props: ["initSection"],
-
-  beforeEnter() {
-    console.log(this.$router)
-  },
+  props: ['initSection', 'message'],
 
   mounted() {
-    console.log("CREATED")
     setTimeout(() => {
       this.slideMiddle()
       setTimeout(() => {
         this.slideDown()
-      }, 1500)
-    }, 1500)
+      }, 1000)
+    }, 1000)
   },
 
   computed: {
@@ -112,6 +104,21 @@ export default {
   },
 
   methods: {
+    toggleFullScreen() {
+      var doc = window.document
+      var docEl = doc.documentElement
+
+      var requestFullScreen = docEl.requestFullscreen || docEl.mozRequestFullScreen || docEl.webkitRequestFullScreen || docEl.msRequestFullscreen
+      var cancelFullScreen = doc.exitFullscreen || doc.mozCancelFullScreen || doc.webkitExitFullscreen || doc.msExitFullscreen
+
+      if(!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement && !doc.msFullscreenElement) {
+        requestFullScreen.call(docEl)
+      }
+      else {
+        cancelFullScreen.call(doc)
+      }
+    },
+
     slideUp() {
       this.section = "top"
     },
@@ -119,11 +126,13 @@ export default {
     slideMiddle() {
       this.section = "middle"
     },
+
     slideDown() {
       this.section = "bottom"
     },
 
     login() {
+      // this.toggleFullScreen()
       AuthService.login()
     },
 
@@ -147,7 +156,12 @@ export default {
 
     &:hover
       background-color: #071c27
-    // height: 10vh
+
+  #authentication-message
+    background: tomato
+    padding: 2rem
+    position: absolute
+    bottom: 0
 
   h1
     small
@@ -163,55 +177,33 @@ export default {
     height: 6em
     line-height: 6em
 
-
   .background-animation
-    background: #fff
     background: url('./../assets/night-background.svg')
     transform: translateZ(0)
     background-size: cover
     backface-visibility: hidden
 
-
-  @media (min-width: 20em)
+  @media (min-width: 20em) and (orientation: portrait)
     .background-animation
-      // animation: bk 30s -5s linear infinite
-      transform: translateZ(0)
-
-  @media (min-width: 40em)
-    .background-animation
-      // animation: bk 60s -5s linear infinite
+      animation: bk 60s -5s linear infinite
       transform: translateZ(0)
 
   @keyframes bk
     100%
-      background-position: -200vw 0
+      background-position: -100vw 0
 
   @keyframes opacity
     0%
-      // transform: translate(-0vw, -0vh)
       opacity: 1
-    // 10%
-    //   transform: translate(0vw, -10vh)
-    // 80%
-    //   transform: translate(0vw, -10vh)
     100%
-      // transform: translate(100vw, -0vh)
       opacity: 0
 
   @keyframes move
     0%
-      // transform: translate(-0vw, -0vh)
       transform: translate(-70vw, 5vh)
-    // 10%
-    //   transform: translate(0vw, -10vh)
-    // 80%
-    //   transform: translate(0vw, -10vh)
     100%
-      // transform: translate(100vw, -0vh)
       transform: translate(40vw, 10vh)
 
-  // #path4317
-  //   animation: opacity 15s -3s linear infinite
   #moon
     top: 0
     height: 34vh
@@ -220,24 +212,6 @@ export default {
     position: absolute
     animation: move 15s -3s linear infinite
     transform: translateZ(0)
-
-  @keyframes cloud
-    0%
-      opacity: 0.75
-      transform: translate(-65vw, -10vh) scale(0.1)
-      // transform: translate(-70vw, -10vh)
-      // left: 0vw
-    50%
-      opacity: 1
-      transform: translate(20vw, -10vh)
-      // left: 50vw
-    100%
-      // left: 100vw
-      opacity: 0.75
-      transform: translate(60vw, -10vh) scale(1.6)
-
-
-      // transform: translate(40vw, 10vh)
 
   @media screen and (orientation: portrait)
     #login-container
@@ -250,42 +224,4 @@ export default {
       i.fa-balance-scale
         display: none
 
-
-  .cloud
-    position: absolute
-    width: 70px
-    height: 24px
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(5%, #f2f9fe), to(#d6f0fd))
-    background: linear-gradient(to bottom, #f2f9fe 5%, #d6f0fd 100%)
-    border-radius: 20px
-    top: 21vh
-    z-index: 1200
-    animation: cloud 25s -3s linear infinite
-    &.small
-      top: 25vh
-      transform: translate(8vw, -2vh) scale(0.6)
-      // animation-delay: -1.5s
-      // animation-duration: 13.5s
-    &.big
-      top: 40px
-      transform: scale(1.6)
-      animation-delay: -1.5s
-      animation-duration: 13.5s
-    &:before, &:after
-      position: absolute
-      content: ""
-      background: inherit
-      z-index: -1
-    &:before
-      width: 36px
-      height: 36px
-      top: -18px
-      right: 10px
-      border-radius: 40px
-    &:after
-      width: 20px
-      height: 20px
-      top: -10px
-      left: 10px
-      border-radius: 20px
 </style>

@@ -92,7 +92,6 @@
           this.time = this.time.endsWith(":")
             ? this.time.substring(0, this.time.length - 2)
             : this.time.substring(0, this.time.length - 1)
-          console.log(this.time)
         } else if (this.setable.includes(key)) {
           this.setTime(event.key)
         }

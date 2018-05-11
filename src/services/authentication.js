@@ -19,19 +19,22 @@ export default class AuthenticationService {
   }
 
   handleCallback (redirectUri = window.location.href) {
+    console.log('*** handleCallback')
     this.auth.parseHash((error, authResult) => {
       if (error) {
+        console.error('*** error', error, authResult)
+        this.router.push({ path: 'login', query: { message: error.errorDescription }})
         // NOTE: Redirect back to hosted login page and provide the error description
-        this.login({ redirectUri: redirectUri, errorDescription: error.errorDescription })
+        // this.login({ redirectUri: redirectUri, errorDescription: error.errorDescription })
       } else if (authResult && authResult.accessToken && authResult.idToken) {
+        console.log('*** Store session and redirect to /')
         this._setSession(authResult)
-
-        setTimeout(() => {
-          this.router.replace('/')
-        }, 500)
+        this.router.push('/')
       } else {
+        console.error('**** No access key')
         // TODO: Redirect to generic error page?
-        this.login({ redirectUri: redirectUri, errorDescription: 'Missing required parameter in response' })
+        this.router.push({ path: 'login', query: { message: 'Missing required parameter in response' }})
+        // this.login({ redirectUri: redirectUri, errorDescription: 'Missing required parameter in response' })
       }
     })
   }

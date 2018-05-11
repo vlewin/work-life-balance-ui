@@ -26,7 +26,6 @@ export default {
 
   fetchBalance: async ({ commit }, userId) => {
     console.log('*** Action - fetchBalance', userId)
-    commit("SET_FETCHING", true)
     const response = await Balance.get('github|611466')
 
     console.log('*** Action - fetchBalance - response', response.data)
@@ -52,7 +51,6 @@ export default {
   saveRecord: async ({ commit }, record) => {
     commit("SET_LOADING", true)
     const response = await Record.save(record)
-    // const response = await Record.all({ week: week });
     console.log('Response data', response.data)
     commit("ADD_RECORD", response.data)
     commit("SET_LOADING", false)

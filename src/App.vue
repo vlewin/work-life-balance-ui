@@ -5,6 +5,8 @@
 </template>
 
 <script>
+  import AuthService from "./main"
+
   export default {
     name: "App",
     mounted() {

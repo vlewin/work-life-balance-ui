@@ -36,7 +36,7 @@
     },
 
     created() {
-      if(!this.balance) {
+      if(!this.balance.total) {
         this.$store.dispatch('fetchBalance')
       }
     },
