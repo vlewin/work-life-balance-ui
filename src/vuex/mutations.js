@@ -50,5 +50,19 @@ export default {
   ADD_RECORD(state, record) {
     console.log("ADD_RECORD")
     Vue.set(state.records, record.date, record)
+  },
+
+  SET_ABSENCES(state, absences) {
+    const data = {}
+    absences.forEach(item => (data[item.date] = item))
+    state.absences = data
+
+    // state.records = Object.assign({}, state.records, data)
+    // Vue.set(state, "records", records.map(record => ({ key: record.date, val: record })));
+  },
+
+  ADD_ABSENCE(state, record) {
+    console.log("ADD_ABSENCE")
+    Vue.set(state.records, record.date, record)
   }
 }

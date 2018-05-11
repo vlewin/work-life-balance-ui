@@ -60,20 +60,25 @@
     <template slot="c-sidebar-title">TEXT</template>
     <i slot="c-sidebar-icon" class="fa fa-calendar-plus fa-6x" aria-hidden="true"></i>
 
+
     <template slot="c-footer" >
-      <!-- {{ isLandscape }} -->
-      <button v-if="valid" v-on:click="save">SAVE</button>
+      <simple-switch v-if="valid" slot="up" class="vertical animated" :active="loading">
+        <button class="text-white" slot="up" v-on:click="save">
+          SAVE
+        </button>
+        <button class="text-white" slot="down" disabled>PLEASE WAIT...</button>
+      </simple-switch>
+
       <span class="uppercase" v-else>
         <i class="fas fa-info-circle"></i>
-        select absence type
+        select absence {{ selected.length ? 'type' : 'date' }}
       </span>
-      <!-- <button>DELETE</button> -->
     </template>
   </card>
 </template>
 
 <script>
-  import { mapState, mapActions } from "vuex"
+  import { mapState, mapActions, mapGetters } from "vuex"
 
   import Calendar from "./Calendar"
   import Card from "../../shared/ResponsiveCard"
@@ -110,6 +115,10 @@
       }
     },
 
+    mounted() {
+      this.$store.dispatch('fetchMonthAbsences', this.currentMonthNumber)
+    },
+
     created() {
       window.addEventListener("orientationchange", () => {
         console.log(screen.orientation.type)
@@ -125,11 +134,24 @@
     },
 
     computed: {
-      ...mapState(['currentDate', 'balance', 'records']),
+      ...mapGetters(['currentMonthNumber']),
+      ...mapState(['currentDate', 'loading', 'balance', 'records']),
 
       valid() {
-        return this.selected.length && this.reason
+        return !!(this.selected.length && this.reason)
       },
+
+      data() {
+        return this.selected.map((date) => {
+          return {
+            timestamp: date.getTime(),
+            date: date.toDateString(),
+            type: 'absence',
+            reason: this.reason
+          }
+        })
+      },
+
 
       // isLandscape() {
       //   return window.screen.width > window.screen.height
@@ -155,9 +177,12 @@
         this.reason = this.sliderMap[index]
       },
 
-      save() {
+      save: async function() {
+        console.log(this.data)
         console.log(this.selected, this.reason)
-      }
+        await this.$store.dispatch("saveAbsence", this.data)
+        await this.$store.dispatch("fetchBalance")
+      },
     }
   }
 </script>

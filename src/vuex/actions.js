@@ -1,3 +1,4 @@
+import Absence from "../services/absence"
 import Record from "../services/record"
 import Balance from "../services/balance"
 
@@ -48,6 +49,12 @@ export default {
     console.log("fetched")
   },
 
+  updateRecord: async ({ commit }, record) => {
+    const response = await Record.save(record)
+    commit("ADD_RECORD", response.data)
+    console.log("saved")
+  },
+
   saveRecord: async ({ commit }, record) => {
     commit("SET_LOADING", true)
     const response = await Record.save(record)
@@ -57,18 +64,17 @@ export default {
     console.log("saved")
   },
 
-  saveAbsence: async ({ commit }, records, reason) => {
-    commit("SET_LOADING", true)
-    const response = await Record.save(records, reason)
-    // const response = await Record.all({ week: week });
-    commit("ADD_RECORD", response.data)
-    commit("SET_LOADING", false)
-    console.log("saved")
+  fetchMonthAbsences: async ({ commit }, month) => {
+    commit("SET_FETCHING", true)
+    const response = await Absence.all({ month: month })
+    commit("SET_ABSENCES", response.data)
+    commit("SET_FETCHING", false)
   },
 
-  updateRecord: async ({ commit }, record) => {
-    const response = await Record.save(record)
-    commit("ADD_RECORD", response.data)
-    console.log("saved")
+  saveAbsence: async ({ commit }, records, reason) => {
+    commit("SET_LOADING", true)
+    const response = await Absence.save(records, reason)
+    commit("ADD_ABSENCE", response.data)
+    commit("SET_LOADING", false)
   }
 }
