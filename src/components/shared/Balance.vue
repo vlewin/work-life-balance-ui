@@ -75,7 +75,7 @@
       width: 100%
 
       .flex-item
-        border-top: 1px solid #2b3c58
+        border-top: 1px solid #eee
         height: 100%
 
       span

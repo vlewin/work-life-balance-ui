@@ -58,7 +58,11 @@ export function timeToDateTime(date, time) {
 }
 
 import startOfWeek from "date-fns/start_of_week"
-import isWeekend from "date-fns/is_weekend"
+import _isWeekend from "date-fns/is_weekend"
+
+export function isWeekend(date = new Date()) {
+  return _isWeekend(date)
+}
 
 export function getNextBusinessDay(date = new Date()) {
   if (isWeekend(date)) {

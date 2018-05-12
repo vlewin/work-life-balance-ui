@@ -4,20 +4,18 @@
       <slot name="c-header-icon">ICON</slot>
       <slot name="c-header-title">&nbsp;</slot>
 
-      <div class="flex flex-center width-100 height-10">
-        <!-- <slot name="c-header-actions">HEADER</slot> -->
-
-        <div slot="c-header-actions" class="font-2" v-on:click="navigate('page-1')">
-          <i class="fas fa-chart-pie"></i>
+      <div class="c-header-actions flex flex-center width-100 height-10">
+        <div slot="c-header-actions" v-on:click="navigate('page-1')">
+          <i class="fas fa-chart-pie font-6" :class="{ active: page === 'page-1' }"></i>
         </div>
-        <div slot="c-header-actions" class="font-2" v-on:click="navigate('page-2')">
-          <i class="fas fa-clock"></i>
+        <div slot="c-header-actions" v-on:click="navigate('page-2')">
+          <i class="fas fa-clock font-6" :class="{ active: page === 'page-2' }"></i>
         </div>
-        <div slot="c-header-actions" class="font-2" v-on:click="navigate('page-3')">
-          <i class="fas fa-calendar-plus"></i>
+        <div slot="c-header-actions" v-on:click="navigate('page-3')">
+          <i class="fas fa-calendar-plus font-6" :class="{ active: page === 'page-3' }"></i>
         </div>
-        <div slot="c-header-actions" class="font-2" v-on:click="navigate('page-1')">
-          <i class="fas fa-sliders-h"></i>
+        <div slot="c-header-actions" v-on:click="navigate('page-1')">
+          <i class="fas fa-sliders-h font-6"></i>
         </div>
       </div>
     </div>
@@ -36,17 +34,17 @@
       </div>
 
       <div class="c-sidebar-actions flex flex-center height-15">
-        <div slot="c-header-actions" class="font-2" v-on:click="navigate('page-1')">
-          <i class="fas fa-chart-pie"></i>
+        <div slot="c-sidebar-actions" v-on:click="navigate('page-1')">
+          <i class="fas fa-chart-pie font-6" :class="{ active: page === 'page-1' }"></i>
         </div>
-        <div slot="c-header-actions" class="font-2" v-on:click="navigate('page-2')">
-          <i class="fas fa-clock"></i>
+        <div slot="c-sidebar-actions" v-on:click="navigate('page-2')">
+          <i class="fas fa-clock font-6" :class="{ active: page === 'page-2' }"></i>
         </div>
-        <div slot="c-header-actions" class="font-2" v-on:click="navigate('page-3')">
-          <i class="fas fa-calendar-plus"></i>
+        <div slot="c-sidebar-actions" v-on:click="navigate('page-3')">
+          <i class="fas fa-calendar-plus font-6" :class="{ active: page === 'page-3' }"></i>
         </div>
-        <div slot="c-header-actions" class="font-2" v-on:click="navigate('page-4')">
-          <i class="fas fa-sliders-h"></i>
+        <div slot="c-sidebar-actions" v-on:click="navigate('page-1')">
+          <i class="fas fa-sliders-h font-6"></i>
         </div>
       </div>
     </div>
@@ -76,7 +74,7 @@
     },
 
     computed: {
-      ...mapState([""])
+      ...mapState(["page"])
     },
 
     methods: {
@@ -109,6 +107,18 @@
   .c-header, .c-sidebar, .c-sidebar-actions
     background-color: darken($base, 10%)
 
+  .c-header-actions, .c-sidebar-actions
+    i.font-6
+      // padding-top: 0.2rem
+      width: 2.4rem
+      height: 2.4rem
+      border-radius: 50%
+      line-height: 2.4rem
+      color: #1a2436
+
+      &.active
+        color: #42b983
+
   .c-footer
     background-color: darken($base, 5%)
 
@@ -119,8 +129,8 @@
     position: relative
     font-weight: bold
 
-    i
-      padding-top: 0.2rem
+
+
 
 
     // background: $base

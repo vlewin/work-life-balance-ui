@@ -5,7 +5,7 @@
 
     <div slot="c-body" class="flex flex-between container">
       <div class="flex flex-center content">
-        <calendar class="width-90" :date="currentDate" :records="records" v-on:changed="setSelected"></calendar>
+        <calendar class="width-90" :date="currentDate" :absences="absences" v-on:changed="setSelected"></calendar>
       </div>
 
       <simple-switch slot="c-footer" class="info animated" :class="{ horizontal: isLandscape }" :active="!!selected.length">
@@ -25,7 +25,7 @@
             </label>
           </div>
           <div class="flex flex-center flex-column flex-item">
-            <span>?</span>
+            <span>{{ holidayCount }}</span>
             <label>
               <i class="fa fa-gift text-tomato" aria-hidden="true"></i>
               HOLIDAY
@@ -41,7 +41,8 @@
             </div>
           </div>
           <div slot="center">
-            <i class="fa fa-heartbeat"></i>
+            <!-- <i class="fa fa-heartbeat"></i> -->
+            <i class="fas fa-briefcase-medical"></i>
             <div>
               SICKNESS
             </div>
@@ -120,6 +121,7 @@
     },
 
     created() {
+      // FIXME: Move to App.vue
       window.addEventListener("orientationchange", () => {
         console.log(screen.orientation.type)
         this.isLandscape = window.screen.width > window.screen.height
@@ -127,6 +129,7 @@
     },
 
     beforeDestroy() {
+      // FIXME: Move to App.vue
       window.removeEventListener("orientationchange", () => {
         console.log(screen.orientation.type)
         this.isLandscape = window.screen.width > window.screen.height
@@ -135,7 +138,7 @@
 
     computed: {
       ...mapGetters(['currentMonthNumber']),
-      ...mapState(['currentDate', 'loading', 'balance', 'records']),
+      ...mapState(['currentDate', 'loading', 'balance', 'absences']),
 
       valid() {
         return !!(this.selected.length && this.reason)
@@ -152,6 +155,11 @@
         })
       },
 
+      holidayCount() {
+        return '4?'
+        // return this.orientation.includes('landscape')
+      }
+
 
       // isLandscape() {
       //   return window.screen.width > window.screen.height
@@ -159,12 +167,28 @@
       // }
     },
 
+    watch: {
+      // FIXME: React on slide page event???
+      page(val) {
+        if (val === 'page-3') {
+          setTimeout(() => {
+            this.$store.dispatch("fetchMonthAbsences", this.currentMonthNumber)
+          }, 500)
+        }
+      }
+    },
+
     methods: {
       ...mapActions(["navigate"]),
 
-      setDate(date) {
-        this.$store.dispatch("setCurrentDate", date)
-        // this.date = date
+      // setDate(date) {
+      //   this.$store.dispatch("setCurrentDate", date)
+      //   // this.date = date
+      // },
+
+      async setDate(date) {
+        await this.$store.dispatch("setCurrentDate", date)
+        await this.$store.dispatch("fetchMonthAbsences", this.currentMonthNumber)
       },
 
       setSelected(dates) {

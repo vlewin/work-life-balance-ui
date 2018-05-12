@@ -59,7 +59,7 @@ export default {
     height: 100%;
     overflow: hidden;
     display: flex;
-    transition: transform 300ms cubic-bezier(0.8, 0, 0.2, 1);
+    transition: transform 300ms linear;
   }
 
   .window.page-1 {

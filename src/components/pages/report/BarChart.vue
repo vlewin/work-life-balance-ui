@@ -3,9 +3,25 @@
     <!-- {{ viewBox }} -->
 
     <!-- <svg :viewBox="viewBox"> -->
-    <svg :viewBox="viewBox" preserveAspectRatio="none"> -->
+    <svg :viewBox="viewBox" preserveAspectRatio="none">
+      <defs>
+        <pattern id="pattern-stripe"
+          width="10" height="10"
+          patternUnits="userSpaceOnUse"
+          patternTransform="rotate(45)">
+          <rect width="2" height="4" transform="translate(0,0)" fill="black"></rect>
+        </pattern>
+        <mask id="mask-stripe">
+          <rect x="0" y="0" width="100%" height="100%" fill="url(#pattern-stripe)" />
+        </mask>
+
+        <pattern id="stripe-1" patternUnits="userSpaceOnUse" width="10" height="10">
+          <image xlink:href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScxMCcgaGVpZ2h0PScxMCc+CiAgPHJlY3Qgd2lkdGg9JzEwJyBoZWlnaHQ9JzEwJyBmaWxsPSd3aGl0ZScvPgogIDxwYXRoIGQ9J00tMSwxIGwyLC0yCiAgICAgICAgICAgTTAsMTAgbDEwLC0xMAogICAgICAgICAgIE05LDExIGwyLC0yJyBzdHJva2U9J2JsYWNrJyBzdHJva2Utd2lkdGg9JzEnLz4KPC9zdmc+Cg==" x="0" y="0" width="10" height="10"> </image>
+        </pattern>
+      </defs>
+
       <g transform="scale(1,-1) translate(10,-400)">
-        <g class="bar" v-for="(d, i) in values" :key="d.date" :data-key="d.date">
+        <g class="bar" v-for="(d, i) in values" :key="d.date" :data-key="d.date" v-if="!d.weekend">
           <rect class="background" x="0" y="0" fill="white" height="400" :width="width" >
 
           <animate attributeName="x"
@@ -16,7 +32,7 @@
                   />
           </rect>
           <!-- <animated-rect :x="i*40" :duration="d.duration"></animated-rect> -->
-          <rect class="value" :x="i*40" y="0" :width="width" :class="{ over: d.duration > 8, under: d.duration < 8 }">
+          <rect class="value" :x="i*40" y="0" :width="width" :class="[d.reason, { over: d.duration > 8, under: d.duration < 8 }]">
             <animate attributeName="height" from="0" :to="d.duration*50" dur="0.4s" fill="freeze" />
           </rect>
           <circle :cx="i*40+9" cy="-40" stroke="#00acc1" stroke-width="0" stroke-linecap="round" fill="none" r="18" />
@@ -134,7 +150,23 @@
 
   .under {
     fill: #FFBF00;
+  },
+
+  .weekend {
+    fill: white;
   }
+
+  .sickness, .vacation {
+    /* mask: url('#mask-stripe'); */
+    fill: url('#stripe-1');
+    /* background: repeating-linear-gradient(
+      45deg,
+      #606dbc,
+      #606dbc 10px,
+      #465298 10px,
+      #465298 20px
+    ); */
+  },
 
   .fill {
     fill: orange;

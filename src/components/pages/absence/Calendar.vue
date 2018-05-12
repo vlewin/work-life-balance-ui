@@ -7,7 +7,6 @@
 
       <li class="grid-item day" v-for="(day, i) in days" :key="i+1*1" v-on:click="select(day)" :class="addClasses(day)">
         {{ day | toNumber }}
-        <!-- <span class="tooltiptext" v-if="isRecorded(day)">{{ record(day).absence }}</span> -->
         <span class="tooltiptext" v-if="isHoliday(day)">{{ isHoliday(day) }}</span>
       </li>
     </ul>
@@ -37,15 +36,7 @@
         type: Date
       },
 
-      value: {
-        type: String
-      },
-
-      target: {
-        required: false
-      },
-
-      records: {
+      absences: {
         type: Object
       }
     },
@@ -63,23 +54,10 @@
         return calendator.giveMeCalendarForMonthYear(this.date.getMonth(), this.date.getFullYear())
       },
 
-      currentMonth() {
-        return this.date.toLocaleString("en-US", { month: "long" })
-      },
-
       days() {
         return this.weeks.reduce((a, b) => a.concat(b)).map(d => {
           return d ? new Date(this.date.getFullYear(), this.date.getMonth(), d) : null
         })
-      },
-
-      vacationRestDays() {
-        // TODO: Number of vacation days from settings
-        return 30 - this.selected.length
-      },
-
-      seeknessDays() {
-        return this.selected.length
       }
     },
 
@@ -87,26 +65,29 @@
 
     methods: {
       addClasses(date) {
-        return {
-          selected: this.isSelected(date),
-          weekend: isWeekend(date),
-          holiday: this.isHoliday(date),
-          empty: this.isEmpty(date),
-          vacation: this.isVacation(date),
-          sickness: this.isSickness(date)
+        if(date) {
+          return {
+            selected: this.isSelected(date),
+            weekend: this.isWeekend(date),
+            holiday: this.isHoliday(date),
+            empty: this.isEmpty(date),
+            vacation: this.isVacation(date),
+            sickness: this.isSickness(date)
+          }
         }
+
       },
 
       isSelected(date) {
         return this.selected.includes(date)
       },
 
-      isWeekend(day) {
-        return [5, 6].includes(day % 7)
+      isWeekend(date) {
+        return isWeekend(date)
       },
 
       isHoliday(date) {
-        return date && isHoliday(date) || this.record(date).absence === "holiday"
+        return date && isHoliday(date) || this.record(date).reason === "holiday"
       },
 
       isEmpty(date) {
@@ -114,20 +95,20 @@
       },
 
       isRecorded(date) {
-        return date && this.records[date.toLocaleDateString("de-DE")]
+        return this.absences[date.toDateString()]
       },
 
       isVacation(date) {
-        return this.record(date).absence === "vacation"
+        return this.record(date).reason === "vacation"
       },
 
       isSickness(date) {
-        return this.record(date).absence === "sickness"
+        return this.record(date).reason === "sickness"
       },
 
       record(date) {
-        if (this.isRecorded(date)) {
-          return this.records[date.toLocaleDateString("de-DE")]
+        if (date && this.isRecorded(date)) {
+          return this.absences[date.toDateString()]
         }
 
         return {}

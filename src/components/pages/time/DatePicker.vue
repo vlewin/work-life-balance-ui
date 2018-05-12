@@ -17,8 +17,8 @@
 // import addHours from "date-fns/add_hours"
 // import getDay from 'date-fns/get_day'
 // FIXME: Check bundle size
-import { isWeekend, addHours } from "date-fns"
-import { weekNumber, weekStartDay, weekDaysRange, isHappy, isHoliday } from "@/helpers/date"
+import { addHours } from "date-fns"
+import { weekNumber, weekStartDay, weekDaysRange, isHappy, isWeekend, isHoliday } from "@/helpers/date"
 import { mapGetters, mapState } from "vuex"
 
 export default {
@@ -36,9 +36,10 @@ export default {
   created: async function() {
     // NOTE: Return only working days, include Sa?
     this.week = weekDaysRange(this.selected).filter(d => {
-      return !isWeekend(d)
+      return !this.isWeekend(d)
     })
-    if (isWeekend(this.currentDate)) {
+
+    if (this.isWeekend(this.currentDate)) {
       this.$store.dispatch("setCurrentDate", addHours(this.week[0], 1))
     }
 
@@ -67,16 +68,11 @@ export default {
           recorded: !!record.date
         }
       })
-      // return Object.keys(this.records).map(key => {
-      //   let record = this.records[key];
-      //   return this.records[key];
-      // });
     },
 
 
 
     selected() {
-      console.log(this.$store.state.currentDate)
       return this.$store.state.currentDate
     }
   },
@@ -87,7 +83,7 @@ export default {
       if (val === 'page-2') {
         setTimeout(() => {
           this.$store.dispatch("fetchRecords")
-        }, 250)
+        }, 500)
       }
     }
   },

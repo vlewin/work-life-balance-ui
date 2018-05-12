@@ -13,9 +13,10 @@
 
     <div slot="c-body" class="flex flex-center container">
       <circle-menu class="flex flex-center relative" :form="form" v-on:open="openPicker"></circle-menu>
-      <small class="width-80 light-grey"><p>
+      <!-- <br />
+      <small class="width-80 light-grey font-1"><p>
         {{ form }}
-      </p></small>
+      </p></small> -->
     </div>
 
     <template slot="c-sidebar-title">

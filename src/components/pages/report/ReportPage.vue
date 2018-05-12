@@ -35,8 +35,7 @@
   import Card from "../../shared/ResponsiveCard"
   import MonthPicker from "../../shared/MonthPicker"
   import Balance from "../../shared/Balance"
-
-  import { monthRange } from "../../../helpers/date"
+  import { monthRange, isWeekend } from "../../../helpers/date"
 
   export default {
     name: "ReportPage",
@@ -53,17 +52,22 @@
 
     computed: {
       ...mapGetters(['currentMonthNumber']),
-      ...mapState(['page', 'fetching', 'balance', 'records']),
+      ...mapState(['page', 'fetching', 'balance', 'records', 'absences']),
 
       values() {
-        const dates = Object.keys(this.records)
+        const timestamps = { ...this.records, ...this.absences}
+        const dates = Object.keys(timestamps)
         return monthRange(this.currentMonthNumber).map((date) => {
           let key = date.toDateString()
+          let timestamp = { date: key, duration: 0 }
+          timestamp.weekend = isWeekend(date)
+
           if(dates.includes(key)) {
-            return this.records[key]
-          } else {
-            return { date: key, duration: 0 }
+            timestamp = timestamps[key]
+            timestamp.duration = timestamp.duration || 8
           }
+
+          return timestamp
         })
       }
     },
@@ -74,7 +78,7 @@
         if (val === 'page-1') {
           setTimeout(() => {
             this.$store.dispatch("fetchMonthRecords", this.currentMonthNumber)
-          }, 250)
+          }, 500)
         }
       }
     },

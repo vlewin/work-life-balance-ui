@@ -8,13 +8,15 @@
       </h2>
       <h3 class="no-margin">
         <small>{{ form.start }} - {{ form.end }}</small>
-        <label>&num; {{ form.week }}</label>
+        <label>&num; {{ currentWeekNumber }}</label>
       </h3>
     </div>
 
     <ul id="outside" :class="{ open: open }">
       <li class="one">
-        <span class="text" v-on:click="emit('start')">{{ form.start }}</span>
+        <span class="text" v-on:click="emit('start')">
+          {{ form.start }}
+        </span>
       </li>
       <li class="two">
         <span class="text" v-on:click="emit('pause')">{{ form.pause }}</span>
@@ -23,13 +25,15 @@
         <span class="text" v-on:click="emit('end')">{{ form.end }}</span>
       </li>
       <li class="four">
-        <span class="text"></span>
+        <!-- <span class="text icon">&#11041;</span> -->
+        <span class="text icon"><i class="fas fa-bars font-5"></i></span>
       </li>
-      <li class="five">
-        <span class="text">&#11041;</span>
+      <li class="five" v-on:click="home">
+        <!-- <span class="text">&#11041;</span> -->
+        <span class="text icon"><i class="fas fa-home font-5"></i></span>
       </li>
       <li class="six">
-        <span class="icon"></span>
+        <span class="text icon"><i class="fas fa-trash font-5"></i></span>
       </li>
     </ul>
 
@@ -80,11 +84,16 @@
     },
 
     computed: {
-      ...mapGetters(["currentFomatedDate"]),
-      ...mapState(["fetching"]),
+      ...mapGetters(['currentFomatedDate', 'currentWeekNumber']),
+      ...mapState(['fetching']),
     },
 
     methods: {
+      home() {
+        console.log('Set selected')
+        this.$store.dispatch('setCurrentDate', new Date())
+      },
+
       toggleLoading() {
         this.loading = !this.loading
       },
@@ -265,6 +274,10 @@
     color: #fff;
     height: 2rem;
     width: 6rem;
+  }
+
+  .icon {
+    transform: rotate(240deg);
   }
 
   @media screen and (orientation: portrait) {
