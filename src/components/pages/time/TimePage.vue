@@ -51,7 +51,7 @@
   import addHours from "date-fns/add_hours"
   import isSameDay from "date-fns/is_same_day"
 
-  import { timeToNumber, timeToDateTime, dateTimeToTime } from "../../../helpers/date"
+  import { timeToNumber, timeToDateTime, dateTimeToTime, getUTCDate } from "../../../helpers/date"
 
   export default {
     name: "TimeCard",
@@ -161,7 +161,7 @@
           // console.info('INIT:', JSON.stringify(this.form))
           // console.log(this.currentDate.toDateString())
           this.form = {
-            timestamp: this.currentDate.getTime(),
+            timestamp: getUTCDate().getTime(),
             date: this.currentDate.toDateString(),
             start: dateTimeToTime(new Date()),
             pause: "00:30"

@@ -16,7 +16,7 @@ const store = new Vuex.Store({
     currentDate: getNextBusinessDay(),
     absences: {},
     records: {},
-    balance: {},
+    balance: { total: 0, vacation: 0, sickness: 0 },
     debug: false
   },
 

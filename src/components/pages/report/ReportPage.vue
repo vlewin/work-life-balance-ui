@@ -9,7 +9,7 @@
       LOADING...
     </h1>
 
-    <h1 v-else-if="!fetching && !Object.keys(records).length" slot="c-body" class="flex flex-center height-50">
+    <h1 v-else-if="!fetching && !Object.keys(timestamps).length" slot="c-body" class="flex flex-center height-50">
       NO DATA
     </h1>
 
@@ -54,16 +54,19 @@
       ...mapGetters(['currentMonthNumber']),
       ...mapState(['page', 'fetching', 'balance', 'records', 'absences']),
 
+      timestamps() {
+        return { ...this.records, ...this.absences}
+      },
+
       values() {
-        const timestamps = { ...this.records, ...this.absences}
-        const dates = Object.keys(timestamps)
+        const dates = Object.keys(this.timestamps)
         return monthRange(this.currentMonthNumber).map((date) => {
           let key = date.toDateString()
           let timestamp = { date: key, duration: 0 }
           timestamp.weekend = isWeekend(date)
 
           if(dates.includes(key)) {
-            timestamp = timestamps[key]
+            timestamp = this.timestamps[key]
             timestamp.duration = timestamp.duration || 8
           }
 
@@ -78,6 +81,8 @@
         if (val === 'page-1') {
           setTimeout(() => {
             this.$store.dispatch("fetchMonthRecords", this.currentMonthNumber)
+            this.$store.dispatch("fetchMonthAbsences", this.currentMonthNumber)
+
           }, 500)
         }
       }
@@ -89,6 +94,8 @@
       async setDate(date) {
         await this.$store.dispatch("setCurrentDate", date)
         await this.$store.dispatch("fetchMonthRecords", this.currentMonthNumber)
+        await this.$store.dispatch("fetchMonthAbsences", this.currentMonthNumber)
+
       }
     }
   }

@@ -2,9 +2,7 @@ import axios from "axios"
 
 export default class Record {
   static get endpoint() {
-    // return "https://ve0ytkrvvc.execute-api.eu-central-1.amazonaws.com/development/balance"
-    return "http://localhost:3000/balance"
-
+    return `${process.env.VUE_APP_BASE_URI}/balance`
   }
 
   static get(id) {

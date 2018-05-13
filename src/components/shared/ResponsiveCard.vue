@@ -107,6 +107,9 @@
   .c-header, .c-sidebar, .c-sidebar-actions
     background-color: darken($base, 10%)
 
+  // .c-header i
+  //   color: #1a2436
+
   .c-header-actions, .c-sidebar-actions
     i.font-6
       // padding-top: 0.2rem

@@ -2,9 +2,7 @@ import axios from "axios"
 
 export default class Absence {
   static get endpoint() {
-    // return "https://ve0ytkrvvc.execute-api.eu-central-1.amazonaws.com/development/absences"
-    return "http://localhost:3000/absences"
-
+    return `${process.env.VUE_APP_BASE_URI}/absences`
   }
 
   static all(params = {}) {

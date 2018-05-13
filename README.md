@@ -15,6 +15,10 @@ TODO:
 * [ ] GraphQL data services
 * [ ] Unit / Functional / UI E2E acceptance testing (Chrome headless)
 
+
+## KNOWN ISSUES:
+- https://github.com/date-fns/date-fns/issues/376
+
 SOURCES:
 
 ## Auth0 Vue sample app

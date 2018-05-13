@@ -1,6 +1,20 @@
 import addHours from "date-fns/add_hours"
 import format from "date-fns/format"
 
+export function getUTCDate(date = new Date()) {
+  return new Date(date.toUTCString())
+  // const date = new Date(dateString);
+  //
+  // return new Date(
+  //   date.getUTCFullYear(),
+  //   date.getUTCMonth(),
+  //   date.getUTCDate(),
+  //   date.getUTCHours(),
+  //   date.getUTCMinutes(),
+  //   date.getUTCSeconds(),
+  // );
+}
+
 // Get ISO8601 week number by date
 export function weekNumber(date = new Date()) {
   const cur = new Date(date).getTime()
