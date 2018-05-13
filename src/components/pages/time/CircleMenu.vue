@@ -1,17 +1,5 @@
 <template>
   <div id="circle-menu" :class="{ loading: fetching }">
-    <div id="inside" v-on:click="toggleLoading">
-      <h3 class="hidden">LOADING ...</h3>
-      <h2 class="no-margin">
-        {{ form.duration }}
-        <label>hours</label>
-      </h2>
-      <h3 class="no-margin">
-        <small>{{ form.start }} - {{ form.end }}</small>
-        <label>&num; {{ currentWeekNumber }}</label>
-      </h3>
-    </div>
-
     <ul id="outside" :class="{ open: open }">
       <li class="one">
         <span class="text" v-on:click="emit('start')">
@@ -36,6 +24,18 @@
         <span class="text icon"><i class="fas fa-trash font-5"></i></span>
       </li>
     </ul>
+
+    <div id="inside" v-on:click="toggleLoading">
+      <h3 class="hidden">LOADING ...</h3>
+      <h2 class="no-margin">
+        {{ form.duration }}
+        <label>hours</label>
+      </h2>
+      <h3 class="no-margin">
+        <small>{{ form.start }} - {{ form.end }}</small>
+        <label>&num; {{ currentWeekNumber }}</label>
+      </h3>
+    </div>
 
     <svg height="0" width="0">
       <defs>
@@ -84,7 +84,7 @@
     },
 
     computed: {
-      ...mapGetters(['currentFomatedDate', 'currentWeekNumber']),
+      ...mapGetters(['currentFomatedDate', 'currentWeekNumber', 'currentRecord']),
       ...mapState(['fetching']),
     },
 

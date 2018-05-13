@@ -63,7 +63,8 @@ export default {
           weekend: isWeekend(date),
           holiday: isHoliday(date),
           duration: record.duration,
-          absence: record.absence,
+          type: record.type,
+          absence: record.reason,
           positive: isHappy(record.duration),
           recorded: !!record.date
         }
@@ -101,10 +102,10 @@ export default {
 
     label(item) {
       if(this.isRecorded(item.formattedDate)) {
-        if(item.absence) {
-          return item.absence[0]
-        } else {
+        if(item.type === 'presence') {
           return item.duration
+        } else {
+          return item.absence[0]
         }
       }
     },

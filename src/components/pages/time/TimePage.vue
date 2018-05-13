@@ -12,11 +12,8 @@
     <date-picker slot="c-body" class="flex flex-center"></date-picker>
 
     <div slot="c-body" class="flex flex-center container">
-      <circle-menu class="flex flex-center relative" :form="form" v-on:open="openPicker"></circle-menu>
-      <!-- <br />
-      <small class="width-80 light-grey font-1"><p>
-        {{ form }}
-      </p></small> -->
+      <circle-menu v-if="!isAbsence" class="flex flex-center relative" :form="form" v-on:open="openPicker"></circle-menu>
+      <circle-info :text="currentRecord.reason" v-else></circle-info>
     </div>
 
     <template slot="c-sidebar-title">
@@ -27,7 +24,10 @@
 
     <simple-switch slot="c-footer" class="horizontal animated" :active="picker.open">
       <simple-switch slot="up" class="vertical animated" :active="loading">
-        <button class="text-white" slot="up" v-on:click="save">
+        <button v-if="isAbsence" class="text-white" slot="up" v-on:click="remove">
+          DELETE
+        </button>
+        <button v-else class="text-white" slot="up" v-on:click="save">
           {{ isRecorded? 'UPDATE' : 'SAVE'}}
         </button>
         <button class="text-white" slot="down" disabled>PLEASE WAIT...</button>
@@ -42,6 +42,7 @@
   import DatePicker from "./DatePicker"
   import TimePicker from "./TimePicker"
   import CircleMenu from "./CircleMenu"
+  import CircleInfo from "./CircleInfo"
 
   import Card from "../../shared/ResponsiveCard"
   import SimpleSwitch from "../../shared/SimpleSwitch"
@@ -59,6 +60,7 @@
       Card,
       DatePicker,
       CircleMenu,
+      CircleInfo,
       TimePicker,
       SimpleSwitch
     },
@@ -122,7 +124,7 @@
         this.initForm()
       },
 
-      currentRecord(oldVal, val) {
+      currentRecord() {
         // console.log("HomePage - currentRecord changed", oldVal, val)
         this.initRecord()
       }
@@ -136,9 +138,9 @@
         return !!this.currentRecord
       },
 
-      absence() {
+      isAbsence() {
         if (this.isRecorded) {
-          return this.currentRecord.absence
+          return this.currentRecord.type === 'absence'
         }
       }
     },
@@ -213,6 +215,10 @@
       save: async function() {
         await this.$store.dispatch("saveRecord", this.form)
         await this.$store.dispatch("fetchBalance")
+      },
+
+      remove: async function() {
+        console.log('Delete')
       },
 
       openPicker(target) {
