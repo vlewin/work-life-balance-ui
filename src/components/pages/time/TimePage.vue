@@ -38,7 +38,7 @@
 </template>
 
 <script>
-  import { mapState, mapGetters, mapActions } from "vuex"
+  import { mapState, mapGetters } from "vuex"
   import DatePicker from "./DatePicker"
   import TimePicker from "./TimePicker"
   import CircleMenu from "./CircleMenu"
@@ -146,7 +146,7 @@
     },
 
     methods: {
-      ...mapActions(["navigate"]),
+      // ...mapActions(["navigate"]),
 
       initRecord() {
         if (this.isRecorded) {

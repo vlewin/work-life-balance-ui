@@ -36,7 +36,7 @@
         type: Date
       },
 
-      absences: {
+      records: {
         type: Object
       }
     },
@@ -95,7 +95,7 @@
       },
 
       isRecorded(date) {
-        return this.absences[date.toDateString()]
+        return this.records[date.toDateString()]
       },
 
       isVacation(date) {
@@ -108,7 +108,7 @@
 
       record(date) {
         if (date && this.isRecorded(date)) {
-          return this.absences[date.toDateString()]
+          return this.records[date.toDateString()]
         }
 
         return {}

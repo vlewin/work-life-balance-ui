@@ -35,7 +35,8 @@
       }
     },
 
-    created() {
+    mounted() {
+      console.log('Balance mounted')
       if(!this.balance.total) {
         this.$store.dispatch('fetchBalance')
       }

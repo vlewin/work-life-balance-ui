@@ -3,7 +3,7 @@
     <!-- <i slot="c-header-icon" class="fa fa-area-chart fa-6x" aria-hidden="true"></i> -->
     <i slot="c-header-icon" class="fas fa-chart-pie fa-5x"></i>
 
-    <month-picker slot="c-body" class="flex flex-center uppercase" v-on:date-change="setDate"></month-picker>
+    <month-picker slot="c-body" class="flex flex-center uppercase" v-on:date-change="setDateAndFetch"></month-picker>
 
     <h1 v-if="fetching" slot="c-body" class="flex flex-center height-50">
       LOADING...
@@ -75,28 +75,8 @@
       }
     },
 
-    watch: {
-      // FIXME: React on slide page event???
-      page(val) {
-        if (val === 'page-1') {
-          setTimeout(() => {
-            this.$store.dispatch("fetchMonthRecords", this.currentMonthNumber)
-            this.$store.dispatch("fetchMonthAbsences", this.currentMonthNumber)
-
-          }, 500)
-        }
-      }
-    },
-
     methods: {
-      ...mapActions(["navigate"]),
-
-      async setDate(date) {
-        await this.$store.dispatch("setCurrentDate", date)
-        await this.$store.dispatch("fetchMonthRecords", this.currentMonthNumber)
-        await this.$store.dispatch("fetchMonthAbsences", this.currentMonthNumber)
-
-      }
+      ...mapActions(["setDateAndFetch"])
     }
   }
 </script>

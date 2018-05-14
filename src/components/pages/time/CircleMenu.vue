@@ -48,7 +48,7 @@
 </template>
 
 <script>
-  import { mapGetters, mapState } from "vuex"
+  import { mapGetters, mapState, mapActions } from "vuex"
 
   export default {
     name: "CircleMenu",
@@ -89,9 +89,10 @@
     },
 
     methods: {
+      ...mapActions(["setDateAndFetch"]),
+
       home() {
-        console.log('Set selected')
-        this.$store.dispatch('setCurrentDate', new Date())
+        this.setDateAndFetch(new Date())
       },
 
       toggleLoading() {

@@ -1,11 +1,11 @@
 <template>
   <card hcolor="blue">
     <i slot="c-header-icon" class="fa fa-calendar-plus fa-5x" aria-hidden="true"></i>
-    <month-picker slot="c-body" class="flex flex-center uppercase" v-on:date-change="setDate"></month-picker>
+    <month-picker slot="c-body" class="flex flex-center uppercase" v-on:date-change="setDateAndFetch"></month-picker>
 
     <div slot="c-body" class="flex flex-between container">
       <div class="flex flex-center content">
-        <calendar class="width-90" :date="currentDate" :absences="absences" v-on:changed="setSelected"></calendar>
+        <calendar class="width-90" :date="currentDate" :records="records" v-on:changed="setSelected"></calendar>
       </div>
 
       <simple-switch slot="c-footer" class="info animated" :class="{ horizontal: isLandscape }" :active="!!selected.length">
@@ -138,7 +138,7 @@
 
     computed: {
       ...mapGetters(['currentMonthNumber']),
-      ...mapState(['currentDate', 'loading', 'balance', 'absences']),
+      ...mapState(['currentDate', 'loading', 'balance', 'records']),
 
       valid() {
         return !!(this.selected.length && this.reason)
@@ -167,29 +167,8 @@
       // }
     },
 
-    watch: {
-      // FIXME: React on slide page event???
-      page(val) {
-        if (val === 'page-3') {
-          setTimeout(() => {
-            this.$store.dispatch("fetchMonthAbsences", this.currentMonthNumber)
-          }, 500)
-        }
-      }
-    },
-
     methods: {
-      ...mapActions(["navigate"]),
-
-      // setDate(date) {
-      //   this.$store.dispatch("setCurrentDate", date)
-      //   // this.date = date
-      // },
-
-      async setDate(date) {
-        await this.$store.dispatch("setCurrentDate", date)
-        await this.$store.dispatch("fetchMonthAbsences", this.currentMonthNumber)
-      },
+      ...mapActions(["setDateAndFetch"]),
 
       setSelected(dates) {
         this.selected = dates

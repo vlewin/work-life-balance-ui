@@ -3,7 +3,7 @@
     <li class="arrow" v-on:click="prevWeek">
       <i class="fa fa-chevron-left" aria-hidden="true"></i>
     </li>
-    <li class="uppercase" v-for="(item, index) in dates" :key="index" :data-hours="label(item)" :class="addClasses(item)" v-on:click="selectDay(item.date)">
+    <li class="uppercase" v-for="(item, i) in dates" :key="i" :data-hours="label(item)" :class="addClasses(item)" v-on:click="selectDay(item.date)">
       {{ item.weekday }}
     </li>
     <li class="arrow" v-on:click="nextWeek">
@@ -19,7 +19,7 @@
 // FIXME: Check bundle size
 import { addHours } from "date-fns"
 import { weekNumber, weekStartDay, weekDaysRange, isHappy, isWeekend, isHoliday } from "@/helpers/date"
-import { mapGetters, mapState } from "vuex"
+import { mapGetters, mapState, mapActions } from "vuex"
 
 export default {
   name: "DatePicker",
@@ -35,7 +35,7 @@ export default {
 
   created: async function() {
     // NOTE: Return only working days, include Sa?
-    this.week = weekDaysRange(this.selected).filter(d => {
+    this.week = weekDaysRange(this.currentDate).filter(d => {
       return !this.isWeekend(d)
     })
 
@@ -48,7 +48,7 @@ export default {
 
   computed: {
     ...mapGetters(["currentWeekNumber", "currentFomatedDate", "currentRecord"]),
-    ...mapState(["currentDate", "page", "records"]),
+    ...mapState(["currentDate", "records"]),
 
     dates() {
       return this.week.map(date => {
@@ -69,27 +69,12 @@ export default {
           recorded: !!record.date
         }
       })
-    },
-
-
-
-    selected() {
-      return this.$store.state.currentDate
-    }
-  },
-
-  watch: {
-    // FIXME: React on slide page event???
-    page(val) {
-      if (val === 'page-2') {
-        setTimeout(() => {
-          this.$store.dispatch("fetchRecords")
-        }, 500)
-      }
     }
   },
 
   methods: {
+    ...mapActions(["setDateAndFetch"]),
+
     addClasses(date) {
       return {
         selected: date.selected,
@@ -132,12 +117,7 @@ export default {
     },
 
     selectDay(date) {
-      this.$store.dispatch("setCurrentDate", date)
-    },
-
-    hours(date) {
-      const record = this.records[date]
-      return record ? record.duration : null
+      this.setDateAndFetch(date)
     },
 
     // FIXME: Use date-fns
@@ -152,8 +132,8 @@ export default {
       this.week = weekDaysRange(weekStartDay(this.current, this.year)).filter(d => {
         return !isWeekend(d)
       })
-      this.$store.dispatch("setCurrentDate", addHours(this.week[0], 1))
-      this.$store.dispatch("fetchRecords", this.current)
+
+      this.setDateAndFetch(addHours(this.week[0], 1))
       this.$emit("prevWeek")
     },
 
@@ -170,8 +150,7 @@ export default {
         return !isWeekend(d)
       })
 
-      this.$store.dispatch("setCurrentDate", addHours(this.week[0], 1))
-      this.$store.dispatch("fetchRecords", this.current)
+      this.setDateAndFetch(addHours(this.week[0], 1))
       this.$emit("nextWeek")
     }
   }
@@ -230,8 +209,6 @@ export default {
       top: 1.5rem
       right: -0.5rem
       border: 0.2rem solid #eee
-      // background: tomato
-      // color: white
       background: #fff
       color: tomato
       font-weight: bold
@@ -239,7 +216,6 @@ export default {
       text-align: center
 
     &.positive::after
-      // background: #42b983
       color: #42b983
 
   @media screen and (max-width: 50em) and (orientation: landscape)
