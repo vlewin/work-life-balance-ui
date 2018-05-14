@@ -11,6 +11,13 @@ export default {
     commit("SET_PAGE", page)
   },
 
+  setDateAndFetch: async ({ commit, state, dispatch, getters }, date) => {
+    console.log('**** setDateAndFetch', date)
+    await dispatch("fetchMonthRecords", date.getMonth() + 1)
+
+    commit("SET_SELECTED_DAY", date)
+  },
+
   setCurrentDate: ({ commit }, date) => {
     commit("SET_SELECTED_DAY", date)
   },
@@ -26,27 +33,35 @@ export default {
   },
 
   fetchBalance: async ({ commit }, userId) => {
-    console.log('*** Action - fetchBalance', userId)
+    console.log('*** fetchBalance', userId)
     const response = await Balance.get('github|611466')
 
     console.log('*** Action - fetchBalance - response', response.data)
     commit("SET_BALANCE", response.data)
   },
 
-  fetchMonthRecords: async ({ commit }, month) => {
-    commit("SET_FETCHING", true)
-    const response = await Record.all({ month: month })
-    commit("SET_RECORDS", response.data)
-    commit("SET_FETCHING", false)
-    console.log("fetched")
+  fetchMonthRecords: async ({ commit, getters }, month) => {
+    console.log('**** fetchMonthRecords', month)
+
+    if(month !== getters.currentMonthNumber) {
+      console.log('Fetch records for month:', month,  getters.currentMonthNumber)
+
+      commit("SET_FETCHING", true)
+      const response = await Record.all({ month: month || getters.currentMonthNumber })
+      commit("SET_RECORDS", response.data)
+      commit("SET_FETCHING", false)
+    } else {
+      console.log('Records for month:', month, 'aleady cached!')
+    }
   },
 
   fetchRecords: async ({ commit, getters }) => {
+    console.log('*** fetchRecords')
+
     commit("SET_FETCHING", true)
     const response = await Record.all({ week: getters.currentWeekNumber })
     commit("SET_RECORDS", response.data)
     commit("SET_FETCHING", false)
-    console.log("fetched")
   },
 
   updateRecord: async ({ commit }, record) => {
