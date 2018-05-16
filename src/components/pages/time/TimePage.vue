@@ -17,9 +17,25 @@
       <!-- <circle-absence v-if="setAbsence"></circle-absence> -->
 
       <circle-menu v-if="!isAbsence" class="flex flex-center relative" :form="form" v-on:open="openPicker">
-        <template slot="inside">
+        <template v-if="setAbsence" slot="inside">
           <circle-absence id="inside" :open="setAbsence"></circle-absence>
         </template>
+
+        <div id="inside" v-else slot="inside">
+          <h3 class="hidden">LOADING ...</h3>
+          <h2 class="no-margin">
+            {{ form.duration }}
+            <label>hours</label>
+          </h2>
+          <h3 class="no-margin">
+            <small>{{ form.start }} - {{ form.end }}</small>
+            <label>&num; {{ currentWeekNumber }}</label>
+          </h3>
+        </div>
+
+        <!-- <div id="inside" v-on:click="toggleLoading">
+
+        </div> -->
       </circle-menu>
 
 

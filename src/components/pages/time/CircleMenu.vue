@@ -24,7 +24,7 @@
     </ul>
 
 
-    <slot name="inside">TEXT</slot>
+    <slot name="inside"></slot>
 
 
     <!-- <div id="inside" v-on:click="toggleLoading">
