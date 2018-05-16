@@ -174,7 +174,7 @@
       flex: 1
 
       &.selected
-        flex: 4
+        flex: 3
         background: #42b983
         .fa
           color: #fff
