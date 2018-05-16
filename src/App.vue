@@ -5,7 +5,7 @@
 </template>
 
 <script>
-  import AuthService from "./main"
+  // import AuthService from "./main"
 
   export default {
     name: "App",
@@ -17,14 +17,6 @@
 
       // https://github.com/GoogleChrome/samples/tree/gh-pages/push-messaging-and-notifications
       // https://developers.google.com/web/updates/2016/09/navigator-share
-      if (navigator.share) {
-        navigator.share({
-          title: 'Web Fundamentals',
-          text: 'Check out Web Fundamentals — it rocks!',
-          url: 'https://developers.google.com/web',
-        }).then(() => console.log('Successful share')).catch((error) => console.log('Error sharing', error))
-      }
-
       window.addEventListener("online", () => {
         console.log("online")
         this.$store.dispatch("online", navigator.onLine)
