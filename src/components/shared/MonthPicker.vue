@@ -64,7 +64,7 @@
     font-weight: bold
     background: white
     height: 10vh
-    background: #fafafa
+    background: #eee
 
   li
     cursor: pointer

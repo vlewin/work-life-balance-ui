@@ -1,6 +1,6 @@
 <template>
   <div class="c-responsive">
-    <div class="c-header flex flex-around flex-column width-100" :class="[hcolor]">
+    <div class="c-header flex flex-arround flex-column width-100" :class="[hcolor]">
       <slot name="c-header-icon">ICON</slot>
       <slot name="c-header-title">&nbsp;</slot>
 
@@ -120,7 +120,7 @@
       color: #1a2436
 
       &.active
-        color: #42b983
+        color: white
 
   .c-footer
     background-color: darken($base, 5%)
@@ -208,17 +208,17 @@
         height: 15vh
 
   // ANIMATIONS
-  // .c-header
-  //   clip-path: circle(20% at 50% 34%)
-  //   transition: clip-path 0.5s 0.5s ease
-  //
-  // .c-sidebar
-  //   clip-path: circle(20% at 50% 50%)
-  //   transition: clip-path 0.5s 0.5s ease
+  .c-header
+    clip-path: circle(10% at 50% 25%)
+    transition: clip-path 0.5s 0.5s ease
+
+  .c-sidebar
+    clip-path: circle(20% at 50% 50%)
+    transition: clip-path 0.5s 0.5s ease
 
   .active
     .c-header
-      clip-path: circle(100% at 50% 34%)
+      clip-path: circle(100% at 50% 25%)
       transition: clip-path 0.75s 0.5s ease
       will-change: clip-path
 

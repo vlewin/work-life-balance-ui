@@ -12,8 +12,17 @@
     <date-picker slot="c-body" class="flex flex-center"></date-picker>
 
     <div slot="c-body" class="flex flex-center container">
-      <circle-menu v-if="!isAbsence" class="flex flex-center relative" :form="form" v-on:open="openPicker"></circle-menu>
-      <circle-info :text="currentRecord.reason" v-else></circle-info>
+      <!-- <circle-menu v-if="!isAbsence && !setAbsence" class="flex flex-center relative" :form="form" v-on:open="openPicker"></circle-menu> -->
+      <!-- <circle-info v-if="isAbsence && !setAbsence" :text="currentRecord.reason"></circle-info> -->
+      <!-- <circle-absence v-if="setAbsence"></circle-absence> -->
+
+      <circle-menu v-if="!isAbsence" class="flex flex-center relative" :form="form" v-on:open="openPicker">
+        <template slot="inside">
+          <circle-absence id="inside" :open="setAbsence"></circle-absence>
+        </template>
+      </circle-menu>
+
+
     </div>
 
     <template slot="c-sidebar-title">
@@ -43,6 +52,7 @@
   import TimePicker from "./TimePicker"
   import CircleMenu from "./CircleMenu"
   import CircleInfo from "./CircleInfo"
+  import CircleAbsence from './CircleAbsence.vue'
 
   import Card from "../../shared/ResponsiveCard"
   import SimpleSwitch from "../../shared/SimpleSwitch"
@@ -61,6 +71,7 @@
       DatePicker,
       CircleMenu,
       CircleInfo,
+      CircleAbsence,
       TimePicker,
       SimpleSwitch
     },
@@ -68,7 +79,7 @@
     data() {
       return {
         isPortraitMode: true,
-        timePicker: false,
+        setAbsence: false,
         picker: {
           open: false,
           value: null,
@@ -221,10 +232,14 @@
         console.log('Delete')
       },
 
-      openPicker(target) {
-        this.picker.target = target
-        this.picker.value = this.form[target]
-        this.picker.open = true
+      openPicker(picker, target) {
+        if(picker === 'absence') {
+          this.setAbsence = true
+        } else {
+          this.picker.target = target
+          this.picker.value = this.form[target]
+          this.picker.open = true
+        }
       },
 
       closePicker() {

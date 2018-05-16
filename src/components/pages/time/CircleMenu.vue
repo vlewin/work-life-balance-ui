@@ -2,19 +2,17 @@
   <div id="circle-menu" :class="{ loading: fetching }">
     <ul id="outside" :class="{ open: open }">
       <li class="one">
-        <span class="text" v-on:click="emit('start')">
-          {{ form.start }}
-        </span>
+        <span class="text" v-on:click="emit('time', 'start')">{{ form.start }}</span>
       </li>
       <li class="two">
-        <span class="text" v-on:click="emit('pause')">{{ form.pause }}</span>
+        <span class="text" v-on:click="emit('time', 'pause')">{{ form.pause }}</span>
       </li>
       <li class="three">
-        <span class="text" v-on:click="emit('end')">{{ form.end }}</span>
+        <span class="text" v-on:click="emit('time', 'end')">{{ form.end }}</span>
       </li>
       <li class="four">
         <!-- <span class="text icon">&#11041;</span> -->
-        <span class="text icon"><i class="fas fa-bars font-5"></i></span>
+        <span class="text icon" v-on:click.prevent.stop="emit('absence')"><i class="fas fa-bars font-5"></i></span>
       </li>
       <li class="five" v-on:click="home">
         <!-- <span class="text">&#11041;</span> -->
@@ -25,7 +23,11 @@
       </li>
     </ul>
 
-    <div id="inside" v-on:click="toggleLoading">
+
+    <slot name="inside">TEXT</slot>
+
+
+    <!-- <div id="inside" v-on:click="toggleLoading">
       <h3 class="hidden">LOADING ...</h3>
       <h2 class="no-margin">
         {{ form.duration }}
@@ -35,7 +37,7 @@
         <small>{{ form.start }} - {{ form.end }}</small>
         <label>&num; {{ currentWeekNumber }}</label>
       </h3>
-    </div>
+    </div> -->
 
     <svg height="0" width="0">
       <defs>
@@ -108,8 +110,8 @@
         }, 500)
       },
 
-      emit(target) {
-        this.$emit("open", target)
+      emit(picker, target) {
+        this.$emit("open", picker, target)
       }
     }
   }
@@ -166,7 +168,7 @@
       align-items: center;
       justify-content: space-around;
       transition: transform 2s 0.5s ease;
-      box-shadow: inset 0 0 1em #1a2436;
+      // box-shadow: inset 0 0 1em #1a2436;
 
       h2, h3 {
         small {
@@ -222,6 +224,7 @@
 
        &:hover {
          background-color: #FFBF00;
+         // background-color: #42b983;
        }
      }
   }
