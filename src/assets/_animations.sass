@@ -56,6 +56,20 @@
 .scale
   animation: scale 2s infinite
 
+@keyframes jiggle
+  0%
+    transform: rotate(-3deg)
+    animation-timing-function: ease-in
+
+  50%
+    transform: rotate(3deg)
+    animation-timing-function: ease-out
+
+.shake
+  animation: jiggle 0.2s infinite
+  will-change: transform
+
+
 // _animations
 [class^="blink"]
   animation: blink 2s ease-in-out infinite both

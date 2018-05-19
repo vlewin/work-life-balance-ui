@@ -124,6 +124,10 @@
       // })
     },
 
+    async mounted() {
+      await this.$store.dispatch("fetchMonthRecords")
+    },
+
     watch: {
       "form.start"(val) {
         if (val) {

@@ -1,22 +1,39 @@
 <template>
-  <div class="calendar">
-    <ul class="grid">
-      <li class="grid-item label" v-for="(weekday, i) in weekdays" :key="i+1*0.1" :class="{ weekend: ['SA', 'SU'].includes(weekday) }">
-        {{ weekday }}
-      </li>
+    <div class="layer" :class="{ open: !!mode }">
+      <div class="layer-top">
+        <h2>TRACK YOUR ABSENCE</h2>
+      </div>
 
-      <li class="grid-item day" v-for="(day, i) in days" :key="i+1*1" v-on:click="select(day)" :class="addClasses(day)">
-        {{ day | toNumber }}
-        <span class="tooltiptext" v-if="isHoliday(day)">{{ isHoliday(day) }}</span>
-      </li>
-    </ul>
+      <div class="layer-middle">
+        <div class="calendar" :class="[mode]">
+          <ul class="grid">
+            <li class="grid-item label" v-for="(weekday, i) in weekdays" :key="i+1*0.1" :class="{ weekend: ['SA', 'SU'].includes(weekday) }">
+              {{ weekday }}
+            </li>
+
+            <li class="grid-item day" v-for="(day, i) in days" :key="i+1*1" v-on:click="select(day)" :class="addClasses(day)">
+              {{ day | toNumber }}
+              <span class="tooltiptext" v-if="isHoliday(day)">{{ isHoliday(day) }}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+
+      <div class="layer-bottom">
+        <h4>
+          Click <label class="add">ADD</label>
+          or <label class="remove">REMOVE</label>
+          to proceed.
+        </h4>
+      </div>
   </div>
 </template>
 
 <script>
   import Calendator from "calendator"
-  import { isWeekend } from "date-fns"
-  import { isHoliday } from "@/helpers/date"
+  import { mapState } from "vuex"
+  import { isWeekend, isHoliday } from "@/helpers/date"
 
   const calendator = new Calendator(Calendator.MON)
 
@@ -26,6 +43,7 @@
       return {
         month: this.date.getMonth(),
         year: this.date.getFullYear(),
+        deleteMode: false,
         weekdays: ["MO", "TU", "WE", "TH", "FR", "SA", "SU"],
         selected: []
       }
@@ -36,8 +54,8 @@
         type: Date
       },
 
-      records: {
-        type: Object
+      mode: {
+        type: String
       }
     },
 
@@ -50,6 +68,8 @@
     },
 
     computed: {
+      ...mapState(['records']),
+
       weeks() {
         return calendator.giveMeCalendarForMonthYear(this.date.getMonth(), this.date.getFullYear())
       },
@@ -61,7 +81,13 @@
       }
     },
 
-    watch: {},
+    watch: {
+      mode(val) {
+        if(!val) {
+          this.selected = []
+        }
+      }
+    },
 
     methods: {
       addClasses(date) {
@@ -72,7 +98,8 @@
             holiday: this.isHoliday(date),
             empty: this.isEmpty(date),
             vacation: this.isVacation(date),
-            sickness: this.isSickness(date)
+            sickness: this.isSickness(date),
+            absence: this.isAbsence(date)
           }
         }
 
@@ -94,8 +121,12 @@
         return !date
       },
 
+      isAbsence(date) {
+        return this.record(date).type === 'absence'
+      },
+
       isRecorded(date) {
-        return this.records[date.toDateString()]
+        return !!this.records[date.toDateString()]
       },
 
       isVacation(date) {
@@ -154,7 +185,70 @@
 </script>
 
 <style lang="sass" scoped>
+  @import '~@/assets/_animations.sass'
   @import '~@/assets/_variables.sass'
+
+  .layer
+    display: flex
+    flex-direction: column
+    justify-content: center
+    overflow: hidden
+    height: 100%
+
+    div
+      transition: flex 0.3s ease-out
+      display: flex
+      // align-items: center
+      // justify-content: center
+
+    &.open
+      .layer-top
+        flex: 0
+      .layer-middle
+        flex: 4
+      .layer-bottom
+        flex: 0
+
+  .layer-top
+    flex: 1
+    width: 100%
+
+    display: flex
+    flex-direction: column
+    justify-content: flex-end
+    align-items: center
+    overflow: hidden
+    // background: #eee
+
+
+  .layer-middle
+    flex: 0
+    width: 100%
+
+    display: flex
+    flex-direction: column
+    // justify-content: center
+    align-items: center
+    overflow: hidden
+    justify-content: center
+
+  .layer-bottom
+    flex: 1
+    width: 100%
+
+    display: flex
+    flex-direction: column
+    // justify-content: center
+    align-items: center
+    overflow: hidden
+    // background: #eee
+    label
+      color: #fff
+      padding: 0.4rem
+      &.add
+        background: #2F4462
+      &.remove
+        background: tomato
 
   .calendar
     display: flex
@@ -162,6 +256,27 @@
     align-items: center
     flex-direction: column
     width: 90%
+    opacity: 0.2
+    // pointer-events: none
+
+    &.add, &.remove
+      opacity: 1
+      // pointer-events: none
+
+    &.add
+      li.absence
+        opacity: 0.2
+        pointer-events: none
+
+    &.remove
+      li.absence:not(.selected)
+        animation: jiggle 0.2s infinite
+        will-change: transform
+        background: tomato
+
+      li.day:not(.absence)
+        opacity: 0.2
+        pointer-events: none
 
   .month
     color: #444
@@ -194,39 +309,41 @@
 
     text-align: center
     font-size: 1.0em
-    // border: 0.1rem solid #fff
+    z-index: 1
+
+    transition: opacity 1s
 
     &:not(.label)
       height: 1.8rem
       width: 1.8rem
       line-height: 1.8rem
+    //
+    // &:not(.label):not(.weekend)
+    //   &:not(.holiday)
+    //     cursor: pointer
+    //   &:not(.selected):not(.holiday):hover
+    //     background: rgba(0, 0, 0, 0.1)
+    //
 
-    &:not(.label):not(.weekend)
-      &:not(.holiday)
-        cursor: pointer
-      &:not(.selected):not(.holiday):hover
-        background: rgba(0, 0, 0, 0.1)
-    &.selected:not(.holiday)
-      // border: 0.1rem solid $blue
-      background: $blue
-      // color: $blue
-      color: white
 
+
+
+  .label, .weekend, .holiday, .empty, .disabled
+    pointer-events: none
 
   .label
     color: $dark-grey
-    font-size: 80%
+
+  .day:not(.weekend)
     font-weight: bold
-    pointer-events: none
 
-  .weekend:not(.holiday), .empty
-    pointer-events: none
-
-  .label.weekend
+  .weekend
     color: tomato
 
-  .day.weekend
-    color: $mid-grey
+
+  .selected
+    background: $blue
+    color: white
 
   .holiday
     background: tomato
@@ -235,7 +352,6 @@
 
   .disabled
     color: $mid-grey
-    pointer-events: none
 
   .comment
     display: flex

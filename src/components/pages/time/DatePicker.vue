@@ -42,8 +42,6 @@ export default {
     if (this.isWeekend(this.currentDate)) {
       this.$store.dispatch("setCurrentDate", addHours(this.week[0], 1))
     }
-
-    await this.$store.dispatch("fetchRecords")
   },
 
   computed: {

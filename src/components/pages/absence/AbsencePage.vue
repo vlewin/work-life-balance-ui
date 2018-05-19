@@ -1,14 +1,18 @@
 <template>
   <card hcolor="blue">
     <i slot="c-header-icon" class="fa fa-calendar-plus fa-5x" aria-hidden="true"></i>
+    <template slot="c-header-title">
+      Absence
+    </template>
+
     <month-picker slot="c-body" class="flex flex-center uppercase" v-on:date-change="setDateAndFetch"></month-picker>
 
     <div slot="c-body" class="flex flex-between container">
       <div class="flex flex-center content">
-        <calendar class="width-90" :date="currentDate" :records="records" v-on:changed="setSelected"></calendar>
+        <calendar class="width-90" :date="currentDate" :mode="mode" v-on:changed="setSelected"></calendar>
       </div>
 
-      <simple-switch slot="c-footer" class="info animated" :class="{ horizontal: isLandscape }" :active="!!selected.length">
+      <simple-switch slot="c-footer" class="info animated" :class="{ horizontal: isLandscape }" :active="mode === 'add' && !!selected.length">
         <div class="flex flex-center height-100" slot="up">
           <div class="flex flex-center flex-column flex-item">
             <span>{{ balance.vacation }}</span>
@@ -57,13 +61,18 @@
       </simple-switch>
     </div>
 
-
+    <small>Help text hier</small>
     <template slot="c-sidebar-title">TEXT</template>
     <i slot="c-sidebar-icon" class="fa fa-calendar-plus fa-6x" aria-hidden="true"></i>
 
 
     <template slot="c-footer" >
-      <simple-switch v-if="valid" slot="up" class="vertical animated" :active="loading">
+      <simple-switch slot="up" class="vertical animated" :active="!!mode && valid">
+        <button-group slot="up" class="vertical animated" :buttons="buttons" v-on:changed="setMode"></button-group>
+        <button class="text-white" slot="down" disabled>SAVE</button>
+      </simple-switch>
+
+      <!-- <simple-switch v-if="valid" slot="up" class="vertical animated" :active="loading">
         <button class="text-white" slot="up" v-on:click="save">
           SAVE
         </button>
@@ -73,7 +82,7 @@
       <span class="uppercase" v-else>
         <i class="fas fa-info-circle"></i>
         select absence {{ selected.length ? 'type' : 'date' }}
-      </span>
+      </span> -->
     </template>
   </card>
 </template>
@@ -86,6 +95,7 @@
   import MonthPicker from "../../shared/MonthPicker"
   import SimpleSwitch from "../../shared/SimpleSwitch"
   import SimpleSlider from "../../shared/SimpleSlider"
+  import ButtonGroup from "../../shared/ButtonGroup"
   import Balance from "../../shared/Balance"
 
 
@@ -97,11 +107,14 @@
       Calendar,
       SimpleSwitch,
       SimpleSlider,
+      ButtonGroup,
       Balance
     },
 
     data() {
       return {
+        buttons: [{ name: 'add', color: 'blue' }, { name: 'remove', color: 'red' }],
+        mode: null,
         date: new Date(),
         reason: null,
         selected: [],
@@ -116,9 +129,9 @@
       }
     },
 
-    mounted() {
-      this.$store.dispatch('fetchMonthAbsences', this.currentMonthNumber)
-    },
+    // mounted() {
+    //   this.$store.dispatch('fetchMonthAbsences', this.currentMonthNumber)
+    // },
 
     created() {
       // FIXME: Move to App.vue
@@ -136,9 +149,26 @@
       })
     },
 
+    // watch: {
+    //   mode(val) {
+    //     if(!val) {
+    //       this.selected = []
+    //     }
+    //   }
+    // },
+
+
     computed: {
       ...mapGetters(['currentMonthNumber']),
       ...mapState(['currentDate', 'loading', 'balance', 'records']),
+
+      deleteMode() {
+        return this.selected.some((d) => this.absences[d.toDateString()])
+      },
+
+      absences() {
+        return Object.values(this.records).filter((record) => console.log(record))
+      },
 
       valid() {
         return !!(this.selected.length && this.reason)
@@ -169,6 +199,17 @@
 
     methods: {
       ...mapActions(["setDateAndFetch"]),
+
+      setMode(mode) {
+        console.log('setMode', mode)
+        if(mode) {
+          this.mode = mode ? mode.name : null
+        } else {
+          console.log('Reset selected')
+          this.mode = null
+          this.selected = []
+        }
+      },
 
       setSelected(dates) {
         this.selected = dates
