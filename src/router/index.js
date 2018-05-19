@@ -5,6 +5,7 @@ import AuthService from "../main"
 import Authentication from "@/components/Authentication"
 import Index from "@/components/Index"
 import Callback from "@/components/Callback"
+import Playground from "@/components/playground/Playground"
 
 Vue.use(Router)
 
@@ -20,6 +21,8 @@ const router = new Router({
     },
     // { path: "/logout", name: "Authentication", component: Authentication, props: { initSection: "bottom" } },
     { path: "/callback", name: "Callback", component: Callback },
+    { path: "/playground", name: "Playground", component: Playground },
+
   ]
 })
 
