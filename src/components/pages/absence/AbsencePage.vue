@@ -69,7 +69,15 @@
     <template slot="c-footer" >
       <simple-switch slot="up" class="vertical animated" :active="!!mode && valid">
         <button-group slot="up" class="vertical animated" :buttons="buttons" v-on:changed="setMode"></button-group>
-        <button class="text-white" slot="down" disabled>SAVE</button>
+        <template v-if="mode === 'add'">
+          <button slot="down" class="text-white primary width-50" v-on:click="reset">SAVE</button>
+          <button slot="down" class="text-white grey-5 width-50" v-on:click="reset">CANCEL</button>
+        </template>
+
+        <template v-else>
+          <button slot="down" class="text-white red width-50" v-on:click="reset">REMOVE</button>
+          <button slot="down" class="text-white grey-6 width-50" v-on:click="reset">CANCEL</button>
+        </template>
       </simple-switch>
 
       <!-- <simple-switch v-if="valid" slot="up" class="vertical animated" :active="loading">
@@ -113,7 +121,7 @@
 
     data() {
       return {
-        buttons: [{ name: 'add', color: 'blue' }, { name: 'remove', color: 'red' }],
+        buttons: [{ name: 'add', color: 'blue', focused: false }, { name: 'remove', color: 'red', focused: false }],
         mode: null,
         date: new Date(),
         reason: null,
@@ -171,7 +179,11 @@
       },
 
       valid() {
-        return !!(this.selected.length && this.reason)
+        if(this.mode === 'add') {
+          return !!(this.selected.length && this.reason)
+        } else {
+          return !!this.selected.length
+        }
       },
 
       data() {
@@ -186,7 +198,7 @@
       },
 
       holidayCount() {
-        return '4?'
+        return '4'
         // return this.orientation.includes('landscape')
       }
 
@@ -202,12 +214,11 @@
 
       setMode(mode) {
         console.log('setMode', mode)
-        if(mode) {
-          this.mode = mode ? mode.name : null
-        } else {
+        this.mode = mode
+
+        if(!mode) {
           console.log('Reset selected')
-          this.mode = null
-          this.selected = []
+          this.reset()
         }
       },
 
@@ -227,6 +238,10 @@
         await this.$store.dispatch("saveAbsence", this.data)
         await this.$store.dispatch("fetchBalance")
       },
+
+      reset() {
+        Object.assign(this.$data, this.$options.data.call(this))
+      }
     }
   }
 </script>
@@ -277,6 +292,7 @@
       label
         font-size: 0.6rem
         line-height: 0.6rem
+
 
       .flex
         height: 100%

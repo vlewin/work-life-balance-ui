@@ -245,6 +245,7 @@
     label
       color: #fff
       padding: 0.4rem
+
       &.add
         background: #2F4462
       &.remove

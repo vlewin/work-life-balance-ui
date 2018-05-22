@@ -1,13 +1,13 @@
 <template>
-  <div slot="body" class="button-group" :class="{ focused: focused !== null }">
+  <div slot="body" class="button-group" :class="{ active: isFocused }">
     <div class="button-group-item uppercase"
       v-for="(button, i) in buttons" :key="i"
-      v-bind:class="[{ focused: isFocused(i) }, button.color ]"
-      v-on:click="setFocused(i)">
+      v-bind:class="[{ focused: button.focused }, button.color ]"
+      v-on:click="setFocused(button)">
       {{ button.name }}
     </div>
 
-    <div class="button-group-item close" :class="{ focused: focused !== null }" v-on:click="reset()">CANCEL</div>
+    <div class="button-group-item close" :class="{ focused: isFocused }" v-on:click="reset()">CANCEL</div>
   </div>
 </template>
 
@@ -27,37 +27,35 @@ export default {
   },
 
   computed: {
-
+    isFocused() {
+      return this.buttons.some((button) => button.focused)
+    }
   },
 
   methods: {
-    addClass(button) {
+    // isFocused() {
+    //   return this.buttons.some((button) => button.focused)
+    // },
 
-    },
+    setFocused(button) {
+      console.log('setFocused', button.name)
+      button.focused = true
+      // if (this.focused === index) {
+      //   // console.log("Reset", index)
+      //   // this.focused = null
+      //   // this.$emit("changed", null)
+      // } else {
+      //   console.log("Set", index)
+      //   this.focused = index
+      //   this.$emit("changed", this.buttons[index])
+      // }
 
-    isFocused(field) {
-      return this.focused === field
-    },
-
-
-
-    setFocused(index) {
-      console.log("Focused", index)
-      if (this.focused === index) {
-        // console.log("Reset", index)
-        // this.focused = null
-        // this.$emit("changed", null)
-      } else {
-        console.log("Set", index)
-        this.focused = index
-        this.$emit("changed", this.buttons[index])
-      }
+      this.$emit("changed", button.name)
     },
 
     reset() {
       console.log("Changed", null)
-
-      this.focused = null
+      this.buttons.forEach((button) => button.focused = false)
       this.$emit("changed", null)
     }
   }
@@ -82,16 +80,16 @@ export default {
     .button-group-item
       width: 100%
 
-  &:not(.focused)
+  &:not(.active)
     .button-group-item
       flex: 1
 
       &.close
         flex: 0
 
-  &.focused
+  &.active
     .button-group-item.focused
-      flex: 2
+      flex: 0
 
     .button-group-item:not(.focused):not(.close)
       flex: 0
