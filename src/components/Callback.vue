@@ -12,7 +12,8 @@ export default {
   name: "Callback",
   mounted() {
     console.log('*** CALLBACK - handle auth in callback')
-    AuthService.handleCallback()
+    console.log('*** CALLBACK hash', window.location.hash)
+    AuthService.handleCallback({ hash: window.location.hash, nonce: 'very-long-and-secure-nonce', state: 'very-long-and-secure-state' })
   }
 }
 </script>

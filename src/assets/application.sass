@@ -11,7 +11,10 @@ html, body
 body
   width: 100vw
   height: 100vh
-  font-family: 'Oxygen', Helvetica, Arial, sans-serif
+  // margin-top: 10px
+  // font-family: 'Oxygen', Helvetica, Arial, sans-serif
+  font-family: 'Rubik', sans-serif
+  // font-family: 'Spectral', sans-serif
   display: flex
   justify-content: center
   align-items: center
@@ -26,6 +29,11 @@ body
   // background-size: 400% 400%
   // animation: Gradient 15s ease infinite
 
+  overflow-x: hidden
+  overflow-y: scroll !important
+  overflow: hidden
+
+// FIXME Safari standalone 100vh height bug
 #app
   display: grid
   justify-content: center

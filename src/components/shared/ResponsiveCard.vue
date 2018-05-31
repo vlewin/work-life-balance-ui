@@ -91,7 +91,7 @@
     height: 100%
     width: 100%
     display: grid
-    background: $grey
+    background: $base
 
     grid-template-areas: "c-header c-header"  "c-body c-body" "c-footer c-footer"
 
@@ -101,8 +101,8 @@
 
     // NOTE: Works on safari
     grid-template-columns: 100%
-    grid-template-rows: 30vh 60vh 10vh
-
+    // FIXME: Safari standalone 100vh bug on ios
+    grid-template-rows: calc(30vh - 20px) calc(60vh) 10vh
 
   .c-header, .c-sidebar, .c-sidebar-actions
     background-color: darken($base, 10%)

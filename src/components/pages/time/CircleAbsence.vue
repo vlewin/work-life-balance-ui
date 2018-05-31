@@ -1,48 +1,44 @@
 <template>
-  <div class="circle-absence" :class="{ open: open }">
-    <div class="circle-top circle-layer-1">
-      <div class="circle-top-visible">
-        <h1>8<small>(h)</small></h1>
-      </div>
-
-      <div class="circle-top-hidden">
-        <small>ABSENCE</small>
-      </div>
+  <div class="circle-absence curtain" :class="{ open: open }">
+    <div class="curtain-top flex flex-bottom">
+      <div class="font-10">{{ duration }}<small>h</small></div>
     </div>
 
-    <div class="circle-middle circle-layer-1">
-      <div class="left circle-layer-2" v-on:click="select(1)" :class="{ selected: selected == 1 }">
+    <div class="curtain-middle flex flex-center">
+      <div class="switch-item left" v-on:click="select(1)" :class="{ selected: selected == 1 }">
         <i class="fa fa-plane text-green" aria-hidden="true"></i>
       </div>
-      <div class="center circle-layer-2" v-on:click="select(2)" :class="{ selected: selected == 2 }">
+      <div class="switch-item center" v-on:click="select(2)" :class="{ selected: selected == 2 }">
         <i class="fa fa-heartbeat text-amber" aria-hidden="true"></i>
       </div>
-      <div class="right circle-layer-2" v-on:click="select(3)" :class="{ selected: selected == 3 }">
+      <div class="switch-item right" v-on:click="select(3)" :class="{ selected: selected == 3 }">
         <i class="fa fa-gift text-tomato" aria-hidden="true"></i>
       </div>
     </div>
 
-    <div class="circle-bottom circle-layer-1">
-      <div class="circle-bottom-visible">
-        <small>08:00 - 16:30</small>
-        <small>&num; 20</small>
+    <div class="curtain-bottom flex flex-center flex-column">
+      {{ data.start }} - {{ data.end }}
+      <div>
+        Week #{{currentWeekNumber}}
       </div>
 
-      <div class="circle-bottom-hidden">
-        <small v-on:click.stop.prevent="toggle">CLOSE</small>
-      </div>
     </div>
+
+
   </div>
 </template>
 
 <script>
+  import { mapGetters } from "vuex"
+
   export default {
-    name: 'Playground',
+    name: 'CircleAbsence',
     components: {
     },
 
     data() {
       return {
+        data: this.initForm || {},
         selected: null
       }
     },
@@ -51,10 +47,20 @@
       open: {
         type: Boolean,
         default: false
+      },
+
+      initForm: {
+        type: Object,
+        default: () => {}
       }
     },
 
     computed: {
+      ...mapGetters(['currentWeekNumber']),
+
+      duration() {
+        return this.data.duration || 'N/A'
+      }
     },
 
     methods: {
@@ -74,102 +80,28 @@
 
 <style lang="sass">
   .circle-absence
-    // width: 16rem
-    // height: 16rem
     border-radius: 50%
-    // border: 0.4rem solid black
     display: flex
     justify-content: space-around
     align-items: center
-    flex-direction: column
+    flex-direction: row
     overflow: hidden
+
+    width: 100%
+    height: 100%
 
     text-align: center
 
-
-    .circle-layer-1
-      transition: flex .3s ease-out
-      -webkit-backface-visibility: hidden
-
-    &.open
-      .circle-middle
-        flex: 2
-
-      .circle-top-visible
-        flex: 0
-        opacity: 0
-        // background: orange
-
-      .circle-top-hidden
-        flex: 1
-        opacity: 1
-
-        // background: orange
-
-
-      .circle-bottom-visible
-        flex: 0
-        opacity: 0
-        // background: orange
-
-      .circle-bottom-hidden
-        flex: 1
-        opacity: 1
-        // background: orange
-
-  .circle-top
-    flex: 1
-    width: 100%
-
-    display: flex
-    flex-direction: column
-    // justify-content: center
-    align-items: center
-
-    .circle-top-hidden, .circle-top-visible
-      overflow: hidden
-
-      display: flex
-      flex-direction: column
-      align-items: center
+    .switch-item
       width: 100%
-      justify-content: center
-      transition: opacity .3s ease-out
-
-    .circle-top-visible
-      flex: 1
-      opacity: 1
-
-    .circle-top-hidden
-      flex: 0
-      opacity: 0
-
-
-  .circle-middle
-    flex: 0
-    overflow: hidden
-    background: #eee
-    width: 100%
-
-    display:  flex
-    justify-content: center
-    align-items: center
-
-    .circle-layer-2
-      width: 100%
-      height: 80%
+      height: 60%
       background: #eee
       vertical-align: center
       display: flex
       justify-content: center
       align-items: center
       transition: flex .3s ease-out
-      // will-change: flex
-      // font-size: 100%
-      // transform: translateZ(0)
-
-      -webkit-backface-visibility: hidden
-      -webkit-transform: translateZ(0) scale(1.0, 1.0)
+      will-change: flex
 
       flex: 1
 
@@ -179,36 +111,48 @@
         .fa
           color: #fff
           font-weight: bold
-        // font-size: 120%
+          font-size: 200%
 
-  .circle-bottom
-    border-top: 1px solid #eee
-    flex: 1
+</style>
 
-    display: flex
-    flex-direction: column
-    align-items: center
-    width: 100%
-    justify-content: center
+<style lang="sass" scoped>
+  .curtain
+    position: relative
     overflow: hidden
+    height: 100%
 
-    .circle-bottom-hidden, .circle-bottom-visible
-      overflow: hidden
+    &.open
+      .curtain-top
+        transform: translateY(-100%)
 
-      display: flex
-      flex-direction: column
-      align-items: center
+      .curtain-bottom
+        transform: translateY(100%)
+
+    .curtain-top, .curtain-bottom
+      position: absolute
+      z-index: 1
+      transition: transform 0.3s linear
+      will-change: transform
+      height: 50%
       width: 100%
-      justify-content: center
-      transition: opacity .3s ease-out
+      z-index: 1
+      background: #fff
+
+    .curtain-top
+      top: 0
+      box-shadow: inset 0 -1px 0 #eee
 
 
-    .circle-bottom-visible
-      flex: 1
-      opacity: 1
+    .curtain-middle
+      z-index: 0
+      height: 100%
+      width: 100%
+      // height: auto
+      // opacity: 0.5
+      // pointer-events: none
+      // transition: opacity 0.3s linear
+      // will-change: opacity
 
-    .circle-bottom-hidden
-      flex: 0
-      opacity: 0
-
+    .curtain-bottom
+      bottom: 0
 </style>

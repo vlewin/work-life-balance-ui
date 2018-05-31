@@ -9,11 +9,14 @@ import "./registerServiceWorker"
 import "./assets/application.sass"
 
 import AuthenticationService from "./services/authentication"
-export default new AuthenticationService({ router: router })
+const AuthService = new AuthenticationService({ router: router })
+
+window.AuthService = AuthService
+export default AuthService
 
 axios.interceptors.request.use(function (config) {
   // Do something before request is sent
-  config.headers = {'Authorization': sessionStorage.access_token }
+  config.headers = { 'Authorization': localStorage.access_token }
 
   return config
 }, function (error) {

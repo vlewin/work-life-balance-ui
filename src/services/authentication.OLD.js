@@ -10,61 +10,53 @@ export default class AuthenticationService {
     this.auth = new auth0.WebAuth(this.config)
   }
 
-  // login() {
-  //   console.log('--- login - checkSession')
-  //   this.auth.checkSession({ nonce: 'very-long-and-secure-nonce' }, (err, authResult) => {
-  //     debugger
-  //     if (err) {
-  //       console.log('--- login - checkSession - error')
-  //       console.log(err)
-  //       const url = AuthService.auth.client.buildAuthorizeUrl({
-  //         clientID: 'Uwn1T7EyBw83RQ5FEVRzHoc0E6MB1UaT', // string
-  //         responseType: 'token id_token', // code
-  //         redirectUri: `${window.location.origin}/callback`,
-  //         state: 'very-long-and-secure-state',
-  //         nonce: 'very-long-and-secure-nonce'
-  //       })
-  //
-  //       window.location.replace(url)
-  //     } else {
-  //       console.log('--- login - checkSession - success')
-  //
-  //       this._setSession(authResult)
-  //       this.router.push('/')
-  //     }
-  //   })
-  // }
+  login (options = {}) {
+    // this.auth.authorize(options)
 
-  login(email, password) {
-    this.auth.client.login({
-      realm: 'Username-Password-Authentication',
-      username: email,
-      password: password
-    }, (error, authResult) => {
-      if (error) {
-        this.router.push('/login')
+    this.auth.checkSession({}, (err, authResult) => {
+      if (err) {
+        // this.router.push({ path: 'login', query: { message: JSON.stringify(err) }})
+
+        this.auth.authorize(options)
       } else {
+        // this.router.push({ path: 'login', query: { message: 'err' }})
+
         this._setSession(authResult)
         this.router.push('/')
       }
     })
+
   }
 
   signup () {
     this.auth.authorize({})
   }
 
-  handleCallback (hash, redirectUri = window.location.href) {
+  handleCallback (redirectUri = window.location.href) {
     console.log('*** handleCallback')
-    this.auth.parseHash(hash, (error, authResult) => {
-      console.log('Hash', hash)
-      console.log('Hash', error)
-      console.log('Hash', authResult)
+    this.auth.parseHash({__enableImpersonation: true}, (error, authResult) => {
       if (error) {
-        this.router.push({ path: 'login', query: { message: JSON.stringify(error) }})
-      } else {
+        console.error('*** error', error, authResult)
+        this.router.push({ path: 'login', query: { message: error.errorDescription }})
+        // NOTE: Redirect back to hosted login page and provide the error description
+        // this.login({ redirectUri: redirectUri, errorDescription: error.errorDescription })
+      } else if (authResult && authResult.accessToken && authResult.idToken) {
+        console.log('*** Store session and redirect to /')
         this._setSession(authResult)
         this.router.push('/')
+      } else {
+        this.auth.checkSession({ scope: 'openid' }, (err, authResult) => {
+          if (err) {
+            return
+          } else {
+            this._setSession(authResult)
+          }
+        })
+
+        console.error('**** No access key')
+        // TODO: Redirect to generic error page?
+        this.router.push({ path: 'login', query: { message: 'Missing required parameter in response' }})
+        // this.login({ redirectUri: redirectUri, errorDescription: 'Missing required parameter in response' })
       }
     })
   }

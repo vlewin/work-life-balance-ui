@@ -55,7 +55,7 @@
           <br />
 
           <button class="btn-large text-white" v-on:click="login">
-            SIGN IN
+            SIGN IN ({{ navigator.standalone }}) {{ (storage.access_token || '').length }}
           </button>
         </div>
 
@@ -78,7 +78,9 @@ export default {
 
   data() {
     return {
-      section: this.initSection
+      section: this.initSection,
+      navigator: window.navigator,
+      storage: window.localStorage
     }
   },
 

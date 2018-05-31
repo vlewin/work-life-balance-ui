@@ -1,32 +1,15 @@
 <template>
-    <div class="layer" :class="{ open: !!mode }">
-      <div class="layer-top">
-        <h2>TRACK YOUR ABSENCE</h2>
-      </div>
+  <div class="calendar" :class="[mode]">
+    <ul class="grid">
+      <li class="grid-item label" v-for="(weekday, i) in weekdays" :key="i+1*0.1" :class="{ weekend: ['SA', 'SU'].includes(weekday) }">
+        {{ weekday }}
+      </li>
 
-      <div class="layer-middle">
-        <div class="calendar" :class="[mode]">
-          <ul class="grid">
-            <li class="grid-item label" v-for="(weekday, i) in weekdays" :key="i+1*0.1" :class="{ weekend: ['SA', 'SU'].includes(weekday) }">
-              {{ weekday }}
-            </li>
-
-            <li class="grid-item day" v-for="(day, i) in days" :key="i+1*1" v-on:click="select(day)" :class="addClasses(day)">
-              {{ day | toNumber }}
-              <span class="tooltiptext" v-if="isHoliday(day)">{{ isHoliday(day) }}</span>
-            </li>
-          </ul>
-        </div>
-      </div>
-
-
-      <div class="layer-bottom">
-        <h4>
-          Click <label class="add">ADD</label>
-          or <label class="remove">REMOVE</label>
-          to proceed.
-        </h4>
-      </div>
+      <li class="grid-item day" v-for="(day, i) in days" :key="i+1*1" v-on:click="select(day)" :class="addClasses(day)">
+        {{ day | toNumber }}
+        <span class="tooltiptext" v-if="isHoliday(day)">{{ isHoliday(day) }}</span>
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -188,81 +171,18 @@
   @import '~@/assets/_animations.sass'
   @import '~@/assets/_variables.sass'
 
-  .layer
-    display: flex
-    flex-direction: column
-    justify-content: center
-    overflow: hidden
-    height: 100%
-
-    div
-      transition: flex 0.3s ease-out
-      display: flex
-      // align-items: center
-      // justify-content: center
-
-    &.open
-      .layer-top
-        flex: 0
-      .layer-middle
-        flex: 4
-      .layer-bottom
-        flex: 0
-
-  .layer-top
-    flex: 1
-    width: 100%
-
-    display: flex
-    flex-direction: column
-    justify-content: flex-end
-    align-items: center
-    overflow: hidden
-    // background: #eee
-
-
-  .layer-middle
-    flex: 0
-    width: 100%
-
-    display: flex
-    flex-direction: column
-    // justify-content: center
-    align-items: center
-    overflow: hidden
-    justify-content: center
-
-  .layer-bottom
-    flex: 1
-    width: 100%
-
-    display: flex
-    flex-direction: column
-    // justify-content: center
-    align-items: center
-    overflow: hidden
-    // background: #eee
-    label
-      color: #fff
-      padding: 0.4rem
-
-      &.add
-        background: #2F4462
-      &.remove
-        background: tomato
-
   .calendar
     display: flex
     justify-content: space-around
     align-items: center
     flex-direction: column
     width: 90%
-    opacity: 0.2
-    // pointer-events: none
 
     &.add, &.remove
       opacity: 1
-      // pointer-events: none
+
+      li.holiday, li.weekend
+        opacity: 0.2
 
     &.add
       li.absence

@@ -60,7 +60,7 @@ export default {
           selected: this.isSelected(formattedDate),
           weekend: isWeekend(date),
           holiday: isHoliday(date),
-          duration: record.duration,
+          duration: (record.duration || 0).toFixed(2),
           type: record.type,
           absence: record.reason,
           positive: isHappy(record.duration),
@@ -87,10 +87,12 @@ export default {
       if(this.isRecorded(item.formattedDate)) {
         if(item.type === 'presence') {
           return item.duration
-        } else {
+        } else if (item.type === 'absence') {
           return item.absence[0]
         }
       }
+
+      return ''
     },
 
     isSelected(date) {

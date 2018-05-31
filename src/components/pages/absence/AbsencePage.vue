@@ -2,76 +2,64 @@
   <card hcolor="blue">
     <i slot="c-header-icon" class="fa fa-calendar-plus fa-5x" aria-hidden="true"></i>
     <template slot="c-header-title">
-      Absence
+      {{ currentDate.toLocaleDateString("de-DE", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) }}
     </template>
 
-    <month-picker slot="c-body" class="flex flex-center uppercase" v-on:date-change="setDateAndFetch"></month-picker>
 
-    <div slot="c-body" class="flex flex-between container">
-      <div class="flex flex-center content">
-        <calendar class="width-90" :date="currentDate" :mode="mode" v-on:changed="setSelected"></calendar>
+    <div slot="c-body" class="curtain flex" :class="{ open: mode }">
+      <div class="curtain-top flex flex-center">
+        <!-- <b>TRACK YOUR ABSENCE</b> -->
+        <p>
+          Click <b>ADD</b> or <b>REMOVE</b> to proceed.
+        </p>
       </div>
 
-      <simple-switch slot="c-footer" class="info animated" :class="{ horizontal: isLandscape }" :active="mode === 'add' && !!selected.length">
-        <div class="flex flex-center height-100" slot="up">
-          <div class="flex flex-center flex-column flex-item">
-            <span>{{ balance.vacation }}</span>
-            <label>
-              <i class="fa fa-plane text-green" aria-hidden="true"></i>
-              VACATION
-            </label>
-          </div>
-          <div class="flex flex-center flex-column flex-item">
-            <span>{{ balance.sickness }}</span>
-            <label>
-              <i class="fa fa-heartbeat text-amber" aria-hidden="true"></i>
-              SICKNESS
-            </label>
-          </div>
-          <div class="flex flex-center flex-column flex-item">
-            <span>{{ holidayCount }}</span>
-            <label>
-              <i class="fa fa-gift text-tomato" aria-hidden="true"></i>
-              HOLIDAY
-            </label>
-          </div>
-        </div>
+      <div class="curtain-middle flex flex-between flex-column height-100">
+        <month-picker class="flex flex-center uppercase" v-on:date-change="setDateAndFetch"></month-picker>
 
-        <simple-slider slot="down" class="text-white" :class="{ horizontal: isLandscape }" v-on:changed="setReason">
-          <div slot="left">
-            <i class="fa fa-plane"></i>
-            <div>
-              VACATION
-            </div>
+        <div class="flex flex-between container">
+          <div class="flex flex-center content">
+            <calendar class="width-90" :date="currentDate" :mode="mode" v-on:changed="setSelected"></calendar>
           </div>
-          <div slot="center">
-            <!-- <i class="fa fa-heartbeat"></i> -->
-            <i class="fas fa-briefcase-medical"></i>
-            <div>
-              SICKNESS
-            </div>
-          </div>
-          <div slot="right">
-            <i class="fa fa-gift" aria-hidden="true"></i>
-            <div>
-              HOLIDAY
-            </div>
-          </div>
-        </simple-slider>
-      </simple-switch>
+
+          <simple-switch class="info animated" :class="{ horizontal: isLandscape }" :active="mode === 'add' && !!selected.length">
+            <balance class="flex flex-center height-100" slot="up"></balance>
+
+            <simple-slider slot="down" class="text-white" :class="{ horizontal: isLandscape }" v-on:changed="setReason">
+              <div slot="left">
+                <i class="fa fa-plane"></i>
+                <div>VACATION</div>
+              </div>
+              <div slot="center">
+                <i class="fas fa-briefcase-medical"></i>
+                <div>SICKNESS</div>
+              </div>
+              <div slot="right">
+                <i class="fa fa-gift" aria-hidden="true"></i>
+                <div>HOLIDAY</div>
+              </div>
+            </simple-slider>
+          </simple-switch>
+        </div>
+      </div>
+
+      <div class="curtain-bottom flex flex-center">
+      </div>
     </div>
 
-    <small>Help text hier</small>
     <template slot="c-sidebar-title">TEXT</template>
     <i slot="c-sidebar-icon" class="fa fa-calendar-plus fa-6x" aria-hidden="true"></i>
-
 
     <template slot="c-footer" >
       <simple-switch slot="up" class="vertical animated" :active="!!mode && valid">
         <button-group slot="up" class="vertical animated" :buttons="buttons" v-on:changed="setMode"></button-group>
         <template v-if="mode === 'add'">
-          <button slot="down" class="text-white primary width-50" v-on:click="reset">SAVE</button>
-          <button slot="down" class="text-white grey-5 width-50" v-on:click="reset">CANCEL</button>
+          <simple-switch slot="down" class="vertical animated" :active="loading">
+            <button slot="up" class="text-white primary width-50" v-on:click="save">SAVE</button>
+            <button slot="up" class="text-white grey-5 width-50" v-on:click="reset">CANCEL</button>
+
+            <button slot="down" class="text-white primary width-100 disabled">Please wait!</button>
+          </simple-switch>
         </template>
 
         <template v-else>
@@ -79,19 +67,8 @@
           <button slot="down" class="text-white grey-6 width-50" v-on:click="reset">CANCEL</button>
         </template>
       </simple-switch>
-
-      <!-- <simple-switch v-if="valid" slot="up" class="vertical animated" :active="loading">
-        <button class="text-white" slot="up" v-on:click="save">
-          SAVE
-        </button>
-        <button class="text-white" slot="down" disabled>PLEASE WAIT...</button>
-      </simple-switch>
-
-      <span class="uppercase" v-else>
-        <i class="fas fa-info-circle"></i>
-        select absence {{ selected.length ? 'type' : 'date' }}
-      </span> -->
     </template>
+
   </card>
 </template>
 
@@ -121,7 +98,7 @@
 
     data() {
       return {
-        buttons: [{ name: 'add', color: 'blue', focused: false }, { name: 'remove', color: 'red', focused: false }],
+        buttons: [{ name: 'add', color: 'blue', focused: false }, { name: 'remove', color: 'tomato', focused: false }],
         mode: null,
         date: new Date(),
         reason: null,
@@ -237,6 +214,8 @@
         console.log(this.selected, this.reason)
         await this.$store.dispatch("saveAbsence", this.data)
         await this.$store.dispatch("fetchBalance")
+
+        this.reset()
       },
 
       reset() {
@@ -247,58 +226,82 @@
 </script>
 
 <style lang="sass" scoped>
-  .container
+  .curtain
+    position: relative
+    overflow: hidden
     height: 100%
+
+    &.open
+      .curtain-top
+        transform: translateY(-100%)
+
+      .curtain-middle
+        opacity: 1
+        pointer-events: auto
+
+      .curtain-bottom
+        transform: translateY(100%)
+
+    .curtain-top, .curtain-bottom
+      position: absolute
+      z-index: 1
+      transition: transform 0.3s linear
+      will-change: transform
+
+    .curtain-top
+      top: 0
+
+    .curtain-middle
+      z-index: 0
+      height: auto
+      opacity: 0.5
+      pointer-events: none
+      transition: opacity 0.3s linear
+      will-change: opacity
+
+    .curtain-bottom
+      bottom: 0
+      opacity: 0.5
+
+</style>
+
+<style lang="sass" scoped>
+  @media screen and (orientation: portrait)
+    .curtain-top, .curtain-bottom
+      height: 10vh
+      background: #eee
+
+
+  @media screen and (orientation: landscape)
+    .curtain-top
+      background: #eee
+
+    .curtain-top, .curtain-bottom
+      height: 15vh
+
+
+  .container
+    height: calc(100% - 10vh)
+    display: flex
+
+  .content
+    flex: auto
 
   @media screen and (orientation: portrait)
     .container
       flex-direction: column
 
-    .content
-      height: 80%
-
     .info
       height: 10vh
       width: 100%
 
-      .flex-item
-        border-top: 0.2rem solid #eee
-        height: 100%
-
-      span
-        font-size: 2rem
-        line-height: 1.8rem
-
-      label
-        font-size: 0.6rem
-        line-height: 1rem
-
   @media screen and (orientation: landscape)
     .container
-      margin: auto
+      flex-direction: row
 
     .content
-      width: 75%
+      width: 80%
 
     .info
-      // height: 70vh
-      flex-direction: column
-      width: 25%
-
-      span
-        font-size: 3rem
-        line-height: 3rem
-
-      label
-        font-size: 0.6rem
-        line-height: 0.6rem
-
-
-      .flex
-        height: 100%
-        flex-direction: column
-
-      .flex-item
-        height: calc(100% / 3)
-        border-left: 1px solid #eee
+      width: 20%
 </style>

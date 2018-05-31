@@ -11,34 +11,14 @@
 
     <date-picker slot="c-body" class="flex flex-center"></date-picker>
 
-    <div slot="c-body" class="flex flex-center container">
-      <!-- <circle-menu v-if="!isAbsence && !setAbsence" class="flex flex-center relative" :form="form" v-on:open="openPicker"></circle-menu> -->
-      <!-- <circle-info v-if="isAbsence && !setAbsence" :text="currentRecord.reason"></circle-info> -->
-      <!-- <circle-absence v-if="setAbsence"></circle-absence> -->
+    <div slot="c-body" class="flex flex-between container">
+      <div class="flex flex-center content" slot="c-body">
+        <circle-menu class="flex flex-center relative" :form="form" v-on:open="openPicker">
+          <circle-absence slot="inside" :open="setAbsence" :init-form="form"></circle-absence>
+        </circle-menu>
+      </div>
 
-      <circle-menu v-if="!isAbsence" class="flex flex-center relative" :form="form" v-on:open="openPicker">
-        <template v-if="setAbsence" slot="inside">
-          <circle-absence id="inside" :open="setAbsence"></circle-absence>
-        </template>
-
-        <div id="inside" v-else slot="inside">
-          <h3 class="hidden">LOADING ...</h3>
-          <h2 class="no-margin">
-            {{ form.duration }}
-            <label>hours</label>
-          </h2>
-          <h3 class="no-margin">
-            <small>{{ form.start }} - {{ form.end }}</small>
-            <label>&num; {{ currentWeekNumber }}</label>
-          </h3>
-        </div>
-
-        <!-- <div id="inside" v-on:click="toggleLoading">
-
-        </div> -->
-      </circle-menu>
-
-
+      <time-form class="info" :form="form" v-on:open="openPicker"></time-form>
     </div>
 
     <template slot="c-sidebar-title">
@@ -72,6 +52,7 @@
 
   import Card from "../../shared/ResponsiveCard"
   import SimpleSwitch from "../../shared/SimpleSwitch"
+  import TimeForm from "./TimeForm"
 
   import differenceInMinutes from "date-fns/difference_in_minutes"
   import format from "date-fns/format"
@@ -89,7 +70,8 @@
       CircleInfo,
       CircleAbsence,
       TimePicker,
-      SimpleSwitch
+      SimpleSwitch,
+      TimeForm
     },
 
     data() {
@@ -254,7 +236,7 @@
 
       openPicker(picker, target) {
         if(picker === 'absence') {
-          this.setAbsence = true
+          this.setAbsence = !this.setAbsence
         } else {
           this.picker.target = target
           this.picker.value = this.form[target]
@@ -353,4 +335,32 @@
     width: 5rem
     border: 0.5rem solid #ccc
     border-radius: 50%
+</style>
+
+
+<style lang="sass" scoped>
+  .container
+    height: calc(100% - 10vh)
+    display: flex
+
+  .content
+    flex: auto
+
+  @media screen and (orientation: portrait)
+    .container
+      flex-direction: column
+
+    .info
+      height: 10vh
+      width: 100%
+
+  @media screen and (orientation: landscape)
+    .container
+      flex-direction: row
+
+    .content
+      width: 80%
+
+    .info
+      width: 20%
 </style>

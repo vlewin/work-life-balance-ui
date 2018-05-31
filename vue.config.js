@@ -1,34 +1,9 @@
-// import path from "path";
-// module.exports = {
-//   lintOnSave: true,
-//
-//   configureWebpack: {
-//     name: "vue-work-life-balance",
-//     output: {
-//       publicPath: "./"
-//     },
-//
-//     resolve: {
-//       alias: {
-//         "@": path.resolve("src")
-//       }
-//     }
-//   }
-//
-//   https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-pwa
-//   pwa: {
-//     workboxPluginMode: "InjectManifest",
-//     workboxOptions: {
-//       swSrc: "src/registerServiceWorker.js"
-//     }
-//   }
-// };
-
 const path = require("path")
+
 module.exports = {
   lintOnSave: true,
   pwa: {
-    name: 'My App',
+    name: 'WORK-LIFE-BALANCE',
     themeColor: '#4DBA87',
     msTileColor: '#000000',
     appleMobileWebAppCapable: 'yes',

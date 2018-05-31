@@ -4,20 +4,21 @@
     <i slot="c-header-icon" class="fas fa-chart-pie fa-5x"></i>
 
     <month-picker slot="c-body" class="flex flex-center uppercase" v-on:date-change="setDateAndFetch"></month-picker>
+    <div slot="c-body" class="flex flex-between container">
+      <div class="flex flex-center content" slot="c-body">
+        <h1 v-if="fetching" class="flex flex-center height-50">
+          LOADING...
+        </h1>
 
-    <h1 v-if="fetching" slot="c-body" class="flex flex-center height-50">
-      LOADING...
-    </h1>
+        <h1 v-else-if="!fetching && !Object.keys(timestamps).length" class="flex flex-center height-50">
+          NO DATA
+        </h1>
 
-    <h1 v-else-if="!fetching && !Object.keys(timestamps).length" slot="c-body" class="flex flex-center height-50">
-      NO DATA
-    </h1>
+        <bar-chart v-else class="height-50"  :values="values"></bar-chart>
+      </div>
 
-    <bar-chart v-else class="height-50" slot="c-body" :values="values"></bar-chart>
+      <balance class="info"></balance>
 
-
-    <div slot="c-body" class="flex flex-center v-height-10">
-      <balance></balance>
     </div>
 
     <template slot="c-sidebar-title">Week: 13</template>
@@ -82,7 +83,28 @@
 </script>
 
 <style lang="sass" scoped>
-  .chart, .info
-    width: 100%
-    height: 50%
+  .container
+    height: calc(100% - 10vh)
+    display: flex
+
+  .content
+    flex: auto
+
+  @media screen and (orientation: portrait)
+    .container
+      flex-direction: column
+
+    .info
+      height: 10vh
+      width: 100%
+
+  @media screen and (orientation: landscape)
+    .container
+      flex-direction: row
+
+    .content
+      width: 80%
+
+    .info
+      width: 20%
 </style>

@@ -24,6 +24,7 @@ SOURCES:
 ## Auth0 Vue sample app
 
 https://manage.auth0.com/#/clients/fC4Z1HSO4PHNJTWu9K4Emn90bo6CCgCM/quickstart
+https://www.storyblok.com/tp/how-to-auth0-vuejs-authentication
 
 ## PWA
 - https://medium.com/@firt/progressive-web-apps-on-ios-are-here-d00430dee3a7

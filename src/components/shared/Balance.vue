@@ -1,21 +1,21 @@
 <template>
   <div id="balance" class="flex flex-center height-100" slot="up">
-    <div class="flex flex-center flex-column flex-item">
+    <div class="flex flex-center flex-column balance-item">
       <span>{{ balance.vacation }}</span>
       <label>
         <i class="fa fa-plane text-green" aria-hidden="true"></i>
         VACATION
       </label>
     </div>
-    <div class="flex flex-center flex-column flex-item">
+    <div class="flex flex-center flex-column balance-item">
       <span>{{ balance.sickness }}</span>
       <label>
         <i class="fa fa-heartbeat text-amber" aria-hidden="true"></i>
         SICKNESS
       </label>
     </div>
-    <div class="flex flex-center flex-column flex-item">
-      <span>?</span>
+    <div class="flex flex-center flex-column balance-item">
+      <span>4</span>
       <label>
         <i class="fa fa-gift text-tomato" aria-hidden="true"></i>
         HOLIDAY
@@ -61,57 +61,33 @@
 
 
 <style lang="sass" scoped>
-  .container
+  .balance-item
     height: 100%
+    font-weight: bold
+    background: #fafafa
+    color: #34495e
 
   @media screen and (orientation: portrait)
-    .container
-      flex-direction: column
-
-    .content
-      height: 80%
-
     #balance
-      height: 10vh
-      width: 100%
-
-      .flex-item
-        border-top: 1px solid #eee
-        height: 100%
+      flex-direction: row
+      border-top: 1px solid #eee
 
       span
         font-size: 2rem
-        line-height: 1.8rem
 
       label
         font-size: 0.6rem
-        line-height: 1rem
 
   @media screen and (orientation: landscape)
-    .container
-      margin: auto
-
-    .content
-      width: 75%
-
     #balance
-      // height: 70vh
       flex-direction: column
-      width: 25%
+      border-left: 1px solid #eee
+      height: 100%
+      font-weight: bold
 
       span
-        font-size: 3rem
-        line-height: 3rem
+        font-size: 1.8rem
 
       label
         font-size: 0.6rem
-        line-height: 0.6rem
-
-      .flex
-        height: 100%
-        flex-direction: column
-
-      .flex-item
-        height: calc(100% / 3)
-        border-left: 1px solid #eee
 </style>

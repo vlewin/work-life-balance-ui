@@ -134,8 +134,6 @@
     fill: #42b983;
     stroke-width: 0;
     stroke: #FFBF00;
-    /* rx: 0.2em;
-    ry: 0.2em; */
   }
 
   .over {

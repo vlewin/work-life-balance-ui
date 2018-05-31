@@ -1,51 +1,39 @@
 <template>
   <div id="circle-menu" :class="{ loading: fetching }">
+    <div id="inside">
+      <slot name="inside">&nbsp;</slot>
+    </div>
+
+    <svg height="1" width="1">
+      <defs>
+        <clipPath id="sector" clipPathUnits="objectBoundingBox">
+          <path fill="none" stroke="#111" stroke-width="1" class="sector" :d="coordinates"></path>
+        </clipPath>
+      </defs>
+    </svg>
+
     <ul id="outside" :class="{ open: open }">
-      <li class="one">
-        <span class="text" v-on:click="emit('time', 'start')">{{ form.start }}</span>
+      <li class="one rotate-30">
+        <!-- <a v-on:click="home"> -->
+          <i class="fas fa-home font-5"></i>
+        <!-- </a> -->
       </li>
-      <li class="two">
-        <span class="text" v-on:click="emit('time', 'pause')">{{ form.pause }}</span>
+
+      <li class="two rotate-90" v-on:click="emit('absence')">
+        <!-- <a v-on:click="emit('absence')"> -->
+        <i class="fas fa-bars font-5"></i>
+        <!-- </a> -->
       </li>
-      <li class="three">
-        <span class="text" v-on:click="emit('time', 'end')">{{ form.end }}</span>
-      </li>
-      <li class="four">
-        <!-- <span class="text icon">&#11041;</span> -->
-        <span class="text icon" v-on:click.prevent.stop="emit('absence')"><i class="fas fa-bars font-5"></i></span>
-      </li>
-      <li class="five" v-on:click="home">
-        <!-- <span class="text">&#11041;</span> -->
-        <span class="text icon"><i class="fas fa-home font-5"></i></span>
-      </li>
-      <li class="six">
-        <span class="text icon"><i class="fas fa-trash font-5"></i></span>
+
+      <li class="three rotate-210" v-on:click="emit('absence')">
+        <!-- <a> -->
+          <i class="fas fa-trash font-5"></i>
+        <!-- </a> -->
       </li>
     </ul>
 
 
-    <slot name="inside"></slot>
 
-
-    <!-- <div id="inside" v-on:click="toggleLoading">
-      <h3 class="hidden">LOADING ...</h3>
-      <h2 class="no-margin">
-        {{ form.duration }}
-        <label>hours</label>
-      </h2>
-      <h3 class="no-margin">
-        <small>{{ form.start }} - {{ form.end }}</small>
-        <label>&num; {{ currentWeekNumber }}</label>
-      </h3>
-    </div> -->
-
-    <svg height="0" width="0">
-      <defs>
-        <clipPath id="sector" clipPathUnits="objectBoundingBox">
-          <path fill="none" stroke="#111" stroke-width="1" class="sector" d="M0.5,0.5 l0.5,0 A0.5,0.5 0 0,0 0.75,.066987298 z"></path>
-        </clipPath>
-      </defs>
-    </svg>
   </div>
 </template>
 
@@ -59,7 +47,11 @@
       return {
         loading: false,
         timeout: null,
-        open: false
+        open: false,
+        close: false,
+        width: 1,
+        height: 1,
+        slices: 3
       }
     },
 
@@ -88,6 +80,34 @@
     computed: {
       ...mapGetters(['currentFomatedDate', 'currentWeekNumber', 'currentRecord']),
       ...mapState(['fetching']),
+
+      angle() {
+        return (360 / this.slices)
+      },
+
+      coordinates() {
+        const c = `M0.5,0.5 l0.5,0 A0.5,0.5 0 0,0 ${this.cartesianCoordinates.x},${this.cartesianCoordinates.y} z`
+        console.log(c)
+        return c
+      },
+
+      cartesianCoordinates() {
+        //polar to cartesian coordinates conversion
+        //knowing the value of your angle in degrees..
+        //get value of the angle in radians
+        console.log(this.angle)
+        let angleInDegrees = this.angle
+        let angleInRadians = -angleInDegrees * Math.PI / 180.0
+        let centerX = this.height / 2
+        let centerY = this.height / 2
+        let radius = this.height / 2
+        let x = centerX + radius * Math.cos(angleInRadians)
+        let y = centerY + radius * Math.sin(angleInRadians)
+
+        console.log(x,y)
+        return {x, y}
+      }
+
     },
 
     methods: {
@@ -103,11 +123,12 @@
 
       toggle() {
         clearTimeout(this.timeout)
-
+        // this.open = !this.open
         this.open = false
+
         this.timeout = setTimeout(() => {
           this.open = true
-        }, 500)
+        }, 1000)
       },
 
       emit(picker, target) {
@@ -117,236 +138,113 @@
   }
 </script>
 
-<style lang="scss">
-  $base: #3C537A;
+<style lang="sass">
+  $base: #2b3c58
 
-  #circle-menu.loading {
-    #inside {
-      transform: scale(1.5);
-      transition: transform .25s ease;
+  #circle-menu
+    border-radius: 100%
+    position: relative
 
-      .hidden {
-        display: inline;
-      }
+  #outside
+    padding: 0
+    height: 0
+    list-style: none
+    position: relative
+    margin: auto
+    color: #fff
+    // transition: transform .25s ease
+    // transform: scale(0.5)
+    width: 14rem
+    padding-top: 14rem
 
-      :not(.hidden) {
-        display: none;
-      }
-    }
+    &.loading
+      #inside
+        // transform: scale(1.5)
+        // transition: transform .25s ease
 
-    #outside {
-      transform: rotate(270deg);
-      animation: spin 1s ease-out;
-      animation-iteration-count: infinite;
+        div.hidden
+          display: inline
 
-      .one, .three, .five {
-        background-color: darken($base, 20%);
-      }
+        div:not(.hidden)
+          display: none
 
-      .two, .four, .six {
-        background-color: lighten($base, 20%);
-      }
-    }
-  }
-
-  #circle-menu {
-    border-radius: 100%;
-
-    #inside {
-      position: absolute;
-      left: 0;
-      right: 0;
-      margin-left: auto;
-      margin-right: auto;
-      z-index: 99;
-      background: #fff;
-      border: 0.5rem solid #eee;
-      border-radius: 50%;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: space-around;
-      transition: transform 2s 0.5s ease;
-      // box-shadow: inset 0 0 1em #1a2436;
-
-      h2, h3 {
-        small {
-          font-size: 50%;
-        }
-
-        label {
-          font-size: 50%;
-          display: block;
-        }
-      }
-
-      h2 {
-        font-size: 2.2rem;
-      }
-
-      h3 {
-        color: grey;
-      }
-    }
-  }
+    // li
+    //   // transition: transform 0.3s, opacity 0.3s linear
+    //   opacity: 1
+    //
+    // &:not(.open)
+    //   li
+    //     opacity: 0
+    //     transform: rotate(-30deg)
 
 
+    li
+       position: absolute
+       top: 0
+       left: 0
+       width: 100%
+       height: 100%
+       clip-path: url(#sector)
+       will-change: transform
+       overflow: hidden
 
-  #outside {
-    padding: 0;
-    height: 0;
-    list-style: none;
-    position: relative;
-    margin: auto;
-    color: #fff;
-    transition: transform .25s ease;
-    transform: scale(0.5);
+       // -webkit-clip-path: url(#sector)
+       // mask: url(#sector)
+       a
+         display: inline-block
+         width: 100%
+         height: 100%
+         will-change: transform
+         transform: rotate(30deg)
+         background: red
 
-    &.open {
-      transform: scale(1.0);
-      transition: transform 0.5s ease;
-    }
+       i
+         // margin-top: 5%
+         position: relative
+         top: 10%
+         left: 20%
+         right: 50%
+         transform: rotate(30deg)
+         will-change: transform
+         // &.icon
+         //   transform: rotate(240deg)
 
-    li {
-       position: absolute;
-       top: 0;
-       left: 0;
-       width: 100%;
-       height: 100%;
-       clip-path: url(#sector);
+       &:hover
+         background-color: #FFBF00
 
-       a {
-         display: block;
-         width: 100%;
-         height: 100%;
-       }
-
-       &:hover {
-         background-color: #FFBF00;
-         // background-color: #42b983;
-       }
-     }
-  }
-
-  .one {
-    transform: rotate(-120deg);
-    background-color: darken($base, 20%);
-  }
-
-  .two {
-    background-color: darken($base, 20%);
-    transform: rotate(-60deg);
-  }
-
-  .three {
-    background-color: darken($base, 20%);
-    transform: rotate(0deg);
-  }
-
-  .four {
-    background-color: darken($base, 10%);
-    transform: rotate(-180deg);
-  }
-
-  .five {
-    background-color: darken($base, 10%);
-    transform: rotate(-240deg);
-  }
-
-  .six {
-    background-color: darken($base, 10%);
-    transform: rotate(-300deg);
-  }
-
-  .text {
-    // position: absolute;
-    // top: 25%;
-    // right: 6%;
-    // transform: rotate(60deg);
-    // font-size: 1.6rem;
-    // color: #fff;
-    // height: 2rem;
-    // width: 4rem;
-
-    position: absolute;
-    top: 20%;
-    right: 6%;
-    -webkit-transform: rotate(60deg);
-    transform: rotate(60deg);
-    font-size: 1.6rem;
-    color: #fff;
-    height: 2rem;
-    width: 6rem;
-  }
-
-  .icon {
-    transform: rotate(240deg);
-  }
-
-  @media screen and (orientation: portrait) {
-    #circle-menu {
-      #outside {
-        width: 16.4rem;
-        padding-top: 16.4rem;
-
-        .text {
-          top: 24%;
-          right: -2%;
-          line-height: 1.8rem;
-          height: 2rem;
-          color: #fff;
-          // border: 1px solid white;
-        }
-      }
-
-      #inside {
-        width: 8.8rem;
-        height: 8.8rem;
-      }
-    }
-  }
+  .one
+    background-color: lighten($base, 5%)
+    transform: rotate(-30deg)
 
 
-  @media screen and (max-width: 50em) and (orientation: landscape) {
-    #circle-menu {
-      #outside {
-        width: 14rem;
-        padding-top: 14rem;
+  .two
+    background-color: lighten($base, 10%)
+    transform: rotate(90deg)
 
-        .text {
-          font-size: 1rem;
-          line-height: 0.6rem;
-          color: #fff;
-          height: 5rem;
-          width: 7rem;
-        }
-      }
 
-      #inside {
-        width: 7.2rem;
-        height: 7.2rem;
-      }
-    }
-  }
+  .three
+    background-color: lighten($base, 15%)
+    transform: rotate(210deg)
 
-  @media screen and (min-width: 50em) {
-    #circle-menu {
-      #outside {
-        width: 20rem;
-        padding-top: 20rem;
 
-        .text {
-          top: 26%;
-          right: 2%;
-        }
-      }
+  #inside
+    position: absolute
+    z-index: 1
+    background: white
+    display: flex
+    justify-content: center
+    align-items: center
+    border-radius: 100%
+    overflow: hidden
 
-      #inside {
-        top: unset;
-        width: 11rem;
-        height: 11rem;
-      }
-    }
-  }
+    width: 9.2rem
+    height: 9.2rem
+
+    border: 0.5rem solid #eee
+    box-sizing: border-box
+</style>
+
+<style lang="sass">
+
+
 </style>
