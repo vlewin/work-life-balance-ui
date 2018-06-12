@@ -11,6 +11,7 @@ const store = new Vuex.Store({
   state: {
     page: "page-2",
     online: navigator.onLine,
+    standalone: window.navigator.standalone || window.matchMedia('(display-mode: standalone)').matches,
     fetching: false,
     loading: false,
     currentDate: getNextBusinessDay(),

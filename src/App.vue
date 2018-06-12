@@ -1,12 +1,19 @@
 <template>
-  <div id="app">
+  <div id="app" :class="{ standalone: standalone }">
     <router-view class="content"></router-view>
   </div>
 </template>
 
 <script>
+  import { mapState } from "vuex"
+
   export default {
     name: "App",
+
+    computed: {
+      ...mapState(["standalone"])
+    },
+
     mounted() {
       setTimeout(function () {
         window.scrollTo(0, 1)
@@ -37,6 +44,20 @@
 </script>
 
 <style lang="sass" scoped>
+  // #app.standalone
+  //   height: 100%
+  //   height: 97vh
+  //   background: red
+
+  #app
+    display: flex
+    justify-content: center
+    width: 100%
+    height: 100%
+
+  #app.standalone
+    grid-template-rows: 97vh
+
   @media (min-width: 20em)
     #app
       grid-template-rows: 100vh

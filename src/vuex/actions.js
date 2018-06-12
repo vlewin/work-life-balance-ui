@@ -79,6 +79,15 @@ export default {
     console.log("saved")
   },
 
+  deleteRecord: async ({ commit }, record) => {
+    commit("SET_LOADING", true)
+    await Record.delete(record)
+    // FIXME: Remove record from store
+    commit("DELETE_RECORD", record)
+    commit("SET_LOADING", false)
+    console.log("removed")
+  },
+
   fetchMonthAbsences: async ({ commit }, month) => {
     commit("SET_FETCHING", true)
     const response = await Absence.all({ month: month })

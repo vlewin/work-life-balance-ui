@@ -13,19 +13,19 @@
     </svg>
 
     <ul id="outside" :class="{ open: open }">
-      <li class="one rotate-30">
+      <li class="one rotate-30 green">
         <!-- <a v-on:click="home"> -->
           <i class="fas fa-home font-5"></i>
         <!-- </a> -->
       </li>
 
-      <li class="two rotate-90" v-on:click="emit('absence')">
+      <li class="two rotate-90 amber" v-on:click="emit('absence')">
         <!-- <a v-on:click="emit('absence')"> -->
         <i class="fas fa-bars font-5"></i>
         <!-- </a> -->
       </li>
 
-      <li class="three rotate-210" v-on:click="emit('absence')">
+      <li class="three rotate-210 tomato" v-on:click="emit('delete')">
         <!-- <a> -->
           <i class="fas fa-trash font-5"></i>
         <!-- </a> -->
@@ -131,8 +131,8 @@
         }, 1000)
       },
 
-      emit(picker, target) {
-        this.$emit("open", picker, target)
+      emit(e) {
+        this.$emit(e)
       }
     }
   }
@@ -179,38 +179,44 @@
 
 
     li
-       position: absolute
-       top: 0
-       left: 0
-       width: 100%
-       height: 100%
-       clip-path: url(#sector)
-       will-change: transform
-       overflow: hidden
+      position: absolute
+      top: 0
+      left: 0
+      width: 100%
+      height: 100%
+      clip-path: url(#sector)
+      will-change: transform
+      overflow: hidden
 
-       // -webkit-clip-path: url(#sector)
-       // mask: url(#sector)
-       a
-         display: inline-block
-         width: 100%
-         height: 100%
-         will-change: transform
-         transform: rotate(30deg)
-         background: red
+      // -webkit-clip-path: url(#sector)
+      // mask: url(#sector)
+      a
+        display: inline-block
+        width: 100%
+        height: 100%
+        will-change: transform
+        transform: rotate(30deg)
+        background: red
 
-       i
-         // margin-top: 5%
-         position: relative
-         top: 10%
-         left: 20%
-         right: 50%
-         transform: rotate(30deg)
-         will-change: transform
-         // &.icon
-         //   transform: rotate(240deg)
+      i
+        // margin-top: 5%
+        position: relative
+        top: 10%
+        left: 20%
+        right: 50%
+        transform: rotate(30deg)
+        will-change: transform
+        // &.icon
+        //   transform: rotate(240deg)
 
-       &:hover
+      &.green:hover
+        background-color: #42b983
+
+      &.amber:hover
          background-color: #FFBF00
+
+      &.tomato:hover
+         background-color: tomato
 
   .one
     background-color: lighten($base, 5%)

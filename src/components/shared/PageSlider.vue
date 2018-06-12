@@ -52,14 +52,14 @@
 <style>
   .wrapper {
     width: 100%;
-    height: 100%;
-    background: #fff;
+    /* height: 100%; */
+    /* background: #fff; */
     overflow: hidden;
   }
 
   .window {
     width: 300%;
-    height: 100%;
+    /* height: 100%; */
     overflow: hidden;
     display: flex;
     transition: transform 300ms linear;
@@ -82,7 +82,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #fff;
+    /* background: #fff; */
     will-change: transform;
   }
 

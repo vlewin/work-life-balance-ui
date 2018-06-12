@@ -1,11 +1,9 @@
 <template>
-  <div>
-    <page-slider>
-      <report-page slot="left" :class="{ active: page === 'page-1'}"></report-page>
-      <time-page slot="center" :class="{ active: page === 'page-2'}"></time-page>
-      <absence-page slot="right" :class="{ active: page === 'page-3'}"></absence-page>
-    </page-slider>
-  </div>
+  <page-slider>
+    <report-page slot="left" :class="{ active: page === 'page-1'}"></report-page>
+    <time-page slot="center" :class="{ active: page === 'page-2'}"></time-page>
+    <absence-page slot="right" :class="{ active: page === 'page-3'}"></absence-page>
+  </page-slider>
 </template>
 
 <script>

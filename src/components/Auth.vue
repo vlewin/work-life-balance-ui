@@ -102,9 +102,10 @@
 
   .form
     display: grid
-    grid-template-rows: 20vh 1fr 10vh 20vh
-    border: 1px dotted #000
-    padding: 10px
+    grid-template-rows: 30vh 40vh 10vh 20vh
+    width: 100%
+    // border: 1px dotted #000
+    // padding: 10px
     text-align: center
     background: url(http://vue-work-life-balance-development.s3-website.eu-central-1.amazonaws.com/img/night-background.cde2c8b0.svg)
     transform: translateZ(0)

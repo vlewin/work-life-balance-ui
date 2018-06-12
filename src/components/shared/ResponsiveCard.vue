@@ -1,5 +1,5 @@
 <template>
-  <div class="c-responsive">
+  <div class="c-responsive" :class="{ standalone:  standalone }">
     <div class="c-header flex flex-arround flex-column width-100" :class="[hcolor]">
       <slot name="c-header-icon">ICON</slot>
       <slot name="c-header-title">&nbsp;</slot>
@@ -74,7 +74,7 @@
     },
 
     computed: {
-      ...mapState(["page"])
+      ...mapState(["page", "standalone"])
     },
 
     methods: {
@@ -88,11 +88,9 @@
   $base: #3C537A
 
   .c-responsive
-    height: 100%
     width: 100%
     display: grid
-    background: $base
-
+    background: darken($base, 5%)
     grid-template-areas: "c-header c-header"  "c-body c-body" "c-footer c-footer"
 
     // NOTE: Broken on safari
@@ -101,8 +99,12 @@
 
     // NOTE: Works on safari
     grid-template-columns: 100%
-    // FIXME: Safari standalone 100vh bug on ios
-    grid-template-rows: calc(30vh - 20px) calc(60vh) 10vh
+
+    &:not(.standalone)
+      height: 100vh
+
+    &.standalone
+      height: 97vh
 
   .c-header, .c-sidebar, .c-sidebar-actions
     background-color: darken($base, 10%)
@@ -131,12 +133,7 @@
     color: white
     position: relative
     font-weight: bold
-
-
-
-
-
-    // background: $base
+    background: $base
 
   .c-body
     grid-area: c-body
@@ -173,8 +170,16 @@
       color: inherit
 
   @media screen and (orientation: portrait)
-    .c-sidebar-title
-      height: 10vh
+    .c-responsive
+      &:not(.standalone)
+        grid-template-rows: 30vh 60vh 10vh
+
+      // FIXME: Safari standalone 100vh bug on ios
+      &.standalone
+        grid-template-rows: 27vh 60vh 10vh
+
+      .c-sidebar-title
+        height: 10vh
 
   @media screen and (orientation: landscape)
     .c-responsive
@@ -219,11 +224,11 @@
   .active
     .c-header
       clip-path: circle(100% at 50% 25%)
-      transition: clip-path 0.75s 0.5s ease
+      transition: clip-path 0.5s 0.5s ease
       will-change: clip-path
 
     .c-sidebar
       clip-path: circle(100% at 50% 50%)
-      transition: clip-path 0.75s 0.5s ease
+      transition: clip-path 0.5s 0.5s ease
       will-change: clip-path
 </style>

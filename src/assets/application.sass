@@ -9,12 +9,13 @@ html, body
 	margin: 0
 
 body
-  width: 100vw
-  height: 100vh
+  width: 100%
+  height: 100%
   // margin-top: 10px
   // font-family: 'Oxygen', Helvetica, Arial, sans-serif
   font-family: 'Rubik', sans-serif
   // font-family: 'Spectral', sans-serif
+
   display: flex
   justify-content: center
   align-items: center
@@ -23,24 +24,8 @@ body
   -moz-osx-font-smoothing: grayscale
 
   color: #34495e
+
   // background: linear-gradient(-45deg, #9121E8, #23A6D5, #98C2C2, #23D5AB)
   // background: linear-gradient(-45deg, #98C2C2, #23A6D5)
-  background-image: linear-gradient(to left top, #046c92, #33829d, #5597a8, #77adb4, #98c2c2)
-  // background-size: 400% 400%
-  // animation: Gradient 15s ease infinite
-
-  overflow-x: hidden
-  overflow-y: scroll !important
-  overflow: hidden
-
-// FIXME Safari standalone 100vh height bug
-#app
-  display: grid
-  justify-content: center
-  grid-template-rows: 0vh 100vh
-  grid-template-columns: 100vw
-  grid-template-areas: "header" "content"
-
-// .main
-//   background: #fff
-//   grid-area: content
+  background: linear-gradient(to left top, #046c92, #33829d, #5597a8, #77adb4, #98c2c2)
+  background-color: #34495e

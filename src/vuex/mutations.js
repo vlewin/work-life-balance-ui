@@ -52,6 +52,11 @@ export default {
     Vue.set(state.records, record.date, record)
   },
 
+  DELETE_RECORD(state, record) {
+    console.log("DELETE_RECORD")
+    Vue.delete(state.records, record.date)
+  },
+
   SET_ABSENCES(state, absences) {
     const data = {}
     absences.forEach(item => (data[item.date] = item))

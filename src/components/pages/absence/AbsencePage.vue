@@ -51,6 +51,7 @@
     <i slot="c-sidebar-icon" class="fa fa-calendar-plus fa-6x" aria-hidden="true"></i>
 
     <template slot="c-footer" >
+      <!-- FIXME: Add horizontal switch on a second level -->
       <simple-switch slot="up" class="vertical animated" :active="!!mode && valid">
         <button-group slot="up" class="vertical animated" :buttons="buttons" v-on:changed="setMode"></button-group>
         <template v-if="mode === 'add'">
@@ -62,8 +63,8 @@
           </simple-switch>
         </template>
 
-        <template v-else>
-          <button slot="down" class="text-white red width-50" v-on:click="reset">REMOVE</button>
+        <template v-else-if="mode === 'remove'">
+          <button slot="down" class="text-white red width-50" v-on:click="remove">REMOVE</button>
           <button slot="down" class="text-white grey-6 width-50" v-on:click="reset">CANCEL</button>
         </template>
       </simple-switch>
@@ -165,6 +166,7 @@
 
       data() {
         return this.selected.map((date) => {
+          console.log(this.reason)
           return {
             timestamp: date.getTime(),
             date: date.toDateString(),
@@ -204,18 +206,26 @@
       },
 
       setReason(index) {
-        console.log(index)
-        console.log(index, this.sliderMap[index])
         this.reason = this.sliderMap[index]
       },
 
       save: async function() {
-        console.log(this.data)
-        console.log(this.selected, this.reason)
         await this.$store.dispatch("saveAbsence", this.data)
         await this.$store.dispatch("fetchBalance")
 
-        this.reset()
+        setTimeout(() => {
+          this.reset()
+        }, 1000)
+      },
+
+      remove: async function() {
+        console.log('Delete')
+        // FIXME: Enable bulk delete with ids in body payload
+        for(let record of this.data) {
+          await this.$store.dispatch("deleteRecord", record)
+        }
+
+        await this.$store.dispatch("fetchBalance")
       },
 
       reset() {

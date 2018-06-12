@@ -22,7 +22,8 @@ export default class Record {
     return axios.put(`${this.endpoint}/${id}`, record)
   }
 
-  static delete(id) {
-    return axios.delete(`${this.endpoint}/${id}`)
+  static delete(record) {
+    console.log('*** Delete', record)
+    return axios.delete(`${this.endpoint}/${record.timestamp}`)
   }
 }

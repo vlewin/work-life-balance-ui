@@ -13,7 +13,7 @@
 
     <div slot="c-body" class="flex flex-between container">
       <div class="flex flex-center content" slot="c-body">
-        <circle-menu class="flex flex-center relative" :form="form" v-on:open="openPicker">
+        <circle-menu class="flex flex-center relative" :form="form" v-on:absence="absence" v-on:delete="remove">
           <circle-absence slot="inside" :open="setAbsence" :init-form="form"></circle-absence>
         </circle-menu>
       </div>
@@ -232,6 +232,12 @@
 
       remove: async function() {
         console.log('Delete')
+        await this.$store.dispatch("deleteRecord", this.form)
+        await this.$store.dispatch("fetchBalance")
+      },
+
+      absence() {
+        this.setAbsence = !this.setAbsence
       },
 
       openPicker(picker, target) {
