@@ -1,9 +1,5 @@
 <template>
   <div id="circle-menu" :class="{ loading: fetching }">
-    <div id="inside">
-      <slot name="inside">&nbsp;</slot>
-    </div>
-
     <svg height="1" width="1">
       <defs>
         <clipPath id="sector" clipPathUnits="objectBoundingBox">
@@ -32,7 +28,9 @@
       </li>
     </ul>
 
-
+    <div id="inside">
+        <slot name="inside">&nbsp;</slot>
+    </div>
 
   </div>
 </template>
@@ -142,7 +140,7 @@
   $base: #2b3c58
 
   #circle-menu
-    border-radius: 100%
+    border-radius: 50%
     position: relative
 
   #outside
@@ -154,8 +152,15 @@
     color: #fff
     // transition: transform .25s ease
     // transform: scale(0.5)
-    width: 14rem
-    padding-top: 14rem
+    width: 60%
+    padding-top: 60%
+
+    border-radius: 50%
+    // background-clip: padding-box
+    // box-shadow: 0 0 0 6px lighten($base, 50%)
+    // border: 6px solid lighten($base, 40%)
+    // box-sizing: border-box
+
 
     &.loading
       #inside
@@ -240,14 +245,17 @@
     display: flex
     justify-content: center
     align-items: center
-    border-radius: 100%
     overflow: hidden
+    border-radius: 50%
 
-    width: 9.2rem
-    height: 9.2rem
-
-    border: 0.5rem solid #eee
+    // box-shadow: inset 0 0 0 6px lighten($base, 50%)
+    border: 6px solid lighten($base, 70%)
     box-sizing: border-box
+
+    width: 39%
+    height: 65%
+
+
 </style>
 
 <style lang="sass">

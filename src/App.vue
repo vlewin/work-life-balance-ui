@@ -44,58 +44,54 @@
 </script>
 
 <style lang="sass" scoped>
+  #app
+    height: 100%
+    width: 100%
+  //
   // #app.standalone
   //   height: 100%
-  //   height: 97vh
+  //   height: 100%
   //   background: red
 
-  #app
-    display: flex
-    justify-content: center
-    width: 100%
-    height: 100%
 
-  #app.standalone
-    grid-template-rows: 97vh
 
   @media (min-width: 20em)
     #app
-      grid-template-rows: 100vh
-      grid-template-columns: 100vw
+      height: 100%
+      width: 100%
 
+  @media (min-width: 30em)
+    /* smartphones, Android phones, landscape iPhone
+    #app
+      width: 90%
 
-  // @media (min-width: 30em)
-  //   /* smartphones, Android phones, landscape iPhone
-  //   #app
-  //     grid-template-columns: 90vw
-
-  @media (min-width: 40em)
+  @media (min-width: 40em) and (orientation: landscape)
     /* portrait tablets, portrait iPad, e-readers (Nook/Kindle), landscape 800x480 phones (Android)
     #app
-      grid-template-rows: 80vh
-      grid-template-columns: 90vw
+      height: 80%
+      width: 90%
 
   @media (min-width: 40em) and (orientation: landscape)
     #app
-      grid-template-rows: 100vh
-      grid-template-columns: 100vw
+      height: 100%
+      width: 100%
 
-  @media (min-width: 50em)
+  @media (min-width: 50em) and (orientation: landscape)
     /* tablet, landscape iPad, lo-res laptops ands desktops
     #app
-      grid-template-rows: 80vh
-      grid-template-columns: 80vw
+      height: 80%
+      width: 80%
 
-  @media (min-width: 64em)
+  @media (min-width: 64em) and (orientation: landscape)
     /* big landscape tablets, laptops, and desktops
     #app
-      grid-template-rows: 80vh
-      grid-template-columns: 60vw
+      height: 80%
+      width: 60%
 
-  @media (min-width: 80em)
+  @media (min-width: 80em) and (orientation: landscape)
     /* hi-res laptops and desktops
     #app
-      grid-template-rows: 80vh
-      grid-template-columns: 60vw
+      height: 80%
+      width: 60%
 
 </style>

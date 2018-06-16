@@ -42,7 +42,6 @@
     // line-height: 3rem
     font-weight: bold
     transform: scale(1.30)
-
     &.vacation
       color: #42b983
       // border: 0.6rem solid #42b983

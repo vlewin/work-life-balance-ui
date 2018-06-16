@@ -60,7 +60,7 @@ export default {
           selected: this.isSelected(formattedDate),
           weekend: isWeekend(date),
           holiday: isHoliday(date),
-          duration: (record.duration || 0).toFixed(2),
+          duration: (record.duration || 0).toFixed(1),
           type: record.type,
           absence: record.reason,
           positive: isHappy(record.duration),

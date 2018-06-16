@@ -100,12 +100,6 @@
     // NOTE: Works on safari
     grid-template-columns: 100%
 
-    &:not(.standalone)
-      height: 100vh
-
-    &.standalone
-      height: 97vh
-
   .c-header, .c-sidebar, .c-sidebar-actions
     background-color: darken($base, 10%)
 
@@ -172,10 +166,12 @@
   @media screen and (orientation: portrait)
     .c-responsive
       &:not(.standalone)
+        height: 100vh
         grid-template-rows: 30vh 60vh 10vh
 
       // FIXME: Safari standalone 100vh bug on ios
       &.standalone
+        height: 97vh
         grid-template-rows: 27vh 60vh 10vh
 
       .c-sidebar-title
@@ -187,7 +183,13 @@
       grid-template-columns: auto 30%
       grid-template-rows: 0 1fr 10vh
 
-      .c-header
+      &:not(.standalone)
+        height: 100vh
+
+      // FIXME: Safari standalone 100vh bug on ios
+      &.standalone
+        height: 95vh
+
 
       .c-body
         width: 100%
