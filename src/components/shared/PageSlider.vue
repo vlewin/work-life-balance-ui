@@ -88,8 +88,8 @@
 
   @media (min-width: 50em) {
     .wrapper {
-      border-radius: 5px;
-      box-shadow: 0 14px 28px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.22);
+      /* border-radius: 5px;
+      box-shadow: 0 14px 28px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.22); */
     }
 
     .window.page-2 {

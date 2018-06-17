@@ -35,18 +35,14 @@
 
     <div class="form__content">
       <input class="" type="email" v-model="email" />
+      <!-- <span> <a href="">Dont' remember your password?</a></span> -->
       <input type="password" v-model="password" />
-      <span> <a href="">Dont' remember your password?</a></span>
-    </div>
-
-    <div class="form__actions">
-      <!-- <button v-on:click="login">LOGIN</button> -->
-      <!-- <button v-on:click="signup">SIGNUP</button> -->
+      <!-- <span> <a href="">Dont' remember your password?</a></span> -->
     </div>
 
     <div class="form__footer">
       <button v-on:click="login">LOGIN</button>
-      <span> <a href="">Dont' have an account?</a></span>
+      <!-- <span> <a href="">Dont' have an account?</a></span> -->
     </div>
   </div>
 </template>
@@ -137,8 +133,11 @@
 
   .form
     display: grid
-    grid-template-rows: 30vh 40vh 10vh 20vh
+
+    grid-template-rows: 1fr 1fr 1fr
     width: 100%
+    height: 100%
+
     // border: 1px dotted #000
     // padding: 10px
     text-align: center
@@ -146,7 +145,7 @@
     transform: translateZ(0)
     background-size: cover
     backface-visibility: hidden
-    animation: bk 60s -5s linear infinite
+    // animation: bk 120s -5s linear infinite
 
     @keyframes bk
       100%
@@ -157,7 +156,7 @@
       /* CSS declarations for `.block__element` */
       // FIXME: Remove dublications
       position: relative
-      overflow: hidden
+      // overflow: hidden
       display: flex
       align-items: center
       justify-content: center
@@ -170,11 +169,11 @@
       #moon
         top: -8vh
         height: 30vh
-        width: 69vh
+        width: 60vh
         z-index: -1
         transform: translate(-110vw, 0vh)
         position: absolute
-        animation: move 20s -3s linear infinite
+        animation: move 30s -3s linear infinite
         transform: translateZ(0)
 
     @include element('content')
@@ -197,25 +196,6 @@
         color: white
         border-radius: 5px
 
-    @include element('actions')
-      // FIXME: Remove dublications
-      display: flex
-      align-items: center
-      justify-content: space-around
-      flex-direction: column
-
-      button
-        display: block
-        box-sizing: border-box
-        width: 80%
-        height: 10vh
-        margin: 10px 0
-        font-size: 1rem
-        background: #213345
-        color: white
-        border: none
-        border-radius: 5px
-
     @include element('footer')
       // font-size: 2rem
       color: #fff
@@ -223,7 +203,7 @@
       // FIXME: Remove dublications
       display: flex
       align-items: center
-      justify-content: flex-start
+      justify-content: center
       flex-direction: column
       /* CSS declarations for `.block__element` */
 
@@ -231,7 +211,7 @@
         display: block
         box-sizing: border-box
         width: 80%
-        height: 50%
+        height: 10vh
         margin: 10px 0
         font-size: 1rem
         background: #213345

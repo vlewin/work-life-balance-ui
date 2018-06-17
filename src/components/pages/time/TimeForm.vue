@@ -4,7 +4,7 @@
       <span>{{ form.start }}</span>
       <label>
         <!-- <i class="fa fa-plane text-green" aria-hidden="true"></i> -->
-        <!-- <i class="fas fa-clock text-tomato"></i> -->
+        <i class="fas fa-clock text-light-blue"></i>
         START
       </label>
     </div>
@@ -12,7 +12,7 @@
       <span>{{ form.pause }}</span>
       <label>
         <!-- <i class="fa fa-heartbeat text-amber" aria-hidden="true"></i> -->
-        <!-- <i class="fas fa-coffee text-amber"></i> -->
+        <i class="fas fa-coffee text-amber"></i>
         PAUSE
       </label>
     </div>
@@ -20,7 +20,7 @@
       <span>{{ form.end }}</span>
       <label>
         <!-- <i class="fa fa-gift text-tomato" aria-hidden="true"></i> -->
-        <!-- <i class="fas fa-clock text-green"></i> -->
+        <i class="fas fa-clock text-light-blue"></i>
         END
       </label>
     </div>
@@ -77,7 +77,7 @@
       border-top: 1px solid #eee
 
       span
-        font-size: 1.4rem
+        font-size: 1.8rem
 
       label
         font-size: 0.6rem
@@ -90,7 +90,7 @@
       font-weight: bold
 
       span
-        font-size: 1.2rem
+        font-size: 1.8rem
 
       label
         font-size: 0.6rem

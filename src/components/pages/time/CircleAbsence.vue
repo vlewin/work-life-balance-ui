@@ -1,7 +1,7 @@
 <template>
   <div class="circle-absence curtain" :class="{ open: open }">
-    <div class="curtain-top flex flex-bottom">
-      <div class="font-9">{{ duration }}<small>h</small></div>
+    <div class="curtain-top flex flex-center">
+      <div class="font-8">{{ duration }}<small>h</small></div>
     </div>
 
     <div class="curtain-middle flex flex-center">

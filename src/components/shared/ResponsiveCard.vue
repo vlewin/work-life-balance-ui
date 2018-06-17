@@ -88,6 +88,7 @@
   $base: #3C537A
 
   .c-responsive
+    height: 100%
     width: 100%
     display: grid
     background: darken($base, 5%)
@@ -165,14 +166,17 @@
 
   @media screen and (orientation: portrait)
     .c-responsive
-      &:not(.standalone)
-        height: 100vh
-        grid-template-rows: 30vh 60vh 10vh
+      // grid-template-rows: 30vh 60vh 10vh
+      grid-template-rows: 30% 60% 10%
 
-      // FIXME: Safari standalone 100vh bug on ios
-      &.standalone
-        height: 97vh
-        grid-template-rows: 27vh 60vh 10vh
+      // &:not(.standalone)
+      //   height: 100vh
+      //   grid-template-rows: 30vh 60vh 10vh
+      //
+      // // FIXME: Safari standalone 100vh bug on ios
+      // &.standalone
+      //   height: 97vh
+      //   grid-template-rows: 27vh 60vh 10vh
 
       .c-sidebar-title
         height: 10vh
@@ -183,12 +187,12 @@
       grid-template-columns: auto 30%
       grid-template-rows: 0 1fr 10vh
 
-      &:not(.standalone)
-        height: 100vh
-
-      // FIXME: Safari standalone 100vh bug on ios
-      &.standalone
-        height: 95vh
+      // &:not(.standalone)
+      //   height: 100vh
+      //
+      // // FIXME: Safari standalone 100vh bug on ios
+      // &.standalone
+      //   height: 95vh
 
 
       .c-body

@@ -8,23 +8,40 @@ html, body
 	padding: 0
 	margin: 0
 
+  // font-size: 16px
+  // // Magic:
+  // @media (max-width: 1000px)
+  //   font-size: calc(12px + .4vw)
+
+html
+  font-size: 16px
+
+  @media (min-width: 800px)
+    font-size: 1.2rem
+
+  @media (min-width: 1200px)
+    font-size: 1.4rem
+
+
+
 body
   width: 100%
-  height: 100%
-  // font-family: 'Oxygen', Helvetica, Arial, sans-serif
   font-family: 'Rubik', sans-serif
-  // font-family: 'Spectral', sans-serif
 
   display: flex
   justify-content: center
   align-items: center
 
-  -webkit-font-smoothing: antialiased
-  -moz-osx-font-smoothing: grayscale
+  // -webkit-font-smoothing: antialiased
+  // -moz-osx-font-smoothing: grayscale
 
   color: #34495e
 
-  // background: linear-gradient(-45deg, #9121E8, #23A6D5, #98C2C2, #23D5AB)
-  // background: linear-gradient(-45deg, #98C2C2, #23A6D5)
   background: linear-gradient(to left top, #046c92, #33829d, #5597a8, #77adb4, #98c2c2)
   background-color: #34495e
+
+  &.default
+    height: 100vh
+
+  &.standalone
+    height: 97vh

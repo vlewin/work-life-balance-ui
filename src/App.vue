@@ -15,6 +15,16 @@
     },
 
     mounted() {
+
+
+      const el = document.body
+
+      if (this.standalone) {
+        el.classList.add('standalone')
+      } else {
+        el.classList.add('default')
+      }
+
       setTimeout(function () {
         window.scrollTo(0, 1)
       }, 1000)
@@ -47,6 +57,8 @@
   #app
     height: 100%
     width: 100%
+    overflow: hidden
+
   //
   // #app.standalone
   //   height: 100%
@@ -55,40 +67,21 @@
 
 
 
-  @media (min-width: 20em)
-    #app
-      height: 100%
-      width: 100%
-
-  @media (min-width: 30em)
-    /* smartphones, Android phones, landscape iPhone
-    #app
-      width: 90%
-
-  @media (min-width: 40em) and (orientation: landscape)
-    /* portrait tablets, portrait iPad, e-readers (Nook/Kindle), landscape 800x480 phones (Android)
-    #app
-      height: 80%
-      width: 90%
-
-  @media (min-width: 40em) and (orientation: landscape)
-    #app
-      height: 100%
-      width: 100%
-
-  @media (min-width: 50em) and (orientation: landscape)
+  @media (min-width: 50em)
     /* tablet, landscape iPad, lo-res laptops ands desktops
+    #app
+      height: 70%
+      width: 90%
+      border-radius: 5px
+      box-shadow: 0 14px 28px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.22)
+
+  @media (min-width: 60em)
+    /* big landscape tablets, laptops, and desktops
     #app
       height: 80%
       width: 80%
 
-  @media (min-width: 64em) and (orientation: landscape)
-    /* big landscape tablets, laptops, and desktops
-    #app
-      height: 80%
-      width: 60%
-
-  @media (min-width: 80em) and (orientation: landscape)
+  @media (min-width: 80em)
     /* hi-res laptops and desktops
     #app
       height: 80%
