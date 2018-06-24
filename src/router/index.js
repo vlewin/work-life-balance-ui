@@ -2,33 +2,21 @@ import Vue from "vue"
 import Router from "vue-router"
 import AuthService from "../main"
 
-// import Authentication from "@/components/Authentication"
-// import Index from "@/components/Index"
-import Callback from "@/components/Callback"
-
-// const Authentication = resolve => require(['@/components/Authentication'], resolve)
-// const Index = resolve => require(['@/components/Index'], resolve)
-
-const Authentication = r => require.ensure([], () => r(require('@/components/Authentication')), 'group-routes')
-const Auth = r => require.ensure([], () => r(require('@/components/Auth')), 'group-routes')
-const Index = r => require.ensure([], () => r(require('@/components/Index')), 'group-routes')
-const Playground = r => require.ensure([], () => r(require('@/components/playground/Playground')), 'group-playground')
-
 Vue.use(Router)
+
+const lazyLoad = (component) => {
+  return r => require.ensure([], () => r(require(`@/components/${component}`)), 'group-routes')
+}
 
 const router = new Router({
   mode: "history",
   routes: [
-    { path: "/", name: "Index", component: Index, meta: { requiresAuth: true } },
-    {
-      path: "/login",
-      name: "Auth",
-      component: Auth,
-      props: (route) => ({ message: route.query.message, initSection: "top" })
-    },
-    // { path: "/logout", name: "Authentication", component: Authentication, props: { initSection: "bottom" } },
-    { path: "/callback", name: "Callback", component: Callback },
-    { path: "/playground", name: "Playground", component: Playground }
+    { path: "/", name: "Index", component: lazyLoad('Index'), meta: { requiresAuth: true } },
+    { path: "/login", name: "Login", component: lazyLoad('Auth'), props: (route) => ({ message: route.query.message, action: "login" }) },
+    { path: "/logout", name: "Logout", component: lazyLoad('Auth'), props: { action: "logout" } },
+    { path: "/callback", name: "Callback", component: lazyLoad('Callback') },
+    { path: "/settings", name: "Settings", component: lazyLoad('Settings') },
+    { path: "/playground", name: "Playground", component: lazyLoad('Playground') }
   ]
 })
 
