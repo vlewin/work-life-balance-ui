@@ -3,6 +3,6 @@ export default {
   clientID: 'Uwn1T7EyBw83RQ5FEVRzHoc0E6MB1UaT',
   responseType: 'token id_token',
   audience: 'https://work-life-balance.eu.auth0.com/api/v2/',
-  scope: 'openid',
+  scope: 'openid email profile',
   redirectUri: `${window.location.origin}/callback`
 }

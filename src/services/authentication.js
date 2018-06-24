@@ -42,7 +42,7 @@ export default class AuthenticationService {
       password: password
     }, (error, authResult) => {
       if (error) {
-        this.router.push('/login')
+        this.router.push({ path: 'login', query: { message: JSON.stringify(error) }})
       } else {
         this._setSession(authResult)
         this.router.push('/')
@@ -80,7 +80,7 @@ export default class AuthenticationService {
 
   getProfile () {
     if (this.isAuthenticated()) {
-      return this.store.profile
+      return this.store.getItem('profile')
     } else {
       return this._checkSession()
     }
@@ -111,6 +111,9 @@ export default class AuthenticationService {
     this.store.setItem('access_token', authResult.accessToken)
     this.store.setItem('id_token', authResult.idToken)
     this.store.setItem('expires_at', authResult.expiresIn * 1000 + Date.now())
-    this.store.setItem('profile', JSON.stringify(authResult.idTokenPayload))
+
+    this.auth.client.userInfo(authResult.accessToken, (err, user) => {
+      this.store.setItem('profile', JSON.stringify(user))
+    });
   }
 }
