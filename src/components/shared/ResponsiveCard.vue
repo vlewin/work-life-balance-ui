@@ -14,13 +14,17 @@
         <div slot="c-header-actions" v-on:click="navigate('page-3')">
           <i class="fas fa-calendar-plus font-6" :class="{ active: page === 'page-3' }"></i>
         </div>
-        <div slot="c-header-actions" v-on:click="navigate('page-1')">
-          <i class="fas fa-sliders-h font-6"></i>
+        <div slot="c-header-actions">
+          <router-link class="fas fa-sliders-h font-6" tag="i" to="/settings"></router-link>
+          <!-- <i class="fas fa-sliders-h font-6"></i> -->
         </div>
       </div>
     </div>
 
     <div class="c-body flex flex-between flex-column">
+      <div v-if="message" class="c-body__message flex flex-center">
+        {{ message }}
+      </div>
       <slot name="c-body">S-BODY</slot>
     </div>
 
@@ -74,7 +78,7 @@
     },
 
     computed: {
-      ...mapState(["page", "standalone"])
+      ...mapState(["page", "standalone", "message"])
     },
 
     methods: {
@@ -134,6 +138,13 @@
     grid-area: c-body
     background-color: white
     position: relative
+
+  .c-body__message
+    position: absolute
+    height: 10vh
+    background: tomato
+    color: #fff
+    z-index: 100
 
   .c-sidebar
     grid-area: unset
