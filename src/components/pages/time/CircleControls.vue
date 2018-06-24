@@ -9,27 +9,36 @@
     </svg>
 
     <ul id="outside" :class="{ open: open }">
-      <li class="one rotate-30 green">
+      <li class="slice-1 green" v-on:click="home">
         <!-- <a v-on:click="home"> -->
           <i class="fas fa-home font-5"></i>
         <!-- </a> -->
       </li>
 
-      <li class="two rotate-90 amber" v-on:click="emit('absence')">
-        <!-- <a v-on:click="emit('absence')"> -->
+      <li class="slice-2 amber" >
+      </li>
+
+      <li class="slice-3 tomato" v-on:click="emit('absence')">
+        <!-- <a> -->
         <i class="fas fa-bars font-5"></i>
         <!-- </a> -->
       </li>
 
-      <li class="three rotate-210 tomato" v-on:click="emit('delete')">
+      <li class="slice-4 amber">
+      </li>
+
+      <li class="slice-5 tomato" v-on:click="emit('delete')">
         <!-- <a> -->
           <i class="fas fa-trash font-5"></i>
         <!-- </a> -->
       </li>
+
+      <li class="slice-6 tomato">
+      </li>
     </ul>
 
     <div id="inside">
-        <slot name="inside">&nbsp;</slot>
+      <slot name="inside">&nbsp;</slot>
     </div>
 
   </div>
@@ -49,7 +58,7 @@
         close: false,
         width: 1,
         height: 1,
-        slices: 3
+        slices: 6
       }
     },
 
@@ -204,15 +213,11 @@
         background: red
 
       i
-        // margin-top: 5%
         position: relative
-        top: 10%
-        left: 20%
-        right: 50%
-        transform: rotate(30deg)
+        top: 25%
+        left: 35%
+        transform: rotate(58deg)
         will-change: transform
-        // &.icon
-        //   transform: rotate(240deg)
 
       &.green:hover
         background-color: #42b983
@@ -223,20 +228,29 @@
       &.tomato:hover
          background-color: tomato
 
-  .one
+  .slice-1
     background-color: lighten($base, 5%)
-    transform: rotate(-30deg)
+    transform: rotate(-60deg)
 
-
-  .two
+  .slice-2
     background-color: lighten($base, 10%)
-    transform: rotate(90deg)
+    transform: rotate(0deg)
 
+  .slice-3
+    background-color: lighten($base, 5%)
+    transform: rotate(60deg)
 
-  .three
-    background-color: lighten($base, 15%)
-    transform: rotate(210deg)
+  .slice-4
+    background-color: lighten($base, 10%)
+    transform: rotate(120deg)
 
+  .slice-5
+    background-color: lighten($base, 5%)
+    transform: rotate(180deg)
+
+  .slice-6
+    background-color: lighten($base, 10%)
+    transform: rotate(240deg)
 
   #inside
     position: absolute

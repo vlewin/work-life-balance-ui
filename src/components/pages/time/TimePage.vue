@@ -13,9 +13,9 @@
 
     <div slot="c-body" class="flex flex-between container">
       <div class="flex flex-center content" slot="c-body">
-        <circle-menu class="flex flex-center relative" :form="form" v-on:absence="absence" v-on:delete="remove">
+        <circle-controls class="flex flex-center relative" :form="form" v-on:absence="absence" v-on:delete="remove">
           <circle-absence slot="inside" :open="setAbsence" :init-form="form"></circle-absence>
-        </circle-menu>
+        </circle-controls>
       </div>
 
       <time-form class="info" :form="form" v-on:open="openPicker"></time-form>
@@ -46,7 +46,7 @@
   import { mapState, mapGetters } from "vuex"
   import DatePicker from "./DatePicker"
   import TimePicker from "./TimePicker"
-  import CircleMenu from "./CircleMenu"
+  import CircleControls from "./CircleControls"
   import CircleInfo from "./CircleInfo"
   import CircleAbsence from './CircleAbsence.vue'
 
@@ -66,7 +66,7 @@
     components: {
       Card,
       DatePicker,
-      CircleMenu,
+      CircleControls,
       CircleInfo,
       CircleAbsence,
       TimePicker,

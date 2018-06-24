@@ -17,7 +17,7 @@
     </div>
 
     <div class="curtain-bottom flex flex-center flex-column">
-      {{ data.start }} - {{ data.end }}
+      {{ start }} - {{ end }}
       <div>
         Week #{{currentWeekNumber}}
       </div>
@@ -38,7 +38,6 @@
 
     data() {
       return {
-        data: this.initForm || {},
         selected: null
       }
     },
@@ -58,8 +57,16 @@
     computed: {
       ...mapGetters(['currentWeekNumber']),
 
+      start() {
+        return this.initForm.start
+      },
+
+      end() {
+        return this.initForm.end
+      },
+
       duration() {
-        return this.data.duration || 'N/A'
+        return this.initForm.duration || 'N/A'
       }
     },
 
