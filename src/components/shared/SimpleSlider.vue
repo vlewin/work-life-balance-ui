@@ -1,14 +1,14 @@
 <template>
   <div slot="body" class="slider">
-    <div class="slider-item left green" v-bind:class="{ focused: isFocused(0) }" v-on:click="setFocused(0)">
+    <div class="slider-item left green" v-if="visible(0)" :class="{ focused: isFocused(0) }" v-on:click="setFocused(0)">
       <slot name="left"></slot>
       <slot name="top"></slot>
     </div>
-    <div class="slider-item center amber" v-bind:class="{ focused: isFocused(1) }" v-on:click="setFocused(1)">
+    <div class="slider-item center amber" v-if="visible(1)" :class="{ focused: isFocused(1) }" v-on:click="setFocused(1)">
       <slot name="center"></slot>
       <slot name="middle"></slot>
     </div>
-    <div class="slider-item right tomato" v-bind:class="{ focused: isFocused(2) }" v-on:click="setFocused(2)">
+    <div class="slider-item right tomato" v-if="visible(2)" :class="{ focused: isFocused(2) }" v-on:click="setFocused(2)">
       <slot name="right"></slot>
       <slot name="bottom"></slot>
     </div>
@@ -27,7 +27,21 @@ export default {
   props: {
   },
 
+  computed: {
+  },
+
   methods: {
+    visible(field) {
+      const mapping = {
+        0: ["left", "top"],
+        1: ["center", "middle"],
+        2: ["right", "bottom"]
+      }
+
+      console.log("visible", field, Object.keys(this.$slots).some((k) => mapping[field].includes(k)))
+      return Object.keys(this.$slots).some((k) => mapping[field].includes(k))
+    },
+
     isFocused(field) {
       return this.focused === field
     },
@@ -43,6 +57,12 @@ export default {
         this.focused = field
         this.$emit("changed", this.focused)
       }
+    },
+
+    reset() {
+      setTimeout(() => {
+        Object.assign(this.$data, this.$options.data.call(this))
+      }, 500)
     }
   }
 }

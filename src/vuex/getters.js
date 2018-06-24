@@ -8,6 +8,10 @@ export default {
   //     });
   // },
 
+  currentUserId(state) {
+    return state.profile.sub
+  },
+
   currentFomatedDate(state) {
     return state.currentDate.toDateString()
   },

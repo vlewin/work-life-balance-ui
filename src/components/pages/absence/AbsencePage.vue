@@ -25,7 +25,7 @@
           <simple-switch class="info animated" :class="{ horizontal: isLandscape }" :active="mode === 'add' && !!selected.length">
             <balance class="flex flex-center height-100" slot="up"></balance>
 
-            <simple-slider slot="down" class="text-white" :class="{ horizontal: isLandscape }" v-on:changed="setReason">
+            <simple-slider slot="down" class="text-white" :class="{ horizontal: isLandscape }" ref="absenceSwitch" v-on:changed="setReason">
               <div slot="left">
                 <i class="fa fa-plane"></i>
                 <div>VACATION</div>
@@ -34,10 +34,10 @@
                 <i class="fas fa-briefcase-medical"></i>
                 <div>SICKNESS</div>
               </div>
-              <div slot="right">
+              <!-- <div slot="right">
                 <i class="fa fa-gift" aria-hidden="true"></i>
                 <div>HOLIDAY</div>
-              </div>
+              </div> -->
             </simple-slider>
           </simple-switch>
         </div>
@@ -64,8 +64,12 @@
         </template>
 
         <template v-else-if="mode === 'remove'">
-          <button slot="down" class="text-white red width-50" v-on:click="remove">REMOVE</button>
-          <button slot="down" class="text-white grey-6 width-50" v-on:click="reset">CANCEL</button>
+          <simple-switch slot="down" class="vertical animated" :active="loading">
+            <button slot="up" class="text-white tomato width-50" v-on:click="remove">REMOVE</button>
+            <button slot="up" class="text-white grey-5 width-50" v-on:click="reset">CANCEL</button>
+
+            <button slot="down" class="text-white primary width-100 disabled">Please wait!</button>
+          </simple-switch>
         </template>
       </simple-switch>
     </template>
@@ -135,26 +139,19 @@
       })
     },
 
-    // watch: {
-    //   mode(val) {
-    //     if(!val) {
-    //       this.selected = []
-    //     }
-    //   }
-    // },
-
-
     computed: {
       ...mapGetters(['currentMonthNumber']),
       ...mapState(['currentDate', 'loading', 'balance', 'records']),
 
       deleteMode() {
-        return this.selected.some((d) => this.absences[d.toDateString()])
+        return this.selected.some((d) => this.records[d.toDateString()])
       },
 
-      absences() {
-        return Object.values(this.records).filter((record) => console.log(record))
-      },
+      // absences() {
+      //   const data = {}
+      //   Object.values(this.records).filter((record) => record.type === 'absence').forEach(item => (data[item.date] = item))
+      //   return data
+      // },
 
       valid() {
         if(this.mode === 'add') {
@@ -211,7 +208,6 @@
 
       save: async function() {
         await this.$store.dispatch("saveAbsence", this.data)
-        await this.$store.dispatch("fetchBalance")
 
         setTimeout(() => {
           this.reset()
@@ -222,14 +218,19 @@
         console.log('Delete')
         // FIXME: Enable bulk delete with ids in body payload
         for(let record of this.data) {
-          await this.$store.dispatch("deleteRecord", record)
+          await this.$store.dispatch("deleteAbsence", record)
         }
 
-        await this.$store.dispatch("fetchBalance")
+        setTimeout(() => {
+          this.reset()
+        }, 1000)
       },
 
       reset() {
         Object.assign(this.$data, this.$options.data.call(this))
+
+        // FIXME: Emit 'reset' event to all children
+        this.$refs.absenceSwitch.reset()
       }
     }
   }

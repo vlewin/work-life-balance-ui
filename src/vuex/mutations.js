@@ -5,6 +5,13 @@ export default {
     state.online = condition
   },
 
+  SET_MESSAGE(state, message) {
+    state.message = message
+    setTimeout(() => {
+      state.message = null
+    }, 10000)
+  },
+
   SET_LOADING(state, condition) {
     if (condition) {
       state.loading = condition

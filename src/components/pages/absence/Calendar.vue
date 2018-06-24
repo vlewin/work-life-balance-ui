@@ -42,7 +42,9 @@
       }
     },
 
-    created() {},
+    created() {
+
+    },
 
     filters: {
       toNumber: function(value) {
@@ -109,7 +111,7 @@
       },
 
       isRecorded(date) {
-        return !!this.records[date.toDateString()]
+        return this.records[date.toDateString()]
       },
 
       isVacation(date) {
@@ -136,8 +138,6 @@
           this.month -= 1
         }
 
-        console.log("prevMonth", this.month, this.year)
-
         this.weeks = calendator.giveMeCalendarForMonthYear(this.month, this.year)
       },
 
@@ -148,8 +148,6 @@
         } else {
           this.month += 1
         }
-
-        console.log("nextMonth", this.month, this.year)
 
         this.weeks = calendator.giveMeCalendarForMonthYear(this.month + 1, 2017)
       },
