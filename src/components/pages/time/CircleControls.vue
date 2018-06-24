@@ -15,8 +15,7 @@
         <!-- </a> -->
       </li>
 
-      <li class="slice-2 amber" >
-      </li>
+      <li class="slice-2"></li>
 
       <li class="slice-3 tomato" v-on:click="emit('absence')">
         <!-- <a> -->
@@ -24,8 +23,7 @@
         <!-- </a> -->
       </li>
 
-      <li class="slice-4 amber">
-      </li>
+      <li class="slice-4"></li>
 
       <li class="slice-5 tomato" v-on:click="emit('delete')">
         <!-- <a> -->
@@ -33,8 +31,7 @@
         <!-- </a> -->
       </li>
 
-      <li class="slice-6 tomato">
-      </li>
+      <li class="slice-6"></li>
     </ul>
 
     <div id="inside">
