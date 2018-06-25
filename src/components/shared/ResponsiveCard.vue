@@ -5,14 +5,17 @@
       <slot name="c-header-title">&nbsp;</slot>
 
       <div class="c-header-actions flex flex-center width-100 height-10">
-        <div slot="c-header-actions" v-on:click="navigate('page-1')">
-          <i class="fas fa-chart-pie font-6" :class="{ active: page === 'page-1' }"></i>
+        <div slot="c-header-actions">
+          <router-link class="fas fa-chart-pie font-6" tag="i" to="/report"></router-link>
+          <!-- <i class="fas fa-chart-pie font-6" :class="{ active: page === 'page-1' }"></i> -->
         </div>
-        <div slot="c-header-actions" v-on:click="navigate('page-2')">
-          <i class="fas fa-clock font-6" :class="{ active: page === 'page-2' }"></i>
+        <div slot="c-header-actions">
+          <router-link class="fas fa-clock font-6" tag="i" to="/time"></router-link>
+          <!-- <i class="fas fa-clock font-6" :class="{ active: page === 'page-2' }"></i> -->
         </div>
-        <div slot="c-header-actions" v-on:click="navigate('page-3')">
-          <i class="fas fa-calendar-plus font-6" :class="{ active: page === 'page-3' }"></i>
+        <div slot="c-header-actions">
+          <router-link class="fas fa-calendar-plus font-6" tag="i" to="/absence"></router-link>
+          <!-- <i class="fas fa-calendar-plus font-6" :class="{ active: page === 'page-3' }"></i> -->
         </div>
         <div slot="c-header-actions">
           <router-link class="fas fa-sliders-h font-6" tag="i" to="/settings"></router-link>
@@ -38,19 +41,24 @@
       </div>
 
       <div class="c-sidebar-actions flex flex-center height-15">
-        <div slot="c-sidebar-actions" v-on:click="navigate('page-1')">
-          <i class="fas fa-chart-pie font-6" :class="{ active: page === 'page-1' }"></i>
+        <div slot="c-sidebar-actions flex flex-center height-15">
+          <router-link class="fas fa-chart-pie font-6" tag="i" to="/report"></router-link>
+          <!-- <i class="fas fa-chart-pie font-6" :class="{ active: page === 'page-1' }"></i> -->
         </div>
-        <div slot="c-sidebar-actions" v-on:click="navigate('page-2')">
-          <i class="fas fa-clock font-6" :class="{ active: page === 'page-2' }"></i>
+        <div slot="c-sidebar-actions">
+          <router-link class="fas fa-clock font-6" tag="i" to="/time"></router-link>
+          <!-- <i class="fas fa-clock font-6" :class="{ active: page === 'page-2' }"></i> -->
         </div>
-        <div slot="c-sidebar-actions" v-on:click="navigate('page-3')">
-          <i class="fas fa-calendar-plus font-6" :class="{ active: page === 'page-3' }"></i>
+        <div slot="c-sidebar-actions">
+          <router-link class="fas fa-calendar-plus font-6" tag="i" to="/absence"></router-link>
+          <!-- <i class="fas fa-calendar-plus font-6" :class="{ active: page === 'page-3' }"></i> -->
         </div>
-        <div slot="c-sidebar-actions" v-on:click="navigate('page-1')">
-          <i class="fas fa-sliders-h font-6"></i>
+        <div slot="c-sidebar-actions">
+          <router-link class="fas fa-sliders-h font-6" tag="i" to="/settings"></router-link>
+          <!-- <i class="fas fa-sliders-h font-6"></i> -->
         </div>
       </div>
+
     </div>
 
 
@@ -66,7 +74,7 @@
 <!-- https://speckyboy.com/html-css-examples-of-material-design-in-action/ -->
 
 <script>
-  import { mapState, mapActions } from "vuex"
+  import { mapState } from "vuex"
 
   export default {
     name: "ResponsiveCard",
@@ -78,11 +86,7 @@
     },
 
     computed: {
-      ...mapState(["page", "standalone", "message"])
-    },
-
-    methods: {
-      ...mapActions(["navigate"])
+      ...mapState(["standalone", "message"])
     }
   }
 </script>
@@ -145,6 +149,7 @@
     background: tomato
     color: #fff
     z-index: 100
+    opacity: 1
 
   .c-sidebar
     grid-area: unset

@@ -10,7 +10,7 @@
       <div class="curtain-top flex flex-center">
         <!-- <b>TRACK YOUR ABSENCE</b> -->
         <p>
-          Click <b>ADD</b> or <b>REMOVE</b> to proceed.
+          Click <b>ADD</b> or <b>REMOVE</b> to proceed - {{ loading }}.
         </p>
       </div>
 

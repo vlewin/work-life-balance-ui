@@ -17,7 +17,7 @@
 
       <li class="slice-2"></li>
 
-      <li class="slice-3 tomato" v-on:click="emit('absence')">
+      <li class="slice-3 amber" v-on:click="emit('absence')">
         <!-- <a> -->
         <i class="fas fa-bars font-5"></i>
         <!-- </a> -->
@@ -34,8 +34,8 @@
       <li class="slice-6"></li>
     </ul>
 
-    <div id="inside">
-      <slot name="inside">&nbsp;</slot>
+    <div id="inside" :class="{ loading: fetching }">
+      <slot class="visible" name="inside">&nbsp;</slot>
     </div>
 
   </div>
@@ -162,6 +162,7 @@
     padding-top: 60%
 
     border-radius: 50%
+
     // background-clip: padding-box
     // box-shadow: 0 0 0 6px lighten($base, 50%)
     // border: 6px solid lighten($base, 40%)
@@ -266,6 +267,11 @@
     width: 39%
     height: 65%
 
+    &.loading
+      box-sizing: content-box
+      animation: pulse 1.5s infinite
+      border: 2.5rem solid #3c537a
+      color: #fff
 
 </style>
 

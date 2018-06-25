@@ -5,13 +5,13 @@
     </div>
 
     <div class="curtain-middle flex flex-center">
-      <div class="switch-item left" v-on:click="select(1)" :class="{ selected: selected == 1 }">
+      <div class="switch-item left" v-on:click="select('vacation')" :class="{ selected: selected == 'vacation' }">
         <i class="fa fa-plane text-green" aria-hidden="true"></i>
       </div>
-      <div class="switch-item center" v-on:click="select(2)" :class="{ selected: selected == 2 }">
+      <div class="switch-item center" v-on:click="select('sickness')" :class="{ selected: selected == 'sickness' }">
         <i class="fa fa-heartbeat text-amber" aria-hidden="true"></i>
       </div>
-      <div class="switch-item right" v-on:click="select(3)" :class="{ selected: selected == 3 }">
+      <div class="switch-item right" v-on:click="select('holiday')" :class="{ selected: selected == 'holiday' }">
         <i class="fa fa-gift text-tomato" aria-hidden="true"></i>
       </div>
     </div>
@@ -38,7 +38,7 @@
 
     data() {
       return {
-        selected: null
+        selected: this.initValue
       }
     },
 
@@ -48,9 +48,8 @@
         default: false
       },
 
-      initForm: {
-        type: Object,
-        default: () => {}
+      form: {
+        type: Object
       }
     },
 
@@ -58,15 +57,21 @@
       ...mapGetters(['currentWeekNumber']),
 
       start() {
-        return this.initForm.start
+        return this.form.start
       },
 
       end() {
-        return this.initForm.end
+        return this.form.end
       },
 
       duration() {
-        return this.initForm.duration || 'N/A'
+        return this.form.duration || 'N/A'
+      }
+    },
+
+    watch: {
+      "form.reason"(val) {
+        this.selected = val
       }
     },
 
@@ -78,8 +83,18 @@
         }, 350)
       },
 
-      select(number) {
-        this.selected = number
+      select(absence) {
+        if(this.selected != absence) {
+          this.selected = absence
+
+          this.form.start = '0'
+          this.form.pause = '0'
+          this.form.end = '0'
+          this.form.type = 'absence'
+          this.form.reason = absence
+
+          this.$emit('selected', absence)
+        }
       }
     }
   }

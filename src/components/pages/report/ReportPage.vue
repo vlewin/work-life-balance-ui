@@ -53,7 +53,7 @@
 
     computed: {
       ...mapGetters(['currentMonthNumber']),
-      ...mapState(['page', 'fetching', 'balance', 'records', 'absences']),
+      ...mapState(['fetching', 'balance', 'records', 'absences']),
 
       timestamps() {
         return { ...this.records, ...this.absences}

@@ -20,7 +20,12 @@ export default {
   name: "Slider",
   data() {
     return {
-      focused: null
+      focused: null,
+      mapping: {
+        0: ["left", "top"],
+        1: ["center", "middle"],
+        2: ["right", "bottom"]
+      }
     }
   },
 
@@ -32,14 +37,7 @@ export default {
 
   methods: {
     visible(field) {
-      const mapping = {
-        0: ["left", "top"],
-        1: ["center", "middle"],
-        2: ["right", "bottom"]
-      }
-
-      console.log("visible", field, Object.keys(this.$slots).some((k) => mapping[field].includes(k)))
-      return Object.keys(this.$slots).some((k) => mapping[field].includes(k))
+      return Object.keys(this.$slots).some((k) => this.mapping[field].includes(k))
     },
 
     isFocused(field) {

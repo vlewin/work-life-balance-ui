@@ -10,11 +10,10 @@
     </div>
 
     <date-picker slot="c-body" class="flex flex-center"></date-picker>
-
     <div slot="c-body" class="flex flex-between container">
       <div class="flex flex-center content" slot="c-body">
         <circle-controls class="flex flex-center relative" :form="form" v-on:absence="absence" v-on:delete="remove">
-          <circle-absence slot="inside" :open="setAbsence" :init-form="form"></circle-absence>
+          <circle-absence slot="inside" :open="setAbsence || isAbsence" :form="form" v-on:selected="save"></circle-absence>
         </circle-controls>
       </div>
 
@@ -76,7 +75,6 @@
 
     data() {
       return {
-        isPortraitMode: true,
         setAbsence: false,
         picker: {
           open: false,
@@ -135,6 +133,7 @@
       currentDate() {
         // console.log("HomePage - currentDate changed", this.currentDate)
         this.initForm()
+        this.reset()
       },
 
       currentRecord() {
@@ -152,9 +151,7 @@
       },
 
       isAbsence() {
-        if (this.isRecorded) {
-          return this.currentRecord.type === 'absence'
-        }
+        return this.isRecorded && this.currentRecord.type === 'absence'
       }
     },
 
@@ -252,6 +249,11 @@
 
       closePicker() {
         this.picker = this.$options.data().picker
+      },
+
+      reset() {
+        this.closePicker()
+        this.setAbsence = null
       }
     }
   }
