@@ -39,8 +39,10 @@ export default {
   fetchBalance: async ({ commit, getters }) => {
     console.log('*** fetchBalance')
 
-    const response = await Balance.get(getters.currentUserId).catch((response) => {
-      commit("SET_MESSAGE", response.message)
+    const response = await Balance.get(getters.currentUserId).catch((error) => {
+      if(error.response.status) {
+        commit("SET_MESSAGE", error.message)
+      }
     })
 
     console.log('*** Action - fetchBalance - response', response.data)
@@ -54,8 +56,10 @@ export default {
       console.log('Fetch records for month:', month,  getters.currentMonthNumber)
       commit("SET_FETCHING", true)
 
-      const response = await Record.all({ month: month || getters.currentMonthNumber }).catch((response) => {
-        commit("SET_MESSAGE", response.message)
+      const response = await Record.all({ month: month || getters.currentMonthNumber }).catch((error) => {
+        if(error.response.status) {
+          commit("SET_MESSAGE", error.message)
+        }
       })
 
       commit("SET_RECORDS", response.data)
@@ -67,8 +71,10 @@ export default {
 
   fetchRecords: async ({ commit, getters }) => {
     commit("SET_FETCHING", true)
-    const response = await Record.all({ week: getters.currentWeekNumber }).catch((response) => {
-      commit("SET_MESSAGE", response.message)
+    const response = await Record.all({ week: getters.currentWeekNumber }).catch((error) => {
+      if(error.response.status) {
+        commit("SET_MESSAGE", error.message)
+      }
     })
 
     commit("SET_RECORDS", response.data)
@@ -78,8 +84,10 @@ export default {
   updateRecord: async ({ commit }, record) => {
     commit("SET_LOADING", true)
 
-    const response = await Record.save(record).catch((response) => {
-      commit("SET_MESSAGE", response.message)
+    const response = await Record.save(record).catch((error) => {
+      if(error.response.status) {
+        commit("SET_MESSAGE", error.message)
+      }
     })
 
     commit("ADD_RECORD", response.data)
@@ -88,8 +96,10 @@ export default {
   saveRecord: async ({ commit }, record) => {
     commit("SET_LOADING", true)
 
-    const response = await Record.save(record).catch((response) => {
-      commit("SET_MESSAGE", response.message)
+    const response = await Record.save(record).catch((error) => {
+      if(error.response.status) {
+        commit("SET_MESSAGE", error.message)
+      }
     })
 
     commit("ADD_RECORD", response.data)
@@ -99,11 +109,12 @@ export default {
   deleteRecord: async ({ commit }, record) => {
     commit("SET_LOADING", true)
 
-    await Record.delete(record).catch((response) => {
-      commit("SET_MESSAGE", response.message)
+    await Record.delete(record).catch((error) => {
+      if(error.response.status) {
+        commit("SET_MESSAGE", error.message)
+      }
     })
 
-    // FIXME: Remove record from store
     commit("DELETE_RECORD", record)
     commit("SET_LOADING", false)
     console.log("removed")
@@ -112,8 +123,10 @@ export default {
   fetchMonthAbsences: async ({ commit }, month) => {
     commit("SET_FETCHING", true)
 
-    const response = await Absence.all({ month: month }).catch((response) => {
-      commit("SET_MESSAGE", response.message)
+    const response = await Absence.all({ month: month }).catch((error) => {
+      if(error.response.status) {
+        commit("SET_MESSAGE", error.message)
+      }
     })
 
     commit("SET_ABSENCES", response.data)
@@ -123,30 +136,34 @@ export default {
   saveAbsence: async ({ commit, dispatch }, records, reason) => {
     commit("SET_LOADING", true)
 
-    await Absence.save(records, reason).catch((response) => {
-      commit("SET_MESSAGE", response.message)
+    await Absence.save(records, reason).catch((error) => {
+      if(error.response.status) {
+        commit("SET_MESSAGE", error.message)
+      }
     })
 
     await dispatch('fetchMonthRecords')
+    commit("SET_LOADING", false)
 
     setTimeout(async () => {
       await dispatch('fetchBalance')
-      commit("SET_LOADING", false)
     }, 2000)
   },
 
-  deleteAbsence: async ({ commit, dispatch }, record) => {
+  deleteAbsence: async ({ commit, dispatch }, records) => {
     commit("SET_LOADING", true)
 
-    await Record.delete(record).catch((response) => {
-      commit("SET_MESSAGE", response.message)
+    await Record.delete(records).catch((error) => {
+      if(error.response.status) {
+        commit("SET_MESSAGE", error.message)
+      }
     })
 
     await dispatch('fetchMonthRecords')
+    commit("SET_LOADING", false)
 
     setTimeout(async () => {
       await dispatch('fetchBalance')
-      commit("SET_LOADING", false)
     }, 2000)
   }
 }
