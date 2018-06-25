@@ -7,7 +7,7 @@
 </template>
 
 <script>
-  import { mapState } from "vuex"
+  import { mapActions } from "vuex"
 
   import PageSlider from "./shared/PageSlider"
   import ReportPage from "./pages/report/ReportPage"
@@ -23,8 +23,22 @@
       AbsencePage
     },
 
-    computed: {
-      ...mapState(["page"])
+    props: ['page'],
+
+    created() {
+      this.navigate(this.page)
+    },
+
+    watch: {
+      page(val) {
+        if (val) {
+          this.navigate(val)
+        }
+      }
+    },
+
+    methods: {
+      ...mapActions(["navigate"])
     }
   }
 </script>
