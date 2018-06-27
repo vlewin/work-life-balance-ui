@@ -10,7 +10,8 @@
       <div class="curtain-top flex flex-center">
         <!-- <b>TRACK YOUR ABSENCE</b> -->
         <p>
-          Click <b>ADD</b> or <b>REMOVE</b> to proceed - {{ loading }}.
+          Click <b>ADD</b> or <b>REMOVE</b> to proceed.
+          <br />WORKAROUND: Hide dates with presence records, introduce partial type
         </p>
       </div>
 

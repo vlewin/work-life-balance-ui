@@ -14,7 +14,7 @@
         </pattern>
       </defs>
 
-      <g transform="scale(1,-1) translate(10,-400)">
+      <g transform="scale(1,-1) translate(30,-400)">
         <g class="bar" v-for="(d, i) in values" :key="d.date" :data-key="d.date" v-if="!d.weekend">
           <rect class="background" x="0" y="0" fill="white" height="400" :width="width" >
 

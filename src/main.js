@@ -5,7 +5,7 @@ import axios from "axios"
 import store from "./vuex/store"
 import router from "./router"
 
-import "./registerServiceWorker"
+// import "./registerServiceWorker"
 import "./assets/application.sass"
 
 import AuthenticationService from "./services/authentication"
