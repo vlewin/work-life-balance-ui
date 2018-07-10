@@ -1,9 +1,9 @@
 <template>
-  <div class="switch" v-bind:class="{ active: active }">
-    <div class="switch-item open">
+  <div class="switch">
+    <div class="switch-item" v-bind:class="{ collapsed: active }">
       <slot name="up"></slot>
     </div>
-    <div class="switch-item close">
+    <div class="switch-item" v-bind:class="{ collapsed: !active }">
       <slot name="down"></slot>
     </div>
   </div>
@@ -33,41 +33,42 @@ export default {
 
 <style lang="sass" scoped>
   .switch
-    width: 100%
-    height: 100%
     display: flex
-    justify-content: center
-    align-items: center
+    flex-direction: column
+    justify-content: flex-start
+    height: 100%
     white-space: nowrap
 
-    &.vertical
-      flex-direction: column
-
-    &.animated
-      &.horizontal
-        .switch-item
-          transition-delay: 0.5s
-
-      .switch-item
-        transition: flex 0.5s, opacity 0.5s
-        will-change: flex, opacity
-
-    .switch-item
-      width: 100%
+    button
+      font-weight: bold
+      // width: 100%
       height: 100%
-      overflow: hidden
+      font-size: 100%
+      // background: transparent
+      border: none
+      outline: none
 
-      // &.active .switch-item.open
-      //   transition: flex 1s, opacity 0.5s
-      //
-      // .switch-item.close
-      //   transition: flex 0.5s, opacity 1s
+    // sadly, we're required to set at least the container height explicitly
 
-    .switch-item.open, &.active .switch-item.close
-      flex: 100%
-      opacity: 1
+    &.horizontal
+      flex-direction: row
 
-    .switch-item.close, &.active .switch-item.open
-      opacity: 0
+  .switch-item
+    overflow: hidden
+    // transition: all 0.3s ease-out
+
+    // transition-delay: 0.5s
+    transition: flex 0.3s ease-out 0.3s, opacity 0.3s ease-out 0.3s
+    will-change: flex, opacity
+
+    height: auto
+    flex: 1
+    opacity: 1
+    z-index: 1
+
+    &.collapsed
       flex: 0
+      opacity: 0
+      z-index: 0
+
 </style>

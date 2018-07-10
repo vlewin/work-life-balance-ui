@@ -1,178 +1,90 @@
 <template>
-  <div id="app">
-    <div class="header" v-on:dblclick="toggleFullScreen">
-      <div class="header-left">
-        <h1 class="day">{{ day }}</h1>
-        <div class="date">
-          <span>{{ month }} {{ year }}</span>
-          <span>{{ weekday }}</span>
-        </div>
-      </div>
-      <div class="header-right">
-        <div class="time">
-          {{ now.hh }}
-          <span class="blink">:</span>
-          {{ now.mm }}
-          &nbsp;
-          <!-- <i aria-hidden="true" v-on:click="logout" class="fa fa-user"></i> -->
-          <i v-if="authenticated()" class="fa fa-times-circle" aria-hidden="true"></i>
-          <!-- <i v-if="authenticated()" class="fa fa-sign-out" v-on:click="logout"></i> -->
-
-
-          <!-- <i aria-hidden="true" v-on:click="toggleFullScreen" class="fa fa-window-maximize"></i> -->
-        </div>
-        <!-- <i aria-hidden="true" class="fa fa-camera-retro"></i> -->
-        <!-- <i aria-hidden="true" class="fa fa-smile-o"></i> -->
-      </div>
-    </div>
-    <!-- <transition name="slide-left" mode="out-in"> -->
-      <router-view class="content"></router-view>
-    <!-- </transition> -->
+  <div id="app" :class="{ standalone: standalone }">
+    <router-view class="content"></router-view>
   </div>
 </template>
 
 <script>
-import AuthService from "./main"
+  import { mapState } from "vuex"
 
-export default {
-  name: "App",
-  data() {
-    return {
-      date: new Date(),
-      time: new Date()
-    }
-  },
+  export default {
+    name: "App",
 
-  mounted() {
-    window.addEventListener("online", () => {
-      console.log("online")
-      this.$store.dispatch("online", navigator.onLine)
-    })
-    window.addEventListener("offline", () => {
-      console.log("offline")
-      this.$store.dispatch("online", navigator.onLine)
-    })
-  },
-
-  computed: {
-    now() {
-      return {
-        hh: this.time
-          .getHours()
-          .toString()
-          .padStart(2, "0"),
-        mm: this.time
-          .getMinutes()
-          .toString()
-          .padStart(2, "0")
-      }
+    computed: {
+      ...mapState(["standalone"])
     },
 
-    selected() {
-      return this.$store.state.currentDate
-    },
+    mounted() {
 
-    day() {
-      return new Date(this.selected)
-        .getDate()
-        .toString()
-        .padStart(2, "0")
-    },
 
-    weekday() {
-      return new Date(this.selected).toLocaleString("en-US", {
-        weekday: "long"
-      })
-    },
+      const el = document.body
 
-    month() {
-      return new Date(this.selected).toLocaleString("en-US", { month: "long" })
-    },
-
-    year() {
-      return new Date(this.selected).getFullYear()
-    }
-  },
-
-  created() {
-    document.body.webkitRequestFullScreen()
-    // window.history.go(-1);
-    // var metaViewport = document.querySelector("meta[name=viewport]");
-    // metaViewport.setAttribute("width", "380");
-    setInterval(() => {
-      this.time = new Date()
-    }, 1000)
-  },
-
-  methods: {
-    // FIXME: Move to store getters
-    authenticated() {
-      return AuthService.isAuthenticated()
-    },
-
-    logout() {
-      AuthService.logout()
-    },
-
-    toggleFullScreen() {
-      var doc = window.document
-      var docEl = doc.documentElement
-
-      var requestFullScreen =
-        docEl.requestFullscreen ||
-        docEl.mozRequestFullScreen ||
-        docEl.webkitRequestFullScreen ||
-        docEl.msRequestFullscreen
-      var cancelFullScreen =
-        doc.exitFullscreen || doc.mozCancelFullScreen || doc.webkitExitFullscreen || doc.msExitFullscreen
-
-      if (
-        !doc.fullscreenElement &&
-        !doc.mozFullScreenElement &&
-        !doc.webkitFullscreenElement &&
-        !doc.msFullscreenElement
-      ) {
-        requestFullScreen.call(docEl)
+      if (this.standalone) {
+        el.classList.add('standalone')
       } else {
-        cancelFullScreen.call(doc)
+        el.classList.add('default')
       }
+
+      setTimeout(function () {
+        window.scrollTo(0, 1)
+      }, 1000)
+
+
+      // https://github.com/GoogleChrome/samples/tree/gh-pages/push-messaging-and-notifications
+      // https://developers.google.com/web/updates/2016/09/navigator-share
+      if (navigator.share) {
+        navigator.share({
+          title: 'Web Fundamentals',
+          text: 'Check out Web Fundamentals — it rocks!',
+          url: 'https://developers.google.com/web',
+        }).then(() => console.log('Successful share')).catch((error) => console.log('Error sharing', error))
+      }
+
+      window.addEventListener("online", () => {
+        console.log("online")
+        this.$store.dispatch("online", navigator.onLine)
+      })
+
+      window.addEventListener("offline", () => {
+        console.log("offline")
+        this.$store.dispatch("online", navigator.onLine)
+      })
     }
   }
-}
 </script>
 
 <style lang="sass" scoped>
-  i.fa-times-circle
-    margin-right: 0.2em
+  #app
+    height: 100%
+    width: 100%
+    overflow: hidden
 
-  .fade-enter-active, .fade-leave-active
-    transition-property: opacity
-    transition-duration: 0.25s
+  //
+  // #app.standalone
+  //   height: 100%
+  //   height: 100%
+  //   background: red
 
-  .fade-enter-active
-    transition-delay: 0.25s
 
 
-  .fade-enter, .fade-leave-active
-    opacity: 0
+  @media (min-width: 50em)
+    /* tablet, landscape iPad, lo-res laptops ands desktops
+    #app
+      height: 70%
+      width: 90%
+      border-radius: 5px
+      box-shadow: 0 14px 28px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.22)
 
-  .fade-enter-active, .fade-leave-active
-    transition: opacity .5s ease
+  @media (min-width: 60em)
+    /* big landscape tablets, laptops, and desktops
+    #app
+      height: 80%
+      width: 80%
 
-  .fade-enter, .fade-leave-active
-    opacity: 0
+  @media (min-width: 80em)
+    /* hi-res laptops and desktops
+    #app
+      height: 80%
+      width: 60%
 
-  .child-view
-    position: absolute
-    transition: all 0.5s cubic-bezier(0.55, 0, 0.1, 1)
-
-  .slide-left-enter, .slide-right-leave-active
-    opacity: 0
-    -webkit-transform: translate(30px, 0)
-    transform: translate(30px, 0)
-
-  .slide-left-leave-active, .slide-right-enter
-    opacity: 0
-    -webkit-transform: translate(-30px, 0)
-    transform: translate(-30px, 0)
 </style>

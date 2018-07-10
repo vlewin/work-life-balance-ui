@@ -1,43 +1,44 @@
 <template>
-  <pager :active="page" v-else>
-    <report-page slot="left"></report-page>
-    <!-- <report-page slot="left"></report-page> -->
-    <home-page slot="center"></home-page>
-    <absence-page slot="right"></absence-page>
-  </pager>
+  <page-slider>
+    <report-page slot="left" :class="{ active: page === 'page-1'}"></report-page>
+    <time-page slot="center" :class="{ active: page === 'page-2'}"></time-page>
+    <absence-page slot="right" :class="{ active: page === 'page-3'}"></absence-page>
+  </page-slider>
 </template>
 
 <script>
-import Pager from "./shared/Pager"
-import HomePage from "./HomePage"
-import ReportPage from "./ReportPage"
-import AbsencePage from "./AbsencePage"
-import Preview from "./charts/Preview"
+  import { mapActions } from "vuex"
 
-export default {
-  name: "Index",
-  components: {
-    Pager,
-    HomePage,
-    ReportPage,
-    Preview,
-    AbsencePage
-  },
+  import PageSlider from "./shared/PageSlider"
+  import ReportPage from "./pages/report/ReportPage"
+  import TimePage from "./pages/time/TimePage"
+  import AbsencePage from "./pages/absence/AbsencePage"
 
-  data() {
-    return {}
-  },
+  export default {
+    name: "Index",
+    components: {
+      PageSlider,
+      ReportPage,
+      TimePage,
+      AbsencePage
+    },
 
-  created() {
-    console.log("CREATED")
-  },
+    props: ['page'],
 
-  computed: {
-    page() {
-      return this.$store.state.page
+    created() {
+      this.navigate(this.page)
+    },
+
+    watch: {
+      page(val) {
+        if (val) {
+          this.navigate(val)
+        }
+      }
+    },
+
+    methods: {
+      ...mapActions(["navigate"])
     }
-  },
-
-  methods: {}
-}
+  }
 </script>

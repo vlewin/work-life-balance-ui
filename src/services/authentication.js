@@ -1,126 +1,119 @@
 import auth0 from "auth0-js"
 import router from "../router"
+import defaultConfig from '../config'
 
-export default class AuthService {
-  constructor() {
-    // FIXME: Move to config
-    this.auth0 = auth0
-    this.auth = new auth0.WebAuth({
-      domain: "mrstealth.eu.auth0.com",
-      clientID: "fC4Z1HSO4PHNJTWu9K4Emn90bo6CCgCM",
-      redirectUri: new URL("/callback", window.location.href).href,
-      audience: "https://mrstealth.eu.auth0.com/userinfo",
-      responseType: "token id_token",
-      scope: "openid"
-    })
+export default class AuthenticationService {
+  constructor (options = {}) {
+    this.config = Object.assign(defaultConfig, options.config || {})
+    this.router = router
+    this.store = options.store || window.localStorage
+    this.auth = new auth0.WebAuth(this.config)
   }
 
-  login() {
-    this.auth.authorize()
-  }
+  // login() {
+  //   console.log('--- login - checkSession')
+  //   this.auth.checkSession({ nonce: 'very-long-and-secure-nonce' }, (err, authResult) => {
+  //     debugger
+  //     if (err) {
+  //       console.log('--- login - checkSession - error')
+  //       console.log(err)
+  //       const url = AuthService.auth.client.buildAuthorizeUrl({
+  //         clientID: 'Uwn1T7EyBw83RQ5FEVRzHoc0E6MB1UaT', // string
+  //         responseType: 'token id_token', // code
+  //         redirectUri: `${window.location.origin}/callback`,
+  //         state: 'very-long-and-secure-state',
+  //         nonce: 'very-long-and-secure-nonce'
+  //       })
+  //
+  //       window.location.replace(url)
+  //     } else {
+  //       console.log('--- login - checkSession - success')
+  //
+  //       this._setSession(authResult)
+  //       this.router.push('/')
+  //     }
+  //   })
+  // }
 
-  handleAuthentication(redirectUrl = "/") {
-    this.auth.parseHash((err, authResult) => {
-      if (authResult && authResult.accessToken && authResult.idToken) {
-        this.setSession(authResult)
-        console.log("Redirect to", redirectUrl)
-        // FIXME: navigate to the home route
-        setTimeout(() => {
-          router.replace(redirectUrl)
-        }, 1000)
-      } else if (err) {
-        // FIXME: navigate to the home route
-        router.replace("/login")
-        console.log(err)
+  login(email, password) {
+    this.auth.client.login({
+      realm: 'Username-Password-Authentication',
+      username: email,
+      password: password
+    }, (error, authResult) => {
+      if (error) {
+        this.router.push({ path: 'login', query: { message: JSON.stringify(error) }})
+      } else {
+        this._setSession(authResult)
+        this.router.push('/')
       }
     })
   }
 
-  setSession(authResult) {
+  signup () {
+    this.auth.authorize({})
+  }
+
+  handleCallback (hash, redirectUri = window.location.href) {
+    console.log('*** handleCallback')
+    this.auth.parseHash(hash, (error, authResult) => {
+      console.log('Hash', hash)
+      console.log('Hash', error)
+      console.log('Hash', authResult)
+      if (error) {
+        this.router.push({ path: 'login', query: { message: JSON.stringify(error) }})
+      } else {
+        this._setSession(authResult)
+        this.router.push('/')
+      }
+    })
+  }
+
+  renewToken () {
+    return this._checkSession()
+  }
+
+  isAuthenticated () {
+    const expiresAt = this.store.getItem('expires_at')
+    return !!(new Date().getTime() < parseInt(expiresAt))
+  }
+
+  getProfile () {
+    if (this.isAuthenticated()) {
+      return this.store.getItem('profile')
+    } else {
+      return this._checkSession()
+    }
+  }
+
+  logout (options = {}) {
+    // NOTE: Clear Access Token and ID Token from local storage
+    this.store.removeItem('access_token')
+    this.store.removeItem('id_token')
+    this.store.removeItem('expires_at')
+    this.store.removeItem('profile')
+
+    this.auth.logout({ returnTo: options.returnTo || window.location.href })
+  }
+
+  _checkSession () {
+    this.auth.checkSession({}, (err, authResult) => {
+      if (err) {
+        alert('Error', err)
+      } else {
+        this._setSession(authResult)
+      }
+    })
+  }
+
+  _setSession (authResult) {
     // Set the time that the Access Token will expire at
-    let expiresAt = JSON.stringify(authResult.expiresIn * 1000 + new Date().getTime())
-    localStorage.setItem("access_token", authResult.accessToken)
-    localStorage.setItem("id_token", authResult.idToken)
-    localStorage.setItem("expires_at", expiresAt)
+    this.store.setItem('access_token', authResult.accessToken)
+    this.store.setItem('id_token', authResult.idToken)
+    this.store.setItem('expires_at', authResult.expiresIn * 1000 + Date.now())
 
-    // FIXME: How to notify consumer?
-    // this.authNotifier.emit("authChange", { authenticated: true })
-  }
-
-  isAuthenticated() {
-    // NOTE: Check whether the current time is past the Access Token's expiry time
-    let expiresAt = JSON.parse(localStorage.getItem("expires_at"))
-    return new Date().getTime() < expiresAt
-  }
-
-  logout() {
-    // Clear Access Token and ID Token from local storage
-    localStorage.removeItem("access_token")
-    localStorage.removeItem("id_token")
-    localStorage.removeItem("expires_at")
-    this.userProfile = null
-
-    // FIXME: How to notify consumer?
-    // this.authNotifier.emit("authChange", false)
-
-    // FIXME: navigate to the home route
-    router.push("/login")
+    this.auth.client.userInfo(authResult.accessToken, (err, user) => {
+      this.store.setItem('profile', JSON.stringify(user))
+    });
   }
 }
-// src/Auth/AuthService.js
-
-// import auth0 from "auth0-js"
-// import EventEmitter from "EventEmitter"
-// import router from "../router"
-
-// export default class AuthService {
-//   authenticated = this.isAuthenticated()
-//   authNotifier = new EventEmitter()
-//
-//   constructor() {
-//     this.login = this.login.bind(this)
-//     this.setSession = this.setSession.bind(this)
-//     this.logout = this.logout.bind(this)
-//     this.isAuthenticated = this.isAuthenticated.bind(this)
-//   }
-//
-//   // ...
-//   handleAuthentication() {
-//     this.auth0.parseHash((err, authResult) => {
-//       if (authResult && authResult.accessToken && authResult.idToken) {
-//         this.setSession(authResult)
-//         router.replace("home")
-//       } else if (err) {
-//         router.replace("home")
-//         console.log(err)
-//       }
-//     })
-//   }
-//
-//   setSession(authResult) {
-//     // Set the time that the Access Token will expire at
-//     let expiresAt = JSON.stringify(authResult.expiresIn * 1000 + new Date().getTime())
-//     localStorage.setItem("access_token", authResult.accessToken)
-//     localStorage.setItem("id_token", authResult.idToken)
-//     localStorage.setItem("expires_at", expiresAt)
-//     this.authNotifier.emit("authChange", { authenticated: true })
-//   }
-//
-//   logout() {
-//     // Clear Access Token and ID Token from local storage
-//     localStorage.removeItem("access_token")
-//     localStorage.removeItem("id_token")
-//     localStorage.removeItem("expires_at")
-//     this.userProfile = null
-//     this.authNotifier.emit("authChange", false)
-//     // navigate to the home route
-//     router.replace("home")
-//   }
-//
-//   isAuthenticated() {
-//     // Check whether the current time is past the
-//     // Access Token's expiry time
-//     let expiresAt = JSON.parse(localStorage.getItem("expires_at"))
-//     return new Date().getTime() < expiresAt
-//   }
-// }

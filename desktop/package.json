@@ -11,12 +11,18 @@
     "type": "git",
     "url": "https://github.com/vlewin/vue-work-life-balance"
   },
-  "keywords": ["electron", "vue", "desktop", "time-tracking"],
+  "keywords": [
+    "electron",
+    "vue",
+    "desktop",
+    "time-tracking"
+  ],
   "author": "Vladislav Lewin",
   "license": "ISC",
   "devDependencies": {
     "babel-preset-electron": "^1.4.15",
     "electron": "^1.4.13",
+    "electron-packager": "^11.1.0",
     "electron-reload": "^1.1.0",
     "eslint": "^3.13.0"
   },

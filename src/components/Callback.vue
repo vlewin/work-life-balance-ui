@@ -1,5 +1,5 @@
 <template>
-  <div class="white flex flex-center flex-column dark-blue">
+  <div class="white flex flex-center flex-column blue">
     <i class="fa fa-spinner fa-large fa-10x spin text-white"></i>
     <h1 class="text-white">Please wait ...</h1>
   </div>
@@ -9,38 +9,11 @@
 import AuthService from "../main"
 
 export default {
-  name: "Authentication",
-  components: {},
-
-  data() {
-    return {}
-  },
-
-  beforeEnter() {
-    console.log(this.$router)
-  },
-
+  name: "Callback",
   mounted() {
-    AuthService.handleAuthentication()
-  },
-
-  computed: {},
-
-  methods: {
-    slideUp() {
-      this.section = "top"
-    }
+    console.log('*** CALLBACK - handle auth in callback')
+    console.log('*** CALLBACK hash', window.location.hash)
+    AuthService.handleCallback({ hash: window.location.hash, nonce: 'very-long-and-secure-nonce', state: 'very-long-and-secure-state' })
   }
 }
 </script>
-
-<style lang="sass" scoped>
-  h2
-    height: 10vh
-  svg
-    height: 40vh
-  button
-    // height: 10vh
-
-
-</style>

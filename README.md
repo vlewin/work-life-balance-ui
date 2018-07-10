@@ -1,27 +1,50 @@
 # vue-work-life-balance
 
-### [DEMO application](http://vlewin.me/vue-work-life-balance)
+### [DEMO application](http://vlewin.me)
 
 TODO:
-
 * [x] Vue.js reusable components
 * [x] CSS Grid Layout with FlexBox
+* [x] Auth0 vs AWS Cognito authentication
+* [x] Switch to http://icofont.com/icons/ or Font Awesome 5
+
+* [ ] Try to use [feiertagejs](https://github.com/sfakir/feiertagejs)
 * [ ] Vue SSR vs Vue Prerendering
 * [ ] PWA / PRA Progressive Web Applications /
-      [Progressive Real-Time Applications](https://www.youtube.com/watch?v=QjLUt37lX1s)
+* [ ] Progressive Real-Time Applications(https://www.youtube.com/watch?v=QjLUt37lX1s)
 * [ ] GraphQL data services
 * [ ] Unit / Functional / UI E2E acceptance testing (Chrome headless)
-* [x] completed
-* [ ] Auth0 vs AWS Cognito authentication
+
+
+## KNOWN ISSUES:
+- https://github.com/date-fns/date-fns/issues/376
 
 SOURCES:
 
 ## Auth0 Vue sample app
 
 https://manage.auth0.com/#/clients/fC4Z1HSO4PHNJTWu9K4Emn90bo6CCgCM/quickstart
+https://www.storyblok.com/tp/how-to-auth0-vuejs-authentication
+
+## PWA
+- https://medium.com/@firt/progressive-web-apps-on-ios-are-here-d00430dee3a7
+- https://auth0.com/blog/introduction-to-progressive-apps-part-one/
+- https://auth0.com/blog/introduction-to-progressive-web-apps-instant-loading-part-2/
+- https://auth0.com/blog/introduction-to-progressive-web-apps-push-notifications-part-3/
+- [Office League PWA example](http://webagility.com/posts/progressive-web-app-part-4)
+- [Auth0 issue](https://github.com/auth0/lock/issues/1065)
+
+## 3D CSS objects
+https://cssanimation.rocks/spheres/
+
+## Responsive design - Landscape / Portrait mode
+https://www.smashingmagazine.com/2012/08/designing-device-orientation-portrait-landscape/
+https://www.creativebloq.com/web-design/master-screen-orientation-html5-101517371
+
+## Jest & Puppeteer setup
+https://blog.usejournal.com/getting-started-with-jest-and-puppeteer-7cf6c59a2cae
 
 ## CSS AND LAYOUT
-
 * https://medium.com/flexbox-and-grids/how-to-efficiently-master-the-css-grid-in-a-jiffy-585d0c213577
 * https://gridbyexample.com/examples/
 * https://css-tricks.com/css-grid-replace-flexbox/
@@ -63,6 +86,14 @@ DESIGN INSPIRATIONS:
 * https://codepen.io/hrtzt/pen/JdYaEZ
 * https://codepen.io/CesarGabriel/pen/KLqEb
 
+
+https://css-tricks.com/building-a-circular-navigation-with-css-clip-paths/
+http://pmg.softwaretailoring.net/
+
+
+### UI Development with Storybook
+- https://github.com/dpopp07/bartop/issues/96
+
 ### Custom domain
 
 https://gist.github.com/mapsam/ce60b87eea561ea6bdbf
@@ -90,6 +121,10 @@ https://css-tricks.com/making-custom-properties-css-variables-dynamic/
 ### Animation performance
 
 https://css-tricks.com/forums/topic/css3-animations-are-burning-my-computer/
+
+
+### Parallax
+http://matthew.wagerfield.com/parallax/
 
 ### SVG ANIMATIONS
 https://www.uplabs.com/posts/simple-material-vcard

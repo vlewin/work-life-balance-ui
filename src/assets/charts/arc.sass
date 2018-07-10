@@ -1,0 +1,110 @@
+body
+  background-color: #f5f5f5
+  padding: 2em
+  margin: 0 auto
+  width: 500px
+
+button
+  padding: .5em 1em
+  border: 1px solid #ddd
+  background-color: #222
+  color: white
+  border-radius: .25em
+  &:hover
+    background-color: deepPink
+  &:active
+    outline: none
+
+.buttons
+  margin: 1em 0
+
+svg
+  background-color: white
+  display: block
+
+.slice path
+  stroke-dasharray: 650
+  stroke-dashoffset: 650
+
+svg.animated
+  .slice path
+    -webkit-transform-origin: 250px 250px
+    -ms-transform-origin: 250px 250px
+    transform-origin: 250px 250px
+    transition: fill .3s linear, transform
+  .slice-1 path
+    stroke: #111
+    -webkit-animation: draw 3s forwards 1.2s
+    animation: draw 3s forwards 1.2s
+
+@-webkit-keyframes draw
+  0%
+    stroke-dashoffset: 650
+    animation-timing-function: ease-out
+
+  20%, 40%
+    stroke-dashoffset: 400
+    animation-timing-function: ease-out
+
+  60%, 70%
+    stroke-dashoffset: 250
+    animation-timing-function: ease-out
+
+  100%
+    stroke-dashoffset: 0
+    animation-timing-function: ease-out
+
+
+@keyframes draw
+  0%
+    stroke-dashoffset: 650
+    animation-timing-function: ease-out
+
+  20%, 40%
+    stroke-dashoffset: 400
+    animation-timing-function: ease-out
+
+  60%, 70%
+    stroke-dashoffset: 270
+    animation-timing-function: ease-out
+
+  100%
+    stroke-dashoffset: 0
+    animation-timing-function: ease-out
+
+
+.dot
+  -webkit-transform: scale(0)
+  -ms-transform: scale(0)
+  transform: scale(0)
+
+svg.animated
+  .center
+    transform-origin: 250px 250px
+    stroke: #32BAFC
+    fill: #32BAFC
+    -webkit-animation: scaleUp 0.6s cubic-bezier(0, 0.85, 1, 1.58) forwards
+    animation: scaleUp 0.6s cubic-bezier(0, 0.85, 1, 1.58) forwards
+  .line
+    transform-origin: 500px 250px
+    stroke: orange
+    fill: orange
+    -webkit-animation: scaleUp 0.6s cubic-bezier(0, 0.85, 1, 1.58) 0.6s forwards
+    animation: scaleUp 0.6s cubic-bezier(0, 0.85, 1, 1.58) 0.6s forwards
+  .arc
+    transform-origin: 466.5063509461097px 125px
+    stroke: deepPink
+    fill: deepPink
+    -webkit-animation: scaleUp 0.6s cubic-bezier(0, 0.85, 1, 1.58) 1.8s forwards
+    animation: scaleUp 0.6s cubic-bezier(0, 0.85, 1, 1.58) 1.8s forwards
+
+@-webkit-keyframes scaleUp
+  to
+    -webkit-transform: scale(1)
+    transform: scale(1)
+
+
+@keyframes scaleUp
+  to
+    -webkit-transform: scale(1)
+    transform: scale(1)

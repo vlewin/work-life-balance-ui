@@ -2,8 +2,46 @@
 @import '_animations'
 @import '_colors'
 @import '_font'
-@import '_actions'
-@import '_desktop'
-@import '_media'
 
-@import "components/_components.sass"
+html, body
+	outline: 0
+	padding: 0
+	margin: 0
+
+  // font-size: 16px
+  // // Magic:
+  // @media (max-width: 1000px)
+  //   font-size: calc(12px + .4vw)
+
+html
+  font-size: 16px
+
+  @media (min-width: 800px)
+    font-size: 1.2rem
+
+  @media (min-width: 1200px)
+    font-size: 1.4rem
+
+
+
+body
+  width: 100%
+  font-family: 'Rubik', sans-serif
+
+  display: flex
+  justify-content: center
+  align-items: center
+
+  // -webkit-font-smoothing: antialiased
+  // -moz-osx-font-smoothing: grayscale
+
+  color: #34495e
+
+  background: linear-gradient(to left top, #046c92, #33829d, #5597a8, #77adb4, #98c2c2)
+  background-color: #34495e
+
+  &.default
+    height: 100vh
+
+  &.standalone
+    height: 97vh

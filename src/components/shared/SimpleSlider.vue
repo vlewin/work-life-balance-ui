@@ -1,57 +1,130 @@
 <template>
-  <div class="wrapper">
-    <div class="simple-slider" v-bind:class="{ active: active }">
-      <slot name="up"></slot>
-      <slot name="down"></slot>
+  <div slot="body" class="slider">
+    <div class="slider-item left green" v-if="visible(0)" :class="{ focused: isFocused(0) }" v-on:click="setFocused(0)">
+      <slot name="left"></slot>
+      <slot name="top"></slot>
+    </div>
+    <div class="slider-item center amber" v-if="visible(1)" :class="{ focused: isFocused(1) }" v-on:click="setFocused(1)">
+      <slot name="center"></slot>
+      <slot name="middle"></slot>
+    </div>
+    <div class="slider-item right tomato" v-if="visible(2)" :class="{ focused: isFocused(2) }" v-on:click="setFocused(2)">
+      <slot name="right"></slot>
+      <slot name="bottom"></slot>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "SimpleSwitch",
+  name: "Slider",
   data() {
     return {
-      time: "",
-      timeout: null
+      focused: null,
+      mapping: {
+        0: ["left", "top"],
+        1: ["center", "middle"],
+        2: ["right", "bottom"]
+      }
     }
   },
 
   props: {
-    animationSpeed: {
-      type: Boolean
+  },
+
+  computed: {
+  },
+
+  methods: {
+    visible(field) {
+      return Object.keys(this.$slots).some((k) => this.mapping[field].includes(k))
     },
 
-    active: {
-      type: Boolean
+    isFocused(field) {
+      return this.focused === field
+    },
+
+    setFocused(field) {
+      console.log("Focused", field)
+      if (this.focused === field) {
+        console.log("Reset", field)
+        this.focused = null
+        this.$emit("changed", this.focused)
+      } else {
+        console.log("Set", field)
+        this.focused = field
+        this.$emit("changed", this.focused)
+      }
+    },
+
+    reset() {
+      setTimeout(() => {
+        Object.assign(this.$data, this.$options.data.call(this))
+      }, 500)
     }
   }
 }
 </script>
 
-<style lang="sass" scoped>
-  .wrapper
-    width: 100%
-    height: 100%
-    background: #fff
-    overflow: hidden
+<style>
+.slider {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #eee;
+  width: 100%;
+  height: 100%;
+}
 
-  .simple-slider
-    width: 100%
-    height: 200%
-    overflow: hidden
-    display: flex
-    flex-direction: column
-    // transition: transform 0.5s ease-in-out
-    // transition: transform .5s ease
-    transition: transform 0.75s, opacity 0.75s ease-in-out
-    will-change: transform, opacity
+.slider.vertical {
+  flex-direction: row;
+}
 
-  .simple-slider.active
-    transform: translateY(-50%)
+.slider.horizontal {
+  flex-direction: column;
+}
 
-  .simple-slider-item
-    width: 100%
-    height: 100%
+.slider.horizontal .slider-item {
+  width: 100%;
+}
 
+.slider .slider-item {
+  height: 100%;
+  overflow: hidden;
+  transition: flex 0.3s;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  cursor: pointer;
+}
+
+.slider .slider-item > * {
+  /* display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%; */
+}
+
+.slider .slider-item:not(.focused) {
+  flex: 1 1 33%;
+}
+
+/*.slider .slider-item.left {
+    background: tomato;
+  }
+  .slider .slider-item.center {
+    background: #FFBF00;
+  }
+  .slider .slider-item.right {
+    background: #42b983;
+  }*/
+
+.slider .slider-item.focused {
+  flex: 1 1 100%;
+}
+
+.slider .slider-item:not(.focused) {
+  flex: 1 1 0%;
+}
 </style>

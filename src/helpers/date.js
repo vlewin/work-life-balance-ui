@@ -1,6 +1,20 @@
 import addHours from "date-fns/add_hours"
 import format from "date-fns/format"
 
+export function getUTCDate(date = new Date()) {
+  return new Date(date.toUTCString())
+  // const date = new Date(dateString);
+  //
+  // return new Date(
+  //   date.getUTCFullYear(),
+  //   date.getUTCMonth(),
+  //   date.getUTCDate(),
+  //   date.getUTCHours(),
+  //   date.getUTCMinutes(),
+  //   date.getUTCSeconds(),
+  // );
+}
+
 // Get ISO8601 week number by date
 export function weekNumber(date = new Date()) {
   const cur = new Date(date).getTime()
@@ -29,6 +43,15 @@ export function weekDaysRange(date = new Date()) {
   return eachDay(startOfISOWeek(date), endOfISOWeek(date)).map(d => addHours(d, 1))
 }
 
+import startOfMonth from 'date-fns/start_of_month'
+import endOfMonth from 'date-fns/end_of_month'
+import setMonth from 'date-fns/set_month'
+
+export function monthRange(month) {
+  const date = setMonth(new Date(), month - 1)
+  return eachDay(startOfMonth(date), endOfMonth(date))
+}
+
 export function isHappy(duration) {
   return duration >= 8 && duration <= 9
 }
@@ -49,7 +72,11 @@ export function timeToDateTime(date, time) {
 }
 
 import startOfWeek from "date-fns/start_of_week"
-import isWeekend from "date-fns/is_weekend"
+import _isWeekend from "date-fns/is_weekend"
+
+export function isWeekend(date = new Date()) {
+  return _isWeekend(date)
+}
 
 export function getNextBusinessDay(date = new Date()) {
   if (isWeekend(date)) {
@@ -63,6 +90,11 @@ export function roundTo(d = new Date(), minutes = 5) {
   let ms = 1000 * 60 * minutes // convert minutes to ms
   let roundedDate = new Date(Math.round(d.getTime() / ms) * ms)
   return roundedDate
+}
+
+export function parseDate(date) {
+  const dmy = date.split(".")
+  return new Date(dmy[2], dmy[1] - 1, dmy[0])
 }
 
 export function dateTimeToDate(datetime, dateFormat = "DD.MM.YYYY") {

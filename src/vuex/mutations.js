@@ -5,6 +5,13 @@ export default {
     state.online = condition
   },
 
+  SET_MESSAGE(state, message) {
+    state.message = message
+    setTimeout(() => {
+      state.message = null
+    }, 10000)
+  },
+
   SET_LOADING(state, condition) {
     if (condition) {
       state.loading = condition
@@ -33,16 +40,41 @@ export default {
     Vue.set(state, "currentDate", date)
   },
 
+  SET_BALANCE(state, balance) {
+    Vue.set(state, "balance", balance)
+  },
+
   SET_RECORDS(state, records) {
     const data = {}
     records.forEach(item => (data[item.date] = item))
-    state.records = Object.assign({}, state.records, data)
+    state.records = data
+
+    // state.records = Object.assign({}, state.records, data)
     console.log(state.records)
     // Vue.set(state, "records", records.map(record => ({ key: record.date, val: record })));
   },
 
   ADD_RECORD(state, record) {
     console.log("ADD_RECORD")
+    Vue.set(state.records, record.date, record)
+  },
+
+  DELETE_RECORD(state, record) {
+    console.log("DELETE_RECORD")
+    Vue.delete(state.records, record.date)
+  },
+
+  SET_ABSENCES(state, absences) {
+    const data = {}
+    absences.forEach(item => (data[item.date] = item))
+    state.absences = data
+
+    // state.records = Object.assign({}, state.records, data)
+    // Vue.set(state, "records", records.map(record => ({ key: record.date, val: record })));
+  },
+
+  ADD_ABSENCE(state, record) {
+    console.log("ADD_ABSENCE")
     Vue.set(state.records, record.date, record)
   }
 }

@@ -1,19 +1,3 @@
-// @-webkit-keyframes blinker
-//   from
-//     opacity: 1.0
-//
-//   to
-//     opacity: 0.0
-//
-//
-// .blink
-//   text-decoration: blink
-//   -webkit-animation-name: blinker
-//   -webkit-animation-duration: 0.6s
-//   -webkit-animation-iteration-count: infinite
-//   -webkit-animation-timing-function: ease-in-out
-//   -webkit-animation-direction: alternate
-
 @keyframes spin
   from
     transform: rotate(0deg)
@@ -35,7 +19,56 @@
    transform: translateY(5px)
 
 .bounce
- animation: bounce 2s infinite
+  animation: bounce 2s infinite
+
+
+@keyframes pulsate
+  0%
+    transform: scale(.1)
+    opacity: 0.0
+
+  50%
+    opacity: 1
+
+  100%
+    transform: scale(1.2)
+    opacity: 0
+
+.bounce
+  animation: pulsate 2s infinite
+
+@keyframes Gradient
+	0%
+		background-position: 0% 50%
+
+	50%
+		background-position: 100% 50%
+
+	100%
+		background-position: 0% 50%
+
+@keyframes scale
+  from
+    transform: rotate(0deg), scale(0.75)
+  to
+    transform: scale(0.5)
+
+.scale
+  animation: scale 2s infinite
+
+@keyframes jiggle
+  0%
+    transform: rotate(-3deg)
+    animation-timing-function: ease-in
+
+  50%
+    transform: rotate(3deg)
+    animation-timing-function: ease-out
+
+.shake
+  animation: jiggle 0.2s infinite
+  will-change: transform
+
 
 // _animations
 [class^="blink"]
@@ -47,3 +80,16 @@
 @keyframes blink
   50%
     opacity: 0
+
+
+@keyframes pulse
+  0%
+    box-shadow: 0 0 0 0 rgba(60, 83, 122, 0.5)
+
+  70%
+    -moz-box-shadow: 0 0 0 2rem rgba(204, 169, 44, 0)
+    box-shadow: 0 0 0 2rem rgba(204, 169, 44, 0)
+
+  100%
+    -moz-box-shadow: 0 0 0 0 rgba(204, 169, 44, 0)
+    box-shadow: 0 0 0 0 rgba(204, 169, 44, 0)
