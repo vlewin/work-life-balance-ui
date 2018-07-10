@@ -1,6 +1,6 @@
 # vue-work-life-balance
 
-### [DEMO application](http://vlewin.me/vue-work-life-balance)
+### [DEMO application](http://vlewin.me)
 
 TODO:
 * [x] Vue.js reusable components
