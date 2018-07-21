@@ -1,12 +1,12 @@
 {
-  "name": "vue-work-life-balance",
+  "name": "work-life-balance-ui",
   "description": "Work-life-balance tracker app ;)",
-  "version": "0.1.0",
+  "version": "1.0.1",
   "author": "Vladislav Lewin <vlewin@suse.de>",
   "private": true,
   "repository": {
     "type": "git",
-    "url": "https://github.com/vlewin/vue-work-life-balance"
+    "url": "https://github.com/vlewin/work-life-balance-ui"
   },
   "scripts": {
     "serve": "vue-cli-service serve --open",
@@ -19,7 +19,6 @@
     "provision": "serverless deploy",
     "deploy": "yarn run build; serverless s3deploy -v",
     "deploy:production": "NODE_ENV=production yarn run build; serverless s3deploy -v -s production"
-
   },
   "dependencies": {
     "auth0-js": "9.5.1",
