@@ -20,7 +20,7 @@ const store = new Vuex.Store({
     balance: { total: 0, vacation: 0, sickness: 0 },
     debug: false,
     message: null,
-    profile: localStorage.profile,
+    profile: localStorage.profile ? JSON.parse(localStorage.profile) : {},
     baseUri: process.env.VUE_APP_BASE_URI
   },
 

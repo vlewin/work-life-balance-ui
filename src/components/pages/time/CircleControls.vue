@@ -35,7 +35,10 @@
     </ul>
 
     <div id="inside" :class="{ loading: fetching }">
-      <slot class="visible" name="inside">&nbsp;</slot>
+      <div class="hidden">
+        LOADING
+      </div>
+      <slot class="visible" name="inside">LOADING</slot>
     </div>
 
   </div>
@@ -156,39 +159,9 @@
     position: relative
     margin: auto
     color: #fff
-    // transition: transform .25s ease
-    // transform: scale(0.5)
     width: 60%
     padding-top: 60%
-
     border-radius: 50%
-
-    // background-clip: padding-box
-    // box-shadow: 0 0 0 6px lighten($base, 50%)
-    // border: 6px solid lighten($base, 40%)
-    // box-sizing: border-box
-
-
-    &.loading
-      #inside
-        // transform: scale(1.5)
-        // transition: transform .25s ease
-
-        div.hidden
-          display: inline
-
-        div:not(.hidden)
-          display: none
-
-    // li
-    //   // transition: transform 0.3s, opacity 0.3s linear
-    //   opacity: 1
-    //
-    // &:not(.open)
-    //   li
-    //     opacity: 0
-    //     transform: rotate(-30deg)
-
 
     li
       position: absolute
@@ -216,6 +189,7 @@
         left: 35%
         transform: rotate(58deg)
         will-change: transform
+        pointer-events: painted
 
       &.green:hover
         background-color: #42b983
@@ -272,6 +246,14 @@
       animation: pulse 1.5s infinite
       border: 2.5rem solid #3c537a
       color: #fff
+      div.hidden
+        display: inline
+        position: absolute
+        color: #000
+        z-index: 1001
+        background: #fff
+        font-weight: bold
+        padding: 1rem
 
 </style>
 
