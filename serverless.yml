@@ -1,4 +1,4 @@
-service: vue-work-life-balance
+service: work-life-balance-ui
 
 plugins:
   - serverless-s3-deploy
@@ -16,7 +16,7 @@ provider:
 
 custom:
   stage: "${opt:stage, self:provider.stage}"
-  bucketName: "vue-work-life-balance-${self:custom.stage}"
+  bucketName: "work-life-balance-ui-${self:custom.stage}"
   assets:
      - bucket: ${self:custom.bucketName}
        files:
