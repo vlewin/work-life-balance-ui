@@ -13,6 +13,8 @@
 </template>
 
 <script>
+  import { mapState } from "vuex"
+
   import addMonths from "date-fns/add_months"
   import subMonths from "date-fns/sub_months"
 
@@ -20,31 +22,32 @@
     name: "MonthPicker",
     data() {
       return {
-        date: new Date()
       }
     },
 
     created() {},
 
     computed: {
+      ...mapState(['currentDate']),
+
       month() {
-        return this.date.toLocaleString("en-US", { month: "long" })
+        return this.currentDate.toLocaleString("en-US", { month: "long" })
       },
 
       year() {
-        return this.date.getFullYear()
+        return this.currentDate.getFullYear()
       }
     },
 
     methods: {
       prevMonth() {
-        this.date = subMonths(this.date, 1)
-        this.$emit("date-change", this.date)
+        const date = subMonths(this.currentDate, 1)
+        this.$emit("date-change", date)
       },
 
       nextMonth() {
-        this.date = addMonths(this.date, 1)
-        this.$emit("date-change", this.date)
+        const date = addMonths(this.currentDate, 1)
+        this.$emit("date-change", date)
       }
     }
   }
