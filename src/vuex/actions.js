@@ -11,6 +11,10 @@ export default {
     commit("SET_PAGE", page)
   },
 
+  setOrientation: async ({ commit }, condition) => {
+    commit("SET_ORIENTATION", condition)
+  },
+
   setMessage: ({ commit }, message) => {
     commit("SET_MESSAGE", message)
   },

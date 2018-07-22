@@ -84,6 +84,7 @@
             empty: this.isEmpty(date),
             vacation: this.isVacation(date),
             sickness: this.isSickness(date),
+            presence: this.isPresence(date),
             absence: this.isAbsence(date)
           }
         }
@@ -108,6 +109,10 @@
 
       isAbsence(date) {
         return this.record(date).type === 'absence'
+      },
+
+      isPresence(date) {
+        return this.record(date).type === 'presence'
       },
 
       isRecorded(date) {
@@ -176,6 +181,10 @@
     flex-direction: column
     width: 90%
 
+    li.presence
+      border: 2px solid $green
+      box-sizing: border-box
+
     &.add, &.remove
       opacity: 1
 
@@ -183,7 +192,7 @@
         opacity: 0.2
 
     &.add
-      li.absence
+      li.absence, li.presence
         opacity: 0.2
         pointer-events: none
 

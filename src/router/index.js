@@ -13,9 +13,9 @@ const router = new Router({
   linkActiveClass: "active",
   routes: [
     { path: "/", name: "Index", component: lazyLoad('Index'), meta: { requiresAuth: true }, props: { page: "page-2" }},
-    { path: "/report", name: "Time", component: lazyLoad('Index'), props: { page: "page-1" } },
+    { path: "/report", name: "Report", component: lazyLoad('Index'), props: { page: "page-1" } },
     { path: "/time", name: "Time", component: lazyLoad('Index'), props: { page: "page-2" } },
-    { path: "/absence", name: "Time", component: lazyLoad('Index'), props: { page: "page-3" } },
+    { path: "/absence", name: "Abcense", component: lazyLoad('Index'), props: { page: "page-3" } },
 
     { path: "/login", name: "Login", component: lazyLoad('Auth'), props: (route) => ({ message: route.query.message, action: "login" }) },
     { path: "/logout", name: "Logout", component: lazyLoad('Auth'), props: { action: "logout" } },

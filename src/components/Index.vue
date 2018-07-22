@@ -7,7 +7,7 @@
 </template>
 
 <script>
-  import { mapActions } from "vuex"
+  import { mapActions, mapState } from "vuex"
 
   import PageSlider from "./shared/PageSlider"
   import ReportPage from "./pages/report/ReportPage"
@@ -29,11 +29,22 @@
       this.navigate(this.page)
     },
 
+    computed: {
+      ...mapState(['balance']),
+    },
+
     watch: {
       page(val) {
         if (val) {
           this.navigate(val)
         }
+      }
+    },
+
+    mounted() {
+      if(!this.balance.total) {
+        console.log('*** Fetch balance on mounted', this.balance.total)
+        this.$store.dispatch('fetchBalance')
       }
     },
 

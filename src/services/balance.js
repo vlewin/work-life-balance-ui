@@ -5,8 +5,8 @@ export default class Record {
     return `${process.env.VUE_APP_BASE_URI}/balance`
   }
 
-  static get(id) {
-    console.log('*** GET /balance', `${this.endpoint}/${id}`)
-    return axios.get(`${this.endpoint}/${id}`)
+  static get() {
+    console.log('*** GET /balance')
+    return axios.get(`${this.endpoint}`)
   }
 }

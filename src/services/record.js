@@ -14,7 +14,6 @@ export default class Record {
   }
 
   static save(record) {
-    console.log('POST', record)
     return axios.post(this.endpoint, record)
   }
 

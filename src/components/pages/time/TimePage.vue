@@ -92,16 +92,6 @@
 
     created() {
       this.initForm()
-
-      // FIXME: Move to APP created and save in store
-      // window.addEventListener("orientationchange", () => {
-      //   if (window.orientation == 90 || window.orientation == -90) {
-      //     console.log('Land')
-      //     this.isPortraitMode = false
-      //   } else {
-      //     this.isPortraitMode = true
-      //   }
-      // })
     },
 
     async mounted() {
@@ -143,7 +133,7 @@
     },
 
     computed: {
-      ...mapGetters(["currentFomatedDate", "currentWeekNumber", "currentMonthNumber", "currentRecord"]),
+      ...mapGetters(["currentFomatedDate", "currentWeekNumber", "currentMonthNumber", "currentUserId", "currentRecord"]),
       ...mapState(["fetching", "loading", "currentDate", "records", "page"]),
 
       isRecorded() {
@@ -167,12 +157,10 @@
 
       initForm() {
         if (this.isRecorded) {
-          // console.info('CURRENT:', JSON.stringify(this.currentRecord))
           this.$set(this, 'form', this.currentRecord)
         } else {
-          // console.info('INIT:', JSON.stringify(this.form))
-          // console.log(this.currentDate.toDateString())
           this.form = {
+            user_id: this.currentUserId,
             timestamp: getUTCDate().getTime(),
             date: this.currentDate.toDateString(),
             start: dateTimeToTime(new Date()),
@@ -228,7 +216,6 @@
       },
 
       remove: async function() {
-        console.log('Delete')
         await this.$store.dispatch("deleteRecord", this.form)
         await this.$store.dispatch("fetchBalance")
       },
