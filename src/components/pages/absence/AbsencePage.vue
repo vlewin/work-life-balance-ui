@@ -2,7 +2,8 @@
   <card hcolor="blue">
     <i slot="c-header-icon" class="fa fa-calendar-plus fa-5x" aria-hidden="true"></i>
     <template slot="c-header-title">
-      {{ currentDate.toLocaleDateString("de-DE", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) }}
+      ABSENCE
+      <!-- {{ currentDate.toLocaleDateString("de-DE", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) }} -->
     </template>
 
 
@@ -11,7 +12,7 @@
         <!-- <b>TRACK YOUR ABSENCE</b> -->
         <p>
           Click <b>ADD</b> or <b>REMOVE</b> to proceed.
-          <br />WORKAROUND: Hide dates with presence records, introduce partial type
+          <br />TODO: Introduce partial type
         </p>
       </div>
 
