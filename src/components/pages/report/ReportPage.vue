@@ -1,7 +1,9 @@
 <template>
   <card hcolor="tomato">
-    <!-- <i slot="c-header-icon" class="fa fa-area-chart fa-6x" aria-hidden="true"></i> -->
     <i slot="c-header-icon" class="fas fa-chart-pie fa-5x"></i>
+    <template slot="c-header-title">
+      REPORT
+    </template>
 
     <month-picker slot="c-body" class="flex flex-center uppercase" v-on:date-change="setDateAndFetch"></month-picker>
     <div slot="c-body" class="flex flex-between container">
