@@ -110,8 +110,6 @@
         reason: null,
         selected: [],
         active: false,
-        isLandscape: window.screen.width > window.screen.height,
-        // orientation: window.screen.orientation.type,
         sliderMap: [
           "vacation",
           "sickness",
@@ -120,39 +118,17 @@
       }
     },
 
-    // mounted() {
-    //   this.$store.dispatch('fetchMonthAbsences', this.currentMonthNumber)
-    // },
-
-    created() {
-      // FIXME: Move to App.vue
-      window.addEventListener("orientationchange", () => {
-        console.log(screen.orientation.type)
-        this.isLandscape = window.screen.width > window.screen.height
-      })
-    },
-
-    beforeDestroy() {
-      // FIXME: Move to App.vue
-      window.removeEventListener("orientationchange", () => {
-        console.log(screen.orientation.type)
-        this.isLandscape = window.screen.width > window.screen.height
-      })
-    },
-
     computed: {
       ...mapGetters(['currentMonthNumber']),
-      ...mapState(['currentDate', 'loading', 'balance', 'records']),
+      ...mapState(['currentDate', 'loading', 'orientation', 'balance', 'records']),
+
+      isLandscape() {
+        return this.orientation === 'landscape'
+      },
 
       deleteMode() {
         return this.selected.some((d) => this.records[d.toDateString()])
       },
-
-      // absences() {
-      //   const data = {}
-      //   Object.values(this.records).filter((record) => record.type === 'absence').forEach(item => (data[item.date] = item))
-      //   return data
-      // },
 
       valid() {
         if(this.mode === 'add') {
@@ -176,14 +152,7 @@
 
       holidayCount() {
         return '4'
-        // return this.orientation.includes('landscape')
       }
-
-
-      // isLandscape() {
-      //   return window.screen.width > window.screen.height
-      //   // return this.orientation.includes('landscape')
-      // }
     },
 
     methods: {

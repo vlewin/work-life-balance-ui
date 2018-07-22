@@ -15,41 +15,43 @@
     },
 
     mounted() {
-
-
-      const el = document.body
-
       if (this.standalone) {
-        el.classList.add('standalone')
+        document.body.classList.add('standalone')
       } else {
-        el.classList.add('default')
-      }
-
-      setTimeout(function () {
-        window.scrollTo(0, 1)
-      }, 1000)
-
-
-      // https://github.com/GoogleChrome/samples/tree/gh-pages/push-messaging-and-notifications
-      // https://developers.google.com/web/updates/2016/09/navigator-share
-      if (navigator.share) {
-        navigator.share({
-          title: 'Web Fundamentals',
-          text: 'Check out Web Fundamentals — it rocks!',
-          url: 'https://developers.google.com/web',
-        }).then(() => console.log('Successful share')).catch((error) => console.log('Error sharing', error))
+        document.body.classList.add('default')
       }
 
       window.addEventListener("online", () => {
-        console.log("online")
         this.$store.dispatch("online", navigator.onLine)
       })
 
       window.addEventListener("offline", () => {
-        console.log("offline")
         this.$store.dispatch("online", navigator.onLine)
       })
-    }
+
+      window.addEventListener("orientationchange", () => {
+        // window.screen.width > window.screen.height
+        if (window.orientation == 90 || window.orientation == -90) {
+          this.$store.dispatch("setOrientation", 'landscape')
+        } else {
+          this.$store.dispatch("setOrientation", 'portrait')
+        }
+      })
+    },
+
+    beforeDestroy() {
+      window.removeEventListener('online', () => {
+        console.log('removeEventListener', 'online')
+      })
+
+      window.removeEventListener('offline', () => {
+        console.log('removeEventListener', 'online')
+      })
+
+      window.removeEventListener('orientationchange', () => {
+        console.log('removeEventListener', 'orientationchange')
+      })
+    },
   }
 </script>
 
