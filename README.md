@@ -44,6 +44,10 @@ https://www.creativebloq.com/web-design/master-screen-orientation-html5-10151737
 ## Jest & Puppeteer setup
 https://blog.usejournal.com/getting-started-with-jest-and-puppeteer-7cf6c59a2cae
 
+
+## AppSync
+* https://tylermcginnis.com/building-serverless-react-graphql-apps-with-aws-appsync/
+
 ## CSS AND LAYOUT
 * https://medium.com/flexbox-and-grids/how-to-efficiently-master-the-css-grid-in-a-jiffy-585d0c213577
 * https://gridbyexample.com/examples/

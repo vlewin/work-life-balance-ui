@@ -19,7 +19,7 @@ export default {
     commit("SET_MESSAGE", message)
   },
 
-  setDateAndFetch: async ({ commit, state, dispatch, getters }, date) => {
+  setDateAndFetch: async ({ commit, dispatch }, date) => {
     console.log('**** setDateAndFetch', date)
     await dispatch("fetchMonthRecords", date.getMonth() + 1)
 
