@@ -152,3 +152,6 @@ https://codepen.io/valentingalmand/pen/MYMZZK?q=animation%20submit&order=popular
 https://codepen.io/mattrothenberg/pen/VaNRrR?q=animation%20submit&order=popularity&depth=everything&show_forks=false
 http://slides.com/sdrasner/cssdevconf#/34
 https://x-team.com/blog/vue-animation-data-visualization/
+
+### GraphQL
+https://markus.oberlehner.net/blog/combining-graphql-and-vuex/

@@ -42,6 +42,7 @@
     },
 
     mounted() {
+      // FIXME: Remove
       if(!this.balance.total) {
         console.log('*** Fetch balance on mounted', this.balance.total)
         this.$store.dispatch('fetchBalance')

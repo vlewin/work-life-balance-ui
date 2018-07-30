@@ -53,6 +53,11 @@ export default {
     commit("SET_BALANCE", response.data)
   },
 
+  setBalance: ({ commit, getters }, balance) => {
+    console.log('*** setBalance', JSON.stringify(balance))
+    commit("SET_BALANCE", balance)
+  },
+
   fetchMonthRecords: async ({ commit, getters }, month) => {
     console.log('**** fetchMonthRecords', month)
 

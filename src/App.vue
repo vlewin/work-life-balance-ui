@@ -1,36 +1,15 @@
 <template>
   <div id="app" :class="{ standalone: standalone }">
-    {{ hydrated }}
     <router-view class="content"></router-view>
   </div>
 </template>
 
 <script>
-  import gql from 'graphql-tag'
-
+  // import gql from 'graphql-tag'
   import { mapState } from "vuex"
+  import getBalanceQuery from './graphql/queries/getBalance.gql'
+  import onUpdateBalanceSubscription from './graphql/subscriptions/onUpdateBalance.gql'
 
-  const getBalances = gql`
-    query getBalances {
-      getBalanceDevelopment(user_id: "auth0|5b0fd1cb21652a131b051f7a") {
-        user_id
-        vacation
-        sickness
-        total
-      }
-    }
-  `
-
-  const onBalanceUpdate = gql`
-    subscription onUpdateBalanceDevelopment {
-      onUpdateBalanceDevelopment {
-        user_id
-        vacation
-        sickness
-        total
-      }
-    }
-  `
   export default {
     name: "App",
 
@@ -42,12 +21,10 @@
     },
 
     apollo: {
-      getBalanceDevelopment: {
-        query: () => getBalances,
+      getBalance: {
+        query: () => getBalanceQuery,
       },
-
     },
-
 
     computed: {
       ...mapState(["standalone"])
@@ -57,26 +34,19 @@
       await this.$apollo.provider.defaultClient.hydrated()
       this.hydrated = true
 
-      window.$apollo = this.$apollo
+      this.$apollo.queries.getBalance.subscribeToMore({
+        document: onUpdateBalanceSubscription,
 
-      this.$apollo.queries.getBalanceDevelopment.subscribeToMore({
-        // GraphQL document
-        document: gql`subscription onUpdateBalanceDevelopment {
-              onUpdateBalanceDevelopment {
-                user_id
-                vacation
-                sickness
-                total
-              }
-            }`,
         // Variables passed to the subscription
         variables: {
           param: '42',
         },
+
         // Mutate the previous result
         updateQuery: (previousResult, { subscriptionData }) => {
-          console.error(previousResult, subscriptionData)
-          // Here, return the new result from the previous with the new data
+          console.error(previousResult)
+          console.log(subscriptionData)
+          this.$store.dispatch('setBalance', subscriptionData.data.onUpdateBalance)
         },
       })
 

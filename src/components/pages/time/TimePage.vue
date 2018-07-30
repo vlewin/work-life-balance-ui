@@ -161,7 +161,7 @@
         } else {
           this.form = {
             user_id: this.currentUserId,
-            timestamp: getUTCDate().getTime(),
+            timestamp: getUTCDate(this.currentDate).getTime(),
             date: this.currentDate.toDateString(),
             start: dateTimeToTime(new Date()),
             pause: "00:30"
@@ -212,12 +212,12 @@
 
       save: async function() {
         await this.$store.dispatch("saveRecord", this.form)
-        await this.$store.dispatch("fetchBalance")
+        // await this.$store.dispatch("fetchBalance")
       },
 
       remove: async function() {
         await this.$store.dispatch("deleteRecord", this.form)
-        await this.$store.dispatch("fetchBalance")
+        // await this.$store.dispatch("fetchBalance")
       },
 
       absence() {
