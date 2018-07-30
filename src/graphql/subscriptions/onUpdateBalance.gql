@@ -1,0 +1,7 @@
+subscription onUpdateBalance {
+  onUpdateBalance {
+    vacation
+    sickness
+    total
+  }
+}
