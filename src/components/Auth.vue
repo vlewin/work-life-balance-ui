@@ -118,10 +118,6 @@
     100%
       transform: translate(40vw, 10vh)
 
-
-
-
-
   h1, h3
     margin: 0
     padding: 0
@@ -141,7 +137,7 @@
     // border: 1px dotted #000
     // padding: 10px
     text-align: center
-    background: url(http://vue-work-life-balance-development.s3-website.eu-central-1.amazonaws.com/img/night-background.cde2c8b0.svg)
+    background: url('../assets/night-background.svg')
     transform: translateZ(0)
     background-size: cover
     backface-visibility: hidden

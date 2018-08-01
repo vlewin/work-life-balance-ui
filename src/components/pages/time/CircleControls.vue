@@ -35,10 +35,8 @@
     </ul>
 
     <div id="inside" :class="{ loading: fetching }">
-      <div class="hidden">
-        LOADING
-      </div>
-      <slot class="visible" name="inside">LOADING</slot>
+      <div class="hidden">LOADING</div>
+      <slot class="visible" name="inside"></slot>
     </div>
 
   </div>

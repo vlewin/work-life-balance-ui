@@ -12,7 +12,7 @@ const store = new Vuex.Store({
     page: "page-2",
     online: navigator.onLine,
     standalone: window.navigator.standalone || window.matchMedia('(display-mode: standalone)').matches,
-    orientation: 'portrait',
+    orientation: window.screen.width > window.screen.height ? 'landscape' : 'portrait',
     fetching: false,
     loading: false,
     currentDate: getNextBusinessDay(),
@@ -21,7 +21,6 @@ const store = new Vuex.Store({
     balance: {},
     debug: false,
     message: null,
-    profile: localStorage.profile ? JSON.parse(localStorage.profile) : {},
     baseUri: process.env.VUE_APP_BASE_URI
   },
 

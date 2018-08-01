@@ -65,8 +65,15 @@
       })
 
       window.addEventListener("orientationchange", () => {
+        const orientation = window.orientation || window.screen.orientation
+        console.log(orientation)
+        const app = document.getElementById("app")
+        console.log(app.offsetWidth, app.offsetHeight, 'landscape =>', app.offsetWidth > app.offsetHeight)
+        console.log(orientation == 90)
+        console.log('window.screen.width > window.screen.height', window.screen.width > window.screen.height)
         // window.screen.width > window.screen.height
-        if (window.orientation == 90 || window.orientation == -90) {
+        // window.screen.orientation.type.includes('landscape')
+        if (window.screen.width > window.screen.height || (window.orientation == 90 || window.orientation == -90)) {
           this.$store.dispatch("setOrientation", 'landscape')
         } else {
           this.$store.dispatch("setOrientation", 'portrait')

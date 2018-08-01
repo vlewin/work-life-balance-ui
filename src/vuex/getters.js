@@ -1,15 +1,8 @@
 import getISOWeek from "date-fns/get_iso_week"
 
 export default {
-  // findRecordByDate(state) {
-  //   return date =>
-  //     state.records.find(record => {
-  //       return record.date === date;
-  //     });
-  // },
-
-  currentUserId(state) {
-    return state.profile.sub
+  isMobileDevice() {
+    return (typeof window.orientation !== 'undefined')
   },
 
   currentFomatedDate(state) {
