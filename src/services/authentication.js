@@ -114,6 +114,6 @@ export default class AuthenticationService {
 
     this.auth.client.userInfo(authResult.accessToken, (err, user) => {
       this.store.setItem('profile', JSON.stringify(user))
-    });
+    })
   }
 }

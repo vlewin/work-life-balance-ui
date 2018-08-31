@@ -21,7 +21,7 @@
 
         <div class="flex flex-between container">
           <div class="flex flex-center content">
-            <calendar class="width-90" :date="currentDate" :mode="mode" v-on:changed="setSelected"></calendar>
+            <calendar class="width-90" :date="currentDate" :mode="mode" @changed="setSelected"></calendar>
           </div>
 
           <simple-switch class="info animated" :class="{ horizontal: isLandscape }" :active="mode === 'add' && !!selected.length">

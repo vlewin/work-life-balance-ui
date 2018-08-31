@@ -5,6 +5,9 @@ import axios from "axios"
 import store from "./vuex/store"
 import router from "./router"
 
+import appsyncProvider from './vue-apollo'
+
+
 // import "./registerServiceWorker"
 import "./assets/application.sass"
 
@@ -31,5 +34,6 @@ Vue.config.productionTip = process.env.VUE_PRODUCTION_TIP === "true"
 new Vue({
   store,
   router,
+  provide: appsyncProvider.provide(),
   render: h => h(App)
 }).$mount("#app")

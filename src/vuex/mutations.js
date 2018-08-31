@@ -60,7 +60,7 @@ export default {
     console.log("SET_RECORDS")
     const data = {}
     records.forEach(item => (data[item.date] = item))
-    Vue.set(state, "records", data);
+    Vue.set(state, "records", data)
   },
 
   ADD_RECORD(state, record) {
@@ -77,7 +77,7 @@ export default {
     console.log("SET_ABSENCES")
     const data = {}
     absences.forEach(item => (data[item.date] = item))
-    Vue.set(state, "absences", data);
+    Vue.set(state, "absences", data)
   },
 
   ADD_ABSENCE(state, record) {

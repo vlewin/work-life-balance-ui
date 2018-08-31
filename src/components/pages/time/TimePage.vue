@@ -10,6 +10,7 @@
     </div>
 
     <date-picker slot="c-body" class="flex flex-center"></date-picker>
+
     <div slot="c-body" class="flex flex-between container">
       <div class="flex flex-center content" slot="c-body">
         <circle-controls class="flex flex-center relative" :form="form" v-on:absence="absence" v-on:delete="remove">
@@ -133,7 +134,7 @@
     },
 
     computed: {
-      ...mapGetters(["currentFomatedDate", "currentWeekNumber", "currentMonthNumber", "currentUserId", "currentRecord"]),
+      ...mapGetters(["currentFomatedDate", "currentWeekNumber", "currentMonthNumber", "currentRecord"]),
       ...mapState(["fetching", "loading", "currentDate", "records", "page"]),
 
       isRecorded() {
@@ -160,8 +161,7 @@
           this.$set(this, 'form', this.currentRecord)
         } else {
           this.form = {
-            user_id: this.currentUserId,
-            timestamp: getUTCDate().getTime(),
+            timestamp: getUTCDate(this.currentDate).getTime(),
             date: this.currentDate.toDateString(),
             start: dateTimeToTime(new Date()),
             pause: "00:30"
@@ -212,12 +212,12 @@
 
       save: async function() {
         await this.$store.dispatch("saveRecord", this.form)
-        await this.$store.dispatch("fetchBalance")
+        // await this.$store.dispatch("fetchBalance")
       },
 
       remove: async function() {
         await this.$store.dispatch("deleteRecord", this.form)
-        await this.$store.dispatch("fetchBalance")
+        // await this.$store.dispatch("fetchBalance")
       },
 
       absence() {

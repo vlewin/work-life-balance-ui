@@ -5,16 +5,51 @@
 </template>
 
 <script>
+  // import gql from 'graphql-tag'
   import { mapState } from "vuex"
+  import getBalanceQuery from './graphql/queries/getBalance.gql'
+  import onUpdateBalanceSubscription from './graphql/subscriptions/onUpdateBalance.gql'
 
   export default {
     name: "App",
+
+    data() {
+      return {
+        hydrated: false,
+        event: {}
+      }
+    },
+
+    apollo: {
+      getBalance: {
+        query: () => getBalanceQuery,
+      },
+    },
 
     computed: {
       ...mapState(["standalone"])
     },
 
-    mounted() {
+    async mounted() {
+      await this.$apollo.provider.defaultClient.hydrated()
+      this.hydrated = true
+
+      this.$apollo.queries.getBalance.subscribeToMore({
+        document: onUpdateBalanceSubscription,
+
+        // Variables passed to the subscription
+        variables: {
+          param: '42',
+        },
+
+        // Mutate the previous result
+        updateQuery: (previousResult, { subscriptionData }) => {
+          console.error(previousResult)
+          console.log(subscriptionData)
+          this.$store.dispatch('setBalance', subscriptionData.data.onUpdateBalance)
+        },
+      })
+
       if (this.standalone) {
         document.body.classList.add('standalone')
       } else {
@@ -30,8 +65,15 @@
       })
 
       window.addEventListener("orientationchange", () => {
+        const orientation = window.orientation || window.screen.orientation
+        console.log(orientation)
+        const app = document.getElementById("app")
+        console.log(app.offsetWidth, app.offsetHeight, 'landscape =>', app.offsetWidth > app.offsetHeight)
+        console.log(orientation == 90)
+        console.log('window.screen.width > window.screen.height', window.screen.width > window.screen.height)
         // window.screen.width > window.screen.height
-        if (window.orientation == 90 || window.orientation == -90) {
+        // window.screen.orientation.type.includes('landscape')
+        if (window.screen.width > window.screen.height || (window.orientation == 90 || window.orientation == -90)) {
           this.$store.dispatch("setOrientation", 'landscape')
         } else {
           this.$store.dispatch("setOrientation", 'portrait')

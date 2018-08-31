@@ -19,7 +19,7 @@ export default {
     commit("SET_MESSAGE", message)
   },
 
-  setDateAndFetch: async ({ commit, state, dispatch, getters }, date) => {
+  setDateAndFetch: async ({ commit, dispatch }, date) => {
     console.log('**** setDateAndFetch', date)
     await dispatch("fetchMonthRecords", date.getMonth() + 1)
 
@@ -51,6 +51,11 @@ export default {
 
     console.log('*** Action - fetchBalance - response', response.data)
     commit("SET_BALANCE", response.data)
+  },
+
+  setBalance: ({ commit, getters }, balance) => {
+    console.log('*** setBalance', JSON.stringify(balance))
+    commit("SET_BALANCE", balance)
   },
 
   fetchMonthRecords: async ({ commit, getters }, month) => {

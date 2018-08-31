@@ -1,0 +1,8 @@
+query getBalance {
+  getBalance(user_id: "auth0|5b0fd1cb21652a131b051f7a") {
+    user_id
+    vacation
+    sickness
+    total
+  }
+}
